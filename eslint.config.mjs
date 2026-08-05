@@ -19,6 +19,7 @@ export default defineConfig([
   globalIgnores([
     ".next/**",
     "coverage/**",
+    "dist/**",
     "playwright-report/**",
     "test-results/**",
   ]),
