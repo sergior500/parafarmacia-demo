@@ -4,6 +4,8 @@ import { pharmacyConfig } from "@/lib/config";
 import { articles, brands } from "@/mocks/content";
 import { categories, products } from "@/mocks/products";
 
+export const dynamic = "force-static";
+
 const routes = [
   "",
   "/parafarmacia",

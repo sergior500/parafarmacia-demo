@@ -8,6 +8,7 @@
     "dev": "next dev",
     "build": "vinext build",
     "build:next": "next build",
+    "build:pages": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",

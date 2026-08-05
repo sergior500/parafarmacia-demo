@@ -26,6 +26,13 @@ import { commonFaqs } from "@/mocks/content";
 import { categories } from "@/mocks/products";
 import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
 
+export async function generateStaticParams() {
+  const products = await catalogProvider.listProducts();
+  return products
+    .filter((product) => product.status !== "withdrawn")
+    .map((product) => ({ slug: product.slug }));
+}
+
 export async function generateMetadata({
   params,
 }: {

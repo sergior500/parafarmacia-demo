@@ -7,6 +7,11 @@ import { CatalogView } from "@/features/catalog/catalog-view";
 import { commonFaqs } from "@/mocks/content";
 import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
 
+export async function generateStaticParams() {
+  const categories = await catalogProvider.listCategories();
+  return categories.map((category) => ({ slug: category.slug }));
+}
+
 export async function generateMetadata({
   params,
 }: {

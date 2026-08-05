@@ -91,7 +91,7 @@ export default async function HomePage() {
 
           <div className="bg-cream-dark relative min-h-[24rem] overflow-hidden rounded-[2rem] lg:min-h-[37rem]">
             <Image
-              src="/images/hero-parafarmacia-editorial.png"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/hero-parafarmacia-editorial.png`}
               alt="Composición editorial de envases cosméticos sin marca sobre pedestales verde salvia"
               fill
               className="object-cover"
