@@ -6,6 +6,7 @@ import { OrderConfirmation } from "@/features/checkout/order-confirmation";
 export const metadata: Metadata = {
   title: "Solicitud registrada",
   description: "Confirmación de una solicitud ficticia sin cobro.",
+  robots: { index: false, follow: false },
 };
 
 export default function ConfirmationPage() {

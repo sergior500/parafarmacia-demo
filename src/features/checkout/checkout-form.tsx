@@ -1,7 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, LockKeyhole, ShieldCheck } from "lucide-react";
+import {
+  CheckCircle2,
+  CreditCard,
+  LockKeyhole,
+  ShieldCheck,
+  Truck,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -124,101 +130,188 @@ export function CheckoutForm() {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Card className="p-6 md:p-8">
-        <div className="flex items-start gap-4">
-          <span className="bg-sage text-forest grid size-11 shrink-0 place-items-center rounded-2xl">
-            <LockKeyhole aria-hidden="true" className="size-5" />
-          </span>
-          <div>
-            <h2 className="font-display text-forest text-3xl">
-              Datos de contacto ficticios
-            </h2>
-            <p className="text-ink-muted mt-1 text-sm">
-              No introduzcas datos personales reales en esta demostración.
-            </p>
+      <div className="grid gap-5">
+        <Card className="p-6 md:p-8">
+          <div className="flex items-start gap-4">
+            <span className="bg-sage text-forest grid size-11 shrink-0 place-items-center rounded-2xl">
+              <LockKeyhole aria-hidden="true" className="size-5" />
+            </span>
+            <div>
+              <h2 className="font-display text-forest text-3xl">
+                Datos de contacto ficticios
+              </h2>
+              <p className="text-ink-muted mt-1 text-sm">
+                No introduzcas datos personales reales en esta demostración.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          {fields.map((field) => (
-            <div className={field.className} key={field.name}>
-              <label className="field-label" htmlFor={field.name}>
-                {field.label}
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {fields.map((field) => (
+              <div className={field.className} key={field.name}>
+                <label className="field-label" htmlFor={field.name}>
+                  {field.label}
+                </label>
+                <Input
+                  id={field.name}
+                  type={field.type ?? "text"}
+                  autoComplete={field.autoComplete}
+                  aria-invalid={Boolean(errors[field.name])}
+                  aria-describedby={
+                    errors[field.name] ? `${field.name}-error` : undefined
+                  }
+                  {...register(field.name)}
+                />
+                {errors[field.name]?.message ? (
+                  <p
+                    className="field-error"
+                    id={`${field.name}-error`}
+                    role="alert"
+                  >
+                    {errors[field.name]?.message}
+                  </p>
+                ) : null}
+              </div>
+            ))}
+            <div className="md:col-span-2">
+              <label className="field-label" htmlFor="notes">
+                Observaciones (opcional)
               </label>
-              <Input
-                id={field.name}
-                type={field.type ?? "text"}
-                autoComplete={field.autoComplete}
-                aria-invalid={Boolean(errors[field.name])}
-                aria-describedby={
-                  errors[field.name] ? `${field.name}-error` : undefined
-                }
-                {...register(field.name)}
+              <Textarea
+                id="notes"
+                aria-invalid={Boolean(errors.notes)}
+                {...register("notes")}
               />
-              {errors[field.name]?.message ? (
-                <p
-                  className="field-error"
-                  id={`${field.name}-error`}
-                  role="alert"
-                >
-                  {errors[field.name]?.message}
+              {errors.notes?.message ? (
+                <p className="field-error" role="alert">
+                  {errors.notes.message}
                 </p>
               ) : null}
             </div>
-          ))}
-          <div className="md:col-span-2">
-            <label className="field-label" htmlFor="notes">
-              Observaciones (opcional)
-            </label>
-            <Textarea
-              id="notes"
-              aria-invalid={Boolean(errors.notes)}
-              {...register("notes")}
-            />
-            {errors.notes?.message ? (
-              <p className="field-error" role="alert">
-                {errors.notes.message}
-              </p>
-            ) : null}
           </div>
-        </div>
 
-        <div className="border-forest/10 mt-8 grid gap-4 border-t pt-6">
-          <label className="flex cursor-pointer items-start gap-3 text-sm">
-            <input
-              className="accent-forest mt-1 size-5 shrink-0"
-              type="checkbox"
-              {...register("acceptsTerms")}
-            />
-            <span>
-              Acepto las condiciones simuladas de esta demostración.
-              {errors.acceptsTerms?.message ? (
-                <span className="field-error block" role="alert">
-                  {errors.acceptsTerms.message}
-                </span>
-              ) : null}
+          <div className="border-forest/10 mt-8 grid gap-4 border-t pt-6">
+            <label className="flex cursor-pointer items-start gap-3 text-sm">
+              <input
+                className="accent-forest mt-1 size-5 shrink-0"
+                type="checkbox"
+                {...register("acceptsTerms")}
+              />
+              <span>
+                Acepto las condiciones simuladas de esta demostración.
+                {errors.acceptsTerms?.message ? (
+                  <span className="field-error block" role="alert">
+                    {errors.acceptsTerms.message}
+                  </span>
+                ) : null}
+              </span>
+            </label>
+            <label className="flex cursor-pointer items-start gap-3 text-sm">
+              <input
+                className="accent-forest mt-1 size-5 shrink-0"
+                type="checkbox"
+                {...register("confirmsFictitiousData")}
+              />
+              <span>
+                Confirmo que todos los datos introducidos son ficticios.
+                {errors.confirmsFictitiousData?.message ? (
+                  <span className="field-error block" role="alert">
+                    {errors.confirmsFictitiousData.message}
+                  </span>
+                ) : null}
+              </span>
+            </label>
+          </div>
+        </Card>
+
+        <Card className="p-6 md:p-8">
+          <div className="flex items-start gap-4">
+            <span className="bg-sage text-forest grid size-11 shrink-0 place-items-center rounded-2xl">
+              <Truck aria-hidden="true" className="size-5" />
             </span>
-          </label>
-          <label className="flex cursor-pointer items-start gap-3 text-sm">
-            <input
-              className="accent-forest mt-1 size-5 shrink-0"
-              type="checkbox"
-              {...register("confirmsFictitiousData")}
-            />
-            <span>
-              Confirmo que todos los datos introducidos son ficticios.
-              {errors.confirmsFictitiousData?.message ? (
-                <span className="field-error block" role="alert">
-                  {errors.confirmsFictitiousData.message}
+            <div>
+              <h2 className="font-display text-forest text-3xl">
+                Método de envío
+              </h2>
+              <p className="text-ink-muted mt-1 text-sm">
+                Opciones visuales pendientes del transportista definitivo.
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 grid gap-3">
+            <label className="border-forest bg-sage/40 flex cursor-pointer items-center justify-between gap-4 rounded-2xl border p-4">
+              <span className="flex items-center gap-3">
+                <input
+                  defaultChecked
+                  name="shipping"
+                  type="radio"
+                  className="accent-forest"
+                />
+                <span>
+                  <strong className="text-forest block text-sm">
+                    Entrega estándar 24–48 h
+                  </strong>
+                  <span className="text-ink-muted text-xs">
+                    Península · estimación demo
+                  </span>
                 </span>
-              ) : null}
+              </span>
+              <strong className="text-forest text-sm">Por calcular</strong>
+            </label>
+            <label className="border-forest/10 flex cursor-not-allowed items-center justify-between gap-4 rounded-2xl border p-4 opacity-55">
+              <span className="flex items-center gap-3">
+                <input disabled name="shipping" type="radio" />
+                <span>
+                  <strong className="text-forest block text-sm">
+                    Recogida local
+                  </strong>
+                  <span className="text-ink-muted text-xs">
+                    Pendiente de confirmar establecimiento
+                  </span>
+                </span>
+              </span>
+              <strong className="text-forest text-sm">Gratis</strong>
+            </label>
+          </div>
+        </Card>
+
+        <Card className="p-6 md:p-8">
+          <div className="flex items-start gap-4">
+            <span className="bg-sage text-forest grid size-11 shrink-0 place-items-center rounded-2xl">
+              <CreditCard aria-hidden="true" className="size-5" />
             </span>
-          </label>
-        </div>
-      </Card>
+            <div>
+              <h2 className="font-display text-forest text-3xl">
+                Método de pago
+              </h2>
+              <p className="text-ink-muted mt-1 text-sm">
+                No se solicitan datos bancarios ni se realiza ningún cobro.
+              </p>
+            </div>
+          </div>
+          <div className="border-forest/10 bg-cream mt-6 rounded-2xl border p-4">
+            <div className="flex items-center gap-3">
+              <input
+                defaultChecked
+                name="payment"
+                type="radio"
+                className="accent-forest"
+              />
+              <span>
+                <strong className="text-forest block text-sm">
+                  Pago simulado
+                </strong>
+                <span className="text-ink-muted text-xs">
+                  La pasarela real se elegirá más adelante
+                </span>
+              </span>
+            </div>
+          </div>
+        </Card>
+      </div>
 
       <aside>
-        <Card className="sticky top-28 p-6">
+        <Card className="sticky top-40 p-6">
           <ShieldCheck aria-hidden="true" className="text-coral size-7" />
           <h2 className="font-display text-forest mt-4 text-3xl">
             Resumen demo

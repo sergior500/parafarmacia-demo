@@ -5,6 +5,7 @@ import {
   assertCanAddToCart,
   calculateCartTotals,
   canApplyPromotion,
+  getMaximumCartQuantity,
 } from "@/domain/cart/cart";
 import { products } from "@/mocks/products";
 
@@ -31,6 +32,17 @@ describe("reglas del carrito", () => {
     expect(() => assertCanAddToCart(activeProduct, 5)).toThrowError(
       expect.objectContaining({ code: "MAXIMUM_EXCEEDED" }),
     );
+  });
+
+  it("aplica un límite general cuando el producto no tiene uno específico", () => {
+    const productWithoutSpecificLimit = products.find(
+      (product) =>
+        product.maximumUnitsPerOrder === undefined && product.stock > 6,
+    )!;
+    expect(getMaximumCartQuantity(productWithoutSpecificLimit)).toBe(6);
+    expect(() =>
+      assertCanAddToCart(productWithoutSpecificLimit, 7),
+    ).toThrowError(expect.objectContaining({ code: "MAXIMUM_EXCEEDED" }));
   });
 
   it("aplica promociones a productos activos", () => {

@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "Carrito",
   description:
     "Revisa los productos de parafarmacia antes de finalizar la compra de demostración.",
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/carrito" },
 };
 
 export default function CartPage() {

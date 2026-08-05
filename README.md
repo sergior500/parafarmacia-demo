@@ -49,7 +49,7 @@ pnpm format       # Prettier
 
 ## Alcance actual
 
-- Catálogo de 12 referencias de parafarmacia en seis categorías.
+- Catálogo de 15 referencias de parafarmacia en nueve categorías.
 - Búsqueda, filtros por categoría y disponibilidad y ordenación por precio.
 - Carrito persistido en el navegador y formulario de compra ficticio.
 - Pedidos con estados confirmado, en preparación, enviado, entregado,
@@ -58,6 +58,9 @@ pnpm format       # Prettier
   productos más vendidos y alertas de stock.
 - Roles de administración, pedidos, catálogo, atención al cliente y sistemas.
 - Auditoría de cambios de estado y notas internas.
+- Búsqueda predictiva, favoritos y área de cuenta simulada.
+- Páginas de marcas y centro editorial con artículos individuales.
+- Base SEO con canonical, noindex selectivo, sitemap y datos estructurados prudentes.
 
 ## Arquitectura de la demo
 
@@ -86,3 +89,4 @@ servidor.
 - [Flujo de pedidos](docs/order-workflow.md)
 - [Integraciones pendientes](docs/integrations-pending.md)
 - [Preparación para producción](docs/production-readiness.md)
+- [Decisiones de UX, SEO y rendimiento](docs/frontend-strategy.md)

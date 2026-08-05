@@ -1,14 +1,14 @@
 import type { MetadataRoute } from "next";
 
 import { pharmacyConfig } from "@/lib/config";
+import { articles, brands } from "@/mocks/content";
 import { categories, products } from "@/mocks/products";
 
 const routes = [
   "",
   "/parafarmacia",
-  "/buscar",
-  "/carrito",
-  "/solicitud-pedido",
+  "/marcas",
+  "/consejos",
   "/como-comprar",
   "/sobre-la-farmacia",
   "/contacto",
@@ -21,20 +21,40 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticEntries = routes.map((route) => ({
-    url: `${pharmacyConfig.siteUrl}${route}`,
-    lastModified: new Date("2026-07-25"),
-  }));
-  const categoryEntries = categories.map((category) => ({
-    url: `${pharmacyConfig.siteUrl}/categorias/${category.slug}`,
-    lastModified: new Date("2026-07-25"),
-  }));
-  const productEntries = products
-    .filter((product) => product.status === "active")
-    .map((product) => ({
-      url: `${pharmacyConfig.siteUrl}/productos/${product.slug}`,
-      lastModified: new Date("2026-07-25"),
-    }));
-
-  return [...staticEntries, ...categoryEntries, ...productEntries];
+  const updated = new Date("2026-08-05");
+  return [
+    ...routes.map((route) => ({
+      url: `${pharmacyConfig.siteUrl}${route}`,
+      lastModified: updated,
+      changeFrequency:
+        route === "" ? ("weekly" as const) : ("monthly" as const),
+      priority: route === "" ? 1 : 0.6,
+    })),
+    ...categories.map((category) => ({
+      url: `${pharmacyConfig.siteUrl}/categorias/${category.slug}`,
+      lastModified: updated,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+    ...products
+      .filter((product) => product.status === "active")
+      .map((product) => ({
+        url: `${pharmacyConfig.siteUrl}/productos/${product.slug}`,
+        lastModified: updated,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      })),
+    ...brands.map((brand) => ({
+      url: `${pharmacyConfig.siteUrl}/marcas/${brand.slug}`,
+      lastModified: updated,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...articles.map((article) => ({
+      url: `${pharmacyConfig.siteUrl}/consejos/${article.slug}`,
+      lastModified: new Date(article.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    })),
+  ];
 }

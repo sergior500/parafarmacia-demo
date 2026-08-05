@@ -4,8 +4,10 @@ import { CatalogView } from "@/features/catalog/catalog-view";
 import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
 
 export const metadata: Metadata = {
-  title: "Parafarmacia",
-  description: "Catálogo de demostración de productos de parafarmacia.",
+  title: "Parafarmacia online: cuidado personal, higiene y bienestar",
+  description:
+    "Explora el catálogo de parafarmacia por categoría, marca o necesidad y compara formatos con claridad.",
+  alternates: { canonical: "/parafarmacia" },
 };
 
 export default async function ParapharmacyPage() {
@@ -16,9 +18,9 @@ export default async function ParapharmacyPage() {
   return (
     <CatalogView
       categories={categories}
-      description="Cuidado facial, corporal, solar, higiene e infantil con referencias preparadas para esta demostración."
+      description="Cuidado facial, corporal, solar, higiene e infantil organizado para encontrar cada producto por categoría, marca o necesidad cotidiana."
       products={products}
-      title="Tienda de parafarmacia"
+      title="Parafarmacia online"
     />
   );
 }

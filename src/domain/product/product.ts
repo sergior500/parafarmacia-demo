@@ -20,6 +20,22 @@ export interface Product {
   requiresSpecialTransport: boolean;
   availableForOnlineSale: boolean;
   featured?: boolean;
+  brandSlug?: string;
+  size?: string;
+  previousPriceInCents?: number;
+  pricePerUnit?: string;
+  benefits?: string[];
+  usage?: string;
+  ingredients?: string;
+  warnings?: string;
+  skinTypes?: string[];
+  needs?: string[];
+  format?: string;
+  fragranceFree?: boolean;
+  vegan?: boolean;
+  sensitiveSkin?: boolean;
+  spf?: number;
+  badges?: string[];
 }
 
 export interface Category {
@@ -27,6 +43,29 @@ export interface Category {
   slug: string;
   name: string;
   description: string;
+  seoDescription?: string;
+  relatedSlugs?: string[];
+}
+
+export interface ProductImage {
+  id: string;
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export interface ProductVariant {
+  id: string;
+  name: string;
+  value: string;
+  priceInCents: number;
+  stock: number;
+}
+
+export interface ProductAttribute {
+  name: string;
+  value: string;
 }
 
 export type ProductSort = "name" | "price-asc" | "price-desc";
@@ -36,6 +75,8 @@ export interface ProductFilters {
   category?: string;
   available?: boolean;
   sort?: ProductSort;
+  brand?: string;
+  need?: string;
 }
 
 export function isProductAvailable(product: Product): boolean {
@@ -63,6 +104,12 @@ export function filterProducts(
     )
     .filter((product) =>
       filters.category ? product.categoryId === filters.category : true,
+    )
+    .filter((product) =>
+      filters.brand ? product.brandSlug === filters.brand : true,
+    )
+    .filter((product) =>
+      filters.need ? product.needs?.includes(filters.need) : true,
     )
     .filter((product) =>
       filters.available ? isProductAvailable(product) : true,

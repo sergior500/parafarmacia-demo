@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import { CookiePreferences } from "@/components/layout/cookie-preferences";
 import { DemoBanner } from "@/components/layout/demo-banner";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     template: `%s · ${pharmacyConfig.name}`,
   },
   description:
-    "Prototipo de tienda online de parafarmacia con catálogo, compra y gestión comercial simulados.",
+    "Parafarmacia online de demostración: dermocosmética, protección solar, higiene y cuidado infantil.",
   alternates: {
     canonical: "/",
   },
@@ -43,22 +44,21 @@ export const metadata: Metadata = {
       "Catálogo de parafarmacia y flujo de compra completamente simulados.",
     images: [`${pharmacyConfig.siteUrl}/og.png`],
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
+  robots: pharmacyConfig.allowIndexing
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const localBusiness = {
+  const websiteData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "WebSite",
     name: pharmacyConfig.name,
-    description: "Identidad provisional. Datos pendientes de validación.",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Sevilla",
-      addressCountry: "ES",
+    url: pharmacyConfig.siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${pharmacyConfig.siteUrl}/buscar?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
     },
   };
 
@@ -70,10 +70,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <SiteHeader />
           <main id="contenido">{children}</main>
           <SiteFooter />
+          <CookiePreferences />
         </DemoProvider>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
         />
       </body>
     </html>

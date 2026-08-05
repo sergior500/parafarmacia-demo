@@ -1,4 +1,13 @@
-import { Baby, Droplets, Package, Smile, Sparkles, Sun } from "lucide-react";
+import {
+  Activity,
+  Apple,
+  Baby,
+  Droplets,
+  Package,
+  Smile,
+  Sparkles,
+  Sun,
+} from "lucide-react";
 
 import type { Product } from "@/domain/product/product";
 import { cn } from "@/lib/utils";
@@ -46,6 +55,20 @@ const visualThemes = {
     soft: "bg-[#f3cdb0]",
     icon: Baby,
   },
+  nutrition: {
+    background: "from-[#eee8d4] via-[#f9f6ec] to-[#dfd4ad]",
+    accent: "bg-[#796a31]",
+    accentText: "text-[#796a31]",
+    soft: "bg-[#d8cb9f]",
+    icon: Apple,
+  },
+  recovery: {
+    background: "from-[#e7e1f2] via-[#f8f5fb] to-[#d6cce8]",
+    accent: "bg-[#67528d]",
+    accentText: "text-[#67528d]",
+    soft: "bg-[#c9bce0]",
+    icon: Activity,
+  },
 } as const;
 
 export function ProductVisual({
@@ -56,17 +79,22 @@ export function ProductVisual({
   className?: string;
 }) {
   const themeKey =
-    product.categoryId === "cat-infantil"
-      ? "child"
-      : product.categoryId === "cat-higiene"
-        ? "hygiene"
-        : product.categoryId === "cat-bucal"
-          ? "bucal"
-          : product.categoryId === "cat-solar"
-            ? "solar"
-            : product.categoryId === "cat-corporal"
-              ? "corporal"
-              : "facial";
+    product.categoryId === "cat-nutricion"
+      ? "nutrition"
+      : product.categoryId === "cat-ortopedia" ||
+          product.categoryId === "cat-salud"
+        ? "recovery"
+        : product.categoryId === "cat-infantil"
+          ? "child"
+          : product.categoryId === "cat-higiene"
+            ? "hygiene"
+            : product.categoryId === "cat-bucal"
+              ? "bucal"
+              : product.categoryId === "cat-solar"
+                ? "solar"
+                : product.categoryId === "cat-corporal"
+                  ? "corporal"
+                  : "facial";
   const theme = visualThemes[themeKey];
   const Icon = theme.icon;
 

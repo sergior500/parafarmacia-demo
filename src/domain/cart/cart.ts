@@ -29,6 +29,15 @@ export class CartRuleError extends Error {
   }
 }
 
+export const DEFAULT_MAXIMUM_UNITS_PER_ORDER = 6;
+
+export function getMaximumCartQuantity(product: Product): number {
+  return Math.min(
+    product.stock,
+    product.maximumUnitsPerOrder ?? DEFAULT_MAXIMUM_UNITS_PER_ORDER,
+  );
+}
+
 export function assertCanAddToCart(
   product: Product,
   requestedQuantity: number,
@@ -66,13 +75,11 @@ export function assertCanAddToCart(
       "No hay unidades suficientes disponibles.",
     );
   }
-  if (
-    product.maximumUnitsPerOrder !== undefined &&
-    requestedQuantity > product.maximumUnitsPerOrder
-  ) {
+  const maximum = getMaximumCartQuantity(product);
+  if (requestedQuantity > maximum) {
     throw new CartRuleError(
       "MAXIMUM_EXCEEDED",
-      `El máximo permitido es ${product.maximumUnitsPerOrder}.`,
+      `El máximo permitido es ${maximum}.`,
     );
   }
 }
