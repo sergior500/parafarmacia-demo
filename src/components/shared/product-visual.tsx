@@ -133,6 +133,7 @@ export function ProductVisual({
             fill
             sizes="(max-width: 640px) 72vw, (max-width: 1024px) 34vw, 24vw"
             src={product.imageUrl}
+            unoptimized
           />
         </div>
       ) : (
