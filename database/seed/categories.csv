@@ -1,0 +1,10 @@
+category_id,slug,name,description
+cat-facial,cuidado-facial,Cuidado facial,"Limpieza, hidratación y rutinas para el cuidado diario."
+cat-corporal,cuidado-corporal,Cuidado corporal,Hidratación y cuidado para todo tipo de pieles.
+cat-solar,proteccion-solar,Protección solar,Fotoprotección facial y corporal para el día a día.
+cat-higiene,higiene-diaria,Higiene diaria,"Cuidado capilar, corporal y productos de uso cotidiano."
+cat-bucal,higiene-bucal,Higiene bucal,"Cepillos, dentífricos y cuidado especializado de la boca."
+cat-infantil,cuidado-infantil,Cuidado infantil,Higiene y cuidado diario para bebés y niños.
+cat-salud,salud-y-bienestar,Salud y bienestar,Productos sanitarios y autocuidado cotidiano permitido online.
+cat-nutricion,nutricion,Nutrición,Complementos y formatos para acompañar hábitos equilibrados.
+cat-ortopedia,ortopedia-y-recuperacion,Ortopedia ligera,Soportes y accesorios para el movimiento y la recuperación.

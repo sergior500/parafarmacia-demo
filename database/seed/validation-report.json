@@ -1,0 +1,23 @@
+{
+  "valid": true,
+  "errors": [],
+  "counts": {
+    "products": 183,
+    "product_content": 183,
+    "product_benefits": 541,
+    "product_needs": 178,
+    "categories": 9,
+    "catalog_sources": 2,
+    "image_files_verified": 183
+  },
+  "checks": [
+    "unique_product_ids",
+    "unique_slugs",
+    "category_foreign_keys",
+    "source_foreign_keys",
+    "source_page_bounds",
+    "product_content_one_to_one",
+    "relation_foreign_keys",
+    "image_files_exist"
+  ]
+}

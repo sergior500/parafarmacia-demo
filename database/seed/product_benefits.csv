@@ -1,0 +1,542 @@
+product_id,position,benefit
+pdf-dermocosmetica-006,1,LIMPIEZA SUAVE CON ACLARADO
+pdf-dermocosmetica-006,2,ELEVADA EFICACIA DESMAQUILLANTE
+pdf-dermocosmetica-006,3,TESTAD DERMA
+pdf-dermocosmetica-007,1,"LIMPIEZA POR AFINIDAD, SIN TENSIOACTIVOS"
+pdf-dermocosmetica-007,2,HIDRATACIÓN INTENSA CARACT
+pdf-dermocosmetica-007,3,ACCIÓN EQUILIBRANTE
+pdf-dermocosmetica-008,1,CONFORT INMEDIATO
+pdf-dermocosmetica-008,2,TEXTURA FRESCA AQUA-GEL CARACT
+pdf-dermocosmetica-008,3,MEZCLA DE ACTIVOS HIDRATANTES Y CALMANTES
+pdf-dermocosmetica-009,1,CONTO
+pdf-dermocosmetica-009,2,LIMPIEZA EFICAZ Y DELICADA
+pdf-dermocosmetica-009,3,TEXTURA ACUOSA FRESCA Y LIGERA
+pdf-dermocosmetica-010,1,EL RIES
+pdf-dermocosmetica-010,2,DOBLE EXFOLIACIÓN
+pdf-dermocosmetica-010,3,RESULTADO VISIBLE E INMEDIATO
+pdf-dermocosmetica-012,1,LIMPIEZA MUY DELICADA
+pdf-dermocosmetica-012,2,FORTALECER LA PIEL MÁS SENSIBLE Y CON TENDENCIA A ROJECES
+pdf-dermocosmetica-012,3,REEQUILIBRAR EL MICROBIOMA CUTÁNEO FÓRMULA
+pdf-dermocosmetica-014,1,CONCENTRADO CALMANTE E HIDRATANTE
+pdf-dermocosmetica-014,2,NÍQUE
+pdf-dermocosmetica-014,3,"FORTALECER LA PIEL MUY SENSIBLE Y CON TENDENCIA A ROJECES < 0,00"
+pdf-dermocosmetica-016,1,NÍQUE
+pdf-dermocosmetica-016,2,"EFICACIA ANTI-ENROJECIMIENTO INMEDIATA* < 0,00"
+pdf-dermocosmetica-016,3,ALIVIO Y CONFORT INMEDIATO
+pdf-dermocosmetica-017,1,FORTALECE LA PIEL MÁS SENSIBLE Y FRÁGIL
+pdf-dermocosmetica-017,2,HIDRATACIÓN DURADERA HASTA 72H
+pdf-dermocosmetica-017,3,REEQUILIBRA EL MICROBIOMA CUTÁNEO FÓRMULA
+pdf-dermocosmetica-019,1,"< 0,00"
+pdf-dermocosmetica-019,2,EFICACIA ANTI-ROJECES RÁPIDA Y DURADERA
+pdf-dermocosmetica-019,3,ALIVIO INMEDIATO FRENTE A SENSACIÓN DE CALOR Y PICOR
+pdf-dermocosmetica-021,1,DERMA
+pdf-dermocosmetica-021,2,"LIMPIA DELICADAMENTE, PURIFICA Y REEQUILIBRA EN PIE"
+pdf-dermocosmetica-021,3,SIN EFECTO REBOTE
+pdf-dermocosmetica-023,1,EFECTO ASTRINGENTE INMEDIATO
+pdf-dermocosmetica-023,2,MICROEXFOLIANTE
+pdf-dermocosmetica-023,3,CARA Y CUERPO FÓRMULA
+pdf-dermocosmetica-025,1,Ficha técnica disponible
+pdf-dermocosmetica-025,2,Marca propia
+pdf-dermocosmetica-025,3,Revisión comercial pendiente
+pdf-dermocosmetica-027,1,TRATAMIENTO DIARIO REEQUILIBRANTE
+pdf-dermocosmetica-027,2,EFECTO MATE DE LARGA DURACIÓN
+pdf-dermocosmetica-027,3,FORTALECE Y REEQUILIBRA LA BARRERA FÓRMULA
+pdf-dermocosmetica-029,1,TRATAMIENTO PERIÓDICO DE LIMPIEZA PROFUNDA
+pdf-dermocosmetica-029,2,PURIFICA LA PIEL SIN RESECAR
+pdf-dermocosmetica-029,3,CON PROBIOTIC-BALANCE Y ARCILLA FÓRMULA
+pdf-dermocosmetica-032,1,UNIVER
+pdf-dermocosmetica-032,2,ÁCIDO HIALURÓNICO POTENCIADO
+pdf-dermocosmetica-032,3,NÍQUE
+pdf-dermocosmetica-033,1,POTENCIA EL COLÁGENO NATURAL
+pdf-dermocosmetica-033,2,"TRIPLE EFICACIA REAFIRMANTE, LIFTING, ANTIOXIDANTE"
+pdf-dermocosmetica-033,3,TEXTURAS DISTINTAS Y ESPECÍFICAS
+pdf-dermocosmetica-035,1,REMODELAN EL ÓVALO FACIAL
+pdf-dermocosmetica-035,2,"TRIPLE EFICACIA REDENSIFICANTE, ANTIARRUGAS Y REVITALIZANTE"
+pdf-dermocosmetica-035,3,TEXTURAS DISTINTAS Y ESPECÍFICAS
+pdf-dermocosmetica-038,1,UNIVER
+pdf-dermocosmetica-038,2,LIMPIEZA SENSORIAL
+pdf-dermocosmetica-038,3,OFTALM
+pdf-dermocosmetica-039,1,DESAR
+pdf-dermocosmetica-039,2,LIMPIA SIN RESECAR EN COL
+pdf-dermocosmetica-039,3,EXFOLIACIÓN Y RENOVACIÓN CON IN UNIVER
+pdf-dermocosmetica-040,1,CONTRARRESTAR LAS ARRUGAS DE EXPRESIÓN ECNO NC OINL UNIVER
+pdf-dermocosmetica-040,2,CONTORNO DE OJOS MÁS JOVEN
+pdf-dermocosmetica-040,3,MIRADA LUMINOSA Y DESCANSADA
+pdf-dermocosmetica-041,1,ACTIVACIÓN CELULAR
+pdf-dermocosmetica-041,2,NAD+ BOOSTER
+pdf-dermocosmetica-041,3,LONGEVIDAD CUTÁNEA
+pdf-dermocosmetica-043,1,ACTIVACIÓN CELULAR
+pdf-dermocosmetica-043,2,NAD+ BOOSTER
+pdf-dermocosmetica-043,3,LONGEVIDAD CUTÁNEA
+pdf-dermocosmetica-045,1,EN PIE
+pdf-dermocosmetica-045,2,REAFIRMANTE ANTIEDAD
+pdf-dermocosmetica-045,3,HIDRATACIÓN INTENSA Y DURADERA
+pdf-dermocosmetica-047,1,EFICACIA ESPECÍFICA SOBRE LAS ARRUGAS DE EXPRESIÓN DERMA EN PIE
+pdf-dermocosmetica-047,2,CONTORNO DE OJOS Y LABIOS
+pdf-dermocosmetica-047,3,HIDRATACIÓN PROFUNDA
+pdf-dermocosmetica-049,1,"< 0,00"
+pdf-dermocosmetica-049,2,MIRADA LUMINOSA Y DESCANSADA
+pdf-dermocosmetica-049,3,SENSACIÓN DESCONGESTIONANTE Y REFRESCANTE
+pdf-dermocosmetica-052,1,EFECTO BOTOX-LIKE INMEDIATO
+pdf-dermocosmetica-052,2,ACCIÓN ANTIEDAD MULTINIVEL
+pdf-dermocosmetica-052,3,"EFICAZ EN ARRUGAS ESTÁTICAS Y DINÁMICAS *Test instrumental in vivo realizado en 20 sujetos, 15 minutos después de la aplicación. Se registró una disminución significativa del aumento fisiológico de la profundidad y el volumen de las arrugas del contorno de ojos y labios, 60 segundos después de la expresión de fruncido del contorno de ojos y labios. FÓRMULA"
+pdf-dermocosmetica-059,1,CON LA EXCLUSIVA PATENTE IALUDEEP® EN PIE
+pdf-dermocosmetica-059,2,FORMU
+pdf-dermocosmetica-059,3,CON BIOPOLÍMEROS NATURALES DE EFECTO TENSOR INMEDIATO EL RIES
+pdf-dermocosmetica-061,1,CARACT
+pdf-dermocosmetica-061,2,ALTA CONCENTRACIÓN DE HIALURÓNICO MICROFRAGMENTADO
+pdf-dermocosmetica-061,3,FÓRMULA EN GEL DE RÁPIDA ABSORCIÓN
+pdf-dermocosmetica-063,1,POTENCIA EL COLÁGENO NATURAL
+pdf-dermocosmetica-063,2,"TRIPLE ACCIÓN: REAFIRMANTE, LIFTING, UNIFICANTE"
+pdf-dermocosmetica-063,3,PIEL LISA Y UNIFORME FÓRMULA
+pdf-dermocosmetica-065,1,EL RIES
+pdf-dermocosmetica-065,2,COMPLEJO ACTIVO CERAMIDA COMPLEX
+pdf-dermocosmetica-065,3,ACCIÓN REDENSIFICANTE Y REESTRUCTURANTE PROFUNDA
+pdf-dermocosmetica-067,1,"RETINOL PURO 0,3% ADVERT"
+pdf-dermocosmetica-067,2,ACCIÓN ANTIEDAD GLOBAL
+pdf-dermocosmetica-067,3,LIBERACIÓN PROLONGADA 24h
+pdf-dermocosmetica-069,1,ELEVADA PROTECCIÓN SPF 50
+pdf-dermocosmetica-069,2,"PROTECCIÓN COMPLETA FRENTE AL FOTOENVEJECIMIENTO, LA LUZ AZUL, EL ESTRÉS OXIDATIVO Y LA CONTAMINACIÓN"
+pdf-dermocosmetica-069,3,ULTRALIGERO FÓRMULA
+pdf-dermocosmetica-071,1,COMPLEJO GLICÓLICO COMPLEX 10%
+pdf-dermocosmetica-071,2,"NÍQUE < 0,00"
+pdf-dermocosmetica-071,3,CON EXCLUSIVO IALUDEEP®
+pdf-dermocosmetica-073,1,"ACLARANTE, PERFECCIONADOR Y PROTECTOR"
+pdf-dermocosmetica-073,2,ACTÚA EN EL ORIGEN DE LA MANCHA
+pdf-dermocosmetica-073,3,APTO EN PIEL SENSIBLE Y EMBARAZO FÓRMULA
+pdf-dermocosmetica-075,1,DESPIGMENTANTE Y CORRECTOR INTENSIVO
+pdf-dermocosmetica-075,2,USO LOCALIZADO / ZONAS EXTENSAS
+pdf-dermocosmetica-075,3,APTO EN PIEL SENSIBLE FÓRMULA
+pdf-dermocosmetica-077,1,CONFORT INMEDIATO PARA TODO TIPO DE PIEL
+pdf-dermocosmetica-077,2,BÁLSAMO NUTRITIVO INTENSIVO CARACT
+pdf-dermocosmetica-077,3,ACCIÓN HIDRATANTE ANTIEDAD
+pdf-dermocosmetica-078,1,CARACT
+pdf-dermocosmetica-078,2,TRATAMIENTO REFRESCANTE
+pdf-dermocosmetica-078,3,ASPECTO LUMINOSO Y DESCANSADO
+pdf-dermocosmetica-080,1,INFLAMMAGING
+pdf-dermocosmetica-080,2,EFICACIA ANTIEDAD
+pdf-dermocosmetica-080,3,TEXTURA ULTRALIGERA DE RÁPIDA ABSORCIÓN FÓRMULA
+pdf-dermocosmetica-083,1,PIEL SENSIBLE Y REACTIVA
+pdf-dermocosmetica-083,2,FORMU
+pdf-dermocosmetica-083,3,EMULSIÓN PROTECTORA EL RIES
+pdf-dermocosmetica-084,1,DERMA
+pdf-dermocosmetica-084,2,USO 2 EN 1 EN PIE
+pdf-dermocosmetica-084,3,CALMANTE PARA DESPUÉS DEL AFEITADO
+pdf-dermocosmetica-085,1,DERMA
+pdf-dermocosmetica-085,2,HIDRATACIÓN INTENSA EN PIE
+pdf-dermocosmetica-085,3,ACCIÓN PROTECTORA
+pdf-dermocosmetica-087,1,ACCIÓN ABSORBENTE Y CALMANTE
+pdf-dermocosmetica-087,2,FÓRMULA DERMOCOMPATIBLE
+pdf-dermocosmetica-088,1,CON IN
+pdf-dermocosmetica-088,2,LIMPIADOR 2 EN 1: CUERPO Y CABELLO UNIVER
+pdf-dermocosmetica-088,3,ACCIÓN HIDRATANTE Y CALMANTE
+pdf-dermocosmetica-090,1,ACCIÓN ANTICELULÍTICA GLOBAL
+pdf-dermocosmetica-090,2,FEOL RRMIEUS
+pdf-dermocosmetica-090,3,PERFUME DELICADO Y EFECTO FRESCOR PROLONGADO
+pdf-dermocosmetica-092,1,ACCIÓN ADELGAZANTE
+pdf-dermocosmetica-092,2,TESTAD DERMA
+pdf-dermocosmetica-092,3,REDEFINE LA SILUETA EN PIE
+pdf-dermocosmetica-094,1,TESTAD
+pdf-dermocosmetica-094,2,TRATAMIENTO DE CHOQUE LIPOREDUCTOR DERMA
+pdf-dermocosmetica-094,3,"ZONAS CRÍTICAS (ABDOMEN, CADERAS, GLÚTEOS, MUSLOS) EN PIE"
+pdf-dermocosmetica-096,1,DE ABS
+pdf-dermocosmetica-096,2,HIDRATACIÓN INMEDIATA
+pdf-dermocosmetica-096,3,PIEL ATERCIOPELADA Y FIRME CARACT
+pdf-dermocosmetica-098,1,HIDRATACIÓN INTENSA
+pdf-dermocosmetica-098,2,ACCIÓN RENOVADORA
+pdf-dermocosmetica-098,3,TESTAD DERMA
+pdf-dermocosmetica-100,1,ANTIESTRÍAS DENER PMIEA
+pdf-dermocosmetica-100,2,CONTRARRESTA LA FLACIDEZ CUTÁNEA
+pdf-dermocosmetica-100,3,FORMU
+pdf-dermocosmetica-102,1,DERMA
+pdf-dermocosmetica-102,2,5 ACEITES VEGETALES 100% NATURALES EN PIE
+pdf-dermocosmetica-102,3,"5 EN 1: REAFIRMANTE, NUTRITIVO, EMOLIENTE, ILUMINADOR, ANTI-ESTRÍAS"
+pdf-dermocosmetica-103,1,EL RIES
+pdf-dermocosmetica-103,2,"CON ACTIVOS NUTRITIVOS, CALMANTES, ANTIOXIDANTES Y EMOLIENTES"
+pdf-dermocosmetica-103,3,PROTEGE FRENTE A LA RADIACIÓN UVB
+pdf-dermocosmetica-105,1,PARA LABIOS Y PEQUEÑAS SUPERFICIES DE LA CARA
+pdf-dermocosmetica-105,2,IDEAL PARA APLICACIONES PUNTUALES
+pdf-dermocosmetica-105,3,"CON PRÓPOLIS Y ÁRBOL DE TÉ, ANTIMICROBIANOS FÓRMULA"
+pdf-dermocosmetica-107,1,LA PIEL QUEDA SUAVE Y PROTEGIDA
+pdf-dermocosmetica-107,2,CREMA NUTRITIVA DE RÁPIDA ABSORCIÓN
+pdf-dermocosmetica-107,3,TACTO SECO FÓRMULA
+pdf-dermocosmetica-109,1,ACCIÓN ANTIEDAD GRACIAS AL ÁCIDO HIALURÓNICO
+pdf-dermocosmetica-109,2,TESTAD
+pdf-dermocosmetica-109,3,CREMA HIDRATANTE DE USO DIARIO DERMA
+pdf-dermocosmetica-112,1,CON IN
+pdf-dermocosmetica-112,2,SIN SALES DE ALUMINIO NI ALCOHOL UNIVER
+pdf-dermocosmetica-112,3,CON ACTIVOS ANTIMICROBIANOS DE ALTA EFICACIA
+pdf-dermocosmetica-114,1,"EFICACIA 7 DÍAS, ANTITRANSPIRANTE DE LARGA DURACIÓN"
+pdf-dermocosmetica-114,2,TODO T INCLUS
+pdf-dermocosmetica-114,3,SIN ALCOHOL
+pdf-dermocosmetica-116,1,"EFICACIA 48 HORAS, ANTITRANSPIRANTE DE LARGA DURACIÓN"
+pdf-dermocosmetica-116,2,DENES CAORL CON IN
+pdf-dermocosmetica-116,3,SIN ALCOHOL UNIVER
+pdf-dermocosmetica-118,1,CON ACTIVOS ANTIMICROBIANOS Y ANTIENZIMÁTICOS DE ELEVADA EFICACIA DERMA EN PIE
+pdf-dermocosmetica-118,2,SIN SALES DE ALUMINIO
+pdf-dermocosmetica-118,3,NO DEJA RESIDUOS
+pdf-dermocosmetica-121,1,ADULT
+pdf-dermocosmetica-121,2,"HIDRATA, CALMA Y PROTEGE LA PIEL"
+pdf-dermocosmetica-121,3,CON LIMPIADORES SUAVES CARACT
+pdf-dermocosmetica-123,1,SISTEMA LIMPIADOR DELICADO PH 4.5
+pdf-dermocosmetica-123,2,ACCIÓN PURIFICANTE Y ANTIOLOR
+pdf-dermocosmetica-123,3,PARA HOMBRES Y MUJERES FÓRMULA
+pdf-dermocosmetica-125,1,FORMU
+pdf-dermocosmetica-125,2,SISTEMA LIMPIADOR DELICADO PH 5.5 EL RIES
+pdf-dermocosmetica-125,3,ACCIÓN HIDRATANTE Y PROTECTORA
+pdf-dermocosmetica-127,1,"SISTEMA LIMPIADOR DELICADO CON PH 6,5"
+pdf-dermocosmetica-127,2,"<N Í0Q,0U0E"
+pdf-dermocosmetica-127,3,"ACCIÓN PROTECTORA Y CALMANTE EN LOS CASOS DE SEQUEDAD, IRRITACIÓN, PICOR Y ENROJECIMIENTO"
+pdf-dermocosmetica-130,1,CON ACTIVOS PROTECTORES E HIDRATANTES
+pdf-dermocosmetica-130,2,FORMU
+pdf-dermocosmetica-130,3,RESPETA EL CUERO CABELLUDO SENSIBLE E IRRITABLE EL RIES
+pdf-dermocosmetica-132,1,CON ACTIVOS HIDRATANTES Y PROTECTORES
+pdf-dermocosmetica-132,2,DESAR
+pdf-dermocosmetica-132,3,RESPETA EL CUERO CABELLUDO EN COL CON IN
+pdf-dermocosmetica-134,1,CABELLO LIGERO Y CON MÁS VOLUMEN
+pdf-dermocosmetica-134,2,CON ACTIVOS SEBORREGULADORES
+pdf-dermocosmetica-134,3,TENSIOACTIVO SUAVE QUE RESPETA EL CUERO CABELLUDO FÓRMULA
+pdf-dermocosmetica-136,1,CABELLO LIGERO Y CON MÁS VOLUMEN CUONNIV EINR
+pdf-dermocosmetica-136,2,CON ACTIVOS PURIFICANTES Y ANTIMICROBIANOS
+pdf-dermocosmetica-136,3,NÍQUE
+pdf-dermocosmetica-138,1,CON ACTIVOS REVITALIZANTES
+pdf-dermocosmetica-138,2,NÍQUE
+pdf-dermocosmetica-138,3,"FAVORECE LA VITALIDAD Y EL CRECIMIENTO NATURAL DEL CABELLO < 0,00"
+pdf-dermocosmetica-140,1,"< 0,00"
+pdf-dermocosmetica-140,2,"FORTALECE EL CABELLO, CONTRARRESTANDO SU CAÍDA"
+pdf-dermocosmetica-140,3,CON ACTIVOS QUE NUTREN Y PROTEGEN EL CUERO CABELLUDO
+pdf-dermocosmetica-142,1,MEJORA EL PEINADO Y LA LUMINOSIDAD DEL CABELLO
+pdf-dermocosmetica-142,2,CON ACONDICIONADORES DE ORIGEN VEGETAL CARACT
+pdf-dermocosmetica-142,3,PARA TODO TIPO DE CABELLO
+pdf-dermocosmetica-144,1,REPARA Y SUAVIZA EL CABELLO
+pdf-dermocosmetica-144,2,TESTAD
+pdf-dermocosmetica-144,3,CON ACTIVOS DE ORIGEN VEGETAL DERMA
+pdf-dermocosmetica-146,1,"EFICACIA ANTIEDAD, REPARADO Y REEQUILIBRANTE EL RIES"
+pdf-dermocosmetica-146,2,TENSIOACTIVOS ULTRADELICADOS ESPUMANTES
+pdf-dermocosmetica-146,3,NÍQUE
+pdf-dermocosmetica-148,1,TRIPLE ACCIÓN SOBRE EL CABELLO
+pdf-dermocosmetica-148,2,USO CON Y SIN ACLARADO
+pdf-dermocosmetica-148,3,FACILITA EL PEINADO Y PROLONGA SU DURACIÓN FÓRMULA
+pdf-dermocosmetica-151,1,"PROTECCIÓN FULL SPECTRUM UVA, UVB E IR"
+pdf-dermocosmetica-151,2,ACTIVOS ESPECÍFICOS ANTIEDAD Y ANTIOXIDANTES
+pdf-dermocosmetica-151,3,NO COMEDOGÉNICA
+pdf-dermocosmetica-153,1,TESTAD
+pdf-dermocosmetica-153,2,TEXTURA ULTRA LIGERA DERMA
+pdf-dermocosmetica-153,3,ABSORCIÓN INMEDIATA EN PIE
+pdf-dermocosmetica-154,1,FORMU
+pdf-dermocosmetica-154,2,TEXTURA ULTRA LIGERA EL RIES
+pdf-dermocosmetica-154,3,ABSORCIÓN INMEDIATA
+pdf-dermocosmetica-155,1,"MÁXIMA PROTECCIÓN FULL SPECTRUM UVA, UVB, IR"
+pdf-dermocosmetica-155,2,MÁXIMA PRACTICIDAD
+pdf-dermocosmetica-155,3,"TRANSPARENTE, SIN EFECTO BLANCO FÓRMULA"
+pdf-dermocosmetica-156,1,"PROTECCIÓN FULL SPECTRUM UVA, UVB E IR"
+pdf-dermocosmetica-156,2,MUY R
+pdf-dermocosmetica-156,3,MUY RESISTENTE AL AGUA
+pdf-dermocosmetica-158,1,CON IN
+pdf-dermocosmetica-158,2,MÁXIMA PROTECCIÓN FULL SPECTRUM UNIVER
+pdf-dermocosmetica-158,3,MÁXIMA PRACTICIDAD
+pdf-dermocosmetica-159,1,"< 0,00"
+pdf-dermocosmetica-159,2,"PROTECCIÓN FULL SPECTRUM UVA, UVB E IR"
+pdf-dermocosmetica-159,3,RESISTENTE AL AGUA
+pdf-dermocosmetica-161,1,"PROTECCIÓN FULL SPECTRUM UVA, UVB E IR"
+pdf-dermocosmetica-161,2,MUY R
+pdf-dermocosmetica-161,3,MUY RESISTENTE AL AGUA
+pdf-dermocosmetica-163,1,NÍQUE
+pdf-dermocosmetica-163,2,"INVISIBLE Y TRANSPARENTE, SIN RESIDUOS < 0,00"
+pdf-dermocosmetica-163,3,MÁXIMA PRACTICIDAD: TAPÓN TWIST & LOCK
+pdf-dermocosmetica-164,1,"PROTECCIÓN FULL SPECTRUM UVA, UVB E IR"
+pdf-dermocosmetica-164,2,RESIST
+pdf-dermocosmetica-164,3,ACCIÓN ESPECÍFICA ANTIOXIDANTE
+pdf-dermocosmetica-165,1,"PROTECCIÓN FULL SPECTRUM UVA, UVB E IR"
+pdf-dermocosmetica-165,2,RECIPIE
+pdf-dermocosmetica-165,3,APLICACIÓN RÁPIDA DESDE CUALQUIER POSICIÓN PUEDE AL CAL
+pdf-dermocosmetica-167,1,ACCIÓN CALMANTE INMEDIATA CUONNIV EINR
+pdf-dermocosmetica-167,2,HIDRATACIÓN Y CONFORT DE LARGA DURACIÓN
+pdf-dermocosmetica-167,3,NÍQUE
+pdf-dermocosmetica-169,1,DERMA
+pdf-dermocosmetica-169,2,ACCIÓN ANTIOXIDANTE E HIDRATANTE EN PIE
+pdf-dermocosmetica-169,3,PREPARA LA PIEL PARA LA EXPOSICIÓN AL SOL
+pdf-salud-006,1,CON EXTRACTO DE EQUINÁCEA ECHINOSHIELD® TITULADO CON TRIPLE ESTANDARIZACIÓN
+pdf-salud-006,2,APTO A PARTIR DE 3 AÑOS APTO
+pdf-salud-006,3,"BAJO CONTENIDO EN ALQUILAMIDAS <0,05% +3 años ECHINACEA PALLIDA ECHINOSHIELD® Adultos Perteneciente a la familia de las Asteráceas, la planta de Equinácea puede alcanzar hasta un metro de altura, la flor está formada por una gran cabeza cónica de color oscuro (que Vegetarianos recuerda un erizo, en griego “echinos”), los pétalos son de longitud y tonalidad variables (del blanco rosa al rosa-púrpura según la especie) y las hojas son lanceoladas y pubescentes. Veganos El ciclo es pluria"
+pdf-salud-008,1,ELEVADA CONCENTRACIÓN DE SUSTANCIAS ACTIVAS
+pdf-salud-008,2,LOS BENEFI
+pdf-salud-008,3,FORMATO PRÁCTICO Y SIN REGUSTO OBTIENEN T
+pdf-salud-010,1,ELEVADA CONCENTRACIÓN DE SUSTANCIAS ACTIVAS Sin conserva
+pdf-salud-010,2,CON LACTOFERRINA Y QUERCETINA Con lactosa
+pdf-salud-010,3,"FORMATO PRÁCTICO APTO QUERCETINA La Quercetina es un flavonoide muy extendido en la naturaleza que se ingiere normalmente +8 años mediante el consumo de fruta (manzanas, uvas, frutos del bosque) y verduras (crucíferas, alcaparras, cebollas y tomates). La quercetina tiende a oxidarse de forma espontánea y Adultos se convierte ella misma en un agente pro-oxidante. Este fenómeno recibe el nombre de «paradoja de la quercetina». Vegetarianos LACTOFERRINA NO APTO La Lactoferrina es una glicoprote"
+pdf-salud-013,1,CONTRIBUYE AL FUNCIONAMIENTO NORMAL DE LA BARRERA MUCOSA
+pdf-salud-013,2,ACCIÓN ANTIOXIDANTE APTO
+pdf-salud-013,3,"AYUDA AL SISTEMA INMUNITARIO +12 años LA BARRERA INTESTINAL Adultos La barrera intestinal es un sistema extremadamente complejo que desempeña la función de absorber las sustancias nutritivas y defender al organismo frente a la entrada de agentes Vegetarianos potencialmente dañinos. Está constituida por diferentes elementos interconectados entre ellos: la microbiota intestinal, el epitelio intestinal, la capa mucosa, el sistema inmunitario, Veganos el sistema vascular linfático y las enzimas digestivas. En c"
+pdf-salud-015,1,CEPAS MUY ESTUDIADAS Y AVALADAS CIENTÍFICAMENTE EL EMBARA
+pdf-salud-015,2,SEGURO Y CON EFICACIA DEMOSTRADA
+pdf-salud-015,3,BIENESTAR
+pdf-salud-017,1,LA MENOPA
+pdf-salud-017,2,CEPAS MUY ESTUDIADAS Y AVALADAS CIENTÍFICAMENTE
+pdf-salud-017,3,BIENESTAR
+pdf-salud-019,1,4G DE FIBRA PREBIÓTICA SOLUBLE DE ORIGEN VEGETAL
+pdf-salud-019,2,FUNCIÓN DI NORMAL
+pdf-salud-019,3,"SIN AZÚCARES, ADECUADO PARA PERSONAS DIABÉTICAS"
+pdf-salud-022,1,FERMENTOS LÁCTICOS VIVOS SELECCIONADOS CARACTERÍ
+pdf-salud-022,2,ÚTIL APORTE DE FIBRA EN LA DIETA
+pdf-salud-022,3,"SOBRE STICK OROSOLUBLE, PRÁCTICO PARA LLEVAR SIEMPRE ENCIMA Sin gluten MICROBIOTA INTESTINAL Sin lactosa La microbiota intestinal es el conjunto de los microorganismos que se encuentran en el Sin azúcares aparato digestivo; en el hombre se han identificado por ahora entre 500 y 1000 especies. Sin colorante Es característico de cada individuo: se trata de una “huella digital bacteriana” y consta de aproximadamente 1014, es decir, 10 veces el número total de células del propio individuo. Sin conserva La compo"
+pdf-salud-024,1,5000 MILLONES DE UFC DE LEVADURAS PROBIÓTICAS SIN LA ADICIÓN DE EXCIPIENTES
+pdf-salud-024,2,TRASTORNO
+pdf-salud-024,3,SOLO ES NECESARIA 1 CÁPSULAS AL DÍA
+pdf-salud-026,1,Sin edulcoran
+pdf-salud-026,2,MEZCLA DE CEPAS TINDALIZADAS DE ACCIÓN COMPETITIVA CON LOS ORGANISMOS EXTRAÑOS Sin colorante
+pdf-salud-026,3,CON FIBRA PREBIÓTICA ACTILIGHT® Sin conserva EL EQUILIBRIO INTESTINAL Con lactosa La composición y la concentración micróbica cambia y aumenta numéricamente a lo largo de los distintos districtos gastrointestinales: más rica en Lactobacilos en la parte alta y APTO en Bifidobacterias en la parte baja. Una microbiota bacteriana cuantitativamente y cualitativamente equilibrada (eubiosis) +3 años es fundamental para:
+pdf-salud-028,1,3X109 UFC DE PROBIÓTICOS VIVOS EN UN ÚNICO FRASCO Con conserva
+pdf-salud-028,2,CON ZUMO CONCENTRADO DE SAÚCO
+pdf-salud-028,3,"IDEAL PARA PERSONAS MAYORES Y PERSONAS INTOLERANTES A LA LACTOSA APTO +3 años EL MICROBIOMA INTESTINAL El intestino es un ecosistema complejo en el que interactúan la microbiota intestinal, la Adultos pared celular, el sistema inmunitario intestinal (tejido linfoide asociado al intestino o GALT) y un sistema nervioso articulado que convierten al intestino en nuestro «segundo cerebro». Durante el em Una microbiota cuantitativamente y cualitativamente equilibrada (eubiosis) es fundamental para el c"
+pdf-salud-030,1,CEPAS ESTUDIADAS ESPECÍFICAMENTE PARA MADRES E HIJOS
+pdf-salud-030,2,PREVENCIÓ
+pdf-salud-030,3,"SIN AZÚCARES, NI COLORANTES NI EDULCORANTES E HINCHAZÓ"
+pdf-salud-033,1,EXTRACTO DE DIENTE DE LEÓN RICO EN INULINA
+pdf-salud-033,2,DEPURACIÓ
+pdf-salud-033,3,"EXTRACTO DE CARDO MARIANO RICO EN SIBILINA URBANA, CO"
+pdf-salud-035,1,AYUDA AL CORRECTO FUNCIONAMIENTO DEL HÍGADO Sin gluten
+pdf-salud-035,2,PURIFICA Y DEPURA Sin lactosa
+pdf-salud-035,3,"NOTABLE ACTIVIDAD ANTIOXIDANTE Sin edulcoran CARDO MARIANO (SILIMARINA FITOSOMA®) Sin azúcares El Cardo mariano (Silybum marianum) tiene propiedades beneficiosas para la digestión y las funciones depurativas, está implicado en el metabolismo de los hidratos de carbono y Sin colorante hace alarde de propiedades antioxidantes. Muchas de las cualidades del cardo dependen de la silimarina, un compuesto de tres flavonoides capaz de dificultar la interacción entre Sin conserva algunas sustancias tóxicas y las"
+pdf-salud-037,1,COMBINACIÓN EXCLUSIVA DE ENZIMAS DIGESTIVAS DIGEASY® CARACTERÍ
+pdf-salud-037,2,AYUDA A ABSORBER TODOS LOS NUTRIENTES DE LA DIETA Sin gluten
+pdf-salud-037,3,ÚTIL PARA LA INTOLERANCIA A LA LACTOSA Sin lactosa ENZIMAS DIGEASY® Sin edulcoran Exclusiva combinación de enzimas digestivas estudiada para actuar sobre los principales nutrientes que constituyen una comida. Compuesto por: Sin azúcares ALFA-GALACTOSIDASA Sin conserva Esta enzima es necesaria para la digestión de los azúcares complejos como algunos Con colorant oligosacáridos que contienen las legumbres. Estos azúcares son normalmente indigestos para el hombre y la
+pdf-salud-039,1,Con colorant
+pdf-salud-039,2,EXTRACTOS DE ACCIÓN CARMINATIVA Y RELAJANTE DE LA MUSCULATURA INTESTINAL
+pdf-salud-039,3,CON MEZCLA DE ENZIMAS PENSADA PARA PROMOVER LA DIGESTIÓN Puede conten trazas de glu
+pdf-salud-041,1,"Calambres,"
+pdf-salud-041,2,FÓRMULA CALMANTE GRACIAS A LA MALVA Y MANZANILLA.
+pdf-salud-043,1,"FIBRA SOLUBLE NATURAL, CON ACCIÓN PREBIÓTICA Sin colorante"
+pdf-salud-043,2,ZUMOS NATURALES Y SIN AZÚCARES AÑADIDOS Con lactosa
+pdf-salud-043,3,"ADECUADO PARA NIÑOS Y MUJERES EMBARAZADAS Con conserva FIBRA SOLUBLE PHGG SUNFIBER® APTO Ingrediente de la marca TAIYO, es una goma guar parcialmente hidrolizada, que se obtiene mediante un proceso tecnológicamente avanzado que permite disponer de un producto natural, insípido e inodoro y perfectamente soluble en agua. El principal componente es un +3 años galactomanano, un trisacárido formado por una unidad de manosa y galactosa. Su elevada viscosidad y su forma de suspensión c"
+pdf-salud-045,1,Sin conserva
+pdf-salud-045,2,"SEN SIN EMODINA, ALOE-EMODINA Y DANTRONA"
+pdf-salud-045,3,REGULA EL TRÁNSITO INTESTINAL Y COMBATE EL INTESTINO PEREZOSO APTO
+pdf-salud-047,1,REGULARIZA SIN IRRITAR
+pdf-salud-047,2,TRÁNSITO IN
+pdf-salud-047,3,FUENTE DE FIBRA SOLUBLE E INSOLUBLE
+pdf-salud-049,1,ARDOR Y DO
+pdf-salud-049,2,"REDUCE LOS SÍNTOMAS COMO ARDOR, DOLOR Y ACIDEZ DE FORMA NATURAL PROTEGIENDO LA MUCOSA"
+pdf-salud-049,3,MUCOSA GÁ
+pdf-salud-051,1,ESOFAGITIS
+pdf-salud-051,2,PRESENCIA ELEVADA DE COMPONENTES VEGETALES DE ALTA EFICACIA
+pdf-salud-051,3,SABOR VAINILLA
+pdf-salud-054,1,"IDEAL PARA TODOS LOS TIPOS DE TOS Sin conserva COMPOSICIÓN NATURAL Y SEGURA PARA TODOS, INCLUSO PARA PERSONAS CON DIABETES Sin colorante TIPOS DE TOS La tos es un mecanismo natural del cuerpo que ayuda a proteger las vías respiratorias. APTO Puede manifestarse en diferentes formas, cada una con sus propias causas y caracterís- ticas. +3 años La tos seca se caracteriza por la ausencia de moco y es a menudo irritante. Las causas más comunes incluyen inflamación de las vías respiratorias altas, como faringitis o larin- Adultos gitis, alergias, reflujo gastroesofágico y exposición a irritantes amb"
+pdf-salud-056,1,CON LARIXICINA® DE ACCIÓN ANTIMICROBIANA TESTADA Y POTENCIADA NO APTO
+pdf-salud-056,2,CON MIEL ITALIANA BIOLÓGICA Durante el em
+pdf-salud-056,3,SABOR ÓPTIMO Durante la la Veganos FÓRMULA
+pdf-salud-058,1,RESFRIADO
+pdf-salud-058,2,ELEVADA EFICACIA
+pdf-salud-058,3,COMPLEJO POLISEDOX® CARACTERÍ
+pdf-salud-060,1,ACCIÓN ANTIMICROBIANA Adultos
+pdf-salud-060,2,CON MIEL DE MANUKA CON ESTUDIOS DE EFICACIA
+pdf-salud-060,3,AGRADABLE SABOR A FRAMBUESA Durante el em
+pdf-salud-062,1,CON LARIXICINA® DE ACCIÓN ANTIMICROBIANA TESTADA Y POTENCIADA Personas ma
+pdf-salud-062,2,CON ERÍSIMO PARA EL TONO DE LA VOZ Durante el em
+pdf-salud-062,3,CÁPSULAS BLANDAS Y AGRADABLES DE MASTICAR Durante la la *Previo consejo m NO APTO Vegetarianos Veganos FÓRMULA
+pdf-salud-064,1,ACCIÓN BALSÁMICA
+pdf-salud-064,2,EFICACIA ELEVADA Sin gluten
+pdf-salud-064,3,"EXCELENTE PALATABILIDAD Sin lactosa ALOE VERA Sin edulcoran Las hojas carnosas del Aloe vera contienen un gel compuesto por aproximadamente el Sin azúcares 99% de agua y el restante 1% de polisacáridos, enzimas, vitaminas, minerales y ácidos orgánicos. Gracias a la presencia de mono y polisacáridos, desempeña una acción emoliente, Sin conserva humectante e hidratante. Impide la adhesión a las mucosas de los agentes externos irritantes, ejerciendo una acción muy filmógena en la cavidad oral. APTO ERÍSIMO El Erísimo tiene propiedades emolientes"
+pdf-salud-065,1,CAVIDAD OR
+pdf-salud-065,2,CON UNA PRÁCTICA CÁNULA PARA APLICACIÓN LOCAL
+pdf-salud-065,3,ACCIÓN PURIFICANTE EFICAZ CARACTERÍ
+pdf-salud-066,1,ACCIÓN BALSÁMICA Sin gluten
+pdf-salud-066,2,EFICACIA ELEVADA Sin lactosa
+pdf-salud-066,3,"EXCELENTE PALATABILIDAD Sin azúcares ALOE VERA Las hojas carnosas de Aloe vera contienen un gel compuesto por aproximadamente el APTO 99% de agua y el restante 1% de polisacáridos, enzimas, vitaminas, minerales y ácidos orgánicos. Gracias a la presencia de mono y polisacáridos, tiene una acción emoliente, +12 años humectante e hidratante. Impide la adhesión a las mucosas de los agentes externos irritantes, desempeñando una acción filmógena en la cavidad oral. Adultos CALÉNDULA Vegetarianos La caléndula tiene una acción emoliente y"
+pdf-salud-068,1,Sin lactosa
+pdf-salud-068,2,RICO EN N-ACETILCISTEÍNA
+pdf-salud-068,3,MEZCLA DE SUSTANCIAS NATURALES QUE DILUYEN LA MUCOSIDAD Sin azúcares
+pdf-salud-070,1,SINERGIA DE INGREDIENTES QUE AYUDAN A ALIVIAR LOS SÍNTOMAS DEL RESFIRADO Con edulcora
+pdf-salud-070,2,ALTA DOSIS DE SALICILINA Y VITAMINA C
+pdf-salud-070,3,"ELEVADA EFICACIA APTO VITAMINAS Y MINERALES PARA EL SISTEMA INMUNITARIO +12 años La vitamina C es uno de los antioxidantes biológicos más importantes. Su acción protege Adultos proteínas, lípidos, carbohidratos y ácidos nucleicos frente a los radicales libres que se generan durante el normal funcionamiento del metabolismo o como consecuencia de la Vegetarianos exposición a toxinas y agentes contaminantes. El zinc es un componente de infinidad de factores de transici"
+pdf-salud-072,1,SECRECIÓN
+pdf-salud-072,2,CON N-ACETILCISTEÍNA Y ÁCIDO HIALURÓNICO
+pdf-salud-072,3,ACCIÓN FLUIDIFICANTE E HIDRATANTE
+pdf-salud-074,1,"• CON ÁCIDO HIALURÓNICO Sin conserva · APTO A PARTIR DE 1 AÑO · SISTEMA BAG ON VALVE: EROGACIÓN 360º Sin alcohol EXPERIENCIA FORMULATIVA Sin gas prope SOLUCIÓN HIPERTÓNICA La solución hipertónica se caracteriza por una concentración de sales superior a la APTO concentración salina de nuestros fluidos biológicos. Sus propiedades descongestionantes se aprovechan especialmente en casos de rinitis, rinosinusitis, resfriados, otitis y mucosidad, +1 año ya que, gracias a la acción osmótica derivada de su alto contenido en sal, atrae agua desde las células, reduciendo el edema de la mucosa, fluidific"
+pdf-salud-077,1,MEZCLA EQUILIBRADA DE VITAMINAS Y MINERALES Vegetarianos
+pdf-salud-077,2,RÁPIDA DISOLUCIÓN *Previo consejo m
+pdf-salud-077,3,SABOR AGRADABLE NO APTO FÓRMULA
+pdf-salud-079,1,Durante la la
+pdf-salud-079,2,GRUPO COMPLETO Y EQUILIBRADO DE VITAMINAS Y MINERALES
+pdf-salud-079,3,MINERALES QUELADOS PARA UNA MAYOR BIODISPONIBILIDAD *Previo consejo m
+pdf-salud-081,1,SALUD DE L
+pdf-salud-081,2,VITAMINA D3 2000 U.I.
+pdf-salud-081,3,SABOR AGRADABLE
+pdf-salud-083,1,SIN AZÚCAR
+pdf-salud-083,2,DEPORTISTA
+pdf-salud-083,3,SABOR ÓPTIMO
+pdf-salud-085,1,ENERGÍA
+pdf-salud-085,2,VITAMINA C DE ORIGEN NATURAL Y SINTÉTICO
+pdf-salud-085,3,COMPRIMIDO BICAPA
+pdf-salud-087,1,ELEVADA DOSIS EN UN ÚNICO COMPRIMIDO
+pdf-salud-087,2,ABSORCIÓN
+pdf-salud-087,3,RÁPIDA DISOLUCIÓN
+pdf-salud-089,1,Adultos
+pdf-salud-089,2,MEZCLA EQUILIBRADA DE VITAMINAS DEL GRUPO B
+pdf-salud-089,3,CON COLINA E INOSITOL PARA UNA ACCIÓN GLOBAL Durante el em
+pdf-salud-091,1,COMBINACIÓN DE ACTIVOS ANTIOXIDANTES Y PROTECTORES DE LA PIEL Durante la la
+pdf-salud-091,2,FAVORECE UN BRONCEADO INTENSO *Previo consejo m
+pdf-salud-091,3,"CONTRIBUYE A CONSERVAR EL BRONCEADO DURANTE MÁS TIEMPO NO APTO ACEITE DE SEMILLAS DE GROSELLA NEGRA La Grosella Negra (Ribes nigrum) es una planta que crece espontáneamente en Europa. De Durante el em sus semillas, se extrae un aceite con alto contenido en ácido γ linolénico (GLA) y presencia del ácido α-linolénico (ALA). El GLA es conocido por sus propiedades antiinflamatorias, Vegetarianos antitrombóticas y sus beneficios en el tratamiento de infecciones de la pie"
+pdf-salud-093,1,"ANSIA, TON"
+pdf-salud-093,2,SALES DE MAGNESIO DE ALTA BIODISPONIBILIDAD
+pdf-salud-093,3,ALTA DOSIS POR CADA SOBRE
+pdf-salud-095,1,MAGNESIO SUCROSOMIAL® ULTRAMAG®
+pdf-salud-095,2,BIENESTAR
+pdf-salud-095,3,GASTRORRESISTENTE MENOPAUS
+pdf-salud-097,1,LA MENOPA
+pdf-salud-097,2,ALTA CONCENTRACIÓN DE HIERRO DE ELEVADA DISPONIBILIDAD
+pdf-salud-097,3,NO IRRITA NI PROVOCA PESADEZ DE ESTÓMAGO CARACTERÍ
+pdf-salud-100,1,EFICACIA CLÍNICAMENTE TESTADA DESPUÉS DE 1 MES DE TRATAMIENTO
+pdf-salud-100,2,-22% DE TRIGLICÉRIDOS
+pdf-salud-100,3,+4% COLESTEROL BUENO HDL
+pdf-salud-102,1,FUENTE CERTIFICADA DE OMEGA-3 DE PESCA SOSTENIBLE
+pdf-salud-102,2,METABOLIS
+pdf-salud-102,3,ALTA BIODISPONIBILIDAD
+pdf-salud-104,1,CARACTERÍ
+pdf-salud-104,2,A BASE DE EXTRACTOS VEGETALES SELECCIONADOS Y CON ACCIÓN SINÉRGICA
+pdf-salud-104,3,DOBLE ACCIÓN: DRENANTE Y PROTECTORA DE LA MICROCIRCULACIÓN
+pdf-salud-106,1,PLAQUETAR
+pdf-salud-106,2,EFICAZ COMO PROTECTOR VASCULAR Y HEMORROIDAL CON EL MÉD
+pdf-salud-106,3,BIOFLAVONOIDES SELECCIONADOS CON DOBLE ACCIÓN PARA UN EFECTO LARGA TOMAR EL P DURACIÓN
+pdf-salud-109,1,ACCIÓN DRENANTE INMEDIATA Con edulcora
+pdf-salud-109,2,BUEN SABOR
+pdf-salud-109,3,"SIN AZÚCARES APTO RETENCIÓN DE LÍQUIDOS +12 años La retención de líquidos es un trastorno bastante común que puede deberse a múltiples Vegetarianos factores, como el uso de corticoides o de anticonceptivos orales. A menudo, la causa principal es un estilo de vida poco saludable que se puede corregir con pequeños cambios. Veganos El tratamiento de la retención de líquidos se basa en corregir las causas subyacentes del trastorno, como el tabaquismo, el consumo excesivo de alcohol, el sobrepeso, el exceso de sal en la alimentación y el seden"
+pdf-salud-111,1,CON UN INNOVADOR EXTRACTO DE PÉPTIDOS DE LEVADURA CON ACCIÓN SACIANTE Sin lactosa
+pdf-salud-111,2,CON POLVO DE ALGARROBA Sin azúcares
+pdf-salud-111,3,ESTUDIOS DE EFICACIA QUE AVALAN LAS MATERIAS PRIMAS CON 500 MG DE DNF-10® AL DÍA Sin edulcoran
+pdf-salud-113,1,Sin gluten
+pdf-salud-113,2,LIBERA LAS GRASAS DE LOS DEPÓSITOS Sin lactosa
+pdf-salud-113,3,FAVORECE LA REMODELACIÓN
+pdf-salud-115,1,ACTIVOS DE EFICACIA PROBADA Sin colorante
+pdf-salud-115,2,CON COLÁGENO VERISOL®
+pdf-salud-115,3,BUEN SABOR APTO
+pdf-salud-117,1,MEZCLA DE ACTIVOS CON ACCIÓN SINÉRGICA
+pdf-salud-117,2,EXCELENTE PARA EQUILIBRAR EL PESO CORPORAL NO APTO
+pdf-salud-117,3,ESTUDIOS DE EFICACIA CON 900 MG/DÍA DE SINETROL® XPUR Durante el em
+pdf-salud-120,1,EXCELENTE CONTRA EL JET LAG Sin gluten
+pdf-salud-120,2,REGULAR EL CICLO SUEÑO VIGILIA
+pdf-salud-120,3,"CON TRIPTÓFANO, PRECURSOR DE LA MELATONINA Sin lactosa Sin azúcares MELATONINA Sin conserva La Melatonina, una sustancia que nuestro organismo produce de forma natural, actúa regulando el ciclo sueño-vigilia. Segregada justo después de la oscuridad, su concentración Sin edulcoran se reduce gradualmente cuando se acerca la mañana. Si se toma durante las primeras horas de la noche puede inducir y mantener el sueño, normalizando el ritmo en caso de Con colorant variaciones debidas a repentinos cambios de huso horario o en"
+pdf-salud-122,1,Sin gluten
+pdf-salud-122,2,EFECTO RÁPIDO
+pdf-salud-122,3,FÓRMULA PRÁCTICA EN SPRAY ORAL Sin azúcares
+pdf-salud-124,1,Adultos
+pdf-salud-124,2,ACCIÓN RELAJANTE Y FAVORECEDORA DEL BIENESTAR MENTAL
+pdf-salud-124,3,LIBERACIÓN MODIFICADA Personas ma
+pdf-salud-126,1,MATERIA PRIMA TITULADA Y CONCENTRADA
+pdf-salud-126,2,DEPORTISTA
+pdf-salud-126,3,EFICACIA ANTIESTRÉS
+pdf-salud-128,1,MODULA EL CORTISOL +12 años
+pdf-salud-128,2,"RELAJACIÓN Adultos ESTRÉS Y CORTISOL: UN EQUILIBRIO DELICADO Personas ma El estrés es una respuesta natural de nuestro cuerpo ante demandas o amenazas, ya sean Durante la la físicas, mentales o emocionales. Aunque el estrés agudo y de corta duración puede ser útil para afrontar situaciones de peligro o mejorar nuestro rendimiento, el estrés crónico Vegetarianos puede tener efectos perjudiciales para nuestra salud. Uno de los principales protagonistas en esta compleja interacción es el Cortisol, a menudo denominado la hormona del estrés. Veganos *Previo consejo m"
+pdf-salud-130,1,SINERGIA POSITIVA ENTRE LA LAVANDA Y EL AZAFRÁN Sin edulcoran
+pdf-salud-130,2,"NO CAUSA SOMNOLENCIA, ADECUADO PARA EL USO DIURNO"
+pdf-salud-130,3,"EN CÁPSULAS BLANDAS VEGETALES, CON TECNOLOGÍA OMEGAZERO® PARA REDUCIR EL REGUSTO APTO +12 años ACEITE ESENCIAL DE LAVANDA El aceite esencial de Lavanda es un concentrado de terpenos capaces de atravesar las Adultos membranas celulares, por lo que también ejerce una acción en concentraciones muy bajas. Los efectos ansiolíticos de la lavanda son debidos a la capacidad del linalol y del acetato Personas ma de linalilo de inhibir los canales de calcio dependientes de voltaje, de re"
+pdf-salud-132,1,CON PASIFLORA PUREPASSICALMTM Y EXTRACTOS VEGETALES CERTIFICADOS Sin colorante
+pdf-salud-132,2,ADECUADO PARA ALIVIAR LOS ESTADOS DE ANSIEDAD Y FAVORECER LA RELAJACIÓN EN CUALQUIER MOMENTO DEL DÍA APTO
+pdf-salud-132,3,"CON PIPETA GRADUADA PARA FACILITAR Y SIMPLIFICAR LA TOMA +3 años ANSIEDAD La ansiedad se manifiesta mediante un sentimiento de preocupación persistente y una Adultos sensación de peligro poco claro que impide la relajación. El estado de ansiedad puede ser transitorio (provocado, por ejemplo, por exámenes, accidentes, ciclo menstrual, etc.) o Personas ma generalizado. Actualmente, los mecanismos moleculares"
+pdf-salud-135,1,AMBIENTES
+pdf-salud-135,2,REDUCCIÓN DE ARRUGAS DE DESHIDRATACIÓN
+pdf-salud-135,3,DEPORTISTA
+pdf-salud-137,1,CON COLÁGENO VERISOL® CARACTERÍ
+pdf-salud-137,2,"APORTA ELASTICIDAD, FIRMEZA Y LUMINOSIDAD A LA PIEL Sin gluten"
+pdf-salud-137,3,"FORMATO PRÁCTICO MONODOSIS Sin lactosa COLÁGENO Sin azúcares El Colágeno es la fibra insoluble más abundante presente en la matriz extracelular de la piel, junto con la elastina y el ácido hialurónico. Consta de 3 cadenas polipeptídicas entrelazadas Sin colorante entre ellas que forman la unidad base del colágeno, el tropocolágeno. Existen diversos tipos de colágeno con diversas localizaciones: el más importante es el Con edulcora colágeno de tipo I, que se localiza en la dermis, donde mantiene"
+pdf-salud-139,1,ELEVADO PODER ANTIOXIDANTE
+pdf-salud-139,2,SALUD DE L
+pdf-salud-139,3,DOSIS ALTA DE COENZIMA Q10 Y VITAMINA E
+pdf-salud-141,1,PATENTE INNOVADORA BELIGHT3™
+pdf-salud-141,2,CON NIACINA Sin gluten
+pdf-salud-141,3,"EFICACIA PROBADA CON RESULTADOS VISIBLES EN TAN SOLO 15 DÍAS Sin azúcares MANCHAS CUTÁNEAS La hiperpigmentación cutánea es una afección común que se caracteriza por la producción Sin conserva excesiva de melanina, el pigmento responsable del color de la piel. Esta afección puede manifestarse de varias formas, entre ellas, pecas, melasma, lunares, manchas solares (lént- igo solar) y manchas de envejecimiento, y puede estar condicionada por diversos factores, APTO como la exposición a los rayos UV, el envejecimiento, los desequilibrios ho"
+pdf-salud-143,1,Sin lactosa
+pdf-salud-143,2,CON ACEITE DE SEMILLAS DE CALABAZA CON EFECTO ANTIANDROGÉNICO Sin azúcares
+pdf-salud-143,3,COMPONENTES FUNDAMENTALES PARA CABELLO Y UÑAS
+pdf-salud-146,1,ABSORCIÓN DE CALCIO Y DEPÓSITO EN LOS HUESOS
+pdf-salud-146,2,MENOPAUS
+pdf-salud-146,3,"APOYO SALUD ÓSEA, MUSCULAR Y ARTICULAR"
+pdf-salud-148,1,"TRIPLE ACCIÓN: NUTRE HUESOS, CARTÍLAGO Y MÚSCULOS. Personas ma"
+pdf-salud-148,2,EXCELENTE EN CASO DE LESIÓN Y/O FRACTURA.
+pdf-salud-148,3,"REFUERZO DE ARTICULACIONES PARA DEPORTISTAS, RECUPERACIÓN DE LESIONES, Durante el em PERSONAS DE EDAD AVANZADA. Durante la la FUNDAMENTOS *Previo consejo m DÓNDE ACTÚAN LOS DIFERENTES ACTIVOS A NIVEL ARTICULAR: NO APTO COLÁGENO MÚSCULO + VITAMINA K2 VITAMINA C Vegetarianos + + VITAMINA D3 VITAMINA D3 + + Veganos MANGANESO VITAMINA E + COLÁGENO + CARTÍLAGO COLÁGENO VITAMINA E + LIGAMENTO VITAMINA C + HUESO TENDÓN MANGANESO + VITAMINA E FÓRMULA"
+pdf-salud-150,1,Sin azúcares
+pdf-salud-150,2,RÁPIDA ACCIÓN ANTIINFLAMATORIA Y ANALGÉSICA Sin colorante
+pdf-salud-150,3,"PRÁCTICO Y DE BOLSILLO, SE PUEDE TOMAR SIN AGUA"
+pdf-salud-153,1,HIDRATANTE Y LUBRICANTE
+pdf-salud-153,2,TPROASTTAQMUIIERNÚ
+pdf-salud-153,3,USO INTERNO Y EXTERNO
+pdf-salud-155,1,COMPRIMIDOS BICAPA DE DOBLE ACCIÓN CON LIBERACIÓN MODIFICADA APTO
+pdf-salud-155,2,ACCIÓN ANTIBACTERIANA RÁPIDA A NIVEL URINARIO
+pdf-salud-155,3,"ACCIÓN ANTIMICROBIANA EN EL INTESTINO, DONDE SE ORIGINAN LOS PROBLEMAS +12 años UROGENITALES Adultos CISTITIS Y CANDIDIASIS Personas ma La cistitis y la candidiasis son dos condiciones comunes, a menudo confundidas entre sí, pero con causas y síntomas distintos. Los principales síntomas de la cistitis son: micción Vegetarianos frecuente y urgente, ardor o dolor al orinar, sensación de presión o dolor en la parte baja del abdomen, orina turbia, mal olor o con trazas de sangre. E"
+pdf-salud-157,1,PATENTE BERRY DEFENCE® Sin colorante
+pdf-salud-157,2,D-MANOSA A DOSIS ELEVADA Sin conserva
+pdf-salud-157,3,"BUEN SABOR CRANBERRY O ARÁNDANO ROJO AMERICANO APTO El Arándano rojo (Vaccinium macrocarpon Ait.), comúnmente conocido como arándano +3 años rojo americano, es una pequeña planta originaria del noreste de los Estados Unidos que produce bayas rojas. Contribuye a la funcionalidad de las vías urinarias: por ejemplo, impide Adultos la adhesión de bacterias a la mucosa de la vejiga. El Arándano es conocido por su composición fitoquímica compleja y abundantemente Durante el em caracterizada por la presencia de flavan-3-"
+pdf-salud-159,1,ESPECIES TÍPICAS DEL BACILO DE DÖDERLINE
+pdf-salud-159,2,COLONIZACIÓN DE LAS CEPAS EN EL TRACTO UROGENITAL CARACTERÍ
+pdf-salud-159,3,"BLISTER DE PROTECCIÓN ADICIONAL Sin gluten LA MICROBIOTA URINARIA Y GENITAL Sin lactosa La microbiota urinaria y genital, compuesta por aprox. 107 células, varía considerablemente en función de la edad y las etapas de la vida de la mujer pero, por lo general, está dominada Sin azúcares por lactobacilos. En concreto, encontramos el llamado bacilo de Döderlein, un grupo heterogéneo de lactobacilos acidófilos que contribuye a la estabilidad del pH urogenital. Sin edulcoran La posible reducci"
+pdf-salud-161,1,CON PASIFLORA PUREPASSICALM™ Y CIMICÍFUGA.
+pdf-salud-161,2,SIN ISOFLAVONAS DE SOJA O TRIFOLIUM. APTO
+pdf-salud-161,3,"CON RANURA, PARA PERSONALIZAR LA TOMA. Adultos MENOPAUSIA Personas ma La menopausia se caracteriza por una disminución significativa de los niveles de estrógeno en el organismo y suele ir acompañada por la aparición de síntomas muy variados que Vegetarianos incluyen sofocos, sudores nocturnos, trastornos del sueño, cambios en el estado de ánimo y disminución de la concentración. Veganos Recientemente se ha planteado la hipótesis de que los sofocos pueden ser provocados por un reajuste del ""termostato int"
+pdf-salud-164,1,CARACTERÍ
+pdf-salud-164,2,CERTIFICACIÓN BIOLÓGICA COSMOS ORGANIC
+pdf-salud-164,3,EXTRACTO DE ÁRNICA 125 VECES MÁS CONCENTRADO
+pdf-salud-166,1,cuerpo. No a
+pdf-salud-166,2,ACCIÓN ANTITRAUMATISMO Y ANTIEDEMA las mucosas
+pdf-salud-166,3,EFECTO FRÍO FRENTE A LA HINCHAZÓN No utilizar s
+pdf-salud-168,1,EFECTO CALOR AGRADABLE
+pdf-salud-168,2,DESARROLL EN COLABO
+pdf-salud-168,3,SINERGIA DE ÁRNICA Y HARPAGOFITO CON INSTIT
+pdf-salud-170,1,5 ACTIVOS DE ACCIÓN VENOTÓNICA Y ANTIEDEMA
+pdf-salud-170,2,EFECTO FRÍO INMEDIATO Y PROLONGADO
+pdf-salud-170,3,FORMULAD
+pdf-salud-172,1,EMULSIÓN W/O. NO PRODUCE PICOR
+pdf-salud-172,2,CON CERAMIDAS Y COLESTEROL
+pdf-salud-172,3,CON ISOPALMIDE® FÓRMULA
+pdf-salud-174,1,PROTECCIÓN DE LA PIEL + 3 años
+pdf-salud-174,2,ANTI-ROJECES
+pdf-salud-174,3,CALMANTE Durante el em
+pdf-salud-176,1,EMOLIENTE INTENSIVO CUONNIV EINRSSTITITA
+pdf-salud-176,2,ACCIÓN DESODORIZANTE Y REFRESCANTE
+pdf-salud-176,3,TESTADO
+pdf-salud-178,1,UNIVERSITA
+pdf-salud-178,2,PORCENTAJE DE UREA ELEVADO
+pdf-salud-178,3,ACCIÓN ALISANTE Y EMOLIENTE
+pdf-salud-181,1,Y SI ES NEC
+pdf-salud-181,2,"EFICAZ DURANTE 8 HORAS CONTRA INSECTOS, MOSQUITOS Y GARRAPATAS CONSULTAR"
+pdf-salud-181,3,SEGURO PARA TODA LA FAMILIA
+pdf-salud-183,1,ADVERTENC
+pdf-salud-183,2,"CALMANTE, ANTIPICOR"
+pdf-salud-183,3,PICADURAS DE INSECTOS Y PLANTAS
+pdf-salud-185,1,FORMULAD
+pdf-salud-185,2,ALIVIO RÁPIDO NATURAL EL RIESGO D
+pdf-salud-185,3,IDEAL PARA CARA Y CUERPO
+pdf-salud-188,1,DOBLE ACCIÓN HIDRATANTE Y LUBRICANTE
+pdf-salud-188,2,Tras la aper ampolla se
+pdf-salud-188,3,COMPATIBLE CON LENTILLAS cerrar de nu
+pdf-salud-190,1,Sin gluten
+pdf-salud-190,2,DOBLE ACCIÓN HIDRATANTE Y LUBRICANTE
+pdf-salud-190,3,COMPATIBLE CON LENTILLAS Sin conserva
+pdf-salud-192,1,TEJIDO NO TEJIDO DE BAMBÚ
+pdf-salud-192,2,BIODEGRADABILIDAD CERTIFICADA Sin conserva
+pdf-salud-192,3,"POSIBILIDAD DE CALENTARLA O ENFRIARLA Sin perfume ÁCIDO HIALURÓNICO APTO El Ácido hialurónico es un compuesto no sensibilizante y no irritante, que posee no solo propiedades eudérmicas y calmantes, sino también una elevada higroscopicidad, es decir, +0 años la capacidad de absorber agua. Es una molécula que se encuentra naturalmente en el tejido conectivo, tiene una acción lubrificante y favorece la hidratación correcta de la zona irritada. Adultos MALVA Durante el em La Malva, gracias a los mucílagos que se extraen de"
+pdf-salud-195,1,"< 0,0001% ("
+pdf-salud-195,2,ELEVADA EFICACIA CALMANTE Y ANTIMICROBIANA
+pdf-salud-195,3,CON ÁCIDO HIALURÓNICO PARA UNA EFICACIA PROTECTORA Sin alcohol
+pdf-salud-197,1,PATENTE CLOREX-A2G® QUE NO MANCHA LOS DIENTES Durante la la
+pdf-salud-197,2,3 POSIBILIDADES DE TRATAMIENTO
+pdf-salud-197,3,"SIN ALCOHOL Vegetarianos CLORHEXIDINA: PATENTE CLOREX-A2G® Veganos La Clorhexidina es una de las principales causas de discromias dentales y de alteraciones superficiales del color de los dientes. Los mecanismos de acción que llevan a la formación de las pigmentaciones de Clorhexidina son principalmente tres: reacción de Maillard, reacción de desnaturalización de proteínas e interacciones con alimentos y bebidas ricos en sustancias cromogénicas. CLOREX-A2G® estabiliza la Clorhexidina mediante una i"
+pdf-salud-199,1,CON ÁCIDO HIALURÓNICO DE ACCIÓN HIDRATANTE Y REPARADORA Adultos
+pdf-salud-199,2,FÓRMULA SIN CONSERVANTES NI ALÉRGENOS
+pdf-salud-201,1,ALIVIO RÁPIDO DEL DOLOR Personas ma
+pdf-salud-201,2,ELEVADA ADHESIVIDAD GRACIAS A P4-SIVTM
+pdf-salud-201,3,"ACCIÓN ANTIMICROBIANA GRACIAS A CLOREX-A2G® Durante el em QUÉ ES EL AFTA Durante la la Un afta es una lesión ulcerosa superficial de origen inflamatorio, de forma redondeada y Vegetarianos blanquecina, perfectamente delimitada y con los bordes enrojecidos, acompañada de dolor y escozor. Se localiza en la parte interna de los labios o las mejillas, en los márgenes de Veganos la lengua o en el paladar. Su aparición se puede ver favorecida por diversos factores: *Previo consejo m"
+pdf-salud-204,1,APTO
+pdf-salud-204,2,PERFIL AMINOACÍDICO COMPLETO
+pdf-salud-204,3,"APORTE DIARIO DE PROTEÍNA: 21g POR DÍA (SABOR CHOCOLATE/VAINILLA), +12 años 27g POR DÍA (SABOR NEUTRO)"
+pdf-salud-206,1,PERFIL AMINOÁCIDICO COMPLETO +12 años
+pdf-salud-206,2,27 g DE PROTEÍNA AL DÍA Adultos
+pdf-salud-206,3,"COMPLEJO DE 3 FUENTES VEGETALES: GUISANTE, ARROZ Y CÁÑAMO"
+pdf-salud-208,1,Sin gluten
+pdf-salud-208,2,PROPORCIÓN ÓPTIMA 4:1:1
+pdf-salud-208,3,PRECURSOR DE LA SÍNTESIS PROTEICA Sin colorante
+pdf-salud-210,1,APOYA EL BIENESTAR MUSCULAR Sin azúcares
+pdf-salud-210,2,IDEAL EN CONDICIONES HIPERCATABÓLICAS O PÉRDIDA MUSCULAR POR INMOVILIDAD Sin conserva
+pdf-salud-210,3,CONTRARRESTA EL CATABOLISMO MUSCULAR Sin edulcoran Lactosa <1% APTO Adultos Personas ma Vegetarianos NO APTO -18 años Durante el em Durante la la FÓRMULA
+pdf-salud-212,1,ESTIMULA EL METABOLISMO ENERGÉTICO Sin conserva
+pdf-salud-212,2,AYUDA A LA FUNCIÓN MUSCULAR Lactosa <1%
+pdf-salud-212,3,"VITAMINA B1, VITAMINA B2, VITAMINA B6 APTO DESHIDRATACIÓN Y CONSECUENCIAS +12 años Nuestro organismo para funcionar bien necesita mantener un estado de hidratación correcto. La pérdida de agua puede causar: calambres, vértigos, cansancio, dolor de cabeza, Adultos mareos, somnolencia o desorientación. Cuando nos sometemos a una exposición solar intensa o realizamos actividad física, no Personas ma solo perdemos agua, sino también sales minerales y energía: Es importante rehidratarse con todas las susta"
