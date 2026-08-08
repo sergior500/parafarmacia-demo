@@ -36,6 +36,9 @@ export interface Product {
   sensitiveSkin?: boolean;
   spf?: number;
   badges?: string[];
+  sourceDocument?: string;
+  sourcePage?: number;
+  dataReviewRequired?: boolean;
 }
 
 export interface Category {
@@ -85,6 +88,10 @@ export function isProductAvailable(product: Product): boolean {
     product.stock > 0 &&
     product.availableForOnlineSale
   );
+}
+
+export function isProductPricePending(product: Product): boolean {
+  return Boolean(product.dataReviewRequired && product.priceInCents <= 0);
 }
 
 export function filterProducts(

@@ -16,7 +16,10 @@ import { FAQSection } from "@/components/shared/faq-section";
 import { ProductVisual } from "@/components/shared/product-visual";
 import { TrustBadges } from "@/components/shared/trust-badges";
 import { Badge } from "@/components/ui/badge";
-import { isProductAvailable } from "@/domain/product/product";
+import {
+  isProductAvailable,
+  isProductPricePending,
+} from "@/domain/product/product";
 import { AddToCartPanel } from "@/features/catalog/add-to-cart-panel";
 import { FavoriteButton } from "@/features/catalog/favorite-button";
 import { ProductCard } from "@/features/catalog/product-card";
@@ -72,6 +75,7 @@ export default async function ProductPage({
   ]);
   if (!product || product.status === "withdrawn") notFound();
   const available = isProductAvailable(product);
+  const pricePending = isProductPricePending(product);
   const category = categories.find((item) => item.id === product.categoryId);
   const related = allProducts
     .filter(
@@ -198,7 +202,9 @@ export default async function ProductPage({
           <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-forest text-3xl font-black tracking-[-.04em]">
-                {formatMoney(product.priceInCents)}
+                {pricePending
+                  ? "Precio pendiente"
+                  : formatMoney(product.priceInCents)}
               </p>
               {product.pricePerUnit ? (
                 <p className="text-ink-muted text-xs">
@@ -213,9 +219,11 @@ export default async function ProductPage({
                   : "bg-stone-200 text-stone-700"
               }
             >
-              {available
-                ? `${product.stock} unidades en stock demo`
-                : "Temporalmente no disponible"}
+              {pricePending
+                ? "Precio y stock pendientes de validación"
+                : available
+                  ? `${product.stock} unidades en stock demo`
+                  : "Temporalmente no disponible"}
             </Badge>
           </div>
 

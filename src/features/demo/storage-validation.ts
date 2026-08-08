@@ -99,6 +99,7 @@ function isOrder(value: unknown): value is Order {
 
 const storedCartSchema = z.array(z.custom<CartLine>(isCartLine));
 const storedOrdersSchema = z.array(z.custom<Order>(isOrder));
+const storedProductsSchema = z.array(z.custom<Product>(isProduct));
 
 function parseStored<T>(
   rawValue: string | null,
@@ -119,4 +120,8 @@ export function parseStoredCart(rawValue: string | null): CartLine[] | null {
 
 export function parseStoredOrders(rawValue: string | null): Order[] | null {
   return parseStored(rawValue, storedOrdersSchema);
+}
+
+export function parseStoredProducts(rawValue: string | null): Product[] | null {
+  return parseStored(rawValue, storedProductsSchema);
 }

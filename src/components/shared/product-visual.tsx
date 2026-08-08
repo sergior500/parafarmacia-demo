@@ -8,6 +8,7 @@ import {
   Sparkles,
   Sun,
 } from "lucide-react";
+import Image from "next/image";
 
 import type { Product } from "@/domain/product/product";
 import { cn } from "@/lib/utils";
@@ -97,11 +98,16 @@ export function ProductVisual({
                   : "facial";
   const theme = visualThemes[themeKey];
   const Icon = theme.icon;
+  const usesCatalogImage = Boolean(product.sourceDocument && product.imageUrl);
 
   return (
     <div
-      role="img"
-      aria-label={`Representación de demostración de ${product.name}`}
+      role={usesCatalogImage ? undefined : "img"}
+      aria-label={
+        usesCatalogImage
+          ? undefined
+          : `Representación de demostración de ${product.name}`
+      }
       className={cn(
         "relative grid aspect-[4/3] place-items-center overflow-hidden rounded-[1.4rem] bg-gradient-to-br",
         theme.background,
@@ -115,25 +121,37 @@ export function ProductVisual({
         )}
       />
       <span className="absolute -bottom-16 -left-8 size-36 rounded-full border-[1.8rem] border-white/45" />
-      <span className="absolute top-4 left-4 text-[0.52rem] font-black tracking-[0.16em] text-black/30 uppercase">
-        Producto demo
+      <span className="absolute top-4 left-4 z-10 text-[0.52rem] font-black tracking-[0.16em] text-black/30 uppercase">
+        {usesCatalogImage ? "Ficha de catálogo" : "Producto demo"}
       </span>
 
-      <div className="relative flex h-[68%] w-[42%] min-w-28 flex-col items-center justify-between rounded-[1.7rem_1.7rem_1.1rem_1.1rem] border border-white/85 bg-white px-3 pt-4 pb-3 shadow-[0_24px_45px_-20px_rgba(18,63,56,.42)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-[1deg]">
-        <span className="absolute -top-2 h-3 w-[58%] rounded-t-lg bg-white/90 shadow-sm" />
-        <span className="text-center text-[0.5rem] font-extrabold tracking-[0.1em] text-black/40 uppercase">
-          {product.brandOrLaboratory}
-        </span>
-        <Icon
-          aria-hidden="true"
-          className={cn("my-1 size-6", theme.accentText)}
-          strokeWidth={1.7}
-        />
-        <span className="text-forest text-center text-[0.7rem] leading-[1.05] font-extrabold tracking-[-0.02em]">
-          {product.name}
-        </span>
-        <span className={cn("mt-2 h-1.5 w-10 rounded-full", theme.accent)} />
-      </div>
+      {usesCatalogImage ? (
+        <div className="relative h-[78%] w-[72%] transition-transform duration-300 group-hover:-translate-y-1">
+          <Image
+            alt={product.name}
+            className="object-contain mix-blend-multiply drop-shadow-[0_22px_20px_rgba(18,63,56,.18)]"
+            fill
+            sizes="(max-width: 640px) 72vw, (max-width: 1024px) 34vw, 24vw"
+            src={product.imageUrl}
+          />
+        </div>
+      ) : (
+        <div className="relative flex h-[68%] w-[42%] min-w-28 flex-col items-center justify-between rounded-[1.7rem_1.7rem_1.1rem_1.1rem] border border-white/85 bg-white px-3 pt-4 pb-3 shadow-[0_24px_45px_-20px_rgba(18,63,56,.42)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-[1deg]">
+          <span className="absolute -top-2 h-3 w-[58%] rounded-t-lg bg-white/90 shadow-sm" />
+          <span className="text-center text-[0.5rem] font-extrabold tracking-[0.1em] text-black/40 uppercase">
+            {product.brandOrLaboratory}
+          </span>
+          <Icon
+            aria-hidden="true"
+            className={cn("my-1 size-6", theme.accentText)}
+            strokeWidth={1.7}
+          />
+          <span className="text-forest text-center text-[0.7rem] leading-[1.05] font-extrabold tracking-[-0.02em]">
+            {product.name}
+          </span>
+          <span className={cn("mt-2 h-1.5 w-10 rounded-full", theme.accent)} />
+        </div>
+      )}
     </div>
   );
 }

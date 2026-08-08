@@ -8,7 +8,11 @@ import { ProductVisual } from "@/components/shared/product-visual";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getMaximumCartQuantity } from "@/domain/cart/cart";
-import { isProductAvailable, type Product } from "@/domain/product/product";
+import {
+  isProductAvailable,
+  isProductPricePending,
+  type Product,
+} from "@/domain/product/product";
 import { FavoriteButton } from "@/features/catalog/favorite-button";
 import { useDemo } from "@/features/demo/demo-provider";
 import { formatMoney } from "@/lib/format";
@@ -18,6 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
   const available = isProductAvailable(product);
+  const pricePending = isProductPricePending(product);
   const maximum = getMaximumCartQuantity(product);
   const existingQuantity =
     cart.find((line) => line.product.id === product.id)?.quantity ?? 0;
@@ -82,7 +87,9 @@ export function ProductCard({ product }: { product: Product }) {
           <div className="flex items-end justify-between gap-3">
             <span>
               <strong className="text-forest block text-lg font-black tracking-[-.035em]">
-                {formatMoney(product.priceInCents)}
+                {pricePending
+                  ? "Precio pendiente"
+                  : formatMoney(product.priceInCents)}
               </strong>
               {product.pricePerUnit ? (
                 <span className="text-ink-muted block text-[.62rem]">
@@ -93,7 +100,11 @@ export function ProductCard({ product }: { product: Product }) {
             <span
               className={`text-[.65rem] font-bold ${available ? "text-emerald-700" : "text-stone-500"}`}
             >
-              {available ? "En stock" : "No disponible"}
+              {available
+                ? "En stock"
+                : pricePending
+                  ? "Pendiente de alta"
+                  : "No disponible"}
             </span>
           </div>
           <div className="mt-3 flex gap-2">
@@ -144,7 +155,7 @@ export function ProductCard({ product }: { product: Product }) {
               onClick={handleAdd}
               aria-label={
                 !available
-                  ? `${product.name} no disponible`
+                  ? `${product.name} no disponible para venta`
                   : remaining
                     ? `Añadir ${selectedQuantity} ${product.name} al carrito`
                     : `Límite alcanzado para ${product.name}`
@@ -157,7 +168,9 @@ export function ProductCard({ product }: { product: Product }) {
               )}
               <span className="hidden min-[360px]:inline">
                 {!available
-                  ? "No disponible"
+                  ? pricePending
+                    ? "Próximamente"
+                    : "No disponible"
                   : remaining > 0
                     ? message.includes("añadida")
                       ? "Añadido"
@@ -172,7 +185,9 @@ export function ProductCard({ product }: { product: Product }) {
           >
             {message ||
               (!available
-                ? "Temporalmente no disponible"
+                ? pricePending
+                  ? "Precio y stock pendientes de validación"
+                  : "Temporalmente no disponible"
                 : existingQuantity
                   ? `${existingQuantity} en cesta · máximo ${maximum}`
                   : `Máximo ${maximum} unidades por pedido`)}

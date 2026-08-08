@@ -1,4 +1,5 @@
 import type { Category, Product } from "@/domain/product/product";
+import { productsFromPdf } from "@/mocks/products-from-pdf";
 
 export const categories: Category[] = [
   {
@@ -447,4 +448,5 @@ export const products: Product[] = [
     needs: ["recuperacion-muscular"],
     format: "Soporte elástico",
   }),
+  ...productsFromPdf,
 ];
