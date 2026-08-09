@@ -14,6 +14,7 @@ import {
   type Product,
   type ProductSort,
 } from "@/domain/product/product";
+import { buildAllCategoriesHref } from "@/features/catalog/catalog-navigation";
 import { ProductCard } from "@/features/catalog/product-card";
 import { useDemo } from "@/features/demo/demo-provider";
 import { cn } from "@/lib/utils";
@@ -106,6 +107,17 @@ export function CatalogView({
     });
   }
 
+  function showAllCategories() {
+    router.replace(
+      buildAllCategoriesHref({
+        pathname,
+        search: searchParams.toString(),
+        hasInitialCategory: Boolean(initialCategorySlug),
+      }),
+      { scroll: false },
+    );
+  }
+
   const filterPanel = (
     <div className="grid gap-6">
       <div>
@@ -116,7 +128,7 @@ export function CatalogView({
               "rounded-xl px-3 py-2 text-left text-xs font-bold",
               !categorySlug ? "bg-sage text-forest" : "text-ink-muted",
             )}
-            onClick={() => updateParams({ categoria: "" })}
+            onClick={showAllCategories}
           >
             Todas
           </button>
