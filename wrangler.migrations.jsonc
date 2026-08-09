@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "amapola-parafarmacia-migrations",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "amapola-catalog",
+      "database_id": "00000000-0000-4000-8000-000000000000",
+      "migrations_dir": "drizzle"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import { AdminDashboard } from "@/features/admin/admin-dashboard";
 
 export const metadata: Metadata = {
   title: "Panel interno",
-  description: "Resumen comercial de ventas, pedidos y stock simulados.",
+  description: "Estado real del catálogo y de las integraciones comerciales.",
 };
 
 export default function AdminPage() {

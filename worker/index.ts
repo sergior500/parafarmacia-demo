@@ -6,7 +6,8 @@ import {
 } from "vinext/server/image-optimization";
 
 interface Env {
-  ASSETS: { fetch(request: Request): Promise<Response> };
+  ASSETS?: { fetch(request: Request): Promise<Response> };
+  DB: D1Database;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -36,8 +37,18 @@ const worker = {
       return handleImageOptimization(
         request,
         {
-          fetchAsset: (path) =>
-            env.ASSETS.fetch(new Request(new URL(path, request.url))),
+          fetchAsset: (path) => {
+            const assetUrl = new URL(path, request.url);
+            if (!env.ASSETS && assetUrl.origin !== url.origin) {
+              return Promise.resolve(
+                new Response("Origen de imagen no permitido.", { status: 403 }),
+              );
+            }
+            const assetRequest = new Request(assetUrl);
+            return env.ASSETS
+              ? env.ASSETS.fetch(assetRequest)
+              : fetch(assetRequest);
+          },
           transformImage: async (body, { width, format, quality }) => {
             const result = await env.IMAGES.input(body)
               .transform(width > 0 ? { width } : {})

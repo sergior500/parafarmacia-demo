@@ -1,0 +1,165 @@
+import { sql } from "drizzle-orm";
+import {
+  index,
+  integer,
+  primaryKey,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from "drizzle-orm/sqlite-core";
+
+export const catalogSources = sqliteTable("catalog_sources", {
+  sourceId: text("source_id").primaryKey(),
+  fileName: text("file_name").notNull(),
+  catalogFamily: text("catalog_family").notNull(),
+  description: text("description"),
+  pageCount: integer("page_count").notNull(),
+});
+
+export const categories = sqliteTable(
+  "categories",
+  {
+    categoryId: text("category_id").primaryKey(),
+    slug: text("slug").notNull(),
+    name: text("name").notNull(),
+    description: text("description").notNull().default(""),
+  },
+  (table) => [uniqueIndex("categories_slug_uq").on(table.slug)],
+);
+
+export const products = sqliteTable(
+  "products",
+  {
+    productId: text("product_id").primaryKey(),
+    slug: text("slug").notNull(),
+    lifecycleStatus: text("lifecycle_status").notNull().default("draft"),
+    reviewStatus: text("review_status").notNull().default("pending"),
+    name: text("name").notNull(),
+    brand: text("brand").notNull(),
+    categoryId: text("category_id")
+      .notNull()
+      .references(() => categories.categoryId),
+    sizeLabel: text("size_label"),
+    sizeExtracted: text("size_extracted"),
+    formatLabel: text("format_label"),
+    priceCents: integer("price_cents"),
+    taxRate: integer("tax_rate").notNull().default(21),
+    currency: text("currency").notNull().default("EUR"),
+    stockQuantity: integer("stock_quantity"),
+    maximumUnitsPerOrder: integer("maximum_units_per_order")
+      .notNull()
+      .default(6),
+    availableOnline: integer("available_online", { mode: "boolean" })
+      .notNull()
+      .default(false),
+    requiresSpecialTransport: integer("requires_special_transport", {
+      mode: "boolean",
+    })
+      .notNull()
+      .default(false),
+    imagePath: text("image_path"),
+    ean: text("ean"),
+    shopifyProductId: text("shopify_product_id"),
+    shopifyVariantId: text("shopify_variant_id"),
+    shopifyInventoryItemId: text("shopify_inventory_item_id"),
+    shopifySyncStatus: text("shopify_sync_status")
+      .notNull()
+      .default("not_synced"),
+    shopifySyncedAt: text("shopify_synced_at"),
+    shopifySyncError: text("shopify_sync_error"),
+    shopifyPayloadHash: text("shopify_payload_hash"),
+    sourceId: text("source_id").references(() => catalogSources.sourceId),
+    sourcePage: integer("source_page"),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    uniqueIndex("products_slug_uq").on(table.slug),
+    uniqueIndex("products_ean_uq").on(table.ean),
+    uniqueIndex("products_shopify_product_id_uq").on(table.shopifyProductId),
+    index("products_category_idx").on(table.categoryId),
+    index("products_review_status_idx").on(table.reviewStatus),
+    index("products_source_idx").on(table.sourceId),
+    index("products_shopify_sync_status_idx").on(table.shopifySyncStatus),
+  ],
+);
+
+export const shopifyWebhookReceipts = sqliteTable(
+  "shopify_webhook_receipts",
+  {
+    webhookId: text("webhook_id").primaryKey(),
+    topic: text("topic").notNull(),
+    shopDomain: text("shop_domain").notNull(),
+    resourceId: text("resource_id"),
+    status: text("status").notNull().default("received"),
+    error: text("error"),
+    receivedAt: text("received_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    processedAt: text("processed_at"),
+  },
+  (table) => [
+    index("shopify_webhook_topic_received_idx").on(
+      table.topic,
+      table.receivedAt,
+    ),
+  ],
+);
+
+export const productContent = sqliteTable("product_content", {
+  productId: text("product_id")
+    .primaryKey()
+    .references(() => products.productId, { onDelete: "cascade" }),
+  shortDescription: text("short_description").notNull(),
+  description: text("description").notNull(),
+  usageInstructions: text("usage_instructions"),
+  ingredients: text("ingredients"),
+  warnings: text("warnings"),
+});
+
+export const productBenefits = sqliteTable(
+  "product_benefits",
+  {
+    productId: text("product_id")
+      .notNull()
+      .references(() => products.productId, { onDelete: "cascade" }),
+    position: integer("position").notNull(),
+    benefit: text("benefit").notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.productId, table.position] })],
+);
+
+export const productNeeds = sqliteTable(
+  "product_needs",
+  {
+    productId: text("product_id")
+      .notNull()
+      .references(() => products.productId, { onDelete: "cascade" }),
+    needSlug: text("need_slug").notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.productId, table.needSlug] }),
+    index("product_needs_slug_idx").on(table.needSlug),
+  ],
+);
+
+export const catalogAuditLog = sqliteTable(
+  "catalog_audit_log",
+  {
+    auditId: text("audit_id").primaryKey(),
+    productId: text("product_id")
+      .notNull()
+      .references(() => products.productId, { onDelete: "cascade" }),
+    action: text("action").notNull(),
+    previousReviewStatus: text("previous_review_status"),
+    nextReviewStatus: text("next_review_status"),
+    actorId: text("actor_id").notNull(),
+    actorEmail: text("actor_email").notNull(),
+    changesJson: text("changes_json").notNull().default("{}"),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    index("catalog_audit_product_created_idx").on(
+      table.productId,
+      table.createdAt,
+    ),
+  ],
+);

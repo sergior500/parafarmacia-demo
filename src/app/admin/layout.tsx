@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
 
 import { AdminNav } from "@/features/admin/admin-nav";
+import { getAdminActor } from "@/server/admin-auth";
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const actor = await getAdminActor();
   return (
     <>
-      <AdminNav />
+      <AdminNav actorLabel={actor?.displayName ?? "Sesión protegida"} />
       <div className="page-shell py-10">{children}</div>
     </>
   );
