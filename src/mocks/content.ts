@@ -160,12 +160,12 @@ export const commonFaqs: FAQ[] = [
   {
     question: "¿Se realiza algún cobro?",
     answer:
-      "No. El recorrido de compra es visual y local; no conecta con una pasarela de pago ni reserva stock.",
+      "No. La demo permite elegir tarjeta o Bizum, pero no conecta con una pasarela de pago, no solicita datos bancarios ni reserva stock.",
   },
   {
     question: "¿Cuándo recibiría mi pedido en una tienda real?",
     answer:
-      "La propuesta visual estima entregas de 24–48 horas, pero los plazos definitivos dependerán del transportista y la zona acordados.",
+      "El plazo dependerá del transportista, la zona y el horario de preparación que se acuerden antes del lanzamiento.",
   },
 ];
 

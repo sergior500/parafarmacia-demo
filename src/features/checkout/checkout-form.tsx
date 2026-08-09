@@ -234,7 +234,8 @@ export function CheckoutForm() {
                 Método de envío
               </h2>
               <p className="text-ink-muted mt-1 text-sm">
-                Opciones visuales pendientes del transportista definitivo.
+                La tarifa y el plazo se confirmarán al conectar el
+                transportista.
               </p>
             </div>
           </div>
@@ -249,10 +250,10 @@ export function CheckoutForm() {
                 />
                 <span>
                   <strong className="text-forest block text-sm">
-                    Entrega estándar 24–48 h
+                    Entrega estándar a domicilio
                   </strong>
                   <span className="text-ink-muted text-xs">
-                    Península · estimación demo
+                    Zona, plazo y coste pendientes de acuerdo
                   </span>
                 </span>
               </span>
@@ -289,23 +290,36 @@ export function CheckoutForm() {
               </p>
             </div>
           </div>
-          <div className="border-forest/10 bg-cream mt-6 rounded-2xl border p-4">
-            <div className="flex items-center gap-3">
+          <div className="mt-6 grid gap-3">
+            <label className="border-forest bg-sage/40 flex cursor-pointer items-center gap-3 rounded-2xl border p-4">
               <input
                 defaultChecked
                 name="payment"
                 type="radio"
+                value="card"
                 className="accent-forest"
               />
               <span>
-                <strong className="text-forest block text-sm">
-                  Pago simulado
-                </strong>
+                <strong className="text-forest block text-sm">Tarjeta</strong>
                 <span className="text-ink-muted text-xs">
-                  La pasarela real se elegirá más adelante
+                  Opción prevista · sin datos bancarios en la demo
                 </span>
               </span>
-            </div>
+            </label>
+            <label className="border-forest/10 bg-cream flex cursor-pointer items-center gap-3 rounded-2xl border p-4">
+              <input
+                name="payment"
+                type="radio"
+                value="bizum"
+                className="accent-forest"
+              />
+              <span>
+                <strong className="text-forest block text-sm">Bizum</strong>
+                <span className="text-ink-muted text-xs">
+                  Opción prevista · sin redirección ni cobro real
+                </span>
+              </span>
+            </label>
           </div>
         </Card>
       </div>
@@ -323,7 +337,7 @@ export function CheckoutForm() {
             </li>
             <li className="flex gap-2">
               <CheckCircle2 className="text-forest mt-0.5 size-4 shrink-0" />
-              Sin pago ni reserva de stock real
+              Tarjeta o Bizum simulados, sin cobro real
             </li>
             <li className="flex gap-2">
               <CheckCircle2 className="text-forest mt-0.5 size-4 shrink-0" />

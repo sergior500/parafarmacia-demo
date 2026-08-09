@@ -97,7 +97,7 @@ export function SiteFooter() {
           <div className="page-shell flex flex-wrap justify-between gap-3 py-5 text-[.65rem] text-white/45">
             <span>© 2026 {pharmacyConfig.name} · demostración</span>
             <Link href="/admin">Acceso al panel interno</Link>
-            <span>Sin pagos, envíos ni datos personales reales</span>
+            <span>Tarjeta y Bizum simulados · sin envíos reales</span>
           </div>
         </div>
       </div>

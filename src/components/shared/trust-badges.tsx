@@ -24,13 +24,13 @@ const items = [
   },
   {
     icon: Truck,
-    title: "Entrega 24–48 h",
-    text: "Estimación provisional para la demo",
+    title: "Envío a domicilio",
+    text: "Plazos y tarifa pendientes del transportista",
   },
   {
     icon: RefreshCcw,
     title: "Devoluciones claras",
-    text: "Condiciones visibles antes de comprar",
+    text: "Excepciones de salud e higiene explicadas",
   },
 ] as const;
 

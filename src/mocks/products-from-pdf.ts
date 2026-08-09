@@ -1,8 +1,9 @@
+import { prepareImportedProduct } from "@/domain/product/catalog-cleanup";
 import type { Product } from "@/domain/product/product";
 
 // Catálogo extraído de las fichas técnicas facilitadas. Los productos se muestran
 // sin precio ni disponibilidad hasta que la farmacia valide los datos comerciales.
-export const productsFromPdf: Product[] = [
+const importedProductsRaw: Product[] = [
   {
     id: "pdf-dermocosmetica-006",
     slug: "leche-limpiadora-cara-y-ojos",
@@ -6895,3 +6896,7 @@ export const productsFromPdf: Product[] = [
     dataReviewRequired: true,
   },
 ];
+
+export const productsFromPdf: Product[] = importedProductsRaw.map(
+  prepareImportedProduct,
+);

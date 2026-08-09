@@ -4,7 +4,7 @@
 | -------------- | ----------------------------------------- | ---------------------------- |
 | Catálogo       | ERP, PIM o fuente del distribuidor        | Fichas, precios y categorías |
 | Inventario     | ERP y política de reserva                 | Stock fiable y concurrencia  |
-| Pago           | Proveedor, métodos y devoluciones         | Cobro seguro                 |
+| Pago           | Proveedor para tarjeta y Bizum            | Cobro seguro                 |
 | Transporte     | Operador, tarifas, destinos y seguimiento | Envíos y trazabilidad        |
 | Notificaciones | Proveedor de correo/SMS y plantillas      | Confirmaciones y cambios     |
 | Analítica      | Herramienta y consentimiento              | Conversión y comportamiento  |

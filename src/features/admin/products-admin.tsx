@@ -1,13 +1,12 @@
 "use client";
 
 import {
+  BadgeCheck,
   CheckCircle2,
-  CircleOff,
   FileWarning,
   PackagePlus,
-  PackageX,
+  ScanSearch,
   Search,
-  ShieldX,
   X,
 } from "lucide-react";
 import { type FormEvent, useEffect, useMemo, useState } from "react";
@@ -15,40 +14,41 @@ import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import type { Product, ProductStatus } from "@/domain/product/product";
+import { CatalogProductEditor } from "@/features/admin/catalog-product-editor";
 import {
-  isProductPricePending,
-  type Product,
-  type ProductStatus,
-} from "@/domain/product/product";
+  applyCatalogReviewRecord,
+  type CatalogReviewRecord,
+  type CatalogReviewStatus,
+  getCatalogReviewStatus,
+  parseCatalogReviewRecords,
+} from "@/features/admin/catalog-review-storage";
 import { parseStoredProducts } from "@/features/demo/storage-validation";
 import { formatMoney } from "@/lib/format";
 import { categories, products as seededProducts } from "@/mocks/products";
 
 const CUSTOM_PRODUCTS_KEY = "parafarmacia-demo-custom-products-v1";
+const REVIEW_RECORDS_KEY = "parafarmacia-demo-catalog-review-v1";
+const PAGE_SIZE = 25;
 
-const statusConfig: Record<
-  ProductStatus,
+const reviewConfig: Record<
+  CatalogReviewStatus,
   { label: string; icon: typeof CheckCircle2; className: string }
 > = {
-  active: {
-    label: "Activo",
-    icon: CheckCircle2,
-    className: "text-emerald-700",
+  pending: {
+    label: "Pendiente",
+    icon: FileWarning,
+    className: "bg-amber-100 text-amber-800",
   },
-  inactive: {
-    label: "Inactivo",
-    icon: CircleOff,
-    className: "text-stone-600",
+  reviewed: {
+    label: "Revisado",
+    icon: ScanSearch,
+    className: "bg-sky-100 text-sky-800",
   },
-  temporarily_unavailable: {
-    label: "Sin disponibilidad",
-    icon: PackageX,
-    className: "text-amber-700",
-  },
-  withdrawn: {
-    label: "Retirado",
-    icon: ShieldX,
-    className: "text-red-700",
+  published: {
+    label: "Publicado",
+    icon: BadgeCheck,
+    className: "bg-emerald-100 text-emerald-800",
   },
 };
 
@@ -66,24 +66,38 @@ function slugify(value: string): string {
 
 export function ProductsAdmin() {
   const [customProducts, setCustomProducts] = useState<Product[]>([]);
+  const [reviewRecords, setReviewRecords] = useState<CatalogReviewRecord[]>([]);
   const [hydrated, setHydrated] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [page, setPage] = useState(1);
   const [notice, setNotice] = useState("");
-  const catalogProducts = useMemo(
-    () => [...customProducts, ...seededProducts],
-    [customProducts],
-  );
 
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- One-time hydration from demo-only browser storage. */
     setCustomProducts(
       parseStoredProducts(localStorage.getItem(CUSTOM_PRODUCTS_KEY)) ?? [],
     );
+    setReviewRecords(
+      parseCatalogReviewRecords(localStorage.getItem(REVIEW_RECORDS_KEY)),
+    );
     setHydrated(true);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
+
+  const recordMap = useMemo(
+    () => new Map(reviewRecords.map((record) => [record.productId, record])),
+    [reviewRecords],
+  );
+  const catalogProducts = useMemo(
+    () =>
+      [...customProducts, ...seededProducts].map((product) =>
+        applyCatalogReviewRecord(product, recordMap.get(product.id)),
+      ),
+    [customProducts, recordMap],
+  );
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("es");
@@ -93,24 +107,40 @@ export function ProductsAdmin() {
             (value) => value.toLocaleLowerCase("es").includes(normalizedQuery),
           )
         : true;
-      const matchesStatus =
-        statusFilter === "all"
-          ? true
-          : statusFilter === "pending"
-            ? product.dataReviewRequired
-            : product.status === statusFilter;
-      return matchesQuery && matchesStatus;
+      const reviewStatus = getCatalogReviewStatus(
+        product,
+        recordMap.get(product.id),
+      );
+      return (
+        matchesQuery &&
+        (statusFilter === "all" || reviewStatus === statusFilter)
+      );
     });
-  }, [catalogProducts, query, statusFilter]);
+  }, [catalogProducts, query, recordMap, statusFilter]);
 
-  const pendingCount = catalogProducts.filter(
-    (product) => product.dataReviewRequired,
-  ).length;
-  const availableCount = catalogProducts.filter(
-    (product) => product.availableForOnlineSale && product.stock > 0,
-  ).length;
+  const counts = useMemo(() => {
+    const result: Record<CatalogReviewStatus, number> = {
+      pending: 0,
+      reviewed: 0,
+      published: 0,
+    };
+    for (const product of catalogProducts) {
+      result[getCatalogReviewStatus(product, recordMap.get(product.id))] += 1;
+    }
+    return result;
+  }, [catalogProducts, recordMap]);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const pageCount = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const visibleProducts = filteredProducts.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+  const editingProduct = editingProductId
+    ? catalogProducts.find((product) => product.id === editingProductId)
+    : undefined;
+
+  function handleCreateProduct(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -148,10 +178,10 @@ export function ProductsAdmin() {
       stock,
       maximumUnitsPerOrder: Math.max(1, Math.round(maximumUnits || 1)),
       requiresSpecialTransport: false,
-      availableForOnlineSale: status === "active" && stock > 0 && price > 0,
+      availableForOnlineSale: false,
       size: String(formData.get("size") ?? "").trim() || undefined,
       badges: ["Alta manual"],
-      dataReviewRequired: false,
+      dataReviewRequired: true,
     };
 
     setCustomProducts((current) => {
@@ -160,17 +190,38 @@ export function ProductsAdmin() {
       return nextProducts;
     });
     form.reset();
-    setNotice(`${name} se ha añadido al catálogo de esta demo.`);
+    setNotice(`${name} se ha añadido y queda pendiente de revisión.`);
     setShowForm(false);
+    setEditingProductId(product.id);
+  }
+
+  function handleSaveReview(record: CatalogReviewRecord) {
+    setReviewRecords((current) => {
+      const nextRecords = [
+        record,
+        ...current.filter((item) => item.productId !== record.productId),
+      ];
+      localStorage.setItem(REVIEW_RECORDS_KEY, JSON.stringify(nextRecords));
+      return nextRecords;
+    });
+    setNotice(
+      record.reviewStatus === "published"
+        ? "Producto publicado en el catálogo local de la demo."
+        : record.reviewStatus === "reviewed"
+          ? "Ficha revisada. Ya puede completar los datos comerciales y publicarla."
+          : "La ficha ha vuelto a la cola de revisión.",
+    );
+    setEditingProductId(null);
   }
 
   return (
     <div className="space-y-6">
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
           ["Productos", catalogProducts.length, "Catálogo total"],
-          ["Pendientes", pendingCount, "Precio y stock por validar"],
-          ["A la venta", availableCount, "Disponibles online"],
+          ["Pendientes", counts.pending, "Por revisar"],
+          ["Revisados", counts.reviewed, "Listos para completar"],
+          ["Publicados", counts.published, "Catálogo validado"],
         ].map(([label, value, detail]) => (
           <Card className="p-5" key={label}>
             <p className="text-ink-muted text-xs font-bold tracking-wider uppercase">
@@ -186,10 +237,15 @@ export function ProductsAdmin() {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-ink-muted max-w-2xl text-sm">
-          Las fichas importadas desde PDF quedan bloqueadas para venta hasta
-          completar sus datos comerciales.
+          Revisa el contenido técnico, completa los datos comerciales y publica
+          únicamente las fichas validadas.
         </p>
-        <Button onClick={() => setShowForm((visible) => !visible)}>
+        <Button
+          onClick={() => {
+            setShowForm((visible) => !visible);
+            setEditingProductId(null);
+          }}
+        >
           {showForm ? (
             <X className="size-4" />
           ) : (
@@ -198,6 +254,18 @@ export function ProductsAdmin() {
           {showForm ? "Cerrar formulario" : "Añadir producto"}
         </Button>
       </div>
+
+      {editingProduct ? (
+        <CatalogProductEditor
+          product={editingProduct}
+          reviewStatus={getCatalogReviewStatus(
+            editingProduct,
+            recordMap.get(editingProduct.id),
+          )}
+          onClose={() => setEditingProductId(null)}
+          onSave={handleSaveReview}
+        />
+      ) : null}
 
       {showForm ? (
         <Card className="overflow-hidden">
@@ -209,7 +277,7 @@ export function ProductsAdmin() {
           </div>
           <form
             className="grid gap-5 p-5 sm:grid-cols-2 sm:p-7"
-            onSubmit={handleSubmit}
+            onSubmit={handleCreateProduct}
           >
             <label className="grid gap-2 text-sm font-bold sm:col-span-2">
               Nombre del producto
@@ -235,7 +303,7 @@ export function ProductsAdmin() {
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Precio con IVA (€)
-              <Input min="0" name="price" required step="0.01" type="number" />
+              <Input min="0" name="price" step="0.01" type="number" />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               IVA
@@ -251,7 +319,7 @@ export function ProductsAdmin() {
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Stock inicial
-              <Input min="0" name="stock" required step="1" type="number" />
+              <Input min="0" name="stock" step="1" type="number" />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Máximo por pedido
@@ -263,22 +331,9 @@ export function ProductsAdmin() {
                 type="number"
               />
             </label>
+            <input name="status" type="hidden" value="inactive" />
             <label className="grid gap-2 text-sm font-bold">
-              Estado
-              <select
-                className={fieldClassName}
-                defaultValue="inactive"
-                name="status"
-              >
-                <option value="inactive">Inactivo</option>
-                <option value="active">Activo</option>
-                <option value="temporarily_unavailable">
-                  Sin disponibilidad
-                </option>
-              </select>
-            </label>
-            <label className="grid gap-2 text-sm font-bold">
-              Formato
+              Tamaño o formato
               <Input name="size" placeholder="Ej. 200 ml" />
             </label>
             <label className="grid gap-2 text-sm font-bold">
@@ -289,20 +344,16 @@ export function ProductsAdmin() {
                 placeholder="Código de barras"
               />
             </label>
-            <label className="grid gap-2 text-sm font-bold">
+            <label className="grid gap-2 text-sm font-bold sm:col-span-2">
               URL de imagen
-              <Input
-                name="imageUrl"
-                placeholder="/images/producto.webp"
-                type="text"
-              />
+              <Input name="imageUrl" placeholder="/images/producto.webp" />
             </label>
             <label className="grid gap-2 text-sm font-bold sm:col-span-2">
               Descripción corta
               <Input
                 name="shortDescription"
                 required
-                placeholder="Resumen para la tarjeta de producto"
+                placeholder="Resumen para la tarjeta"
               />
             </label>
             <label className="grid gap-2 text-sm font-bold sm:col-span-2">
@@ -315,8 +366,7 @@ export function ProductsAdmin() {
             </label>
             <div className="flex flex-wrap items-center gap-3 sm:col-span-2">
               <Button disabled={!hydrated} type="submit">
-                <PackagePlus className="size-4" />
-                Guardar producto
+                <PackagePlus className="size-4" /> Guardar y revisar
               </Button>
               <span className="text-ink-muted text-xs">
                 Se guarda localmente en este navegador para la demo.
@@ -342,45 +392,53 @@ export function ProductsAdmin() {
             <Search className="text-ink-muted pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
             <Input
               className="pl-11"
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setPage(1);
+              }}
               placeholder="Buscar por nombre, marca o EAN"
               type="search"
               value={query}
             />
           </label>
           <label>
-            <span className="sr-only">Filtrar por estado</span>
+            <span className="sr-only">Filtrar por revisión</span>
             <select
               className={fieldClassName}
-              onChange={(event) => setStatusFilter(event.target.value)}
+              onChange={(event) => {
+                setStatusFilter(event.target.value);
+                setPage(1);
+              }}
               value={statusFilter}
             >
               <option value="all">Todos los estados</option>
-              <option value="pending">Pendientes de revisión</option>
-              <option value="active">Activos</option>
-              <option value="inactive">Inactivos</option>
-              <option value="temporarily_unavailable">
-                Sin disponibilidad
-              </option>
+              <option value="pending">Pendientes</option>
+              <option value="reviewed">Revisados</option>
+              <option value="published">Publicados</option>
             </select>
           </label>
         </div>
+
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[820px] text-left text-sm">
+          <table className="w-full min-w-[920px] text-left text-sm">
             <thead className="bg-sage/60 text-forest">
               <tr>
                 <th className="px-5 py-4">Producto</th>
                 <th className="px-5 py-4">Origen / categoría</th>
-                <th className="px-5 py-4">Estado</th>
+                <th className="px-5 py-4">Revisión</th>
                 <th className="px-5 py-4">Stock</th>
                 <th className="px-5 py-4 text-right">Precio</th>
+                <th className="px-5 py-4 text-right">Acción</th>
               </tr>
             </thead>
             <tbody>
-              {filteredProducts.map((product) => {
-                const config = statusConfig[product.status];
+              {visibleProducts.map((product) => {
+                const reviewStatus = getCatalogReviewStatus(
+                  product,
+                  recordMap.get(product.id),
+                );
+                const config = reviewConfig[reviewStatus];
                 const Icon = config.icon;
-                const pending = isProductPricePending(product);
                 const category = categories.find(
                   (item) => item.id === product.categoryId,
                 );
@@ -405,26 +463,34 @@ export function ProductsAdmin() {
                       </span>
                     </td>
                     <td className="px-5 py-4">
-                      {product.dataReviewRequired ? (
-                        <span className="inline-flex items-center gap-2 font-bold text-amber-700">
-                          <FileWarning className="size-4" /> Pendiente
-                        </span>
-                      ) : (
-                        <span
-                          className={`inline-flex items-center gap-2 font-bold ${config.className}`}
-                        >
-                          <Icon aria-hidden="true" className="size-4" />{" "}
-                          {config.label}
-                        </span>
-                      )}
+                      <span
+                        className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-black ${config.className}`}
+                      >
+                        <Icon className="size-4" /> {config.label}
+                      </span>
                     </td>
                     <td className="px-5 py-4">
-                      {pending ? "—" : product.stock}
+                      {product.dataReviewRequired && !recordMap.has(product.id)
+                        ? "—"
+                        : product.stock}
                     </td>
                     <td className="px-5 py-4 text-right font-bold">
-                      {pending
-                        ? "Por definir"
-                        : formatMoney(product.priceInCents)}
+                      {product.priceInCents > 0
+                        ? formatMoney(product.priceInCents)
+                        : "Por definir"}
+                    </td>
+                    <td className="px-5 py-4 text-right">
+                      <Button
+                        onClick={() => {
+                          setEditingProductId(product.id);
+                          setShowForm(false);
+                          window.scrollTo({ top: 180, behavior: "smooth" });
+                        }}
+                        size="sm"
+                        variant="outline"
+                      >
+                        <ScanSearch className="size-4" /> Revisar
+                      </Button>
                     </td>
                   </tr>
                 );
@@ -432,10 +498,31 @@ export function ProductsAdmin() {
             </tbody>
           </table>
         </div>
-        <p className="text-ink-muted border-forest/10 border-t px-5 py-3 text-xs">
-          Mostrando {filteredProducts.length} de {catalogProducts.length}{" "}
-          productos.
-        </p>
+
+        <div className="border-forest/10 flex flex-wrap items-center justify-between gap-3 border-t px-5 py-4">
+          <p className="text-ink-muted text-xs">
+            Mostrando {visibleProducts.length} de {filteredProducts.length} ·
+            página {currentPage} de {pageCount}
+          </p>
+          <div className="flex gap-2">
+            <Button
+              disabled={currentPage <= 1}
+              onClick={() => setPage((value) => Math.max(1, value - 1))}
+              size="sm"
+              variant="outline"
+            >
+              Anterior
+            </Button>
+            <Button
+              disabled={currentPage >= pageCount}
+              onClick={() => setPage((value) => Math.min(pageCount, value + 1))}
+              size="sm"
+              variant="outline"
+            >
+              Siguiente
+            </Button>
+          </div>
+        </div>
       </Card>
     </div>
   );

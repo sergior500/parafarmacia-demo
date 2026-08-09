@@ -249,13 +249,13 @@ export default async function ProductPage({
             {[
               {
                 icon: Truck,
-                title: "Entrega estimada",
-                text: "24–48 h · demo",
+                title: "Envío a domicilio",
+                text: "Plazo por confirmar",
               },
               {
                 icon: RotateCcw,
                 title: "Devoluciones",
-                text: "Condiciones claras",
+                text: "Según producto y precinto",
               },
               {
                 icon: PackageCheck,

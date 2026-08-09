@@ -84,7 +84,7 @@ export default async function HomePage() {
             </div>
             <div className="text-forest/65 mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[.7rem] font-bold">
               <span>Productos originales</span>
-              <span>Entrega estimada 24–48 h</span>
+              <span>Envío a domicilio</span>
               <span>Atención cercana</span>
             </div>
           </div>

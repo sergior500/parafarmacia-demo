@@ -9,9 +9,13 @@
 6. ¿Qué ERP o programa de gestión utiliza actualmente la empresa?
 7. ¿El stock se mostrará en tiempo real, aproximado o solo como disponible/no
    disponible?
-8. ¿Qué métodos de pago se necesitan y qué proveedor se prefiere?
-9. ¿Qué transportistas, tarifas, umbrales de envío gratuito y plazos se usarán?
-10. ¿Qué política de cancelaciones, cambios y devoluciones se aplicará?
+8. Para tarjeta y Bizum, ¿qué proveedor de pago y banco se prefieren y quién
+   asumirá las comisiones?
+9. ¿Qué transportistas, zonas, tarifas, umbrales de envío gratuito y plazos se
+   usarán?
+10. Partiendo de que no habrá devoluciones voluntarias de productos abiertos,
+    ¿quién validará las excepciones legales, el desistimiento aplicable y el
+    procedimiento para productos defectuosos o enviados por error?
 11. ¿Se permitirán cupones, packs, muestras, regalos o programas de fidelidad?
 12. ¿Qué roles internos necesitan acceso y qué puede hacer cada uno?
 13. ¿Qué métricas son prioritarias: ventas, margen, conversión, recurrencia,
@@ -20,5 +24,6 @@
 15. ¿Cuál es el alcance del primer piloto, el presupuesto orientativo y la fecha
     objetivo?
 
-Conviene responder primero las preguntas 3, 5, 6, 8, 9 y 15: son las que más
-condicionan la arquitectura, el coste y el calendario.
+Ya están decididos los métodos de pago (tarjeta y Bizum). Conviene responder
+primero las preguntas 3, 5, 6, 8, 9, 10 y 15: son las que más condicionan la
+arquitectura, el coste, la operativa y el calendario.

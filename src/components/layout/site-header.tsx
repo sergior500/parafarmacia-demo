@@ -37,8 +37,8 @@ export function SiteHeader() {
     <header className="border-forest/8 bg-cream/95 sticky top-0 z-40 border-b backdrop-blur-xl">
       <div className="bg-petrol text-white">
         <div className="page-shell flex min-h-8 items-center justify-center gap-x-8 text-[.65rem] font-bold sm:justify-between">
-          <span>Envío gratuito desde 49 €</span>
-          <span className="hidden sm:inline">Entrega estimada 24–48 h</span>
+          <span>Envío a domicilio</span>
+          <span className="hidden sm:inline">Tarjeta o Bizum</span>
           <span className="hidden md:inline">
             Atención cercana de lunes a viernes
           </span>

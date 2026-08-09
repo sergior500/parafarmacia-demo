@@ -8,13 +8,21 @@ export default function ReturnsPage() {
   return (
     <InfoPage
       legal
-      eyebrow="Placeholder legal"
-      intro="No se ha definido ni validado una política de devoluciones."
-      title="Devoluciones"
+      eyebrow="Criterio operativo provisional"
+      intro="La tienda no ofrecerá devoluciones voluntarias de productos abiertos cuando, por razones de salud o higiene, no sean aptos para su devolución."
+      title="Cambios y devoluciones"
     >
       <p>
-        Las condiciones aplicables a cada categoría de parafarmacia deberán ser
-        redactadas por especialistas y reflejar la operativa real de la tienda.
+        En las compras online se respetará el derecho de desistimiento cuando
+        resulte legalmente aplicable. Los productos precintados que no sean
+        aptos para ser devueltos por razones de protección de la salud o de
+        higiene podrán quedar excluidos una vez desprecintados.
+      </p>
+      <p>
+        Los productos defectuosos, dañados durante el transporte o enviados por
+        error se atenderán conforme a la normativa y a las garantías que
+        correspondan. Antes del lanzamiento deberán concretarse el canal de
+        contacto, los plazos, la dirección y el procedimiento de devolución.
       </p>
     </InfoPage>
   );

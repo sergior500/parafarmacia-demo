@@ -12,8 +12,12 @@ const adapters = [
   ["Inventario", "Stock local simulado", "Activo"],
   ["Pedidos", "Flujo comercial local", "Activo"],
   ["Analítica de ventas", "Cálculos sobre pedidos demo", "Activo"],
-  ["Pago", "Proveedor por seleccionar", "Pendiente"],
-  ["Transporte", "Proveedor por seleccionar", "Pendiente"],
+  ["Pago", "Tarjeta y Bizum · proveedor por seleccionar", "Definido"],
+  [
+    "Transporte",
+    "Operador, zonas, plazos y tarifas por seleccionar",
+    "Pendiente",
+  ],
   ["Notificaciones", "Sin envíos reales", "Pendiente"],
 ] as const;
 
@@ -62,7 +66,7 @@ export default function ConfigurationPage() {
                 </span>
                 <span
                   className={
-                    status === "Activo"
+                    status === "Activo" || status === "Definido"
                       ? "text-xs font-bold text-emerald-700"
                       : "text-xs font-bold text-amber-700"
                   }
