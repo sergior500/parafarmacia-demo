@@ -1,6 +1,14 @@
 "use client";
 
-import { Check, ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  SlidersHorizontal,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -15,6 +23,7 @@ import {
   type ProductSort,
 } from "@/domain/product/product";
 import { buildAllCategoriesHref } from "@/features/catalog/catalog-navigation";
+import { getPaginationWindow } from "@/features/catalog/catalog-pagination";
 import { ProductCard } from "@/features/catalog/product-card";
 import { useDemo } from "@/features/demo/demo-provider";
 import { cn } from "@/lib/utils";
@@ -82,6 +91,7 @@ export function CatalogView({
     (page - 1) * PAGE_SIZE,
     page * PAGE_SIZE,
   );
+  const visiblePageNumbers = getPaginationWindow(page, totalPages);
   const availableBrands = brands.filter((brand) =>
     products.some(
       (product) =>
@@ -349,21 +359,38 @@ export function CatalogView({
           {totalPages > 1 ? (
             <nav
               aria-label="Paginación del catálogo"
-              className="mt-12 flex justify-center gap-2"
+              className="mt-12 flex items-center justify-center gap-2"
             >
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                (pageNumber) => (
-                  <Button
-                    key={pageNumber}
-                    size="icon"
-                    variant={pageNumber === page ? "default" : "outline"}
-                    aria-current={pageNumber === page ? "page" : undefined}
-                    onClick={() => updateParams({ pagina: String(pageNumber) })}
-                  >
-                    {pageNumber}
-                  </Button>
-                ),
-              )}
+              <Button
+                aria-label="Ir a la página anterior"
+                disabled={page === 1}
+                onClick={() => updateParams({ pagina: String(page - 1) })}
+                size="icon"
+                variant="outline"
+              >
+                <ChevronLeft aria-hidden="true" className="size-4" />
+              </Button>
+              {visiblePageNumbers.map((pageNumber) => (
+                <Button
+                  key={pageNumber}
+                  size="icon"
+                  variant={pageNumber === page ? "default" : "outline"}
+                  aria-current={pageNumber === page ? "page" : undefined}
+                  aria-label={`Ir a la página ${pageNumber}`}
+                  onClick={() => updateParams({ pagina: String(pageNumber) })}
+                >
+                  {pageNumber}
+                </Button>
+              ))}
+              <Button
+                aria-label="Ir a la página siguiente"
+                disabled={page === totalPages}
+                onClick={() => updateParams({ pagina: String(page + 1) })}
+                size="icon"
+                variant="outline"
+              >
+                <ChevronRight aria-hidden="true" className="size-4" />
+              </Button>
             </nav>
           ) : null}
         </div>
