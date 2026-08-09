@@ -45,14 +45,13 @@ export default async function BrandPage({
         className="rounded-[2rem] p-8 md:p-12"
         style={{ backgroundColor: brand.accent }}
       >
-        <p className="eyebrow">Marca de demostración</p>
+        <p className="eyebrow">Procedencia del catálogo</p>
         <h1 className="display-title text-forest mt-3 text-6xl md:text-7xl">
           {brand.name}
         </h1>
         <p className="text-ink-muted mt-5 max-w-2xl text-sm leading-relaxed">
-          {brand.description} Este espacio permitirá añadir historia, valores,
-          categorías y contenidos oficiales cuando la marca facilite información
-          autorizada.
+          {brand.description} La identidad, historia y contenidos comerciales
+          deberán completarse cuando la empresa facilite información autorizada.
         </p>
       </header>
       <section className="py-14">

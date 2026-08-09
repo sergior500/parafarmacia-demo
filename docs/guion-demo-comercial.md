@@ -17,7 +17,7 @@ Señala que los datos son ficticios y que no se procesa ningún pago.
 ## 2. Catálogo y producto — 90 segundos
 
 **Acción:** entra en **Tienda**, activa “solo disponibles”, ordena por precio y
-abre **CeraVe Crema Hidratante**.
+abre **Sérum Bioma Confort**.
 
 > “El catálogo permite filtrar por categoría, disponibilidad y precio. Cada
 > ficha reúne marca, formato, precio, stock y límite de compra. En producción,
@@ -72,7 +72,7 @@ Termina preguntando:
 ## Versión rápida de 3 minutos
 
 1. Portada y categorías.
-2. Abrir CeraVe, añadir al carrito y enseñar el formulario.
+2. Abrir Sérum Bioma Confort, añadirlo al carrito y enseñar el selector de cantidad.
 3. Ir directamente al panel, mostrar métricas y avanzar un pedido.
 4. Cerrar con las integraciones pendientes.
 

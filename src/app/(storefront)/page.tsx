@@ -193,9 +193,9 @@ export default async function HomePage() {
         <div className="page-shell">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <div>
-              <p className="eyebrow">Los básicos de la demo</p>
+              <p className="eyebrow">Fichas del catálogo facilitado</p>
               <h2 className="display-title text-forest mt-3 text-4xl md:text-5xl">
-                Productos que vuelven a la cesta.
+                Una selección lista para recorrer la demo.
               </h2>
             </div>
             <Button asChild variant="outline">
@@ -206,9 +206,9 @@ export default async function HomePage() {
             </Button>
           </div>
           <p className="text-ink-muted mt-4 max-w-2xl text-sm">
-            Selección construida con referencias reconocibles; precio,
-            disponibilidad e imagen son demostrativos y no representan una
-            oferta comercial real.
+            Los productos proceden de las fichas técnicas recibidas. El precio y
+            el stock de esta selección son exclusivamente demostrativos y no
+            forman parte de la exportación definitiva.
           </p>
           <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product) => (
@@ -252,9 +252,9 @@ export default async function HomePage() {
       <section className="page-shell py-12 md:py-16">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="eyebrow">Marcas destacadas</p>
+            <p className="eyebrow">Catálogo de marca propia</p>
             <h2 className="display-title text-forest mt-3 text-4xl">
-              Reconocibles y fáciles de comparar.
+              Una procedencia clara para todas las fichas.
             </h2>
           </div>
           <Link className="text-forest text-sm font-bold" href="/marcas">

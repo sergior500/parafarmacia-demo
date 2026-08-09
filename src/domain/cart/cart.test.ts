@@ -7,13 +7,39 @@ import {
   canApplyPromotion,
   getMaximumCartQuantity,
 } from "@/domain/cart/cart";
+import type { Product } from "@/domain/product/product";
 import { products } from "@/mocks/products";
 
-const activeProduct = products[0]!;
-const secondActiveProduct = products[1]!;
-const unavailableProduct = products[5]!;
-const inactiveProduct = products[10]!;
-const withdrawnProduct = products[11]!;
+function productFixture(overrides: Partial<Product> = {}): Product {
+  return {
+    ...products[0]!,
+    id: `test-${overrides.status ?? "active"}`,
+    status: "active",
+    priceInCents: 1200,
+    stock: 10,
+    maximumUnitsPerOrder: 4,
+    availableForOnlineSale: true,
+    ...overrides,
+  };
+}
+
+const activeProduct = productFixture();
+const secondActiveProduct = productFixture({
+  id: "test-second",
+  priceInCents: 850,
+});
+const unavailableProduct = productFixture({
+  id: "test-unavailable",
+  availableForOnlineSale: false,
+});
+const inactiveProduct = productFixture({
+  id: "test-inactive",
+  status: "inactive",
+});
+const withdrawnProduct = productFixture({
+  id: "test-withdrawn",
+  status: "withdrawn",
+});
 
 describe("reglas del carrito", () => {
   it("impide añadir un producto retirado", () => {
@@ -35,10 +61,10 @@ describe("reglas del carrito", () => {
   });
 
   it("aplica un límite general cuando el producto no tiene uno específico", () => {
-    const productWithoutSpecificLimit = products.find(
-      (product) =>
-        product.maximumUnitsPerOrder === undefined && product.stock > 6,
-    )!;
+    const productWithoutSpecificLimit = productFixture({
+      id: "test-default-limit",
+      maximumUnitsPerOrder: undefined,
+    });
     expect(getMaximumCartQuantity(productWithoutSpecificLimit)).toBe(6);
     expect(() =>
       assertCanAddToCart(productWithoutSpecificLimit, 7),

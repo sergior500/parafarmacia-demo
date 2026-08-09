@@ -53,101 +53,13 @@ export const needs = [
 
 export const brands: Brand[] = [
   {
-    id: "brand-cerave",
-    slug: "cerave",
-    name: "CeraVe",
-    description: "Cuidado diario para reforzar la hidratación de la piel.",
+    id: "brand-amapola",
+    slug: "amapola",
+    name: "Marca propia Amapola",
+    description:
+      "Catálogo de marca propia procedente de las fichas técnicas facilitadas.",
     featured: true,
     accent: "#dcefea",
-  },
-  {
-    id: "brand-isdin",
-    slug: "isdin",
-    name: "ISDIN",
-    description: "Fotoprotección y cuidado de la piel para el día a día.",
-    featured: true,
-    accent: "#fff0d7",
-  },
-  {
-    id: "brand-lrp",
-    slug: "la-roche-posay",
-    name: "La Roche-Posay",
-    description:
-      "Dermocosmética pensada para distintas necesidades de la piel.",
-    featured: true,
-    accent: "#e6eff7",
-  },
-  {
-    id: "brand-mustela",
-    slug: "mustela",
-    name: "Mustela",
-    description: "Higiene y cuidado cotidiano de bebés y familias.",
-    featured: true,
-    accent: "#fff0e4",
-  },
-  {
-    id: "brand-bioderma",
-    slug: "bioderma",
-    name: "Bioderma",
-    description: "Limpieza y cuidado dermocosmético de uso cotidiano.",
-    featured: true,
-    accent: "#f1e9f7",
-  },
-  {
-    id: "brand-eucerin",
-    slug: "eucerin",
-    name: "Eucerin",
-    description: "Cuidado corporal y facial con texturas funcionales.",
-    accent: "#f8e5e5",
-  },
-  {
-    id: "brand-vichy",
-    slug: "vichy",
-    name: "Vichy",
-    description: "Rutinas faciales para hidratar y cuidar la piel.",
-    accent: "#e5f0ee",
-  },
-  {
-    id: "brand-klorane",
-    slug: "klorane",
-    name: "Klorane",
-    description: "Cuidado capilar inspirado en ingredientes botánicos.",
-    accent: "#e8f0df",
-  },
-  {
-    id: "brand-oral-b",
-    slug: "oral-b",
-    name: "Oral-B",
-    description: "Productos para completar la higiene bucodental diaria.",
-    accent: "#e4ecf8",
-  },
-  {
-    id: "brand-suavinex",
-    slug: "suavinex",
-    name: "Suavinex",
-    description: "Accesorios y cuidado cotidiano para bebés.",
-    accent: "#fae8ec",
-  },
-  {
-    id: "brand-solgar",
-    slug: "solgar",
-    name: "Solgar",
-    description: "Complementos alimenticios en distintos formatos.",
-    accent: "#f1ead7",
-  },
-  {
-    id: "brand-compeed",
-    slug: "compeed",
-    name: "Compeed",
-    description: "Productos sanitarios para el cuidado cotidiano del pie.",
-    accent: "#e8e2f3",
-  },
-  {
-    id: "brand-farmalastic",
-    slug: "farmalastic",
-    name: "Farmalastic",
-    description: "Soportes y soluciones de ortopedia ligera.",
-    accent: "#e0ecea",
   },
 ];
 
@@ -155,7 +67,7 @@ export const commonFaqs: FAQ[] = [
   {
     question: "¿Los productos y precios son reales?",
     answer:
-      "Las marcas y formatos sirven como referencias reconocibles, pero precios, stock, códigos e imágenes son datos de demostración.",
+      "Todas las fichas proceden de los catálogos facilitados. Algunas tienen precio y stock claramente marcados como datos demo para enseñar la compra; no se exportan a la base de datos definitiva.",
   },
   {
     question: "¿Se realiza algún cobro?",
@@ -283,7 +195,11 @@ export const promotions: Promotion[] = [
       "Tres pasos visuales para enseñar cómo funcionan los packs y productos complementarios.",
     href: "/categorias/cuidado-facial",
     accent: "sage",
-    productIds: ["para-3", "para-7", "para-10"],
+    productIds: [
+      "pdf-dermocosmetica-007",
+      "pdf-dermocosmetica-008",
+      "pdf-dermocosmetica-016",
+    ],
   },
   {
     id: "promo-sun",
@@ -291,6 +207,6 @@ export const promotions: Promotion[] = [
     description: "Selección editorial de fotoprotección facial para la demo.",
     href: "/categorias/proteccion-solar",
     accent: "peach",
-    productIds: ["para-2"],
+    productIds: ["pdf-dermocosmetica-151"],
   },
 ];

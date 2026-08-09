@@ -23,8 +23,9 @@ export default function BrandsPage() {
           </h1>
         </div>
         <p className="text-ink-muted max-w-xl text-sm leading-relaxed">
-          Nombres reconocibles para demostrar navegación y filtros. La relación
-          comercial y los datos definitivos del catálogo están pendientes.
+          Este índice muestra únicamente la procedencia declarada en las fichas
+          técnicas facilitadas. Los datos comerciales definitivos siguen
+          pendientes de validación.
         </p>
       </header>
       <BrandDirectory brands={brands} />

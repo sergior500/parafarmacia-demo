@@ -46,7 +46,7 @@ export default async function SearchPage() {
         <div className="rounded-[1.6rem] bg-[#e5ebf1] p-6">
           <p className="eyebrow">Marcas</p>
           <h2 className="font-display text-forest mt-3 text-2xl">
-            Explora firmas conocidas
+            Explora la procedencia del catálogo
           </h2>
           <div className="mt-5 flex flex-wrap gap-2">
             {brands.slice(0, 5).map((brand) => (

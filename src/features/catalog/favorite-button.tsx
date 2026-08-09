@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-const KEY = "parafarmacia-demo-favorites-v1";
+const KEY = "parafarmacia-demo-favorites-v2";
 
 function readFavorites(): string[] {
   try {

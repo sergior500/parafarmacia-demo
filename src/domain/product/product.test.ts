@@ -4,18 +4,31 @@ import { filterProducts } from "@/domain/product/product";
 import { products } from "@/mocks/products";
 
 describe("búsqueda de catálogo", () => {
-  it("busca por nombre, marca y EAN simulado", () => {
-    expect(filterProducts(products, { query: "CeraVe" })).toHaveLength(1);
-    expect(filterProducts(products, { query: "ISDIN" })).toHaveLength(1);
-    expect(filterProducts(products, { query: "DEMO8400000007" })[0]?.name).toBe(
-      "Bioderma Sensibio H2O",
+  it("no mezcla productos creados manualmente con el catálogo importado", () => {
+    expect(products).toHaveLength(183);
+    expect(products.every((product) => product.id.startsWith("pdf-"))).toBe(
+      true,
     );
+  });
+
+  it("busca dentro de las fichas procedentes de los PDF", () => {
+    expect(filterProducts(products, { query: "Sérum Bioma Confort" })).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ id: "pdf-dermocosmetica-016" }),
+      ]),
+    );
+    expect(
+      filterProducts(products, { query: "Marca propia Amapola" }),
+    ).toHaveLength(183);
   });
 
   it("filtra por categoría y disponibilidad", () => {
     expect(
-      filterProducts(products, { category: "cat-infantil", available: true }),
-    ).toHaveLength(1);
+      filterProducts(products, { category: "cat-facial", available: true }),
+    ).toHaveLength(10);
+    expect(
+      filterProducts(products, { category: "cat-infantil" }).length,
+    ).toBeGreaterThan(0);
   });
 
   it("no expone productos retirados en el catálogo", () => {

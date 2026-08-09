@@ -35,7 +35,11 @@ export function SearchAutocomplete({
                   .includes(normalized),
             )
             .slice(0, 4)
-        : products.filter((product) => product.featured).slice(0, 3),
+        : products
+            .filter(
+              (product) => product.featured && product.status !== "withdrawn",
+            )
+            .slice(0, 3),
     [normalized],
   );
   const categoryMatches = categories
@@ -115,7 +119,7 @@ export function SearchAutocomplete({
           <div className="grid max-h-[70vh] overflow-y-auto md:grid-cols-[1fr_.72fr]">
             <div className="p-4 sm:p-5">
               <p className="text-ink-muted text-[.65rem] font-black tracking-[.14em] uppercase">
-                {normalized ? "Productos sugeridos" : "Selección habitual"}
+                {normalized ? "Productos sugeridos" : "Fichas destacadas"}
               </p>
               <div className="mt-3 grid gap-1">
                 {productMatches.length ? (

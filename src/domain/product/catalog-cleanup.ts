@@ -78,6 +78,10 @@ export function cleanCatalogBenefits(values?: string[]): string[] | undefined {
 export function prepareImportedProduct(product: Product): Product {
   return {
     ...product,
+    brandSlug:
+      product.brandOrLaboratory === "Marca propia Amapola"
+        ? "amapola"
+        : product.brandSlug,
     description: cleanCatalogDescription(product.description),
     usage: cleanCatalogUsage(product.usage),
     size: normalizeCatalogSize(product.size),

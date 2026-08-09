@@ -24,8 +24,8 @@ import { seededOrders } from "@/mocks/orders";
 import { commerceProvider } from "@/providers/commerce/mock-commerce-provider";
 import { orderManagementService } from "@/providers/order-management/mock-order-management-service";
 
-const CART_KEY = "parafarmacia-demo-cart-v2";
-const ORDERS_KEY = "parafarmacia-demo-orders-v2";
+const CART_KEY = "parafarmacia-demo-cart-v3";
+const ORDERS_KEY = "parafarmacia-demo-orders-v3";
 const ROLE_KEY = "parafarmacia-demo-role-v2";
 
 const staffUsers: Record<StaffRole, StaffUser> = {
