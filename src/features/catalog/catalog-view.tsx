@@ -23,7 +23,7 @@ import {
   type ProductSort,
 } from "@/domain/product/product";
 import { buildAllCategoriesHref } from "@/features/catalog/catalog-navigation";
-import { getPaginationWindow } from "@/features/catalog/catalog-pagination";
+import { getPaginationItems } from "@/features/catalog/catalog-pagination";
 import { ProductCard } from "@/features/catalog/product-card";
 import { useDemo } from "@/features/demo/demo-provider";
 import { cn } from "@/lib/utils";
@@ -91,7 +91,7 @@ export function CatalogView({
     (page - 1) * PAGE_SIZE,
     page * PAGE_SIZE,
   );
-  const visiblePageNumbers = getPaginationWindow(page, totalPages);
+  const visiblePaginationItems = getPaginationItems(page, totalPages);
   const availableBrands = brands.filter((brand) =>
     products.some(
       (product) =>
@@ -370,18 +370,28 @@ export function CatalogView({
               >
                 <ChevronLeft aria-hidden="true" className="size-4" />
               </Button>
-              {visiblePageNumbers.map((pageNumber) => (
-                <Button
-                  key={pageNumber}
-                  size="icon"
-                  variant={pageNumber === page ? "default" : "outline"}
-                  aria-current={pageNumber === page ? "page" : undefined}
-                  aria-label={`Ir a la página ${pageNumber}`}
-                  onClick={() => updateParams({ pagina: String(pageNumber) })}
-                >
-                  {pageNumber}
-                </Button>
-              ))}
+              {visiblePaginationItems.map((item) =>
+                typeof item === "number" ? (
+                  <Button
+                    key={item}
+                    size="icon"
+                    variant={item === page ? "default" : "outline"}
+                    aria-current={item === page ? "page" : undefined}
+                    aria-label={`Ir a la página ${item}`}
+                    onClick={() => updateParams({ pagina: String(item) })}
+                  >
+                    {item}
+                  </Button>
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="text-ink-muted grid size-7 place-items-center text-sm font-bold sm:size-10"
+                    key={item}
+                  >
+                    …
+                  </span>
+                ),
+              )}
               <Button
                 aria-label="Ir a la página siguiente"
                 disabled={page === totalPages}
