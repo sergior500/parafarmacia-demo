@@ -68,6 +68,6 @@ export async function shopifyAdminGraphql<T>(
 export async function testShopifyConnection() {
   const data = await shopifyAdminGraphql<{
     shop: { id: string; name: string; myshopifyDomain: string };
-  }>(`query AmapolaShopConnection { shop { id name myshopifyDomain } }`);
+  }>(`query PicualShopConnection { shop { id name myshopifyDomain } }`);
   return data.shop;
 }

@@ -18,7 +18,7 @@ describe("búsqueda de catálogo", () => {
       ]),
     );
     expect(
-      filterProducts(products, { query: "Marca propia Amapola" }),
+      filterProducts(products, { query: "Marca por confirmar" }),
     ).toHaveLength(183);
   });
 

@@ -79,7 +79,7 @@ export function prepareImportedProduct(product: Product): Product {
   return {
     ...product,
     brandSlug:
-      product.brandOrLaboratory === "Marca propia Amapola"
+      product.brandOrLaboratory === "Marca por confirmar"
         ? "amapola"
         : product.brandSlug,
     description: cleanCatalogDescription(product.description),

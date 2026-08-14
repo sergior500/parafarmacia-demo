@@ -12,7 +12,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Limpiador con aclarado para la cara y los ojos.",
     description:
       "Limpiador con aclarado para la cara y los ojos. Triple acción: limpia suavemente, hidrata y tonifica la piel. Leche limpiadora que elimina de manera rápida y eficaz el maquillaje y las impurezas de la cara y los ojos gracias a la acción de los glucósidos vegetales, limpiadores naturales especialmente suaves sobre la piel y las mucosas. Eficacia limpiadora completa gracias a una mezcla de ácidos grasos afines a la piel que eliminan las impurezas y el maquillaje por afinidad sin alterar el equilibrio de la barrera cutánea, dejando la piel suave y lisa. La mezcla equilibrada de tensioactivos suaves y ácidos grasos dermoafines hacen que el producto sea ideal para todo tipo de piel, incluso sensible, y para utilizar en el contorno de ojos. LA PIEL QUEDA LIMPIA, HIDRATADA Y FIRME ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -50,7 +50,7 @@ const importedProductsRaw: Product[] = [
       "Leche dermoafín que desmaquilla y limpia respetando el equilibrio de la piel y aportando una hidratación intensa.",
     description:
       "Leche dermoafín que desmaquilla y limpia respetando el equilibrio de la piel y aportando una hidratación intensa. Emulsión con mecanismo de limpieza por afinidad gracias a una mezcla de lípidos seleccionados para eliminar fácilmente el maquillaje y las impurezas. Desempeña una acción equilibrante, dejando la piel aterciopelada e hidratada. Contiene extractos naturales de Malva y Manzanilla que calman y protegen y Ácido hialurónico que aporta a la piel una hidratación prolongada. La fórmula ultra delicada, sin tensioactivos, hace que el producto sea ideal para una limpieza sin aclarado y permite aportar un mayor confort a las pieles sensibles, secas y deshidratadas. LA PIEL ESTÁ LIMPIA, SUAVE E HIDRATADA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -88,7 +88,7 @@ const importedProductsRaw: Product[] = [
       "Loción de textura aqua-gel que perfecciona la limpieza, refresca, calma y restablece la hidratación cutánea.",
     description:
       "Loción de textura aqua-gel que perfecciona la limpieza, refresca, calma y restablece la hidratación cutánea. Tónico enriquecido con Ácido hialurónico, ideal para devolver la correcta hidratación cutánea después de la limpieza. La innovadora textura aqua-gel es ideal para aportar frescura a la piel y eliminar fácilmente todos los residuos e impurezas. La fórmula rica en activos protectores y reparadores como los extractos de Manzanilla, Malva y Alantoína ofrecen un confort inmediato y dejan la piel suave y aterciopelada. La sinergia de la acción hidratante y calmante reequilibra la piel y la prepara para recibir los tratamientos sucesivos, favoreciendo su eficacia. LA PIEL QUEDA LIMPIA, FRESCA E HIDRATADA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -125,7 +125,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Desmaquillante, limpiadora y calmante.",
     description:
       "Desmaquillante, limpiadora y calmante. Fórmula con tecnología micelar especial a base de ésteres de Glicerol que garantiza una elevada eficacia limpiadora y desmaquillante para la cara y los ojos. Completan la fórmula una mezcla de Alantoína y Trealosa que protegen la membrana celular, calman e hidratan la piel. La ausencia de perfume y la fórmula de elevada dermocompatibilidad hacen que el producto sea ideal para pieles sensibles, secas y deshidratadas. Innovadora fórmula de agua micelar que garantiza una limpieza eficaz de cara y ojos. LA PIEL QUEDA LIMPIA, FRESCA E HIDRATADA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -163,7 +163,7 @@ const importedProductsRaw: Product[] = [
       "Exfoliante delicado de textura gel-crema que, gracias a la mezcla innovadora de dos ingredientes activos, ejerce una doble exfoliación: enzimática y mecánica.",
     description:
       "Exfoliante delicado de textura gel-crema que, gracias a la mezcla innovadora de dos ingredientes activos, ejerce una doble exfoliación: enzimática y mecánica. Renueva la piel en profundidad aportándole luminosidad, eliminando las impurezas y preparándola para los tratamientos sucesivos. La fórmula contiene un 98,4% de ingredientes de origen natural. Cuenta con dos activos exfoliantes de origen natural: microesferas volcánicas (Perlita) y enzimas de la papaya (Papaína) que actúan en sinergia para alisar la piel y hacer una renovación celular profunda. Gracias a la presencia del Bisabolol y el Escualano el producto es ideal también para pieles sensibles. Su acción renovadora, hidratante y calmante alisa la piel y la prepara para los tratamientos sucesivos, aumentando así la eficacia de la rutina de belleza. PIEL EXFOLIADA EN PROFUNDIDAD: MÁS SUAVE, LUMINOSA Y UNIFORME ACTIVOS PRINCIPALES ACCIÓN Tubo de",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -197,7 +197,7 @@ const importedProductsRaw: Product[] = [
       "Limpiador ultra delicado no espumante de textura fluida.",
     description:
       "Limpiador ultra delicado no espumante de textura fluida. Elimina los residuos de maquillaje y las impurezas de la cara y los ojos a la vez que calma y reequilibra la barrera cutánea. Ideal para la piel sensible y enrojecida. Fórmula desarrollada para limpiar y, al mismo tiempo, cuidar la piel más sensible. Contiene un innovador complejo, Prebiotic-Defence, que reequilibra el microbioma y fortalece la barrera cutánea para ayudar a la piel a protegerse frente a los agentes externos y la polución. El Prebiotic-Defence aporta una hidratación intensiva, de eficacia inmediata y duradera, y reduce la sensación de disconfort típica de la piel sensible. El dipotassium glycyrrhizate y el extracto de Arándano potencian la acción calmante aportando alivio a la piel sensible, enrojecida y estresada. La textura de cristales líquidos une la frescura de un gel con el confort de una leche reparadora para una limpieza muy delicada y agradable. DESPUÉS DE LA LIMPIEZA LA PIEL ESTÁ SUAVE, HIDRATADA Y PROTEGIDA Envase d ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -235,7 +235,7 @@ const importedProductsRaw: Product[] = [
       "Spray fresco y ultraligero, ideal para fortalecer, calmar e hidratar al instante la piel muy sensible y con tendencia a rojeces.",
     description:
       "Spray fresco y ultraligero, ideal para fortalecer, calmar e hidratar al instante la piel muy sensible y con tendencia a rojeces. Devuelve el confort a la piel de manera inmediata. Tratamiento intensivo en spray, formulado con el complejo Prebiotic-Defence que reequilibra el microbioma cutáneo y fortalece la barrera cutánea para ayudar la piel a defenderse frente a los agentes externos y la polución. Ofrece una hidratación intensiva con eficacia inmediata y duradera y reduce la sensación de disconfort típica de la piel sensible (molestia, picor, sensación de piel tirante). La fórmula está enriquecida con activos calmantes y anti-enrojecimiento como el dipotassium glycyrrhizate, la Alantoína y el extracto de Arándano para aportar alivio a la piel sensible, enrojecida y estresada. La textura ultra ligera une el frescor de un spray a la eficacia rápida e intensiva de un sérum concentrado para un confort inmediato. SE PUEDE UTILIZAR EN LA RUTINA DIARIA ANTES DEL TRATAMIENTO O COMO REMEDIO SOS A LO LARGO DEL DÍA. Spray de ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -273,7 +273,7 @@ const importedProductsRaw: Product[] = [
       "Fluido concentrado de textura ligera y sedosa que calma inmediatamente las rojeces y fortalece la piel sensible, frágil o con tendencia a cuperosis.",
     description:
       'Fluido concentrado de textura ligera y sedosa que calma inmediatamente las rojeces y fortalece la piel sensible, frágil o con tendencia a cuperosis. Restablece el nivel correcto de hidratación y actúa reequilibrando el microbioma para una sensación óptima de confort. Devuelve el confort a la piel de manera inmediata. La fórmula contiene el innovador activo Prebiotic-Defence, potenciado por una mezcla adicional de pre y probióticos naturales que reequilibra el microbioma cutáneo y, día tras día, reduce la sensibilidad: estimula las defensas naturales de la piel y refuerza la barrera cutánea para defenderla de los agentes externos y la contaminación. Hidrata intensamente con eficacia inmediata y duradera hasta 72h, y reduce el disconfort típico de la piel sensible y frágil (sensación de "piel tirante" y picor) gracias a la presencia en la fórmula de la Isopalmide®, que modula la reactividad cutánea. El extracto de Arándano y el dipotassium glycyrrhizate ofrecen una acción calmante. LA PIEL ESTÁ CALMADA, HIDRATADA, FUERTE Y RECUPERA SU CONFORT Frasco a ACTIVOS PRINCIPALES ACCIÓN',
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -311,7 +311,7 @@ const importedProductsRaw: Product[] = [
       "Fluido facial enriquecido con una exclusiva mezcla de pre- y probióticos para reequilibrar el microbioma cutáneo, reforzar las defensas naturales de la piel y reducir la sensibilidad cutánea.",
     description:
       'Fluido facial enriquecido con una exclusiva mezcla de pre- y probióticos para reequilibrar el microbioma cutáneo, reforzar las defensas naturales de la piel y reducir la sensibilidad cutánea. Además, ofrece una acción hidratante de hasta 72h. Tratamiento facial ideal para aportar confort a la piel más sensible. El complejo Prebiotic-Defence se ve potenciado por una mezcla adicional de pre- y probióticos naturales "Pre+Probiotic complex", que reequilibran el microbioma cutáneo y, día tras día, reducen la sensibilidad cutánea. Pre+Probiotic complex hidrata intensamente con eficacia inmediata y duradera hasta 72h y reduce la sensación de disconfort típica de la piel sensible y frágil (molestia, picor, sensación de piel tirante). El dipotassium glycyrrhizate tiene una acción calmante y el extracto de Magnolia, con acción hidratante intensiva, protege la piel frente al estrés oxidativo diario. PARA UNA PIEL MÁS FUERTE, PROTEGIDA, HIDRATADA Y CALMADA ACTIVOS PRINCIPALES ACCIÓN',
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -349,7 +349,7 @@ const importedProductsRaw: Product[] = [
       "Crema facial de textura rica, formulada específicamente para calmar las rojeces y la sensación de disconfort de la piel sensible, reactiva y con tendencia a cuperosis.",
     description:
       "Crema facial de textura rica, formulada específicamente para calmar las rojeces y la sensación de disconfort de la piel sensible, reactiva y con tendencia a cuperosis. Mejora la microcirculación y la tolerabilidad cutánea, ayudando a prevenir el enrojecimiento. Contiene el innovador complejo Prebiotic-Defence, que reequilibra el microbioma y refuerza la barrera cutánea para ayudar a la piel a defenderse de los agentes externos y de la contaminación. Devuelve, además, una hidratación intensa con eficacia inmediata y duradera. La Troxerutina, bioflavonoide natural, reduce la permeabilidad y mejora la resistencia de los capilares para ayudar a prevenir el enrojecimiento típico de la piel con tendencia a cuperosis. La Isopalmide® y el Oligopéptido calmante presentes en la fórmula modulan la reactividad de la piel y aumentan la tolerabilidad frente a los agentes externos. CALMA Y PROTEGE LA PIEL, REDUCIENDO DIARIAMENTE LAS ROJECES ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -387,7 +387,7 @@ const importedProductsRaw: Product[] = [
       "Limpiador con aclarado que purifica y reequilibra la piel, dejando una sensación fresca y seca.",
     description:
       "Limpiador con aclarado que purifica y reequilibra la piel, dejando una sensación fresca y seca. Sin efecto rebote. Gel con base limpiadora suave, ideal para la limpieza diaria de las pieles mixtas y con impurezas, incluso en la edad adulta. La sinergia de un exclusivo extracto probiótico (Probiotic-Balance) de última generación y activos naturales (Bardana y Niacinamida) restablece las condiciones ideales para el desarrollo de un microbioma cutáneo equilibrado. El Probiotic-Balance, un lisado fermentado obtenido del probiótico Lactobacillus plantarum, estimula la síntesis de ß-defensinas, péptidos endógenos que reequilibran el microbioma gracias a su actividad antibacteriana selectiva. El extracto de Bardana potenciado, conocido por su acción depurativa y bacteriostática, está enriquecido con Biotina y Sulfato de Zinc que, gracias a su acción seborreguladora y antibacteriana, minimiza las imperfecciones desde las primeras aplicaciones. Envase d LA PIEL ESTÁ LIMPIA, PURIFICADA Y REEQUILIBRADA plástico reciclabl ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -425,7 +425,7 @@ const importedProductsRaw: Product[] = [
       'Loción astringente con textura "water-like", formulada para pieles mixtas, grasas y con imperfecciones.',
     description:
       'Loción astringente con textura "water-like", formulada para pieles mixtas, grasas y con imperfecciones. Renueva la piel afinando su textura. Regula la producción de sebo y reduce el brillo desde la primera aplicación. Sin alcohol. La sinergia de un exclusivo extracto probiótico (Probiotic-Balance) de última generación y activos naturales (Bardana, Niacinamida y Extracto biotecnológico de hongos) restablece las condiciones ideales para el desarrollo de un microbioma equilibrado. El Probiotic-Balance, un lisado fermentado obtenido del probiótico Lactobacillus plantarum, estimula la síntesis de ß-defensinas, péptidos endógenos que equilibran el microbioma cutáneo gracias a su actividad antibacteriana selectiva. Gracias a la presencia de Ácido Maltobiónico y Lactobiónico, exfoliantes suaves que respetan el microbioma, renueva la piel afinando su textura y mejorando visiblemente su aspecto. El extracto de Bardana potenciado, conocido por su acción depurativa y bacteriostática, está enriquecido con Biotina y Sulfato de Zinc que, gracias a su acción seborreguladora y antibacteriana, minimiza las imperfecciones desde las Envase d primeras aplicaciones. Contrarresta el brillo y los poros dilatados. reciclado Completa la fórmula el extracto biotecnológico de hongos, un extracto natural que mejora la hidratación cutánea y aporta una acción anti-brillo y astringente inmediata. INDICAC El t',
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -463,7 +463,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento intensivo corrector que seca y reduce las imperfecciones en 8 horas*, con acción antirreaparición*.",
     description:
       "Tratamiento intensivo corrector que seca y reduce las imperfecciones en 8 horas*, con acción antirreaparición*. Sin perfume ni alcohol. Sérum-gel no comedogénico de textura ligera, ideal para corregir granos y puntos negros tanto localizados como en zonas más extensas del rostro (zona T y mejillas). La sinergia de un probiótico exclusivo de última generación (Probiotic-Balance) y activos naturales (Bardana y Niacinamida) restablece las condiciones ideales para el desarrollo de un microbioma cutáneo equilibrado. El Probiotic-Balance, un lisado fermentado obtenido del probiótico Lactobacillus plantarum, estimula la síntesis de ß-defensinas, péptidos endógenos que reequilibran el microbioma cutáneo gracias a su actividad antibacteriana selectiva. El extracto de Bardana potenciado, conocido por su acción depurativa y bacteriostática, está enriquecido con Biotina y Sulfato de Zinc que, gracias a su acción seborreguladora y antibacteriana, minimiza las imperfecciones desde las primeras aplicaciones. La fórmula se completa con Peptide 3Action, un péptido desarrollado mediante inteligencia artificial que actúa sobre todos los signos característicos de la piel mixta y con imperfecciones. Frasco a El extracto biotecnológico de hongos mejora la hidratación cutánea y aporta una acción anti-brillo y astringente inmediata. Y los Ácidos Maltobiónico y Lactobiónico, exfolian suavemente respeta",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -501,7 +501,7 @@ const importedProductsRaw: Product[] = [
       "Fluido matificante e hidratante, ideal como tratamiento diario para pieles mixtas y con imperfecciones, también en adultos.",
     description:
       "Fluido matificante e hidratante, ideal como tratamiento diario para pieles mixtas y con imperfecciones, también en adultos. Regula el exceso de sebo, limpia los poros obstruidos, reequilibra el microbioma cutáneo y refuerza la barrera cutánea. Efecto matificante de larga duración. No comedogénico. La sinergia de un exclusivo extracto probiótico (Probiotic-Balance) de última generación y activos naturales (Bardana y Niacinamida) restablece las condiciones ideales para el desarrollo de un microbioma equilibrado y proporciona a la piel un efecto matificante antibrillos. El Probiotic-Balance, un lisado fermentado obtenido del probiótico Lactobacillus plantarum, estimula la síntesis de ß-defensinas, péptidos endógenos que reequilibran el microbioma cutáneo gracias a su actividad antibacteriana selectiva. El extracto de Bardana potenciada, conocido por su acción depurativa y bacteriostática, está enriquecido con Biotina y Sulfato de Zinc, que gracias a su acción seborreguladora y antibacteriana, minimizan las imperfecciones desde las primeras aplicaciones. La fórmula se completa con Bakuchiol, un activo de origen vegetal con efecto Frasco a similar al Retinol y con acción purificante, y extracto de Salvia Roja con acción iluminadora y favorecedora de la elasticidad de la piel. LA PIEL ESTÁ MATIFICADA Y REEQUILIBRADA, LAS IMPERFECCIONES INDICAC REDUCIDAS ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -539,7 +539,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento semanal a base de Arcilla Blanca que elimina el exceso de sebo y limpia los poros obstruidos.",
     description:
       "Tratamiento semanal a base de Arcilla Blanca que elimina el exceso de sebo y limpia los poros obstruidos. Absorbe el exceso de sebo y purifica la piel respetando su equilibrio. Limpia y purifica la piel de manera profunda e inmediata. Reduce la visibilidad de los poros y deja la piel matificada pero luminosa y descansada. La sinergia de un exclusivo extracto probiótico (Probiotic-Balance) de última generación y activos naturales (Bardana y Niacinamida), restablece las condiciones ideales para el desarrollo de una flora bacteriana equilibrada para una piel purificada. El Probiotic-Balance, un lisado fermentado obtenido del probiótico Lactobacillus plantarum, estimula la síntesis de ß-defensinas, péptidos endógenos que reequilibran el microbioma cutáneo gracias a su actividad antibacteriana selectiva. El extracto de Bardana potenciado, conocido por sus propiedades depurativas y bacteriostáticas, está enriquecido con Biotina y Sulfato de Zinc que, gracias a su acción seborreguladora y antibacteriana, reduce las imperfecciones desde las primeras aplicaciones. La presencia de Arcilla Blanca, gracias a su fina granulometría y a su riqueza Tubo de en minerales como el silicio, el magnesio y el calcio, proporciona una acción reciclado seboabsorbente eficaz, manteniendo al mismo tiempo una textura suave y agradable tras la aplicación. Completan la fórmula el extracto de Salvia Roja, con",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -577,7 +577,7 @@ const importedProductsRaw: Product[] = [
       "TEXTURA OIL-FREE, LIGERA Y RICA CHRONO 1.1 Cremas faciales con Ácido Hialurónico IaluDeep® para una acción hidratante antiedad diaria.",
     description:
       "TEXTURA OIL-FREE, LIGERA Y RICA CHRONO 1.1 Cremas faciales con Ácido Hialurónico IaluDeep® para una acción hidratante antiedad diaria. Hidratan en profundidad y con eficacia prolongada durante todo el día. El exclusivo Ácido Hialurónico potenciado IaluDeep® hidrata en profundidad, minimiza las arrugas con una acción filler visible desde las primeras aplicaciones y contrarresta el fotoenvejecimiento gracias a su acción antioxidante intensiva. Texturas diferenciadas y específicas para cada tipo de piel. Fórmulas de absorción rápida, hidratan la piel sin sobrecargarla. LA PIEL QUEDA MÁS SUAVE, LISA, LUMINOSA Y PROTEGIDA FRENTE A LOS DAÑOS PROVOCADOS POR EL FOTOENVEJECIMIENTO ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -611,7 +611,7 @@ const importedProductsRaw: Product[] = [
       "TEXTURA ULTRA LIGERA, LIGERA, RICA Y ULTRA RICA Cremas antiedad de acción lifting con texturas específicas para cada CHRONO 2.1 tipo de piel.",
     description:
       "TEXTURA ULTRA LIGERA, LIGERA, RICA Y ULTRA RICA Cremas antiedad de acción lifting con texturas específicas para cada CHRONO 2.1 tipo de piel. Alisan las arrugas y devuelven firmeza y elasticidad. En el corazón de la fórmula el exclusivo complejo activo Pro-Colágeno CollRenew®: una combinación patentada de un tripéptido potenciador de colágeno, dos péptidos naturales y un extracto de flor de granada para potenciar la producción natural de Colágeno, proteger el colágeno existente y prevenir el envejecimiento cutáneo. El resultado es una acción reafirmante completa y profunda, lifting inmediato y antioxidante. Fragancia fresca y floral enriquecida con ligeras notas orientales. LA PIEL ESTÁ MÁS FIRME Y ELÁSTICA, EL TONO MÁS UNIFORME ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -649,7 +649,7 @@ const importedProductsRaw: Product[] = [
       "TEXTURA LIGERA, RICA Y ULTRA RICA CHRONO 3.1 Redefinen y rellenan el óvalo facial.",
     description:
       "TEXTURA LIGERA, RICA Y ULTRA RICA CHRONO 3.1 Redefinen y rellenan el óvalo facial. Reducen y alisan las arrugas. Revitalizan e iluminan la piel. Texturas específicas para diferentes tipos de piel. Tratamiento antiarrugas específico para pieles con pérdida de densidad y volumen. Toda la línea Redensificante contiene el complejo activo Ceramida Complex (phytosphingosina, ceramida 3, extracto de peonía blanca) que remodela el óvalo facial, contrarresta las discromías y devuelve a la piel su sostén natural, aportándole luminosidad y vitalidad. Tres cremas con diferentes texturas y específicas para pieles normales y/o mixtas, normales y/o secas, muy secas y/o tratamiento nocturno. Eficacia reestructurante y antiarrugas evaluadas con un estudio in vivo y una prueba de eficacia percibida. PIEL MÁS TERSA, REDEFINIDA Y REVITALIZADA C ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -687,7 +687,7 @@ const importedProductsRaw: Product[] = [
       "Emulsión innovadora en gel con una cantidad elevada de aceites emolientes de acción limpiadora y antiedad global.",
     description:
       "Emulsión innovadora en gel con una cantidad elevada de aceites emolientes de acción limpiadora y antiedad global. Elimina de forma eficaz incluso el maquillaje waterproof. Limpiador formulado con la innovadora tecnología específica d-phase que permite obtener un limpiador con el aspecto transparente típico de un gel y un contenido elevado de aceites nutritivos. Esta emulsión-gel, al entrar en contacto con la piel se transforma en un aceite suave que ofrece confort inmediato y limpieza eficaz. Los limpiadores delicados combinados con los aceites nutritivos garantizan una limpieza eficaz y una elevada dermocompatibilidad. Eliminan todos los residuos de suciedad y de maquillaje, incluso waterproof. LA PIEL QUEDA PERFECTAMENTE LIMPIA, SUAVE, HIDRATADA, ELÁSTICA Y LUMINOSA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -721,7 +721,7 @@ const importedProductsRaw: Product[] = [
       "Espuma limpiadora exfoliante con alfahidroxiácidos que activa la renovación celular y mejora la textura y luminosidad de la piel.",
     description:
       "Espuma limpiadora exfoliante con alfahidroxiácidos que activa la renovación celular y mejora la textura y luminosidad de la piel. Forma una espuma suave, cremosa y compacta que limpia las impurezas acuosas (sudor, células muertas, partículas de polución acuosas). La Gluconolactona y el Ácido Maltobiónico promueven la renovación de la piel de manera suave, sin irritarla. El sistema de limpieza seleccionado está libre de jabón y garantiza la limpieza y eliminación de las impurezas sin resecar la piel. La Caléndula y la Malva son dos extractos naturales con propiedades calmantes, que se ven potenciadas con la adición de la Betaína. La patente Osmoshield® restablece el equilibrio osmótico celular. LA PIEL QUEDA PERFECTAMENTE LIMPIA, SUAVE, LUMINOSA Y UNIFORME ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -759,7 +759,7 @@ const importedProductsRaw: Product[] = [
       "Crema específica para el contorno de ojos de acción antiedad global: reduce las arrugas de expresión, aporta firmeza y elasticidad e ilumina la mirada.",
     description:
       "Crema específica para el contorno de ojos de acción antiedad global: reduce las arrugas de expresión, aporta firmeza y elasticidad e ilumina la mirada. Fórmula sin perfume y oftalmológicamente testada, desarrollada específicamente para la zona delicada y frágil del contorno de ojos. La combinación de las patentes Osmoshield® y Microceramid® con otros activos específicos de acción antiedad, como el ácido hialurónico y el ciclopéptido, es eficaz para prevenir y reducir las arrugas del contorno de ojos, aportar elasticidad y contrarrestar la relajación de los párpados. La cafeína presente en la fórmula reduce la hinchazón y la pigmentación, para atenuar las ojeras, los signos de fatiga y recuperar un aspecto más joven y descansado. Cuenta con aplicador metálico con efecto frío y descongestionante de la zona ocular, que favorece la reducción de bolsas y ojeras. LA PIEL DEL CONTORNO DE OJOS ESTÁ MÁS JOVEN, TERSA Y LUMINOSA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -797,7 +797,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento concentrado activador de la energía celular con acción antiedad global.",
     description:
       "Tratamiento concentrado activador de la energía celular con acción antiedad global. Alisa, reafirma e hidrata la piel, ayudando a reactivar su capacidad de respuesta y a potenciar la eficacia de tratamientos posteriores. La sinergia de las exclusivas patentes Osmoshield® y Microceramid®, unidas al innovador Extracto Pro-Longevity, promueve la longevidad celular y previene los signos del tiempo. Reactiva las células cutáneas en profundidad y restablece las condiciones óptimas para despertar y prolongar la juventud de la piel a cualquier edad. Potenciado con un extracto marino que actúa como booster de la patente Osmoshield®: estimula y amplifica la comunicación célula-célula, corrigiendo en profundidad todos los signos del envejecimiento. El antioxidante anti-fotoenvejecimiento proporciona una protección eficaz contra los radicales libres durante 24 horas, defendiendo la piel del estrés oxidativo causado por los rayos UV y la contaminación, y reduciendo uno de los mecanismos responsables de la formación de arrugas y manchas cutáneas. Los polvos iluminadores soft-focus aportan luminosidad inmediata y minimizan Frasco d instantáneamente la apariencia de las arrugas. con dosi LA PIEL ESTÁ VISIBLEMENTE MÁS JOVEN, MÁS TERSA, LUMINOSA Y UNIFORME A PARTIR DE LAS PRIMERAS APLICACIONES INDICAC ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -831,7 +831,7 @@ const importedProductsRaw: Product[] = [
       "Cremas faciales activadoras de la energía celular con acción antiedad global.",
     description:
       "Cremas faciales activadoras de la energía celular con acción antiedad global. Revitalizan la piel en profundidad, mejoran su capacidad de respuesta a los tratamientos y ayudan a restaurar las condiciones propias de una piel joven. La sinergia de las exclusivas patentes Osmoshield® y Microceramid®, unidas al innovador Extracto Pro-Longevity, promueve la longevidad celular y previene los signos del envejecimiento. Protege la piel del fotoenvejecimiento durante 24 horas frente al estrés oxidativo (UV y contaminación). Además, hidrata y rellena gracias al ácido hialurónico, y refuerza la barrera cutánea con Fermento Thermophilus. La crema de noche está potenciada con extracto natural de Schisandra, de acción antioxidante y regeneradora profunda, para renovar la piel en profundidad durante la noche. LA PIEL VISIBLEMENTE MÁS JOVEN, MÁS TERSA, LUMINOSA Y UNIFORME ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -866,7 +866,7 @@ const importedProductsRaw: Product[] = [
       "Crema corporal con acción reafirmante y antiedad celular.",
     description:
       "Crema corporal con acción reafirmante y antiedad celular. Ayuda a combatir la flacidez de la piel y los signos del envejecimiento. Exclusiva fórmula rica y envolvente, con efecto seda, diseñada para devolver tono, elasticidad y firmeza a los tejidos cutáneos. La acción antiedad celular de las patentes Osmoshield® y Microceramid® se complementa con la acción reafirmante y antioxidante del Alga parda, para actuar eficazmente contra la flacidez de brazos, abdomen, glúteos y muslos. Enriquecida con Ácido Hialurónico, hidratante y filler antiedad, garantiza una hidratación intensa y duradera. LA PIEL DEL CUERPO SE VE VISIBLEMENTE MÁS HIDRATADA, TÓNICA, FIRME Y LUMINOSA. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -904,7 +904,7 @@ const importedProductsRaw: Product[] = [
       "Crema antiarrugas específica para el contorno de ojos y labios.",
     description:
       "Crema antiarrugas específica para el contorno de ojos y labios. Mejora visiblemente las arrugas de expresión y contrarresta la relajación de los tejidos. Fórmula desarrollada específicamente para la zona fina y frágil del contorno de ojos. Con Ácido Hialurónico potenciado IaluDeep®: hidrata la piel en profundidad, alisa y minimiza las arrugas y, gracias a su acción antioxidante, contrarresta el fotoenvejecimiento. El extracto de Acmella reduce visiblemente la profundidad y la longitud de las arrugas de expresión, especialmente del contorno de ojos y labios. Eficacia visible tras 2 semanas de uso, el resultado es un efecto Natural-Botox. CONTORNO DE OJOS Y LABIOS FIRME Y LISO, ARRUGAS VISIBLEMENTE REDUCIDAS ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -942,7 +942,7 @@ const importedProductsRaw: Product[] = [
       "Gel crema específica para el contorno de ojos de acción defatigante.",
     description:
       "Gel crema específica para el contorno de ojos de acción defatigante. Previene y corrige bolsas y ojeras. Fórmula desarrollada específicamente para la zona fina y delicada del contorno de ojos. Contiene una mezcla de activos seleccionados para una acción completa y eficaz sobre bolsas y ojeras. La Crisina y la N-hidroxisuccinimida suavizan el color de las ojeras, mientras la Cafeína y la Escina beta-sitosterol activan la microcirculación de la zona periocular, drenando así la retención de líquidos y reduciendo las bolsas. La mezcla de Péptidos aumenta la densidad cutánea reforzando la matriz de la dermis y asegurando apoyo y soporte a la red microvascular que riega la zona periocular. El extracto de Centella asiática (triterpenos seleccionados) estimula la síntesis de colágeno en las capas más profundas de la epidermis contrarrestando la pérdida de elasticidad. Contiene además partículas de efecto soft focus, que suavizan la visibilidad de las imperfecciones del contorno de ojos desde las primeras aplicaciones. MIRADA DESCANSADA, BOLSAS REDUCIDAS Y OJERAS CORREGIDAS Frasco d ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -980,7 +980,7 @@ const importedProductsRaw: Product[] = [
       "POLIPÉPTIDOS 13% Activo concentrado a base de péptidos de última generación con acción multinivel en el proceso de formación de las arrugas.",
     description:
       "POLIPÉPTIDOS 13% Activo concentrado a base de péptidos de última generación con acción multinivel en el proceso de formación de las arrugas. Efecto BOTOX- LIKE inmediato, efecto lifting a los 15 minutos*, reduce la profundidad y el volumen de las arrugas, y mejora la firmeza y elasticidad de la piel. Perfecto para potenciar los tratamientos antiedad. Sin perfume. Formulado con un complejo peptídico de última generación que actúa sobre las arrugas dinámicas y estáticas. Este complejo peptídico se compone de 4 péptidos diferentes que actúan en diferentes puntos del proceso de formación de las arrugas. Los péptidos bótox-like imitan el efecto de la toxina botulínica, inhiben la transmisión neuromuscular y la consiguiente contracción muscular responsable de las arrugas de expresión. Los péptidos señal estimulan la síntesis de colágeno y elastina para mejorar la firmeza y elasticidad de la piel. Fórmula enriquecida con Ácido Hialurónico de acción hidratante y filler de arrugas, y extracto seco de Castanea Sativa, que actúa como un tensor natural, alisando y aportando firmeza y luminosidad a la piel. Su efecto es visible a los 15 minutos y dura hasta 8 horas. Una fórmula única que permite un abordaje integral del proceso de formación de las arrugas. Ayuda a reducir arrugas y líneas de expresión, mejora la firmeza y elasticidad y proporciona luminosidad a la piel. Ideal para todo tipo",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1018,7 +1018,7 @@ const importedProductsRaw: Product[] = [
       "Sérum de acción “Flash” de efecto tensor e iluminador inmediato.",
     description:
       "Sérum de acción “Flash” de efecto tensor e iluminador inmediato. Este sérum se incluye en la categoría «cosméticos de efecto rápido» porque ejerce un efecto hidratante y tensor antiarrugas inmediato que dura horas después de la aplicación. Actúa directamente sobre la epidermis y, gracias a ingredientes activos innovadores, es capaz de suavizar las arrugas. El producto contiene IaluDeep®, un complejo exclusivo de Ácido hialurónico y extracto de Tupinambo (Helianthus tuberosus) creado y fabricado por nuestros laboratorios. Este Ácido hialurónico potenciado hidrata la piel en profundidad y contrarresta el fotoenvejecimiento gracias a su acción antioxidante protectora. Contiene una mezcla exclusiva de biopolímeros naturales que interactúan entre sí formando una red tridimensional que crea una capa fina imperceptible, como una segunda piel, de efecto tensor inmediato. Gracias a los polvos iluminadores la piel se ve más lisa y homogénea, luminosa y sana. Además, los polvos otorgan a la emulsión una textura cremosa con elevada cosmeticidad. Frasco d LA PIEL ESTÁ MÁS HIDRATADA, ELÁSTICA Y LUMINOSA dosificad ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1056,7 +1056,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento en gel con una alta concentración de Ácido Hialurónico microfragmentado.",
     description:
       "Tratamiento en gel con una alta concentración de Ácido Hialurónico microfragmentado. Hidrata intensamente, rellena las arrugas y deja la piel firme, suave, sedosa y luminosa. El Ácido Hialurónico es un componente esencial del tejido conjuntivo que tonifica la piel y le proporciona elasticidad e hidratación. Ejerce una acción rellenadora de arrugas, alisando visiblemente los signos del envejecimiento y reviste completamente la superficie de la piel, hidratándola y dejándola sedosa y relajada. El Gel HYALURONIC 40% es una solución concentrada de Ácido Hialurónico microfragmentado. Gracias a su textura especial en forma de gel fresco, ligero y de rápida absorción, es adecuado para todo tipo de piel, incluso para las pieles sensibles. El Ácido Hialurónico se puede utilizar durante periodos muy largos, incluso durante todo el año. No requiere tratamientos cíclicos aunque, por sus efectos tan rápidos e inmediatamente visibles, es la fórmula perfecta cuando se desea obtener una acción antiedad rápida y visible de inmediato. LA PIEL ESTÁ MÁS HIDRATADA, ELÁSTICA Y LUMINOSA Frasco c de 50 m ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1094,7 +1094,7 @@ const importedProductsRaw: Product[] = [
       "Sérum intensivo antiedad de triple acción lifting: alisa, reafirma y unifica.",
     description:
       "Sérum intensivo antiedad de triple acción lifting: alisa, reafirma y unifica. En el corazón de la fórmula encontramos el exclusivo complejo activo Pro-Colágeno CollRenew®: una combinación patentada de un tripéptido booster de Colágeno, dos péptidos naturales y el extracto natural de flores de Granada para potenciar la producción endógena de Colágeno, proteger el Colágeno existente y prevenir el envejecimiento cutáneo. El resultado es una acción reafirmante completa y profunda, con acción lifting inmediata y antioxidante que unifica la piel. LA PIEL ESTÁ MÁS FIRME, ELÁSTICA Y LISA Y EL TONO MÁS UNIFORME ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1132,7 +1132,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento antiarrugas específico para pieles maduras con pérdida de densidad y volumen.",
     description:
       "Tratamiento antiarrugas específico para pieles maduras con pérdida de densidad y volumen. Redefine y rellena el óvalo facial. Reduce y alisa las arrugas. Revitaliza e ilumina la piel. Toda la línea Redensificante contiene el complejo activo Ceramida Complex (phytosphingosina, ceramida 3, extracto de peonía blanca) que remodela el óvalo facial, contrarresta las discromías y devuelve a la piel su sostén natural, aportándole luminosidad y vitalidad. En comparación con las cremas, el Sérum Redensificante Ceramida Complex 10% contiene una concentración doble de fitoesfingosina para una acción reestructurante y redensificante profunda. Eficacia reestructurante y antiarrugas evaluada con un estudio in vivo y una prueba de eficacia percibida. PIEL MÁS FIRME Y REVITALIZADA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1170,7 +1170,7 @@ const importedProductsRaw: Product[] = [
       "Sérum antiedad con acción retexturizante global y antiarrugas.",
     description:
       "Sérum antiedad con acción retexturizante global y antiarrugas. Fórmula desarrollada con retinol puro microencapsulado para garantizar la estabilidad del producto y maximizar la biodisponibilidad de la molécula. Cuenta además con un sistema de liberación controlado en dos fases que permite tener una liberación progresiva del producto durante 24h. Este sistema de liberación garantiza la eficacia del producto durante todo el día. El retinol es un derivado de la vitamina A que desempeña una acción clave en la regeneración celular. Además, cuenta con una acción antiarrugas profunda, reduce las discromías y regula la producción de sebo. PIEL MÁS FIRME, LISA Y CON UN TONO MÁS UNIFORME ACTIVO PRINCIPAL ACCIÓN RETINOL PURO 0,3% Antiedad, renovadora y retexturizante. Frasco a TEXTURA • Emulsión de textura ligera y de rápida absorción. INDICAC • Con color amarillo pálido, indicativo de la pureza del activo. • ACCIÓN • Sin perfume. • ANTIAR MODO DE USO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1208,7 +1208,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento diario con filtros UVA-UVB-IR y con extracto anti-luz azul para defender la piel frente a los daños causados por la exposición solar y la polución.",
     description:
       "Tratamiento diario con filtros UVA-UVB-IR y con extracto anti-luz azul para defender la piel frente a los daños causados por la exposición solar y la polución. Fluido ultraligero y sedoso que crea una barrera invisible y defiende la piel frente a los daños causados por la exposición solar, la contaminación y el estrés ambiental, principales responsables de la formación de radicales libres. Los filtros solares fotoestables de última generación protegen la piel del fotoenvejecimiento provocado por los rayos UV e IR (manchas, arrugas, pérdida de tono y elasticidad). El extracto natural anti-luz azul es rico en flavonoides, es decir moléculas escudo que contrarrestan los daños de tipo oxidativo provocados por la exposición a este tipo de radiación. El producto contiene IaluDeep®, un complejo exclusivo de Ácido Hialurónico y extracto de Tupinambo desarrollado y fabricado por nuestros laboratorios. Este Ácido Hialurónico potenciado hidrata la piel en profundidad y contrarresta el fotoenvejecimiento gracias a su acción antioxidante protectora. Frasco c PIEL PROTEGIDA FRENTE A LA RADIACIÓN SOLAR, EL FOTOENVEJECIMIENTO 50 ml Y LA CONTAMINACIÓN ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1245,7 +1245,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Tratamiento perfeccionador y alisante.",
     description:
       "Tratamiento perfeccionador y alisante. Aporta un color más uniforme y afina la textura de la piel. Fórmula que supera los beneficios de los exfoliantes tradicionales porque actúa sobre diversos frentes. Contiene el complejo Glicólico complex 10% que combina dos moléculas de acción perfeccionadora (Ácido Glicólico + Ácido Lactobiónico). El Ácido Glicólico, de derivación natural, afina de forma delicada la textura de la piel porque favorece la renovación celular eliminando las células muertas de la capa córnea, que se sustituirán con nuevas células. Alisa las irregularidades cutáneas, ilumina la piel y devuelve un aspecto radiante. El Ácido Lactobiónico, polihidroxiácido con una actividad antioxidante destacada, contrarresta la formación de radicales libres, los principales responsables del envejecimiento cutáneo. El producto contiene IaluDeep®, un complejo exclusivo de Ácido Hialurónico y extracto de Tupinambo (Helianthus tuberosus) creado y fabricado por nuestros laboratorios. Este Ácido Hialurónico potenciado hidrata la piel en profundidad y contrarresta el fotoenvejecimiento gracias a su acción antioxidante protectora. Frasco d La alantoína, con su acción calmante y protectora, aporta eficacia a la fórmula y respeta el equilibrio cutáneo. La fórmula, de elevada tolerabilidad cutánea, es el tratamiento nocturno ideal para las pieles apagadas, opacas y/o con marcas de acné. Afi",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1283,7 +1283,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento diario aclarante para cara y manos con protección solar de amplio espectro UVA-UVB-IR.",
     description:
       "Tratamiento diario aclarante para cara y manos con protección solar de amplio espectro UVA-UVB-IR. Ideal para todos los fototipos y tipos de piel, incluso las sensibles. Fluido ultraligero que, en un solo gesto, atenúa progresivamente todo tipo de manchas, unifica el tono, perfecciona la textura de la piel y previene la hiperpigmentación. Fórmula con un mecanismo de acción innovador, que actúa en el origen de la hiperpigmentación. Cuenta con una mezcla exclusiva de activos que actúan de forma sinérgica en todas las fases del proceso de melanogénesis. El nuevo activo antimanchas patentado VitisBright® inhibe la enzima tirosinasa e impide su oxidación contrarrestando el desencadenamiento de la hiperpigmentación y la formación y acumulación de un exceso de melanina. La niacinamida inhibe la transferencia de melanina y bloquea el exceso de pigmento antes de que se formen manchas en la superficie. Los filtros solares fotoestables de última generación previenen la formación de nuevas manchas y protegen la piel de la inflamación durante el tratamiento. LAS MANCHAS SE ACLARAN PROGRESIVAMENTE, LA PIEL ESTÁ PROTEGIDA Frasco d Y EL TONO SE UNIFICA dosificad ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1321,7 +1321,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento antimanchas corrector y despigmentante intensivo, para manchas localizadas o discromías extensas.",
     description:
       "Tratamiento antimanchas corrector y despigmentante intensivo, para manchas localizadas o discromías extensas. Ideal para todos los fototipos y tipos de piel, incluso las sensibles. Perfeccionador de noche en emulsión ligera eficaz frente a todo tipo de manchas, como las de hiperpigmentación tras la exposición solar, melasma, manchas por envejecimiento, manchas post acné y manchas generadas después de tratamientos con láser y luz pulsada. Corrige progresivamente las manchas y unifica el tono de la piel. Fórmula con un mecanismo de acción innovador, que actúa en el origen de la hiperpigmentación. Cuenta con una mezcla exclusiva de activos que actúan de forma sinérgica en todas las fases del proceso de melanogénesis. El nuevo activo antimanchas patentado VitisBright® inhibe la enzima tirosinasa e impide su oxidación contrarrestando el desencadenamiento de la hiperpigmentación y la formación y acumulación de un exceso de melanina. El Ácido Tranexámico inhibe la síntesis de melanina en los melanocitos y reduce la inflamación de los queratinocitos, por lo que resulta especialmente eficaz contra la hiperpigmentación postinflamatoria. La Niacinamida inhibe la transferencia de melanina y bloquea el exceso de pigmento antes de que se formen manchas en la superficie. Frasco a LAS MANCHAS LOCALIZADAS Y LAS DISCROMÍAS EXTENSAS SE ACLARAN PROGRESIVAMENTE INDICAC ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1359,7 +1359,7 @@ const importedProductsRaw: Product[] = [
       "Mascarilla facial de textura ultra rica que actúa durante la noche, con una acción hidratante y antiedad: nutre, alisa e hidrata en profundidad.",
     description:
       "Mascarilla facial de textura ultra rica que actúa durante la noche, con una acción hidratante y antiedad: nutre, alisa e hidrata en profundidad. Tratamiento intensivo ultra rico a base de Ácido Hialurónico potenciado IaluDeep® que hidrata en profundidad, alisa y minimiza las arrugas y, gracias a su acción antioxidante, contrarresta el fotoenvejecimiento. Fórmula enriquecida con Manteca de Karité de acción nutritiva intensiva que aporta confort inmediato incluso en las pieles más secas. Las propiedades protectoras y calmantes de la Alantoína completan la acción reparadora de la mascarilla y hacen que sea la respuesta ideal para contrarrestar la sequedad y la sensación de “piel tirante”. AL DESPERTAR LA PIEL APARECE PERFECTAMENTE NUTRIDA, LISA Y SUAVE ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1397,7 +1397,7 @@ const importedProductsRaw: Product[] = [
       "Mascarilla facial de acción hidratante y antiedad intensiva, en tejido de fibra de Bambú 100% natural.",
     description:
       "Mascarilla facial de acción hidratante y antiedad intensiva, en tejido de fibra de Bambú 100% natural. Concentrado en gel de Ácido Hialurónico IaluDeep®. Tratamiento intensivo con Ácido Hialurónico IaluDeep®: hidrata en profundidad la piel de la cara, alisa y, gracias a su acción antioxidante, minimiza las arrugas y contrarresta el fotoenvejecimiento. La textura fresca en gel, refrescante y relajante, aumenta la acción del Ácido Hialurónico, para un aspecto luminoso y descansado en 10 minutos. La fórmula, sin perfume y enriquecida con activos calmantes, hace que el producto sea un tratamiento hidratante y emoliente, ideal también para la piel sensible, deshidratada y enrojecida. REGENERA LA PIEL EN SÓLO 10 MINUTOS, LA PIEL QUEDA PERFECTAMENTE HIDRATADA, LISA Y LUMINOSA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1436,7 +1436,7 @@ const importedProductsRaw: Product[] = [
       "Sérum calmante y reparador intensivo, con Ácido Hialurónico e Isopalmide® que regula y calma las pieles más reactivas.",
     description:
       "Sérum calmante y reparador intensivo, con Ácido Hialurónico e Isopalmide® que regula y calma las pieles más reactivas. Formulado con ácido hialurónico, que, gracias a su capacidad de retener una gran cantidad de agua, hidrata la piel en profundidad y desempeña una acción antiedad sobre las arrugas. Isopalmide®, presente en los productos Ceramol, es un endocannabinoide que actúa de forma eficaz en el inflammaging, el fenómeno de envejecimiento celular de la piel. Se trata de un lípido bioactivo con un intensa acción antiinflamatoria y calmante, útil en presencia de irritaciones y rojeces de tipo diverso. El extracto de semillas de Tamarindo, rico en polisacaridos (sobre todo de xilosa, galactoxilosa y arabinosa) completa la eficacia hidratante del sérum: ofrece una hidratación perfecta con un mecanismo de acción similar a la del Ácido hialurónico. La piel está inmediatamente más luminosa e hidratada. El extracto de Aloe Vera, rico en vitaminas, fitoesteroles (colesterol, campesterol y ß-sitosterol) y aminoácidos garantiza una eficacia calmante frente al enrojecimiento. Frasco a La Vitamina E antioxidante actúa frente a los radicales libres producidos por la piel expuesta a los rayos UV, IR y a la contaminación, previniendo los daños a nivel cutáneo para contrarrestar los signos del fotoenvejecimiento. INDICAC PIEL REPARADA Y CALMADA AL INSTANTE • PIELES DE RET ACTIVOS PRINCIPALE",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1474,7 +1474,7 @@ const importedProductsRaw: Product[] = [
       "Crema formulada para ofrecer un afeitado eficaz que protege y cuida la piel sensible y reactiva.",
     description:
       "Crema formulada para ofrecer un afeitado eficaz que protege y cuida la piel sensible y reactiva. Enriquecida con activos calmantes para prevenir el enrojecimiento y las irritaciones. Producto para el afeitado ideal incluso en las pieles más sensibles. La particular tecnología en emulsión, sin tensioactivos y con un elevado pocentaje de aceites, crea una barrera emoliente y protectora que hace que la cuchilla se deslice con suavidad y, después del afeitado, aporta a la piel suavidad y protección de larga duración. Fórmula enriquecida con gel de Aloe Vera de acción hidratante y calmante, Alantoína y Palmitamida MEA que desempeñan una acción calmante y protectora durante y después del afeitado, previniendo el enrojecimiento y las irritaciones. DESPUÉS DEL AFEITADO LA PIEL ESTÁ SUAVE Y PROTEGIDA FRENTE A LAS IRRITACIONES ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1512,7 +1512,7 @@ const importedProductsRaw: Product[] = [
       "Gel de tratamiento facial de uso 2 en 1, para la máxima practicidad: cal- mante para después del afeitado e hidratante antiedad diario, específico para la piel del hombre.",
     description:
       "Gel de tratamiento facial de uso 2 en 1, para la máxima practicidad: cal- mante para después del afeitado e hidratante antiedad diario, específico para la piel del hombre. Recomendado incluso para pieles sensibles. Producto completo de doble uso para cuidar la piel del hombre con una única acción diaria. La elevada concentración de activos calmantes como el Aloe Vera y la Alantoína hacen que el producto sea ideal como tratamiento para después del afeitado: calma las irritaciones, aporta alivio a la piel estresada por el afeitado y ayuda a su reestructuración. El Ácido Hialurónico potenciado IaluDeep® garantiza una hidratación profunda y a largo plazo. El Pentapéptido 4 de eficacia antiedad completa la acción del tratamiento, para una piel más firme, compacta y con menos arrugas. LA PIEL ESTÁ HIDRATADA, SUAVE, FIRME Y REVITALIZADA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1550,7 +1550,7 @@ const importedProductsRaw: Product[] = [
       "Crema facial hidratante de textura ligera, específica para la piel del hombre, incluso para piel sensible.",
     description:
       "Crema facial hidratante de textura ligera, específica para la piel del hombre, incluso para piel sensible. Protege, refuerza y contrarresta el envejecimiento cutáneo. Crema facial formulada para ofrecer una hidratación reforzada para la piel del hombre. El Ácido Hialurónico IaluDeep®, Ácido Hialurónico potenciado, garantiza una hidratación profunda y a largo plazo durante todo el día, aportando la correcta hidratación y eficacia antiedad para contrarrestar el envejecimiento cutáneo. Los activos de acción protectora como la Ceramida 3 y la Vitamina E, refuerzan y protegen la barrera cutánea, ayudando a la piel a defenderse de manera eficaz frente el estrés diario. El producto es ideal para el cuidado diario de la piel de normal a seca, como hidratante intensivo en las épocas más frías o para los hombres que pasan mucho tiempo al aire libre y necesitan proteger la piel frente a los agentes externos como viento y frío. LA PIEL ESTÁ HIDRATADA, PROTEGIDA Y FIRME ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1584,7 +1584,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento específico para el cuidado de la piel delicada de los niños más pequeños.",
     description:
       "Tratamiento específico para el cuidado de la piel delicada de los niños más pequeños. Con ingredientes activos calmantes, hidratantes y emolientes para proteger y respetar la piel desde el nacimiento. En el corazón de la formulación se ha elegido una mezcla de ingredientes activos eficaces y eudérmicos ideales para garantizar hidratación, confort y protección a la piel delicada de niños, adultos y personas mayores. El Aceite de Algodón es un extracto natural derivado de las semillas de la planta Gossypium herbaceum, conocido por sus propiedades emolientes. Su composición es especialmente rica en ácidos grasos omega 6 y vitamina E, esenciales para mantener la piel sana, protegida e hidratada. Los omega 6, además, participan en la síntesis de las ceramidas, lípidos fundamentales para proteger la integridad de la barrera cutánea. Este aceite, por lo tanto, es ideal para aportar un efecto calmante, nutritivo y protector a la piel muy seca, irritada y sensible. La Alantoína aporta una acción calmante eficaz reduciendo las molestias y las rojeces típicas de la piel irritada. Desempeña también una acción hidratante gracias a la capacidad aumentada de los corneocitos de retener el agua. El Pantenol (provitamina B5) potencia la acción hidratante de los productos. Su Tubo de capacidad de unir moléculas de agua mantiene la capa córnea hidratada, refuerza la barrera cutánea y protege la pi",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1618,7 +1618,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento específico para la limpieza de la piel delicada de los niños más pequeños.",
     description:
       "Tratamiento específico para la limpieza de la piel delicada de los niños más pequeños. Con tensioactivos delicados e ingredientes activos hidratantes y calmantes para proteger y respetar la piel desde el nacimiento. En el corazón de las formulaciones de toda la línea Baby se han elegido un grupo de ingredientes activos eficaces y eudérmicos ideales para garantizar hidratación, confort y protección de la piel delicada de niños, adultos y personas mayores. El Aceite de Algodón es un extracto natural derivado de las semillas de la planta Gossypium herbaceum, conocido por sus propiedades emolientes. Su composición es especialmente rica en ácidos grasos omega 6 y vitamina E, esenciales para mantener la piel sana, protegida e hidratada. Los omega 6, además, participan en la síntesis de las ceramidas, lípidos fundamentales para proteger la integridad de la barrera cutánea. Este aceite es ideal para aportar un efecto calmante, nutritivo y protector a la piel muy seca, irritada y sensible. La Alantoína y el Pantenol (provitamina B5) desempeñan una acción hidratante y dejan la piel hidratada después de la limpieza. Además, aportan una acción calmante eficaz ayudando a reducir las molestias y los enrojecimientos típicos Envase d de la piel sensible. Los tensioactivos derivados de azúcares tienen una dermocompatibilidad óptima, garantizan la formación de una espuma ligera y agradable y lim",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1656,7 +1656,7 @@ const importedProductsRaw: Product[] = [
       "Gel crema de textura fresca, ligera y de rápida absorción para favorecer el drenaje de los líquidos, contrarrestar su retención y las imperfecciones de la celulitis.",
     description:
       "Gel crema de textura fresca, ligera y de rápida absorción para favorecer el drenaje de los líquidos, contrarrestar su retención y las imperfecciones de la celulitis. Con extracto de Pimienta Rosa, Troxerutina y Cafeína. Una combinación exclusiva de activos para una acción drenante y un efecto global frente a la celulitis. Acción anticelulitis potenciada sobre los distintos factores que la causan: acumulación de grasa, retención de líquidos y alteración de la microcirculación. La acción sinérgica de la Pimienta Rosa y la Cafeína presentes en la fórmula, actúa a tres niveles sobre la acumulación de grasas: limita la formación de adipocitos maduros, contrarresta el almacenamiento de nuevos lípidos y disuelve la acumulación de grasa que causa la celulitis en bloques más pequeños y, por lo tanto, más fáciles de eliminar. La Troxerutina completa la acción: drenante, vasoprotectora y antiinflamatoria; contrarresta la retención de líquidos (edema) y la inflamación. DEVUELVE UN ASPECTO LISO Y FIRME A LA PIEL DE NARANJA. SENSACIÓN DE LIGEREZA Y FRESCOR ACTIVOS PRINCIPALES ACCIÓN Envase d",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1694,7 +1694,7 @@ const importedProductsRaw: Product[] = [
       "Crema corporal de acción liporeductora, adelgazante y remodeladora de la silueta.",
     description:
       "Crema corporal de acción liporeductora, adelgazante y remodeladora de la silueta. Con extracto de Algas Rojas, Carnitina y Cafeína. Gracias a la concentración elevada de activos de acción adelgazante y remodeladora, contrarresta las imperfecciones causadas por las adiposidades localizadas. El extracto de Algas rojas de acción adelgazante actúa directamente en el corazón de los adipocitos: reduce la absorción y el almacenamiento de las grasas, estimula la lipólisis y reduce la lipogénesis. La acción lipolítica se ve potenciada por la Carnitina y la Cafeína presentes en la fórmula. Además, contiene pectinas con acción alisante, para una piel visiblemente más firme y compacta. Textura rica de fácil aplicación. LA SILUETA APARECE REMODELADA Y REDEFINIDA Y LA PIEL SE VE MÁS FIRME Y COMPACTA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1732,7 +1732,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento de choque en emulsión fluida de acción adelgazante, drenante y reafirmante.",
     description:
       "Tratamiento de choque en emulsión fluida de acción adelgazante, drenante y reafirmante. Contrarresta la acumulación de grasa en las zonas más críticas. Con extracto de Maca, Pimienta Rosa, Carnitina y Cafeína. Una fórmula súper concentrada para un tratamiento liporeductor intensivo. Durante la noche, los activos innovadores con acción lipolítica, tienen acción en las capas más profundas de la epidermis. La triple acción del extracto de Maca activa la lipólisis e inhibe la lipogénesis, reduciendo las adiposidades localizadas (acción adelgazante), estimula la microcirculación y reduce la permeabilidad vascular (acción drenante y anticelulitis) y fortalece la estructura de la dermis (acción reafirmante y tonificante). La acción lipolítica del tratamiento se ve potenciada por el extracto de Pimienta Rosa, la Carnitina y la Cafeína presentes en la fórmula. El efecto frío-calor del tratamiento desempeña una acción estimulante sobre la microcirculación para favorecer la eliminación de líquidos. LAS ACUMULACIONES DE GRASA ESTÁN MENOS EVIDENTES. LA PIEL ESTÁ MÁS FIRME Y LISA Envase d plástico ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1769,7 +1769,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Fluido fresco y de rápida absorción.",
     description:
       "Fluido fresco y de rápida absorción. Aporta una hidratación inmediata y a largo plazo a la piel del cuerpo. Es una emulsión ligera y fácil de aplicar, ideal para la hidratación diaria de la piel. El Ácido Hialurónico tiene una acción hidratante inmediata, profunda y prolongada que deja la piel aterciopelada y lisa durante mucho tiempo. El aceite de Aguacate nutre la piel en profundidad, para una piel firme y elástica. La fórmula contiene también Escualano y Ceramida 3, para reforzar y proteger la barrera lipídica cutánea y aliviar de forma rápida y eficaz la sensación de sequedad cutánea. LA PIEL DEL CUERPO ESTÁ INMEDIATAMENTE HIDRATADA, LISA Y FIRME ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1807,7 +1807,7 @@ const importedProductsRaw: Product[] = [
       "Emulsión corporal de textura rica que mejora la hidratación, la suavidad y la elasticidad cutánea, para un efecto de “piel nueva”.",
     description:
       "Emulsión corporal de textura rica que mejora la hidratación, la suavidad y la elasticidad cutánea, para un efecto de “piel nueva”. Leche corporal rica, envolvente y fácil de aplicar que combina una hidratación intensa con una acción renovadora eficaz. El Ácido Hialurónico aporta hidratación inmediata, profunda y prolongada dejando la piel suave y aterciopelada durante mucho tiempo. El Ácido Lactobiónico, de acción renovadora, estimula la exfoliación y la renovación celular, mejorando el aspecto de la piel que se ve más lisa, homogénea y luminosa. La fórmula contiene también Manteca de Karité, con sus conocidas propiedades nutritivas, y Ceramida 3, que refuerza la barrera lipídica cutánea para una acción antisequedad eficaz. LA PIEL DEL CUERPO ESTÁ HIDRATADA, SUAVE Y ATERCIOPELADA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1841,7 +1841,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento diario de acción reafirmante, hidratante y emoliente intensiva.",
     description:
       "Tratamiento diario de acción reafirmante, hidratante y emoliente intensiva. Fórmula que mejora la elasticidad de la piel propensa a la flacidez cutánea y a la formación de estrías. Gracias a la mezcla especial de activos, nutre y reafirma las zonas sometidas a flacidez cutánea y estrías como cuello, pecho, escote, abdomen, caderas y glúteos. El innovador complejo de Eneldo estimula la síntesis natural de elastina y mejora su funcionalidad, manteniendo la estructura óptima de las fibras elásticas y contrarrestando su degeneración. La acción reafirmante está potenciada por el extracto de Equiseto y Lúpulo para una piel inmediatamente más firme y compacta. El aceite de Almendras y los activos emolientes e hidratantes nutren en profundidad y contribuyen a mantener elástica la piel que, en caso de embarazo y si está sometida a cambios rápidos de peso, puede presentar flacidez y estrías evidentes. LA PIEL DEL CUERPO RECUPERA ELASTICIDAD, HIDRATACIÓN Y FIRMEZA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1879,7 +1879,7 @@ const importedProductsRaw: Product[] = [
       "Aceite corporal de textura efecto seda y absorción rápida.",
     description:
       "Aceite corporal de textura efecto seda y absorción rápida. Nutre, aporta confort, elasticidad y luminosidad a la piel del cuerpo, sin engrasarla. Enriquecido con 5 aceites vegetales de origen 100% natural, es el tratamiento ideal para la piel apagada, seca y muy seca, para devolver el confort y la nutrición de forma inmediata. Perfecto como tratamiento corporal para la piel sujeta a relajación cutánea, para promover la elasticidad y contrarrestar la formación de estrías. LA PIEL DEL CUERPO ESTÁ INMEDIATAMENTE MÁS NUTRIDA, ELÁSTICA Y LUMINOSA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1917,7 +1917,7 @@ const importedProductsRaw: Product[] = [
       "Stick que hidrata, nutre y protege los labios frente a las grietas causadas por el sol, viento, agua y frío.",
     description:
       "Stick que hidrata, nutre y protege los labios frente a las grietas causadas por el sol, viento, agua y frío. Contrarresta la sequedad y el enrojecimiento causados por los agentes externos que alteran el confort y el aspecto de los labios. Sus ingredientes activos, como la Manteca de Karité y los ácidos grasos poliinsaturados esenciales, reequilibran el manto hidrolipídico protector, gracias a las propiedades nutritivas y regenerativas. Además, es una fórmula de alta resistencia y persistencia que contiene filtros solares UVB. LOS LABIOS ESTÁN HIDRATADOS, PROTEGIDOS Y CON UNA SENSACIÓN DE CONFORT INMEDIATA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1955,7 +1955,7 @@ const importedProductsRaw: Product[] = [
       "Crema que repara y protege los labios de los agentes externos irritantes.",
     description:
       "Crema que repara y protege los labios de los agentes externos irritantes. Es una emulsión de agua en aceite adecuada para calmar y reparar la zona labial, y el contorno de los labios y de la nariz. La mezcla de sustancias calmantes y emolientes, como el aceite del Árbol del Té, las Ceramidas y la Manteca de Karité, garantiza un efecto antirrojez y antigrietas y protege los labios de saliva, sol, agua, viento y frío. Gracias a los activos antimicrobianos, esta crema resulta útil como coadyuvante cosmético también en presencia de herpes labial. LA PIEL ESTÁ REPARADA, NUTRIDA Y PROTEGIDA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -1993,7 +1993,7 @@ const importedProductsRaw: Product[] = [
       "Crema que actúa rápidamente en las manos deshidratadas, secas y agrietadas.",
     description:
       "Crema que actúa rápidamente en las manos deshidratadas, secas y agrietadas. Es una emulsión de aceite en agua rica en lípidos eudérmicos, dermoafín, no oclusiva, ligera pero duradera. Es fácil de aplicar y se absorbe rápidamente, proporcionando a las manos un aspecto suave y sedoso. La presencia de la miel, con propiedades calmantes e hidratantes, suaviza la piel y reduce la sequedad y las grietas. El extracto de Hipérico, por sus propriedades reparadoras, alivia los efectos de los agentes externos en la piel y calma el enrojecimiento, mientras que la cera de abeja protege y ayuda a mantener un aspecto suave y sedoso. La glicerina, conocida por su poder hidratante y antisequedad, hidrata en profundidad y ayuda a prevenir la descamación. LA PIEL ESTÁ HIDRATADA, SEDOSA Y PROTEGIDA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2031,7 +2031,7 @@ const importedProductsRaw: Product[] = [
       "Crema antiedad para manos y uñas ligera y sedosa, de rápida absorción que protege y aporta suavidad.",
     description:
       "Crema antiedad para manos y uñas ligera y sedosa, de rápida absorción que protege y aporta suavidad. La presencia de Ácido Hialurónico contribuye a contrarrestar los signos de la edad con una acción alisante y de relleno. La Urea, en asociación con la Manteca de Karité y el aceite de Macadamia, suaviza e hidrata cutículas y uñas. La Alantoína ayuda a calmar el enrojecimiento y gracias a su efecto envolvente crea una fina barrera que protege las manos de las agresiones externas. LA PIEL ESTÁ HIDRATADA, SEDOSA Y PROTEGIDA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2069,7 +2069,7 @@ const importedProductsRaw: Product[] = [
       "Fórmula de alta tolerabilidad que reduce la formación del mal olor sin alterar el equilibrio cutáneo.",
     description:
       "Fórmula de alta tolerabilidad que reduce la formación del mal olor sin alterar el equilibrio cutáneo. Ideal para las pieles sensibles y reactivas. Crema desodorante en emulsión de cristales líquidos (Oleosomas), ligera y de rápida absorción, sin Clorhidrato de Aluminio. Modera la sudoración sin alterar el equilibrio cutáneo. Además está enriquecido con agentes emolientes y protectores que cuidan de la piel de forma natural con una acción desodorante para todo el día. Gracias a la presencia de Etilhexilglicerina y Cimenol, contrarresta las bacterias responsables de la formación del mal olor. La Hidrotalcita de Zinc actúa como una esponja, captura y retiene las pequeñas moléculas orgánicas responsables del mal olor. Por último, gracias al extracto de Caléndula y a la Alantoína de acción calmante, hidrata y protege las pieles sensibles e irritables y es adecuado también para zonas depiladas. LA PIEL ESTÁ CUIDADA Y PROTEGIDA Roll-on d ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2107,7 +2107,7 @@ const importedProductsRaw: Product[] = [
       "Fórmula que modera de forma eficaz la transpiración intensa y excesiva con un efecto prolongado.",
     description:
       "Fórmula que modera de forma eficaz la transpiración intensa y excesiva con un efecto prolongado. Eficacia 7 días. Crema desodorante en emulsión de aceite en agua con cristales líquidos (oleosomas), ligera y de fácil absorción que, gracias a la liberación controlada de Clorhidrato de Aluminio, controla el olor fisiológico y modera de forma eficaz la transpiración (sudoración) sin riesgos de oclusión o reducción excesiva del sudor. • Tratamiento intensivo ideal también para manos y pies. • El extracto de Semillas de Pomelo tiene una acción refrescante y antimicrobiana. LA PIEL ESTÁ PROTEGIDA Y FRESCA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2145,7 +2145,7 @@ const importedProductsRaw: Product[] = [
       "Fórmula que modera de forma eficaz la transpiración intensa y excesiva con un efecto prolongado.",
     description:
       "Fórmula que modera de forma eficaz la transpiración intensa y excesiva con un efecto prolongado. Eficacia 48 horas. Roll-on desodorante en emulsión de aceite en agua con cristales líquidos (oleosomas), ligera y de fácil absorción que, gracias a la liberación controlada de Clorhidrato de Aluminio, controla el olor fisiológico y modera de forma eficaz la transpiración (sudoración) sin riesgos de oclusión o reducción excesiva del sudor. El extracto de Semillas de Pomelo tiene una acción antimicrobiana y purificante. El Cimenol y la Etilhexilglicerina contrarrestan las bacterias responsables de la formación del mal olor. La Alantoína y el Bisabolol enriquecen la fórmula consiguiendo que sea ideal también para las pieles sensibles. LA PIEL ESTÁ PROTEGIDA Y FRESCA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2183,7 +2183,7 @@ const importedProductsRaw: Product[] = [
       "Fórmula que modera de forma eficaz la sudoración con un efecto fresco prolongado.",
     description:
       "Fórmula que modera de forma eficaz la sudoración con un efecto fresco prolongado. Desodorante spray en solución hidroalcohólica pulverizable sin clorhidrato de aluminio. El producto no deja residuos en la piel y ni en la ropa, tanto blanca como de color. Gracias a la presencia de Etilhexilglicerina y Octenidina, contrarresta las bacterias responsables de la formación del mal olor. El Trietil citrato evita la formación de los compuestos responsables del mal olor entrando en el folículo en el que las bacterias lo degradan en lugar del sebo. Es adecuado para quienes buscan un producto ligero y no necesitan un efecto antitranspirante. LA PIEL ESTÁ PROTEGIDA Y FRESCA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2221,7 +2221,7 @@ const importedProductsRaw: Product[] = [
       "Gel delicado que respeta la capa hidrolipídica de la piel, proporcionándole un aspecto suave y aterciopelado.",
     description:
       "Gel delicado que respeta la capa hidrolipídica de la piel, proporcionándole un aspecto suave y aterciopelado. Gel rico en sustancias de origen natural, como proteínas procedentes de la leche y la miel, que no resultan agresivas para la piel y nutren en profundidad. Es adecuado para toda la familia y especialmente para la piel de los niños. LA PIEL ESTÁ CUIDADA Y FRESCA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2259,7 +2259,7 @@ const importedProductsRaw: Product[] = [
       "Gel indicado para la higiene íntima, especialmente en las situaciones con riesgo de infección, durante el ciclo menstrual y durante el embarazo.",
     description:
       "Gel indicado para la higiene íntima, especialmente en las situaciones con riesgo de infección, durante el ciclo menstrual y durante el embarazo. Formulado con una combinación de activos que contrarresta algunas especies de bacterias potencialmente nocivas, y favorece el crecimiento de las bacterias beneficiosas ya presentes en la piel de las mucosas externas. Además, cuenta con un pH 4.5 y una mezcla de tensioactivos delicados de elevada tolerabilidad que limpian la piel por afinidad, sin alterarla. Los activos antimicrobianos seleccionados, biolisados de fermentos lácticos (de Lactococcus SPP) ricos en bioelementos, el Alfa-glucano y los derivados del Ácido Undecilénico, tienen una acción bioselectiva en la microbiota y una actividad que regenera la vitalidad de las células epidérmicas y de las mucosas. Enriquecen la fórmula los activos naturales (extractos de Salvia y Tomillo) de acción purificante y antiolor. Es una fórmula indicada para la higiene íntima, especialmente en las situaciones con riesgo de infección (piscinas, gimnasios, …), durante el ciclo menstrual, durante el embarazo o cuando se busque un efecto purificante y antiolor. Envase c LA PIEL ESTÁ CUIDADA Y PROTEGIDA de 250 m ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2297,7 +2297,7 @@ const importedProductsRaw: Product[] = [
       "Gel delicado apropiado para la higiene íntima cotidiana del hombre y de la mujer de todas las edades.",
     description:
       "Gel delicado apropiado para la higiene íntima cotidiana del hombre y de la mujer de todas las edades. Fórmula delicada y fresca, de acción protectora, con pH 5.5 para respetar y mantener el pH fisiológico de las zonas íntimas. Está formulado con una mezcla de tensioactivos delicados de alta tolerabilidad que limpian la piel por afinidad, con la máxima suavidad, sin alterarla. Además, contiene Extracto de Caléndula, calmante y emoliente para la piel delicada y enrojecida, capaz de garantizar una acción protectora contra la sequedad y los agentes externos. Gracias a los activos naturales (Extracto de Líquen y de Salvia) ejerce sobre las mucosas una acción hidratante y purificante. Es adecuado para la higiene íntima diaria de mujeres y hombres de cualquier edad. LA PIEL ESTÁ CUIDADA Y PROTEGIDA ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2335,7 +2335,7 @@ const importedProductsRaw: Product[] = [
       "Gel íntimo calmante apropiado para la higiene cotidiana de la mujer en menopausia y/o en caso de uso de terapias hormonales o anticonceptivos orales.",
     description:
       "Gel íntimo calmante apropiado para la higiene cotidiana de la mujer en menopausia y/o en caso de uso de terapias hormonales o anticonceptivos orales. Gel íntimo calmante y delicado, formulado con pH 6.5 y sin tensioactivos (SLS y SLES), para respetar y mantener el pH fisiológico propio de la mujer en menopausia. Alivia molestias íntimas como sequedad, irritación, picor y enrojecimientos. Está formulada con una mezcla de tensioactivos muy delicados de alta tolerabilidad para aportar alivio contra la sequedad íntima típica de la menopausia y limpiar la piel por afinidad, sin alterarla. Gracias a los activos naturales (Extracto de Malva, Bisabolol y Extracto de Caléndula) es capaz de ejercer una acción calmante, hidratante y protectora. Los activos antimicrobianos (Piroctona Olamina y Cimenol) tienen una acción bioselectiva reequilibrante sobre la microbiota y ayudan a contrarrestar la formación de los malos olores. Adecuado para la higiene íntima cotidiana en menopausia, en caso de terapias hormonales o uso de contraceptivos orales. Envase c LA PIEL ESTÁ CUIDADA Y PROTEGIDA de 250 m ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2373,7 +2373,7 @@ const importedProductsRaw: Product[] = [
       "Champú que respeta el cuero cabelludo sensible e irritable, protegiendo el cabello seco y frágil.",
     description:
       "Champú que respeta el cuero cabelludo sensible e irritable, protegiendo el cabello seco y frágil. El champú dermoafín es ideal para personas con el cuero cabelludo sensible con tendencia a la irritación. Contiene glucósidos vegetales hidratantes y aceite de Macadamia, de gran suavidad por su afinidad con el cuero cabelludo y el cabello, protector e hidratante. Por la delicadeza de su acción y su efecto antilágrimas, es ideal para uso infantil. La ceramida 3, es un activo capaz de reconstruir y fortalecer la fibra capilar, proteger la cutícula y aumentar tanto la densidad como la suavidad del cabello. La delicadeza del champú está garantizada por la base con matriz de polímero / tensoactivo delicada que reduce la interacción del tensoactivo con la fibra capilar para que resulte menos agresivo, y deposita los activos en la superficie del cabello, mejorando su rendimiento. EL CABELLO ESTÁ SUAVE E HIDRATADO ACTIVOS PRINCIPALES ACCIÓN Envase d",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2411,7 +2411,7 @@ const importedProductsRaw: Product[] = [
       "Champú suave que protege e hidrata el cabello y el cuero cabelludo.",
     description:
       "Champú suave que protege e hidrata el cabello y el cuero cabelludo. El champú suave contiene una mezcla de activos hidratantes (glucósidos vegetales, colágeno, aloe vera, arginina y carnitina) que aportan volumen y suavidad. La innovadora base tensoactiva con matriz de polímero / tensoactivo hace que los activos se depositen en la superficie del cabello y reduce la interacción del tensoactivo con la fibra capilar, para que resulte menos agresivo. De esta forma, se evita el efecto de acumulación y se asegura un alto rendimiento sin alterar el equilibrio del cabello. Es un champú delicado ideal para uso frecuente y para toda la familia (no pica en los ojos). EL CABELLO ESTÁ HIDRATADO Y PROTEGIDO ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2449,7 +2449,7 @@ const importedProductsRaw: Product[] = [
       "Champú que regula la producción de sebo en el cuero cabelludo.",
     description:
       "Champú que regula la producción de sebo en el cuero cabelludo. El champú sebocorrector es ideal para el cuero cabelludo y el cabello con tendencia a engrasarse rápidamente. Contiene una mezcla de ingredientes activos que actúan sinérgicamente regulando la producción de sebo. El extracto vegetal de abedul reduce la producción sebácea de las glándulas del cuero cabelludo, y mejora la respuesta fisiológica a los diversos factores de estrés que provocan la sobreproducción de sebo. La azeloglicina se une directamente a la enzima 5-alfa reductasa de las glándulas sebáceas y reduce la formación del principal componente lipídico del sebo. La presencia de la arginina protege e hidrata el cabello, con un efecto espesante. La base con matriz de polímero/tensoactivo permite que los activos se depositen de forma óptima en la superficie del cabello y reduce la interacción del tensoactivo con la fibra capilar, para que resulte menos agresivo. EL CABELLO ESTÁ LIGERO Y CON VOLUMEN Envase d ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2487,7 +2487,7 @@ const importedProductsRaw: Product[] = [
       "Champú que previene y contrarresta la caspa ya sea seca o grasa.",
     description:
       "Champú que previene y contrarresta la caspa ya sea seca o grasa. Es una fórmula con una eficaz actividad purificante y antimicrobiana pensada para contrarrestar la caspa gracias a la inhibición del Pityrosporum ovale. Reduce el picor causado por la descamación del cuero cabelludo y regula la producción de sebo. Su activo clave es el climbazol, una molécula con una notable actividad anticaspa selectiva, de gran eficacia y tolerabilidad cutánea. El extracto de Tomillo aumenta la acción del producto gracias a sus propiedades anticaspa. La base tensoactiva utilizada permite la formación de micelas de elevada dermocompatibilidad y baja agresividad, mientras que los acondicionadores de última generación aseguran la compactación de la queratina del cabello, mejoran la suavidad y la luminosidad de las fibras capilares, y facilitan el peinado. EL CABELLO ESTÁ SUAVE Y CON VOLUMEN ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2525,7 +2525,7 @@ const importedProductsRaw: Product[] = [
       "Champú adecuado para el cabello frágil con tendencia a la caída.",
     description:
       "Champú adecuado para el cabello frágil con tendencia a la caída. Es una fórmula delicada, estudiada para lavar el cabello sin alterar el equilibrio del bulbo. Tonifica, estimula y reequilibra la secreción del cuero cabelludo. Contiene adenosina, un activo que estimula la neoangiogénesis capaz de promover la microcirculación del cuero cabelludo y con ello la nutrición óptima del cabello. Con extractos de ortiga y lúpulo que refuerzan y revitalizan el cuero cabelludo. La innovadora base tensoactiva con matriz de polímero / tensoactivo hace que los activos se depositen en la superficie del cabello y reduce la interacción del tensoactivo con la fibra capilar, para que resulte menos agresivo. De esta forma, se evita el efecto de acumulación y se asegura un alto rendimiento sin alterar el equilibrio del cabello. CABELLO MÁS FUERTE, REVITALIZADO Y REGENERADO ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2563,7 +2563,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento cosmético específico para contrarrestar la caída del cabello.",
     description:
       "Tratamiento cosmético específico para contrarrestar la caída del cabello. Es una fórmula estudiada para garantizar la eficacia de los activos en las zonas de aplicación. Respeta las características fisiológicas del cuero cabelludo, de los folículos y de la fibra capilar. El complejo tricogénico (TRICHOGEN®) es una combinación equilibrada de extractos vegetales, aminoácidos y vitaminas que garantizan las excelentes condiciones de vitalidad del bulbo y ayudan a mantener el trofismo del cabello. Contienen Trifosfato de Adenosina y Vitamina PP (Niacinamida), que estimulan los procesos de revitalización del bulbo y protegen frente a los radicales libres. Están además eriquecidas con Taurina y Extracto de Lúpulo, sustancia natural de considerable actividad reestructurante, que garantizan nutrición y protección. CABELLO MÁS FUERTE, REVITALIZADO Y BRILLANTE ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2601,7 +2601,7 @@ const importedProductsRaw: Product[] = [
       "Acondicionador que facilita el peinado y aporta luminosidad y suavidad al cabello.",
     description:
       "Acondicionador que facilita el peinado y aporta luminosidad y suavidad al cabello. Es una fórmula con activos nutritivos y reestructurantes que protege el cabello de los tratamientos agresivos (tintes, permanentes, etc.) y el cepillado. Además, contiene ceramidas, sustancias altamente nutritivas que refuerzan la estructura externa del cabello y evitan que se dañen las escamas queratínicas. CABELLO SUAVE, SEDOSO Y LUMINOSO ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2639,7 +2639,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento regenerador del cabello que facilita el peinado y le aporta suavidad.",
     description:
       "Tratamiento regenerador del cabello que facilita el peinado y le aporta suavidad. La mascarilla capilar es una crema rica y cremosa que nutre en profundidad, repara y refuerza el tallo del cabello seco y quebradizo. El cabello recupera así su consistencia y facilidad de peinado inmediatamente después de la aplicación. Contiene una rica combinación de activos como bioceramidas, manteca de karité, aceite de germen de arroz y arginina, que actúan específicamente para proteger y nutrir el cabello desde la raíz. Es ideal para todo tipo de cabello, especialmente cabello rizado, rebelde, seco, tratado con tintes, permanentes o estropeado a cauas de los agentes atmosféricos. CABELLO SUAVE, LUMINOSO Y FÁCIL DE PEINAR ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2677,7 +2677,7 @@ const importedProductsRaw: Product[] = [
       "Champú antiedad global que redensifica y reestructura el cabello que, con el paso de los años o tras tratamientos específicos, pierde densidad, estructura, luminosidad y volumen.",
     description:
       "Champú antiedad global que redensifica y reestructura el cabello que, con el paso de los años o tras tratamientos específicos, pierde densidad, estructura, luminosidad y volumen. Fórmula innovadora que, gracias a la combinación de la exclusiva patente Osmo IK-Hair® y una mezcla seleccionada de tensioactivos de nueva generación, limpia de forma eficaz y suave el cabello apagado, débil, dañado y sin volumen. Restablece el equilibrio ideal para el crecimiento de un cabello sano, aportando reparación, fuerza y volumen. Contiene dos osmoprotectores presentes en la naturaleza, Mio-Inositol y Arginina, que desempeñan una triple acción protectora sobre el bulbo, el cuero cabelludo y la fibra capilar. Sobre el bulbo capilar, ejercen una acción estimulante que aumenta la síntesis de queratina: el resultado es un cabello más grueso y compacto. Sobre el cuero cabelludo, ejercen una acción reequilibrante y protectora. Sobre la fibra capilar, actúan como «escudo» sobre la queratina, lo que hace que el cabello se vea más denso y reparado. La mezcla de tensioactivos delicados de nueva generación lo hacen menos agresivo Envase d que los productos que contienen tensioactivos tradicionales. plástico A diferencia de los tensioactivos suaves convencionales, produce una espuma reciclabl espesa, cremosa y compacta. CABELLO CON MÁS VOLUMEN, ESTRUCTURA Y LUMINOSIDAD INDICAC ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2715,7 +2715,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento para después del champú indicado para cabellos quebradizos, sin volumen o dañados por la coloración.",
     description:
       "Tratamiento para después del champú indicado para cabellos quebradizos, sin volumen o dañados por la coloración. Reestructura, repara, redensifica, protege y perfecciona la fibra capilar. Facilita el peinado y prolonga su duración. Fórmula innovadora que, gracias a la asociación de la patente exclusiva Osmo IK-Hair®, una mezcla seleccionada de aminoácidos y acondicionadores de nueva generación, hidrata, fortalece y mejora la salud del cabello. Contiene dos osmoprotectores presentes en la naturaleza, Mio-Inositol y Arginina, que desempeñan una triple acción protectora sobre el bulbo, el cuero cabelludo y la fibra capilar. Sobre el bulbo capilar, ejercen una acción estimulante que aumenta la síntesis de queratina: el resultado es un cabello más grueso y compacto. Sobre el cuero cabelludo, ejercen una acción reequilibrante y protectora. Sobre la fibra capilar, actúan como «escudo» sobre la queratina, lo que hace que el cabello se vea más denso y reparado. La mezcla seleccionada de aminoácidos aporta hidratación y ayuda a reparar el tallo capilar dañado. Los acondicionadores de nueva generación facilitan el desenredado del cabello tanto húmedo como seco. Envase d La mezcla de aceites de la fórmula proporciona al cabello protección frente al plástico calor, lo que reduce los daños causados a la fibra capilar por las tenacillas o las reciclabl planchas y prolonga la duración del colo",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2753,7 +2753,7 @@ const importedProductsRaw: Product[] = [
       "Emulsión solar específica para la cara con activos antiedad y antioxidantes para contrarrestar el fotoenvejecimiento cutáneo.",
     description:
       "Emulsión solar específica para la cara con activos antiedad y antioxidantes para contrarrestar el fotoenvejecimiento cutáneo. Es ideal para piel sensible, resistente al agua y no comedogénica. El sistema equilibrado de filtros fotoestables de última generación garantiza una protección full spectrum frente a los rayos UVB y UVA, cortos y largos, y a los daños provocados por el estrés oxidativo causado por los rayos IR. La molécula de alta tecnología booster - intensificadora de SPF, optimiza la actividad protectora en todo el espectro UVA y UVB y garantiza una distribución homogénea y eficaz de los filtros sobre la piel. El Ácido hialurónico, gracias a su capacidad de retener una gran cantidad de agua, hidrata la piel durante mucho tiempo y protege frente a la deshidratación causada por la exposición solar. Desempeña además una acción antiedad y de relleno sobre las arrugas y proporciona luminosidad inmediata. La Vitamina E, un eficaz antioxidante, contrarresta los radicales libres provocados por la exposición solar y la contaminación, reduciendo los daños a nivel cutáneo. La acción antioxidante, combinada con la fotoprotección garantizada por los filtros solares, crea una “segunda barrera” de defensa frente al fotoenvejecimiento. Frasco a Además contiene polvos texturizantes con efecto matificante de larga duración. PIEL PROTEGIDA FRENTE A UVA-UVB-IR INDICAC ACTIVOS PRINCIPALES",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2791,7 +2791,7 @@ const importedProductsRaw: Product[] = [
       "Solar de textura ultra ligera, de absorción inmediata y disponible en tres colores, doré light, doré y bronze.",
     description:
       "Solar de textura ultra ligera, de absorción inmediata y disponible en tres colores, doré light, doré y bronze. Ideal para proteger cada día la piel de la cara, tanto en la playa como en la ciudad. Fórmula a base de una mezcla de filtros solares fotoestables de última generación respetuosos con el ambiente marino, seleccionados específicamente para garantizar una protección elevada de amplio espectro frente a los rayos UVA y UVB. Además, aporta una protección antioxidante gracias a la Vitamina E. La acción de polímeros específicos high tech hace que la protección sea eficaz también sobre piel mojada, para facilitar su utilización (tecnología Wet skin). El producto es ideal para una protección facial diaria ya que está oftalmológicamente testado, no es comedogénico y tiene una textura ultra ligera de fácil aplicación y rápida absorción. Ideal también para aplicar sobre el maquillaje. ALTA PROTECCIÓN, SIN ACABADO GRASO ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2830,7 +2830,7 @@ const importedProductsRaw: Product[] = [
       "TEXTURA OIL-FREE Solar de textura ultra ligera, de absorción inmediata y acabado invisible.",
     description:
       "TEXTURA OIL-FREE Solar de textura ultra ligera, de absorción inmediata y acabado invisible. Ideal para proteger cada día la piel de la cara, tanto en la playa como en la ciudad. Fórmula a base de una mezcla de filtros solares fotoestables de última generación respetuosos con el ambiente marino, seleccionados específicamente para garantizar una protección elevada de amplio espectro frente a los rayos UVA y UVB. Además, aporta una protección antioxidante gracias a la Vitamina E. La acción de polímeros específicos high tech hace que la protección sea eficaz también sobre piel mojada, para facilitar su utilización (tecnología Wet skin). El producto es ideal para una protección facial diaria ya que está oftalmológicamente testado, no es comedogénico y tiene una textura ultra ligera de fácil aplicación, rápida absorción y acabado seco, no deja residuos. Ideal también para aplicar sobre el maquillaje. ALTA PROTECCIÓN, SIN ACABADO GRASO ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2864,7 +2864,7 @@ const importedProductsRaw: Product[] = [
       "Stick solar labios hidratante y protector con activos antiedad y antioxidantes para contrarrestar el fotoenvejecimiento cutáneo.",
     description:
       "Stick solar labios hidratante y protector con activos antiedad y antioxidantes para contrarrestar el fotoenvejecimiento cutáneo. Ideal para las zonas más sensibles y más expuestas a la radiación solar. El producto contiene una mezcla de filtros solares fotoestables de última generación, respetuosos con el medio marino, equilibrados cuidadosamente para garantizar una protección muy alta broad spectrum frente a los rayos solares UVA, UVB e IR. La fórmula anhidra actúa como un booster de SPF: optimiza la actividad protectora y garantiza una distribución homogénea y eficaz de los filtros sobre los labios.. El Ácido hialurónico, gracias a su capacidad de retener una gran cantidad de agua, hidrata la piel durante mucho tiempo y protege frente a la deshidratación causada por la exposición solar. Desempeña además una acción antiedad y de relleno sobre las arrugas y proporciona luminosidad inmediata. La Vitamina E, un eficaz antioxidante, contrarresta los radicales libres provocados por la exposición solar y la contaminación, reduciendo los daños a nivel cutáneo. La acción antioxidante, combinada con la fotoprotección garantizada por los filtros solares, crea una “segunda barrera” de defensa frente al fotoenvejecimiento. Stick de LABIOS PROTEGIDOS FRENTE A UVA-UVB-IR ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2902,7 +2902,7 @@ const importedProductsRaw: Product[] = [
       "Stick solar para zonas sensibles, con acción hidratante y protectora.",
     description:
       "Stick solar para zonas sensibles, con acción hidratante y protectora. Además está enriquecido con activos antiedad y antioxidantes para contrarrestar el fotoenvejecimiento cutáneo. El sistema equilibrado de filtros fotoestables de última generación garantiza una protección full spectrum frente a los rayos UVB y UVA, cortos y largos, y a los daños provocados por el estrés oxidativo causado por los rayos IR. El Ácido hialurónico, gracias a su capacidad de retener una gran cantidad de agua, hidrata la piel durante mucho tiempo y protege frente a la deshidratación causada por la exposición solar. Desempeña además una acción antiedad y de relleno sobre las arrugas y proporciona luminosidad inmediata. La Vitamina E, un eficaz antioxidante, contrarresta los radicales libres provocados por la exposición solar y la contaminación, reduciendo los daños a nivel cutáneo. La acción antioxidante, combinada con la fotoprotección garantizada por los filtros solares, crea una “segunda barrera” de defensa frente al fotoenvejecimiento. LABIOS PROTEGIDOS FRENTE A UVA-UVB-IR Stick de ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2940,7 +2940,7 @@ const importedProductsRaw: Product[] = [
       "Stick solar invisible hidratante y protector, indicado para zonas localizadas y delicadas del rostro y del cuerpo.",
     description:
       "Stick solar invisible hidratante y protector, indicado para zonas localizadas y delicadas del rostro y del cuerpo. Contiene activos antiedad y antioxidantes para contrarrestar el fotoenvejecimiento cutáneo. Ideal para reaplicar la fotoprotección, para las zonas más sensibles y más expuestas a la radiación solar. Contiene una mezcla de filtros solares fotoestables de última generación, respetuosos con el medio marino, equilibrados cuidadosamente para garantizar una protección muy alta full spectrum frente a los rayos solares UVA, UVB e IR. La fórmula anhidra actúa como un booster de SPF: optimiza la actividad protectora y garantiza una distribución homogénea y eficaz de los filtros sobre la piel. La presencia de Ácido Hialurónico, hidratante y antiedad, y de Vitamina E, antioxidante, resulta eficaz para contrarrestar el fotoenvejecimiento cutáneo y prevenir la aparición de manchas, arrugas y deshidratación debidas a la exposición solar. Gracias a su textura protectora e hidratante, suave sobre la piel, se aplica fácilmente en pequeñas zonas localizadas del rostro y del cuerpo que necesitan mayor protección por estar más expuestas al sol o ser especialmente delicadas (labios, pómulos, nariz, cicatrices, manchas cutáneas, lunares, tatuajes). Stick de LAS ZONAS ESPECÍFICAS Y DELICADAS DE LA CARA Y EL CUERPO ESTÁN ALTAMENTE PROTEGIDAS E HIDRATADAS ACTIVOS PRINCIPALES ACCIÓN INDICAC",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -2978,7 +2978,7 @@ const importedProductsRaw: Product[] = [
       "Emulsión solar enriquecidas con Vitamina E, formulada de manera específica para la piel delicada de los niños.",
     description:
       "Emulsión solar enriquecidas con Vitamina E, formulada de manera específica para la piel delicada de los niños. Protección solar reforzada para responder a las necesidades de los más pequeños: resistente al agua, eficaz sobre piel mojada y sin perfume. El sistema equilibrado de filtros fotoestables de última generación garantiza una protección full spectrum frente a los rayos UVB y UVA, cortos y largos, y a los daños provocados por el estrés oxidativo causado por los rayos IR. La eficacia protectora ha sido incrementada para responder mejor a las necesidades de los niños: la formulación especial garantiza un SPF resistente al agua. WET SKIN: el Spray Solar Baby SPF 50+ garantiza una protección eficaz incluso cuando se aplica directamente sobre piel mojada, lo que lo convierte en un producto todavía más práctico. La Vitamina E, un eficaz antioxidante, contrarresta los radicales libres provocados por la exposición solar y la contaminación, reduciendo los daños a nivel cutáneo. La acción antioxidante, combinada con la fotoprotección garantizada por los filtros solares, crea una “segunda barrera” de defensa frente a los daños provocados por la exposición solar. Spray de PIEL PROTEGIDA FRENTE A UVA-UVB-IR ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3016,7 +3016,7 @@ const importedProductsRaw: Product[] = [
       "Emulsión solar enriquecidas con Vitamina E, formulada de manera específica para la piel delicada de los niños.",
     description:
       "Emulsión solar enriquecidas con Vitamina E, formulada de manera específica para la piel delicada de los niños. Protección solar reforzada para responder a las necesidades de los más pequeños: resistente al agua, eficaz sobre piel mojada y sin perfume. El sistema equilibrado de filtros fotoestables de última generación garantiza una protección full spectrum frente a los rayos UVB y UVA, cortos y largos, y a los daños provocados por el estrés oxidativo causado por los rayos IR. La eficacia protectora ha sido incrementada para responder mejor a las necesidades de los niños: la formulación especial garantiza un SPF resistente al agua. La Vitamina E, un eficaz antioxidante, contrarresta los radicales libres provocados por la exposición solar y la contaminación, reduciendo los daños a nivel cutáneo. La acción antioxidante, combinada con la fotoprotección garantizada por los filtros solares, crea una “segunda barrera” de defensa frente a los daños provocados por la exposición solar. PIEL PROTEGIDA FRENTE A UVA-UVB-IR Envase d ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3054,7 +3054,7 @@ const importedProductsRaw: Product[] = [
       "Fotoprotector transparente de rápida absorción que se funde con la piel sin dejar residuo.",
     description:
       "Fotoprotector transparente de rápida absorción que se funde con la piel sin dejar residuo. Acabado seco y efecto fresco sobre la piel. El sistema equilibrado de filtros fotoestables de última generación garantiza protección frente a los rayos UVA y UVB. La Vitamina E, un eficaz antioxidante, captura los radicales libres generados en la piel expuesta al sol y a la contaminación, reduciendo el daño cutáneo. Su acción combinada con la fotoprotección garantizada por los filtros solares genera una “segunda línea” de defensa contra el fotoenvejecimiento y los daños solares. El práctico mecanismo de cierre twist & lock permite preservar al máximo el producto, evitando que la arena y los agentes externos comprometan una óptima pulverización. LA PIEL ESTÁ PROTEGIDA POR UNA CAPA PROTECTORA FRESCA E IMPERCEPTIBLE GRACIAS A UN ÚNICO GESTO PRÁCTICO Y SENSORIAL ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3092,7 +3092,7 @@ const importedProductsRaw: Product[] = [
       "Emulsión solar enriquecida con Vitamina E, antioxidante, para contrarrestar el fotoenvejecimiento cutáneo.",
     description:
       "Emulsión solar enriquecida con Vitamina E, antioxidante, para contrarrestar el fotoenvejecimiento cutáneo. Fórmula fácil de extender e ideal para la piel sensible. Resistente al agua. El sistema equilibrado de filtros fotoestables de última generación garantiza una protección full spectrum frente a los rayos UVB y UVA, cortos y largos, y a los daños provocados por el estrés oxidativo causado por los rayos IR. La Vitamina E, un eficaz antioxidante, contrarresta los radicales libres provocados por la exposición solar y la contaminación, reduciendo los daños a nivel cutáneo. La acción antioxidante, combinada con la fotoprotección garantizada por los filtros solares, crea una “segunda barrera” de defensa frente al fotoenvejecimiento y a los daños provocados por la exposición solar. PIEL PROTEGIDA FRENTE A UVA-UVB-IR ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3130,7 +3130,7 @@ const importedProductsRaw: Product[] = [
       "Aceite solar invisible de textura seca y aterciopelada ideal para la piel del cuerpo y el cabello.",
     description:
       "Aceite solar invisible de textura seca y aterciopelada ideal para la piel del cuerpo y el cabello. Resistente al agua y al sudor. Eficaz incluso sobre la piel mojada. El sistema equilibrado de filtros fotoestables de última generación garantiza una protección full spectrum frente a los rayos UVB y UVA, cortos y largos, y frente a los radicales libres provocados por los rayos IR. La mezcla perfecta de aceites ligeros y aceites emolientes de rápida absorción garantiza una elevada fluidez y una excelente sensorialidad. Aporta hidratación y protección a la piel y al cabello, sin recargarlos. La formulación especial confiere a la protección resistencia al sudor y al agua. Tras la aplicación la arena se adhiere significativamente menos a la piel. WET SKIN: el innovador sistema formulativo garantiza la eficacia de la protección incluso cuando se aplica en piel mojada, lo que lo convierte en un producto todavía más práctico. El sistema Bag On Valve permite la distribución continua en spray del producto, posible a 360˚desde cualquier posición para alcanzar con comodidad todas las zonas del cuerpo. Contiene aire comprimido como propelente. Spray de PIEL PROTEGIDA FRENTE A UVA-UVB-IR ACTIVOS PRINCIPALES ACCIÓN INDICAC",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3168,7 +3168,7 @@ const importedProductsRaw: Product[] = [
       "Emulsión calmante e hidratante que alivia y reduce el enrojecimiento causado por el sol.",
     description:
       "Emulsión calmante e hidratante que alivia y reduce el enrojecimiento causado por el sol. Ideal para adultos y niños. Fórmula a base de ácido hialurónico, dipotassium glycyrrhizate y alantoína que restablece la hidratación de la piel tanto en la superficie como en profundidad y reduce la descamación provocada por la excesiva radiación solar. La eficaz acción calmante es el resultado de una sinergia entre los activos de origen vegetal Alantoína, Bisabolol y dipotassium glycyrrhizate, que contrarrestan al mismo tiempo todos los factores que regulan el enrojecimiento de la piel después de la exposición solar. El Ácido hialurónico, gracias a su capacidad de retener una gran cantidad de agua, aporta hidratación a la piel deshidratada por la exposición solar y ayuda a contrarrestar los signos del envejecimiento cutáneo. La Vitamina E, un eficaz activo antioxidante, contrarresta el estrés oxidativo causado por los rayos solares y completa la acción calmante e hidratante de los otros ingredientes presentes en la fórmula. Deja la piel hidratada, fresca y aterciopelada y contribuye a un bronceado luminoso a largo plazo. Envase d 250 ml / PIEL HIDRATADA, FRESCA Y CALMADA AL INSTANTE ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3206,7 +3206,7 @@ const importedProductsRaw: Product[] = [
       "Crema para antes y después del sol que acelera y potencia el bronceado.",
     description:
       "Crema para antes y después del sol que acelera y potencia el bronceado. Emulsión formulada con Unipertan VEG 2002 y Phototan, complejos de Tiroxina activada que potencian y aceleran el proceso de síntesis de melanina, con lo que se mejora la calidad del bronceado y se aumenta su intensidad y duración. Actúa antes de la exposición al sol fomentando la producción de melanina e hidratando intensamente las capas superficiales de la epidermis. Esto permite conseguir un color más intenso y luminoso con más rapidez. Actúa después de la exposición al contrarrestar la acción de los radicales libres, gracias al complejo enzimático Unipertan + Phototan y al mecanismo antioxidante específico, y al mantener un elevado nivel de hidratación en la epidermis, lo que mejora el bronceado y prolonga su duración. No contiene filtros solares. Para intensificar el efecto, puede ser utilizada durante la exposición al sol, aplicándola antes la crema solar protectora. PIEL HIDRATADA Y PROTEGIDA Envase d ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3244,7 +3244,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Equinácea ECHINOSHIELD®, Zinc, Selenio, Vitaminas B6 y B12.",
     description:
       "Complemento alimenticio a base de Equinácea ECHINOSHIELD®, Zinc, Selenio, Vitaminas B6 y B12. Con zumo de Saúco. Estudiado especialmente para reforzar las defensas inmunitarias del organismo en momentos de mayor requerimiento como el invierno, convalecencia, deporte intenso o infecciones recurrentes. Por dosis diaria Por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3282,7 +3282,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Omega 3 (EPA y DHA) y Vitamina D3.",
     description:
       "Complemento alimenticio a base de Omega 3 (EPA y DHA) y Vitamina D3. El DHA contribuye en el mantenimiento de la función cerebral y visual normal. La Vitamina D contribuye en la función normal del sistema inmunitario, en la absorción normal del calcio y del fósforo y en el mantenimiento de huesos y dientes normales. Estudiado para reforzar las defensas inmunitarias del organismo en momentos de mayor requerimiento, especialmente en niños. 45 pececitos masticables Por dosis máx diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3320,7 +3320,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Quercetina, Lactoferrina, Vitamina C, Vitamina B3 (Niacina) y Zinc.",
     description:
       "Complemento alimenticio a base de Quercetina, Lactoferrina, Vitamina C, Vitamina B3 (Niacina) y Zinc. La Vitamina C y el Zinc contribuyen en la función normal del sistema inmunitario. Diseñado para reforzar las defensas del organismo en momentos de mayor requerimiento. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3358,7 +3358,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Glutamina, Boswellia, Nucleótidos, Zinc y Vitamina B2.",
     description:
       "Complemento alimenticio a base de Glutamina, Boswellia, Nucleótidos, Zinc y Vitamina B2. Está especialmente diseñado para el bienestar de la barrera intestinal. La Boswellia es útil para la funcionalidad del sistema digestivo. El Zinc contribuye a la síntesis normal de proteínas y del ADN, interviene en el proceso de división de las células y contribuye a la protección de las células frente al estrés oxidativo. La Vitamina B2 contribuye al mantenimiento de membranas mucosas normales. 30 comprimid por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3396,7 +3396,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de probióticos del género Bifidobacterium (B.",
     description:
       "Complemento alimenticio a base de probióticos del género Bifidobacterium (B. longum y B. lactis). Está especialmente diseñado para promover el equilibrio de la microbiota intestinal. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3434,7 +3434,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de probióticos del género Lactobacilos (L.",
     description:
       "Complemento alimenticio a base de probióticos del género Lactobacilos (L. acidophilus y L. casei). Está especialmente diseñado para promover el equilibrio de la microbiota intestinal. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3472,7 +3472,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Inulina y Gluco-oligosacáridos.",
     description:
       "Complemento alimenticio a base de Inulina y Gluco-oligosacáridos. Especialmente diseñado para el bienestar de la microbiota intestinal. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3510,7 +3510,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de fermentos lácticos vivos Lactobacillus acidophilus la-14, Bifidobacterium lactis bl-04 y Fructo- oligosacáridos.",
     description:
       "Complemento alimenticio a base de fermentos lácticos vivos Lactobacillus acidophilus la-14, Bifidobacterium lactis bl-04 y Fructo- oligosacáridos. Especialmente diseñado para el bienestar de la microbiota intestinal. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3548,7 +3548,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Saccharomyces boulardii CNCM I-3799 para el equilibrio de la microbiota intestinal.",
     description:
       "Complemento alimenticio a base de Saccharomyces boulardii CNCM I-3799 para el equilibrio de la microbiota intestinal. Epecialmente diseñado para el bienestar de la microbiota intestinal. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3586,7 +3586,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de fermentos lácticos tindalizados (Lactobacillus acidophilus HA-122 y Lactobacillus plantarum HA-119) y Fructo-oligosacáridos Actilight® (FOS), útiles para el bienestar de la microbiota bacteriana intestinal.",
     description:
       "Complemento alimenticio a base de fermentos lácticos tindalizados (Lactobacillus acidophilus HA-122 y Lactobacillus plantarum HA-119) y Fructo-oligosacáridos Actilight® (FOS), útiles para el bienestar de la microbiota bacteriana intestinal. A base de una mezcla seleccionada de probióticos tindalizados y prebióticos capaces de competir con microorganismos externos a lo largo del tracto gastointestinal, nutriendo las especies beneficiosas de la microbiota intestinal. 10 frascos de CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3624,7 +3624,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de fermentos lácticos vivos (Lactobacillus rhamnosus, B.",
     description:
       "Complemento alimenticio a base de fermentos lácticos vivos (Lactobacillus rhamnosus, B. lactis y Lactobacillus plantarum), zumo concentrado de Sauco, Vitamina B6, Vitamina B12 y Zinc. Restablece el bienestar intestinal, estimula y ayuda al sistema inmunitario, concretamente en los niños y jóvenes. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3662,7 +3662,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Lactobacillus rhamnosus HN001 (SD5675) y Bifidobacterium lactis HN019 (SD5674).",
     description:
       "Complemento alimenticio a base de Lactobacillus rhamnosus HN001 (SD5675) y Bifidobacterium lactis HN019 (SD5674). Formulado específicamente para el bienestar de madres e hijos. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3700,7 +3700,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Diente de león, Alcachofa y Cardo mariano.",
     description:
       "Complemento alimenticio a base de Diente de león, Alcachofa y Cardo mariano. Depura el organismo y ayuda al correcto funcionamiento del hígado. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3738,7 +3738,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Cardo mariano, Alcachofa, N-acetilcisteína y L-metionina.",
     description:
       "Complemento alimenticio a base de Cardo mariano, Alcachofa, N-acetilcisteína y L-metionina. Depura el organismo y ayuda al correcto funcionamiento del hígado. El Cardo mariano (Silimarina Fitosoma®) y la Alcachofa Cinaran® son útiles para la función hepática y la función depurativa del organismo. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3776,7 +3776,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de una exclusiva combinación de enzimas digestivas protegidas Digeasy®, con Calcio, Lactasa y Jengibre.",
     description:
       "Complemento alimenticio a base de una exclusiva combinación de enzimas digestivas protegidas Digeasy®, con Calcio, Lactasa y Jengibre. Ayuda en las digestiones difíciles, especialmente de la lactosa. El Calcio contribuye en la función normal de las enzimas digestivas. El jengibre contribuye en el soporte de la función normal digestiva y de la función normal del tracto intestinal. La Lactasa mejora la digestión de la lactosa en los sujetos que la digieren mal. 30 comprimid por dosis diaria (2 CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3813,7 +3813,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Comino, Hinojo, Anís y Pasiflora.",
     description:
       "Complemento alimenticio a base de Comino, Hinojo, Anís y Pasiflora. Con enzimas y Lactobacillus acidophilus tindalizado. Contrarresta la formación de gases intestinales, promueve la digestión y reduce la sensación de hinchazón abdominal. El comino, el hinojo y el anís, son útiles para la función digestiva fisiológica. La pasiflora favorece la motilidad gastrointestinal regular y la eliminación de los gases. 30 cápsulas v CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3851,7 +3851,7 @@ const importedProductsRaw: Product[] = [
       "Producto sanitario para uso rectal a base de Glicerol, Malva y Manzanilla.",
     description:
       "Producto sanitario para uso rectal a base de Glicerol, Malva y Manzanilla. Está indicado para regular los movimientos del intestino y favorecer la evacuación de las heces en caso de estreñimiento ocasional. La mezcla de los activos contenidos en la fórmula proporcionan una acción rápida, gracias las propiedades osmóticas del Glicerol que es capaz de atraer el agua hacia el lumen intestinal, y tienen una acción calmante e hidratante gracias a las propiedades de la Malva y la Manzanilla. Microenemas de 9g CONTENIDO MEDIO ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3886,7 +3886,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Complemento alimenticio a base de Tamarindo e Hinojo.",
     description:
       "Complemento alimenticio a base de Tamarindo e Hinojo. Contiene zumo de ciruela, zumo de manzana, fibra soluble y lactulosa que son útiles para estimular el tránsito intestinal con fibra de acción prebiótica. El Tamarindo favorece un tránsito intestinal regular y un volumen y consistencia de las heces normal. El Hinojo favorece una motilidad gastrointestinal regular y la eliminación de los gases. Frasco de 30 SABOR CIRUE CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3924,7 +3924,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio en comprimidos a base de extractos vegetales de Sen, Tamarindo e Hinojo.",
     description:
       "Complemento alimenticio en comprimidos a base de extractos vegetales de Sen, Tamarindo e Hinojo. El Sen, con su rápida acción estimulante sobre el tránsito intestinal, se ha seleccionado especialmente porque no contiene sustancias prohibidas por el Reglamento Europeo sobre las antraquinonas. Su eficacia está garantizada por su titulación en senósido B. El Tamarindo y el Hinojo completan la acción, el primero atrayendo agua al intestino y el segundo ejerciendo una acción carminativa. 50 comprimid Esta mezcla de activos con diferentes mecanismos de acción, es ideal para intervenir rápidamente sobre la regularidad intestinal y contrarrestar el intestino perezoso. INDICACION CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -3962,7 +3962,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Cutícula de Plantago que ayuda a tener una buena regularidad del tránsito intestinal.",
     description:
       "Complemento alimenticio a base de Cutícula de Plantago que ayuda a tener una buena regularidad del tránsito intestinal. Contiene una elevada concentración de cutícula de Plantago que absorbe el agua y aumenta el volumen de las heces, favoreciendo la peristalsis. Desempeña también una acción prebiótica, reequilibrando la microbiota intestinal, sin irritar el intestino. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4000,7 +4000,7 @@ const importedProductsRaw: Product[] = [
       "REFLUXCONTROL es un producto sanitario para reducir el reflujo gastroesofágico, calmar los estados de hiperacidez y proteger la mucosa gástrica.",
     description:
       "REFLUXCONTROL es un producto sanitario para reducir el reflujo gastroesofágico, calmar los estados de hiperacidez y proteger la mucosa gástrica. COMPOSICIÓN ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4038,7 +4038,7 @@ const importedProductsRaw: Product[] = [
       "REFLUXCONTROL STICK es un producto sanitario de uso oral para el tratamiento del reflujo gastroesofágico.",
     description:
       "REFLUXCONTROL STICK es un producto sanitario de uso oral para el tratamiento del reflujo gastroesofágico. Es adecuado en los casos de pirosis gástrica, esofagitis, tos irritativa y regurgitaciones provocadas por el reflujo gástrico. COMPOSICIÓN ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4076,7 +4076,7 @@ const importedProductsRaw: Product[] = [
       "Jarabe a base de Malva, Plantago, Erísimo y Glicerol desarrollado para aliviar todos los tipos de tos (productiva, seca, alérgica e irritativa) y dolor de garganta.",
     description:
       "Jarabe a base de Malva, Plantago, Erísimo y Glicerol desarrollado para aliviar todos los tipos de tos (productiva, seca, alérgica e irritativa) y dolor de garganta. Sin azúcar. Apto para toda la familia, también para niños a partir de los 3 años. Gracias a la mezcla sinérgica de activos, forma una capa mucosa-adhesiva protectora y calmente sobre la mucosa orofaríngea, y favorece la fluidificación y la expulsión del moco contribuyendo a la restauración de la función respiratoria normal. El Glicerol, además, rehidrata las mucosas secas e irritadas, mejorando Frasco de 150 el confort respiratorio. Adecuado para utlizar durante las fases agudas, como con tapón do preventivo o para la recuperación postinflamación. SABOR FRUTO La vitamina C contribuye al funcionamiento normal del sistema inmunitario, PRODUCTO SAN protege las células del estrés oxidativo haciendo el producto indicado para reducir el cansancio y la fatiga, apoyando el metabolismo energético. Especialmente 0546 útil durante los cambios de estación, períodos de estrés o intensa actividad física, y para adultos y niños que desean fortalecer las defensas naturales del INDICACION organismo. Sabor frutos rojos. • TOS PRODU COMPOSICIÓN ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4112,7 +4112,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de extracto de Alerce LARIXICINA®, Propóleo, Miel biológica de Acacia, extractos vegetales y aceites esenciales.",
     description:
       "Complemento alimenticio a base de extracto de Alerce LARIXICINA®, Propóleo, Miel biológica de Acacia, extractos vegetales y aceites esenciales. Contrarresta de forma eficaz la tos productiva gracias a su acción fluidificante, emoliente y calmante. Desempeña una acción antibacteriana gracias a la LARIXICINA®. La Drosera, el Liquen y el Tomillo fluidifican las secreciones bronquiales y calman la tos productiva. La Grindelia y el Eucalipto tienen una acción emoliente y calmante, contrarrestando Frasco de 150 la irritación de la garganta provocada precisamente por la tos. con tapón do SABOR BALSÁ La miel biológica utilizada se recolecta a los pies de los Prealpes vénetos y se produce exclusivamente a partir del polen de Robinia Pseudoacacia L. La formulación en jarabe, de consistencia densa gracias a la presencia de la Miel, se adhiere a la mucosa orofaríngea y permite que los activos ejerzan sus INDICACION acciones de la mejor forma posible. CONTRARRESTA LA TOS PRODUCTIVA • CALMA LA T Por dosis máxima diaria • FLUIDIFICA CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4150,7 +4150,7 @@ const importedProductsRaw: Product[] = [
       "Producto sanitario a base de Miel y Polisedox®, un complejo rico en polisacáridos de acción emoliente y calmante de las vías respiratorias altas.",
     description:
       "Producto sanitario a base de Miel y Polisedox®, un complejo rico en polisacáridos de acción emoliente y calmante de las vías respiratorias altas. Actúa sobre la tos productiva, favoreciendo la hidratación y la eliminación de la mucosidad, y sobre la tos seca, contrarrestando la irritación de la mucosa. COMPOSICIÓN ACCIÓN Frasco de 150",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4188,7 +4188,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de miel de Manuka, extractos de Malva, Llantén, y Vitamina C, desarrollado para apoyar el bienestar de las vías respiratorias altas de los niños a partir de 6 años.",
     description:
       "Complemento alimenticio a base de miel de Manuka, extractos de Malva, Llantén, y Vitamina C, desarrollado para apoyar el bienestar de las vías respiratorias altas de los niños a partir de 6 años. Gracias a la combinación de ingredientes activos seleccionados, ofrece una acción antimicrobiana, calmante y emoliente resultando ideal para contrarrestar las primeras molestias relacionadas con dolor de garganta, tos y ronquera. La presencia de miel de Manuka asegura propiedades antimicrobianas, mientras que extractos de Malva y Llantén apoyan la fluidez de las secreciones bronquiales 20 pastillas p y el tono de la voz. Por último, la vitamina C contribuye al funcionamiento normal SABOR FRAM del sistema inmunitario y el bienestar de la cavidad oral. Se disuelven lentamente en la boca favoreciendo una acción localizada eficaz y rápida. También son ideales para mujeres durante el embarazo y la lactancia. INDICACION CONTENIDO MEDIO ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4226,7 +4226,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de extracto de Alerce LARIXICINA®, Propóleo, Erísimo y Regaliz.",
     description:
       "Complemento alimenticio a base de extracto de Alerce LARIXICINA®, Propóleo, Erísimo y Regaliz. Contrarresta el dolor de garganta, la pérdida del tono de la voz y la irritación de la cavidad oral. Gracias a la LARIXICINA® desempeña una acción antibacteriana. La acción antibacteriana del extracto de Alerce LARIXICINA® se ha confirmado mediante test de eficacia in vitro. El extracto de Propóleo está titulado en galangina al 12% y completa la acción antibacteriana de la LARIXICINA®. El extracto de Regaliz utilizado, se obtiene de la raíz de Glycyrrhiza glabra, la 20 cápsulas especie de Regaliz de mayor calidad, y está titulado al 10% en Ácido glicirrícico. con tecnolog La dosificación de los diferentes ingredientes se ha equilibrado para obtener SABOR BALSÁ la mejor eficacia calmante, la consistencia ideal del relleno de la cápsula y un sabor agradable. CALMA LA GARGANTA Y CONTRARRESTA LA PÉRDIDA DE VOZ INDICACION Por dosis máxima diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4263,7 +4263,7 @@ const importedProductsRaw: Product[] = [
       "Producto Sanitario formulado de forma específica para calmar la irritación y aliviar el picor de la cavidad oral gracias a la formación de una capa protectora con efecto barrera que limita el contacto con agentes externos irritantes.",
     description:
       "Producto Sanitario formulado de forma específica para calmar la irritación y aliviar el picor de la cavidad oral gracias a la formación de una capa protectora con efecto barrera que limita el contacto con agentes externos irritantes. Reduce la rojez de la garganta y promueve la hidratación de la mucosa aportando una agradable sensación de frescor. Recomendado en caso de molestias e irritaciones de la cavidad oral. 20 pastillas COMPOSICIÓN ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4301,7 +4301,7 @@ const importedProductsRaw: Product[] = [
       "Formulado con Propóleo, conocido por la acción purificante y protectora de la mucosa oral, y activos antirrojeces como el Aloe Vera y el Glicirricinato de potasio del regaliz.",
     description:
       "Formulado con Propóleo, conocido por la acción purificante y protectora de la mucosa oral, y activos antirrojeces como el Aloe Vera y el Glicirricinato de potasio del regaliz. Útil para la salud y la higiene de la cavidad oral: purifica y alivia. CONTENIDOS MEDIOS ACCIÓN PROPÓLEO Calma, protege la mucosa y purifica Frasco spray con cánula al ALOE VERA GEL Calma e hidrata GLICIRRINATO DE POTASIO Calma, antienrojecimiento DE REGALIZ INDICACION MODO DE USO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4339,7 +4339,7 @@ const importedProductsRaw: Product[] = [
       "Producto Sanitario formulado de forma específica para formar una capa de efecto barrera que, al adherirse a la mucosa, limita el contacto con agentes externos irritantes.",
     description:
       "Producto Sanitario formulado de forma específica para formar una capa de efecto barrera que, al adherirse a la mucosa, limita el contacto con agentes externos irritantes. Protege la garganta de la irritación, aliviando el picor de la cavidad oral y promoviendo la hidratación de la mucosa. COMPOSICIÓN ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4377,7 +4377,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de N-acetilcisteína, Vitamina C, extracto de Hiedra, extracto de Altea, Zinc y extracto de Eucalipto.",
     description:
       "Complemento alimenticio a base de N-acetilcisteína, Vitamina C, extracto de Hiedra, extracto de Altea, Zinc y extracto de Eucalipto. Fórmula de acción fluidificante, antioxidante y protectora de las vías respiratorias altas. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4415,7 +4415,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Vitamina C, Sauce, N-acetilcisteína, Propóleo y Zinc.",
     description:
       "Complemento alimenticio a base de Vitamina C, Sauce, N-acetilcisteína, Propóleo y Zinc. Alivia los síntomas de la gripe y el resfriado y las tensiones musculares típicas del invierno, de los cambios de temperatura o de periodos en los que el sistema inmunitario está poco activo o sometido a demasiados esfuerzos. La Vitamina C y el Zinc contribuyen al funcionamiento normal del sistema inmunitario y a proteger las células frente al estrés oxidativo. La Vitamina C ayuda a reducir el cansancio y la fatiga. 20 comprimid efervescente El sauce es beneficioso para la función articular y combate los casos de tensión localizada. por dosis diaria máxima CONTENIDO MEDIO INDICACION",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4453,7 +4453,7 @@ const importedProductsRaw: Product[] = [
       "Solución para irrigación nasal a base de Ácido hialurónico, N-Acetilcisteína y Aceite esencial de Eucalipto.",
     description:
       "Solución para irrigación nasal a base de Ácido hialurónico, N-Acetilcisteína y Aceite esencial de Eucalipto. Útil para fluidificar el exceso de mucosidad e hidratar la mucosa en caso de congestión. COMPOSICIÓN ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4491,7 +4491,7 @@ const importedProductsRaw: Product[] = [
       "Producto sanitario a base de solución salina hipertónica al 3% para la descongestión nasal de adultos y niños.",
     description:
       "Producto sanitario a base de solución salina hipertónica al 3% para la descongestión nasal de adultos y niños. Libera la nariz congestionada de forma delicada y previene la sequedad de la mucosa nasal y la mantiene hidratada gracias al Ácido Hialurónico, aportando un efecto calmante en caso de irritación. Sin alcohol ni conservantes. Práctico y fácil de usar en cualquier posición gracias al sistema Bag on Valve. COMPOSICIÓN ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4526,7 +4526,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio multivitamínico, con Oligoelementos.",
     description:
       "Complemento alimenticio multivitamínico, con Oligoelementos. Las Vitaminas del grupo B, la Vitamina C y los Oligominerales (Hierro, Magnesio, Cobre, Yodo), contribuyen al metabolismo energético normal. El Ácido Fólico contribuye a la reducción del cansancio y la fatiga. La Vitamina E contribuye a la protección de las células frente al estrés oxidativo. Las Vitaminas A, D, el Selenio y el Zinc contribuyen a la función normal del sistema inmune. 20 comprimid efervescente SABOR NARA Por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4564,7 +4564,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio multivitamínico con Oligominerales, Ácido fólico y Luteína.",
     description:
       "Complemento alimenticio multivitamínico con Oligominerales, Ácido fólico y Luteína. Fórmula estudiada para aportar un grupo completo de vitaminas y minerales. Las Vitaminas C, del grupo B (B1, B2, B3, B5, B6, B12), H y los Oligoelementos (Hierro, Magnesio, Cobre y Yodo) contribuyen en el metabolismo energético normal. El Ácido Fólico contribuye en la reducción del cansancio y de la fatiga. 30 cápsulas La Vitamina E ayuda a proteger las células del estrés oxidativo. con tecnolog Las Vitaminas A, D, el Selenio y el Zinc contribuyen en la función normal del sistema inmunitario. CONTENIDO MEDIO INDICACION",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4602,7 +4602,7 @@ const importedProductsRaw: Product[] = [
       "La vitamina D contribuye al funcionamiento normal del sistema inmunitario y al mantenimiento de los huesos y los dientes en condiciones normales.",
     description:
       "La vitamina D contribuye al funcionamiento normal del sistema inmunitario y al mantenimiento de los huesos y los dientes en condiciones normales. Útil también para mantener la función muscular normal. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4636,7 +4636,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio en comprimidos masticables a base de vitamina C.",
     description:
       "Complemento alimenticio en comprimidos masticables a base de vitamina C. Sin azúcar. La vitamina C contribuye al funcionamiento normal del sistema inmunitario, protege las células del estrés oxidativo haciendo el producto indicado para reducir el cansancio y la fatiga, apoyando el metabolismo energético. Especialmente útil durante los cambios de estación, períodos de estrés o intensa actividad física, y para adultos y niños que desean fortalecer las defensas naturales del organismo. Sabor frutos rojos. 20 comprimid SABOR FRUTO por dosis diaria por dosis máxima diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4668,7 +4668,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "A base de Vitamina C, Acerola y Quercetina.",
     description:
       "A base de Vitamina C, Acerola y Quercetina. La Vitamina C contribuye al funcionamiento normal del sistema inmune y nervioso, al metabolismo energético normal y a la formación normal del colágeno para la función normal de la piel, los vasos sanguíneos, los huesos, los cartílagos y las encías. Aumenta la absorción del hierro y contribuye a la protección de las células frente al estrés oxidativo. CONTENIDO MEDIO 20 comprimid",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4705,7 +4705,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Complemento alimenticio a base de Vitamina C.",
     description:
       "Complemento alimenticio a base de Vitamina C. Contribuye al funcionamiento normal del sistema inmunitario y nervioso, al metabolismo energético y a la formación normal de colágeno para la función normal de la piel, vasos sanguíneos, huesos, cartílagos y encías. Aumenta además la absorción del hierro. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4743,7 +4743,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Vitaminas del grupo B, con Colina e Inositol.",
     description:
       "Complemento alimenticio a base de Vitaminas del grupo B, con Colina e Inositol. En los casos de aportación reducida con la dieta y en los periodos de estrés psicofísico, favorece la energía, la capacidad mental y reduce la fatiga. Las Vitaminas B2, B3, B6 y B12 contribuyen en el metabolismo energético normal, en la reducción del cansancio y la fatiga y en el funcionamiento normal del sistema nervioso. 30 cápsulas v Las Vitaminas B6, B9, B12 contribuyen en la función normal del sistema inmunitario. La Colina contribuye en el metabolismo normal de la homocisteína y en el mantenimiento de la función hepática normal. INDICACION por dosis diaria • TONO, HUM CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4780,7 +4780,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Licopeno, Betacaroteno, Manganeso, Vitaminas y aceite de semillas de Grosella Negra.",
     description:
       "Complemento alimenticio a base de Licopeno, Betacaroteno, Manganeso, Vitaminas y aceite de semillas de Grosella Negra. Fórmula con actividad antioxidante y protectora de los problemas derivados de la exposición solar. El Manganeso, la Vitamina E y la Vitamina C contribuyen a proteger las células del estrés oxidativo. La Niacina ayuda a mantener una piel normal. 30 cápsulas con tecnolog CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4818,7 +4818,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Glicerofosfato y Pidolato de Magnesio.",
     description:
       "Complemento alimenticio a base de Glicerofosfato y Pidolato de Magnesio. Útil frente a molestias musculares, cansancio y estrés. El magnesio contribuye en la reducción del cansancio y de la fatiga, ayuda a mantener la salud de los huesos, contribuye en la función normal muscular, psicológica y del sistema nervioso. por dosis máxima CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4856,7 +4856,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de óxido de magnesio Sucrosomial® Ultramag®, útil en caso de cansancio y fatiga.",
     description:
       "Complemento alimenticio a base de óxido de magnesio Sucrosomial® Ultramag®, útil en caso de cansancio y fatiga. Contribuye al mantenimiento de los huesos en condiciones normales, al funcionamiento normal de los músculos, del sistema nervioso y a la función psicológica normal. por dosis máxima CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4894,7 +4894,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Hierro microencapsulado y Vitamina C.",
     description:
       "Complemento alimenticio a base de Hierro microencapsulado y Vitamina C. Aporta hierro de elevada biodisponibilidad y tolerabilidad. El Hierro contribuye en la formación normal de los glóbulos rojos y de la hemoglobina y en la reducción del cansancio y de la fatiga. La Vitamina C incrementa la absorción del hierro. por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4932,7 +4932,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de la máxima dosis de monacolinas permitida y una mezcla de activos sinérgicos de origen natural.",
     description:
       "Complemento alimenticio a base de la máxima dosis de monacolinas permitida y una mezcla de activos sinérgicos de origen natural. Clínicamente testado para reducir los valores de colesterol y triglicéridos plasmáticos. La Berberina desempeña una acción sobre el colesterol y también sobre los triglicéridos. La Silimarina desempeña una acción hepatoprotectora y maximiza los efectos de la Berberina. Gracias a la acción energética muscular de la Coenzima Q10, cuya síntesis endógena está reducida por las monacolinas, 30 comprimid previene la aparición de molestias. Contiene Policosanoles, Amaranto, Astaxantina y Ácido Fólico. La eficacia está clínicamente testada después de un mes de tratamiento en la reducción del colesterol total, en la reducción del colesterol malo LDL y en el aumento del INDICACION colesterol bueno HDL. • HIPERCOLES por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -4970,7 +4970,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de ácidos grasos Omega-3 (EPA y DHA) derivados del aceite de pescado purificado, útil para el bienestar cardiovascular.",
     description:
       "Complemento alimenticio a base de ácidos grasos Omega-3 (EPA y DHA) derivados del aceite de pescado purificado, útil para el bienestar cardiovascular. EPA y DHA contribuyen al mantenimiento de la función cardíaca con una toma mínima de 250mg diarios. por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5008,7 +5008,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de extractos vegetales titulados y minuciosamente seleccionados y Vitamina C.",
     description:
       "Complemento alimenticio a base de extractos vegetales titulados y minuciosamente seleccionados y Vitamina C. Útil para la protección de la microcirculación, el alivio frente a la sensación de piernas pesadas y un efecto drenante. La Centella Asiática es útil para contrarrestar la celulitis. Centella, Vid y Ginkgo son útiles para la promover la funcionalidad de la microcirculación. 30 comprimid El Ortosifón es útil para el drenaje de los líquidos corporales. La Vitamina C contribuye a la formación normal del colágeno para el buen funcionamiento de los vasos sanguíneos. INDICACION Por dosis diaria máxima CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5046,7 +5046,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de bioflavonoides, extractos vegetales titulados y Vitamina C.",
     description:
       "Complemento alimenticio a base de bioflavonoides, extractos vegetales titulados y Vitamina C. Útiles para favorecer la funcionalidad de la microcirculación y del plexo hemorroidal. El Meliloto contribuye en la funcionalidad de la circulación venosa, del plexo hemorroidal y de la microcirculación. Además es útil para el drenaje de los líquidos corporales. La Vitamina C contribuye en la formación normal del colágeno para el funcionamiento normal de los vasos sanguíneos. 30 cápsulas con tecnolog por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5084,7 +5084,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio para diluir en agua a base de extractos de Té verde Sunphenon®90D, Abedul, Meliloto y Vellosilla con acción drenante, depurativa y antioxidante.",
     description:
       "Complemento alimenticio para diluir en agua a base de extractos de Té verde Sunphenon®90D, Abedul, Meliloto y Vellosilla con acción drenante, depurativa y antioxidante. Gracias a la acción del Abedul, del Té verde, del Meliloto y de la Vellosilla, ejerce una importante acción drenante sobre los líquidos en exceso y extracelulares. La acción sinérgica del Meliloto sobre la microcirculación mejora la capacidad de drenaje de los tejidos, mientras que el Té verde desempeña una acción antioxidante y favorece el metabolismo de las grasas, lo que contribuye a Frasco de 30 equilibrar el peso corporal. con tapón do Sabor afrutad CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5122,7 +5122,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio de acción saciante y calmante del apetito, a base de una mezcla innovadora de activos de acción saciante y que no provocan “hinchazón de estómago”.",
     description:
       "Complemento alimenticio de acción saciante y calmante del apetito, a base de una mezcla innovadora de activos de acción saciante y que no provocan “hinchazón de estómago”. A base de Algarroba, tradicionalmente utilizada como agente saciante, Cromo, que estimula el metabolismo, y la innovadora proteína hidrolizada de Saccharomyces cerevisiae, DNF10® de acción saciante. Estudiado especialmente para disminuir la sensación de hambre y la ingesta de calorías en la alimentación, lo que ayuda a reducir el peso corporal y a utilizar 30 comprimid la grasa como fuente de energía. por dosis diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5160,7 +5160,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Ácido Linoleico conjugado CLARINOL® y Picolinato de Cromo.",
     description:
       "Complemento alimenticio a base de Ácido Linoleico conjugado CLARINOL® y Picolinato de Cromo. CLA CLARINOL® cuenta con varias publicaciones que demuestran su capacidad para liberar las grasas de los depósitos del organismo y que puedan ser utilizadas como fuente de energía. La utilización de las grasas también se ve favorecida por el Cromo, que estimula el metabolismo energético celular. Se trata, por tanto, de una mezcla de activos diseñada específicamente para favorecer la remodelación de la silueta y maximizar la utilización de las grasas 30 cápsulas del organismo como fuente de energía. con tecnolog CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5198,7 +5198,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Colágeno Verisol®, Inositol, Carnitina Carnipure® y Centella Asiática.",
     description:
       "Complemento alimenticio a base de Colágeno Verisol®, Inositol, Carnitina Carnipure® y Centella Asiática. Fórmula de acción 4 en 1 que actúa sobre la densidad y la elasticidad de la piel del cuerpo gracias al Colágeno Verisol® de origen bovino, sobre la comunicación celular gracias al Inositol, sobre la microcirculación gracias a la Centella y sobre las imperfecciones de la celulitis gracias a la acción combinada de todos los ingredientes. Estudiado especialmente para aportar densidad, elasticidad y firmeza a la piel 15 frascos de todo el cuerpo, a la vez que contrarresta las imperfecciones de la celulitis. Sabor a fruta Por un frasco CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5236,7 +5236,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio en comprimidos de acción termogénica que ayuda al equilibrio del peso corporal.",
     description:
       "Complemento alimenticio en comprimidos de acción termogénica que ayuda al equilibrio del peso corporal. Gracias a SINETROL® Xpur, una mezcla de extractos naturales con acción termogénica, y a la biotina, que estimula el metabolismo de los macronutrientes, favorece la utilización de las grasas como fuente de energía por parte del organismo. Además, el extracto de Higo Chumbo NeOpuntia® ayuda a reducir la absorción de grasas, por tanto, a disminuir las calorías de la alimentación. Esta mezcla de activos ayuda a equilibrar el peso corporal y a remodelar la 30 comprimid silueta. Este producto está especialmente estudiado para permitir una ingesta ajustada a las necesidades del cliente. Por 1 Por 2 comprimidos INDICACION CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5274,7 +5274,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Melatonina, L-Triptófano y Vitamina B6.",
     description:
       "Complemento alimenticio a base de Melatonina, L-Triptófano y Vitamina B6. Ayuda a reequilibrar el ciclo sueño-vigilia y a superar el jet-lag. La Melatonina contribuye a disminuir el tiempo necesario para conciliar el sueño. El efecto beneficioso se obtiene con una ingesta de 1 mg de Melatonina poco antes de irse a dormir. por dosis máxima diaria CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5312,7 +5312,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio en spray oral a base de Melatonina pura.",
     description:
       "Complemento alimenticio en spray oral a base de Melatonina pura. Induce rápidamente la conciliación del sueño al proporcionar la dosis ideal de Melatonina con una sola pulverización. La tecnología patentada Novaemulsion® aumenta la biodisponibilidad de la Melatonina. Gracias a la innovadora formulación en spray de administración sublingual, el producto se puede tomar fácilmente sin agua. Frasco spray La dosis óptima de Melatonina, equivalente a 1 mg, se administra con una sola 50 dosis pulverización. Sabor Menta El delicado aroma natural de menta hace que el producto sea agradable de tomar poco antes de acostarse. INDICACION Para 1 pulverización CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5350,7 +5350,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Valeriana y Pasiflora PurepassicalmTM, especialmente formulado para favorecer la relajación y el bienestar mental.",
     description:
       "Complemento alimenticio a base de Valeriana y Pasiflora PurepassicalmTM, especialmente formulado para favorecer la relajación y el bienestar mental. Formulado en comprimidos recubiertos bicapa de liberación prolongada, con una CAPA DE LIBERACIÓN RÁPIDA que libera rápidamente la Valeriana, consiguiendo un efecto relajante inmediato, y una CAPA DE LIBERACIÓN PROLONGADA, que permite una liberación prolongada de la Pasiflora, manteniendo la relajación y el bienestar mental en el tiempo. 30 comprimid bicapa de lib prolongada Por 1 CONTENIDO MEDIO ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5388,7 +5388,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Rhodiola rosea, útil para el rendimiento físico y mental y contrarrestar el estrés.",
     description:
       "Complemento alimenticio a base de Rhodiola rosea, útil para el rendimiento físico y mental y contrarrestar el estrés. El extracto de raíz de Rhodiola rosea actúa como tónico-adaptógeno, contrarrestando el cansancio físico y mental. Además de mejorar el estado de ánimo. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5426,7 +5426,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de extractos de Rhodiola rosea y Withania somnifera (Ashwagandha), plantas útiles en casos de estrés y para modular los niveles de cortisol en la sangre.",
     description:
       "Complemento alimenticio a base de extractos de Rhodiola rosea y Withania somnifera (Ashwagandha), plantas útiles en casos de estrés y para modular los niveles de cortisol en la sangre. También es útil en los casos en los que la condición de estrés conlleva trastornos del sueño. Esta formulación asocia dos tónicos adaptógenos capaces de contrarrestar el estrés físico y mental. 30 comprimid por 1 por 2 CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5463,7 +5463,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio en cápsulas vegetales a base de Aceite Esencial de Lavanda, Extracto de Azafrán y Vitamina B6.",
     description:
       "Complemento alimenticio en cápsulas vegetales a base de Aceite Esencial de Lavanda, Extracto de Azafrán y Vitamina B6. El aceite esencial de Lavanda es conocido por su acción relajante en caso de estrés. El Azafrán es un valioso ingrediente útil para mantener un estado de ánimo positivo. La Vitamina B6 contribuye a la función psicológica normal y ayuda a disminuir el cansancio y la fatiga. Está formulado especialmente para aliviar los síntomas de la ansiedad y el estrés, el estado de ánimo bajo y la tendencia a los pensamientos negativos. 14 cápsulas v El producto no causa somnolencia y es adecuado también para un uso diurno. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5501,7 +5501,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio específicamente formulado para aliviar los estados de ansiedad y favorecer la sensación de relajación y bienestar en adultos y niños.",
     description:
       "Complemento alimenticio específicamente formulado para aliviar los estados de ansiedad y favorecer la sensación de relajación y bienestar en adultos y niños. A base de PurePassicalmTM, Melisa, Tilo, Hinojo y Amapola de California, extractos titulados y con certificación DNA barcoding. PurePassicalmTM es un extracto desarrollado en nuestros laboratorios de Investigación y Desarrollo procedente de una cadena de producción italiana y que cuenta con una estandarización elevada en activos. La exclusiva mezcla de ingredientes vegetales es ideal para recuperar el Frasco de 50 bienestar en cualquier momento del día. con pipeta do CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5539,7 +5539,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Ácido Hialurónico Hyasource®, N-Acetilglucosamina (NAG), Nucleótido UMP y Zinc UltraZin® con triple acción sobre el Ácido Hialurónico endógeno: aumenta su presencia, estimula su producción y previene su deg",
     description:
       "Complemento alimenticio a base de Ácido Hialurónico Hyasource®, N-Acetilglucosamina (NAG), Nucleótido UMP y Zinc UltraZin® con triple acción sobre el Ácido Hialurónico endógeno: aumenta su presencia, estimula su producción y previene su degradación. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5577,7 +5577,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Colágeno bovino, Ácido hialurónico, Manganeso, Trehalosa y Xilitol.",
     description:
       "Complemento alimenticio a base de Colágeno bovino, Ácido hialurónico, Manganeso, Trehalosa y Xilitol. El Colágeno y el Ácido Hialurónico contrarrestan la aparición de las arrugas, favoreciendo la elasticidad y la luminosidad de la piel. El Manganeso ayuda a proteger las células del estrés oxidativo. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5615,7 +5615,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Coenzima Q10, Aceite de oliva virgen extra y Vitamina E, con una elevada eficacia antioxidante.",
     description:
       "Complemento alimenticio a base de Coenzima Q10, Aceite de oliva virgen extra y Vitamina E, con una elevada eficacia antioxidante. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5653,7 +5653,7 @@ const importedProductsRaw: Product[] = [
       "Comprimidos recubiertos formulados con la innovadora mezcla de Belight3™ y niacina, estudiada específicamente como booster y complemento del tratamiento antimanchas.",
     description:
       "Comprimidos recubiertos formulados con la innovadora mezcla de Belight3™ y niacina, estudiada específicamente como booster y complemento del tratamiento antimanchas. Clínicamente probado, ha demostrado reducir eficazmente las manchas oscuras del rostro, las manos y el cuello, tanto en hombres como en mujeres. Por 1 CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5691,7 +5691,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Vitamina E, Selenio, Cobre, Cistina, Metionina, Biotina y Minerales.",
     description:
       "Complemento alimenticio a base de Vitamina E, Selenio, Cobre, Cistina, Metionina, Biotina y Minerales. Fórmula de acción antioxidante y reforzante para los apéndices de la piel (cabello y uñas). El Zinc y el Selenio ayudan a mantener el buen estado del cabello y de las uñas. El Cobre ayuda al cabello a mantener su pigmentación normal. La Vitamina E ayuda a proteger las células frente al estrés oxidativo. La Cistina y la Metionina son aminoácidos azufrados que forman parte de la 60 cápsulas queratina, sustancia principal del cabello y de las uñas. con tecnolog 120 cápsulas por dosis CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5729,7 +5729,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de 50 μg de Vitamina D3 y 100 μg de Vitamina K2 K2Vital®, útil para el mantenimiento de la salud ósea, muscular y articular.",
     description:
       "Complemento alimenticio a base de 50 μg de Vitamina D3 y 100 μg de Vitamina K2 K2Vital®, útil para el mantenimiento de la salud ósea, muscular y articular. La vitamina D3 ayuda a absorber el calcio y la vitamina K2 transporta el calcio absorbido hacia los huesos, evitando su acumulación en las arterias y contribuyendo al mantenimiento de la salud ósea. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5767,7 +5767,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Colágeno Fortigel®, Vitamina K2VITAL®, Vitamina D3, Vitamina E, Vitamina C y Manganeso.",
     description:
       "Complemento alimenticio a base de Colágeno Fortigel®, Vitamina K2VITAL®, Vitamina D3, Vitamina E, Vitamina C y Manganeso. El Colágeno es un componente fundamental del tejido conectivo que se encuentra en los huesos y las articulaciones. La vitamina D y la vitamina K son esenciales para la correcta absorción del calcio y su fijación en los huesos. La vitamina C contribuye a la formación normal de colágeno. La vitamina E ayuda a proteger las células del estrés oxidativo. El manganeso contribuye a la formación normal del tejido conectivo, al mantenimiento de los huesos en condiciones normales 20 sobres y a la protección de las células frente al estrés oxidativo. Formulado especialmente para proporcionar refuerzo estructural y nutrición a las articulaciones, los cartílagos y los huesos. INDICACION CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5805,7 +5805,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de PEA micronizada y extracto de Boswellia serrata, con acción antiinflamatoria y analgésica en sticks bucodispersables con sabor a menta que se disuelven directamente en la boca.",
     description:
       "Complemento alimenticio a base de PEA micronizada y extracto de Boswellia serrata, con acción antiinflamatoria y analgésica en sticks bucodispersables con sabor a menta que se disuelven directamente en la boca. Gracias a la mezcla sinérgica de activos seleccionados, alivia rápidamente dolores en fase aguda de distinta naturaleza (dolores articulares, dolores menstruales, dolor de cabeza, neuralgias, dolor dental, etc.). Su rápida acción se debe a la tecnología farmacéutica orosoluble, que permite 12 sticks buc la absorción de los activos ya en la cavidad bucal. SABOR MENT Estudiado especialmente para aliviar el dolor desde la primera administración. Ideal para quienes no pueden tomar AINE o deben limitar su uso y/o necesitan una solución alternativa eficaz y segura. por 3 sticks CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5843,7 +5843,7 @@ const importedProductsRaw: Product[] = [
       "Gel vaginal no hormonal de acción hidratante y lubricante, de uso interno y/o externo.",
     description:
       "Gel vaginal no hormonal de acción hidratante y lubricante, de uso interno y/o externo. Formulado a base de Ácido Hialurónico y una mezcla patentada de agentes hidratantes y reestructurantes que reparan y protegen la mucosa vulvovaginal. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5881,7 +5881,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de Larixicina®, Uva ursina y Orégano con acción antimicrobiana.",
     description:
       "Complemento alimenticio a base de Larixicina®, Uva ursina y Orégano con acción antimicrobiana. La capa de liberación rápida contiene el extracto de Uva ursina, que desempeña su acción antibacteriana directamente en el tracto urinario. La capa de liberación prolongada contiene la patente Larixicina® y aceite esencial de Orégano, que llevan a cabo su acción antimicrobiana en el intestino, donde residen los principales patógenos que causan candidiasis y cistitis. 20 comprimid Por 1 Por 3 de liberación CONTENIDO MEDIO ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5919,7 +5919,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio en polvo a base de D-Manosa, Arándano Rojo Americano Berry Defence® y Vitamina C.",
     description:
       "Complemento alimenticio en polvo a base de D-Manosa, Arándano Rojo Americano Berry Defence® y Vitamina C. El Arándano Rojo es útil para ayudar a la funcionalidad del tracto urinario y al drenaje de los líquidos corporales y desempeña una acción antioxidante. La vitamina C contribuye al funcionamiento normal del sistema inmunitario y a la protección de las células frente al estrés oxidativo. Por dosis diaria 14 sobres CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5956,7 +5956,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Complemento alimenticio a base de Lactobacilos.",
     description:
       "Complemento alimenticio a base de Lactobacilos. Complemento alimenticio a base de Lactobacillus. Útil para el equilibrio de la flora intestinal. CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -5994,7 +5994,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio en comprimidos ranurados desarrollado específicamente para la mujer en menopausia y perimenopausia.",
     description:
       "Complemento alimenticio en comprimidos ranurados desarrollado específicamente para la mujer en menopausia y perimenopausia. A base de Pasiflora PurePassicalm™ y Cimicífuga racemosa. La Pasiflora favorece la relajación y el bienestar mental. Purepassicalm™, un extracto perfeccionado en nuestros laboratorios de Investigación y Desarrollo, cuenta con una elevada estandarización en ingredientes activos y con ADN certificado <DNA barcoding>. La Cimicífuga ayuda a contrarrestar los trastornos de la menopausia, ayudando a sobrellevar los sofocos, la sudoración, la inquietud y los cambios de estado de án- 30 comprimid imo propios de esta etapa. Su eficacia está confirmada por varios estudios clínicos realizados en más de 10.000 mujeres. La sinergia de los dos activos es eficaz en la reducción de los sofocos, los sudores nocturnos, los trastornos del estado de ánimo y del sueño. INDICACION CONTENIDO MEDIO",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6032,7 +6032,7 @@ const importedProductsRaw: Product[] = [
       "Crema biológica certificada de efecto defatigante para aliviar dolores musculares y articulares.",
     description:
       "Crema biológica certificada de efecto defatigante para aliviar dolores musculares y articulares. Sin efecto termogénico. Contiene un extracto de flores de Árnica montana que, gracias al elevado poder antiinflamatorio calmante, aporta alivio inmediato a las zonas que presentan tensiones y dolor. Ideal para la piel delicada de los niños y las personas mayores. ALIVIA MOLESTIAS MUSCULARES Y ARTICULARES DESDE LAS PRIMERAS APLICACIONES Tubo de 100 ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6070,7 +6070,7 @@ const importedProductsRaw: Product[] = [
       "Gel de efecto termoactivo frío para aliviar las molestias provocadas por hematomas, golpes y contusiones.",
     description:
       "Gel de efecto termoactivo frío para aliviar las molestias provocadas por hematomas, golpes y contusiones. Contiene una sinergia de activos de origen vegetal, como Árnica montana, Castaño de Indias y Escina, que calman de forma eficaz las zonas tratadas y favorecen la funcionalidad natural de la microcirculación. Ideal también para aliviar las molestias provocadas por los sabañones y para la fase de recuperación muscular después de la actividad física. CONTRIBUYE A ALIVIAR LAS MOLESTIAS Y LA HINCHAZÓN PROVOCADAS Tubo de 100 POR CONTUSIONES EFECTO FRÍO ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6108,7 +6108,7 @@ const importedProductsRaw: Product[] = [
       "Crema de acción defatigante para músculos y articulaciones, con efecto termoactivo de calor intenso.",
     description:
       "Crema de acción defatigante para músculos y articulaciones, con efecto termoactivo de calor intenso. Contiene una sinergia de activos, como Árnica y Harpagofito, que desempañan una acción defatigante intensiva sobre los músculos y las articulaciones. Contiene Oleorresina de Capsicum que aporta un efecto termoactivo agradable que maximiza la acción descontracturante y defatigante del producto. Ideal también para deportistas. Tubo de 100 CONTRIBUYE A ALIVIAR LA TENSIÓN MUSCULAR Y LAS MOLESTIAS EFECTO CALO ARTICULARES ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6146,7 +6146,7 @@ const importedProductsRaw: Product[] = [
       "Gel de efecto frío tonificante y defatigante para piernas hinchadas y pesadas.",
     description:
       "Gel de efecto frío tonificante y defatigante para piernas hinchadas y pesadas. Textura ligera y fácil de extender que deja la piel suave sin engrasarla. La sinergia de ingredientes de origen vegetal, como el Ginkgo Biloba y un fitocomplejo activo de Rusco, Solidago, Cítricos y Escina, promueve una acción venotónica y vasoprotectora eficaz que mejora la funcionalidad de la microcirculación. Desempeña una acción antiedema que favorece el drenaje de los líquidos extracelulares y contrarresta la sensación de piernas hinchadas. Tubo de 100 Gracias al Mentol, aporta una agradable y prolongada sensación de frescor. EFECTO FRÍO ALIVIA LA HINCHAZÓN Y LA PESADEZ DE PIERNAS ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6184,7 +6184,7 @@ const importedProductsRaw: Product[] = [
       "Crema rectal con aplicador, protectora de la mucosa anal y perianal.",
     description:
       "Crema rectal con aplicador, protectora de la mucosa anal y perianal. Alivia el dolor y el ardor causado por hemorroides y fisuras y favorece la microcirculación. Su fórmula agua en aceite (w/o) con Ceramidas y Colesterol ejerce un efecto barrera y permite que la crema tenga una larga permanencia en el lugar de acción. Gracias a la Palmitoilisopropilamida (PIA), también conocida como Isopalmide, y al extracto de Centella asiática, la Proctocrema ejerce una acción antiinflamatoria y calmante y fortalece las paredes de los vasos del plexo hemorroidal. Tubo de de 3 Indicado tanto como tratamiento preventivo, durante la crisis hemorroidal como con aplicador en el periodo postoperatorio. PRODUCTO SAN ALIVIO INMEDIATO Y DURADERO DE LAS MOLESTIAS DEL PLEXO 0425 HEMORROIDAL ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6222,7 +6222,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento para quemaduras, abrasiones superficiales, eritemas por radiación solar, picor e irritación.",
     description:
       "Tratamiento para quemaduras, abrasiones superficiales, eritemas por radiación solar, picor e irritación. Con activos de origen vegetal. Emulsión fluida de aceite en agua (O/W), fácil de aplicar, de rápida absorción y que no engrasa la piel. EUPILEN® está formulado para formar una capa emoliente sobre la piel que presenta irritación y enrojecimiento causados por agentes físicos y/o químicos. Favorece la regeneración celular en caso de quemaduras leves y abrasiones superficiales. Tubo de 50 m Es un producto sanitario indicado también como tratamiento de eritemas PRODUCTO SAN causados por la radiación solar, la radioterapia y los agentes irritantes. Calma la rojez, el picor y la deshidratación cutánea. 0425 ACTIVOS PRINCIPALES ACCIÓN INDICACION",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6260,7 +6260,7 @@ const importedProductsRaw: Product[] = [
       "Crema emoliente intensiva para los pies que presentan piel seca o muy seca.",
     description:
       "Crema emoliente intensiva para los pies que presentan piel seca o muy seca. Textura rica y de rápida absorción. Contiene una sinergia de activos, como la Manteca de Karité al 5%, las Ceramidas y el extracto de Tomillo, que tienen una acción nutritiva y renovadora de la piel para contrarrestar de manera eficaz las asperezas y las grietas de los pies. Aporta una agradable sensación de frescor con acción desodorizante y defatigante. LOS PIES RECUPERAN EL CONFORT Y LA SUAVIDAD DESDE LAS PRIMERAS Tubo de 100 APLICACIONES ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6298,7 +6298,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento intensivo de acción alisante y emoliente en caso de talones secos y agrietados.",
     description:
       "Tratamiento intensivo de acción alisante y emoliente en caso de talones secos y agrietados. Textura rica que nutre y alisa la piel. Contiene una sinergia de activos, como la Urea al 10 %, las Ceramidas y la Alantoína, que tienen una acción queratolítica e hidratante intensiva, para tratar talones con descamaciones y fisuras, que se reconocen por la presencia de piel engrosada, seca y extremadamente rugosa. Además, tiene una acción regenerante y favorece el proceso natural de renovación de la piel. Es ideal también en caso de durezas y callosidades. Tubo de 100 LA PIEL DE LOS TALONES ESTÁ SUAVE Y LISA DESDE LAS PRIMERAS APLICACIONES INDICACION ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6336,7 +6336,7 @@ const importedProductsRaw: Product[] = [
       "Biocida con acción repelente de insectos gracias a su contenido en IR3535®.",
     description:
       "Biocida con acción repelente de insectos gracias a su contenido en IR3535®. Es un spray invisible e inodoro, que no contiene propelente. Eficaz durante 8 horas contra insectos, el mosquito común y tigre y las picaduras de garrapatas. IR3535® tiene una eficacia demostrada de más de 30 años. Estos estudios, además de la eficacia del producto demuestran un alto perfil de seguridad para el organismo y sostenibilidad para el medioambiente. IR3535® también es adecuado para las pieles más sensibles y para niños a partir Spray 100 ml de 1 año de edad, personas mayores y mujeres embarazadas. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6373,7 +6373,7 @@ const importedProductsRaw: Product[] = [
     shortDescription: "Stick calmante a base de Amoniaco y Aloe Vera.",
     description:
       "Stick calmante a base de Amoniaco y Aloe Vera. Aporta alivio inmediato en caso de picaduras o contacto con plantas y sustancias urticantes. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6411,7 +6411,7 @@ const importedProductsRaw: Product[] = [
       "Crema con activos naturales de acción calmante para las picaduras de insectos y de medusas y el contacto con plantas y sustancias urticantes.",
     description:
       "Crema con activos naturales de acción calmante para las picaduras de insectos y de medusas y el contacto con plantas y sustancias urticantes. Los componentes naturales favorecen la acción refrescante, antipruriginosa y descongestionante, y prolongan la sensación de alivio. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6449,7 +6449,7 @@ const importedProductsRaw: Product[] = [
       "Solución oftálmica estéril a base de 0,2% de Ácido hialurónico y 0,2% de Hipromelosa para una acción hidratante y lubricante prolongada de la superficie ocular.",
     description:
       "Solución oftálmica estéril a base de 0,2% de Ácido hialurónico y 0,2% de Hipromelosa para una acción hidratante y lubricante prolongada de la superficie ocular. Compatible con el uso de lentillas. Sin conservantes. Gracias al elevado porcentaje de activos con acción hidratante y lubricante de larga duración, alivia la sequedad ocular, el ardor, el picor y la sensación de cuerpo extraño, ayudando a restaurar la película ocular natural, y protege los ojos de posibles irritaciones. Ideal también en caso de uso excesivo del ordenador, condiciones ambientales (aire acondicionado, viento y sol) y ojos estresados 10x0,5 ml mo por el uso de lentillas. se pueden vo PRODUCTO SAN ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6487,7 +6487,7 @@ const importedProductsRaw: Product[] = [
       "Solución oftálmica estéril a base de 0,2% de Ácido hialurónico y 0,2% de Hipromelosa para una acción hidratante y lubricante prolongada de la superficie ocular.",
     description:
       "Solución oftálmica estéril a base de 0,2% de Ácido hialurónico y 0,2% de Hipromelosa para una acción hidratante y lubricante prolongada de la superficie ocular. Compatible con el uso de lentillas. Sin conservantes. Gracias al elevado porcentaje de activos con acción hidratante y lubricante de larga duración, alivia la sequedad ocular, el ardor, el picor y la sensación de cuerpo extraño, ayudando a restaurar la película ocular natural, y protege los ojos de posibles irritaciones. Ideal también en caso de uso excesivo del ordenador, condiciones ambientales (aire acondicionado, viento y sol) y ojos estresados Frasco de 10m por el uso de lentillas. con dosificad PRODUCTO SAN ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6525,7 +6525,7 @@ const importedProductsRaw: Product[] = [
       "Toallitas húmedas, desechables, en suave tejido no tejido de bambú, indicadas para la higiene y el cuidado de la zona periocular.",
     description:
       "Toallitas húmedas, desechables, en suave tejido no tejido de bambú, indicadas para la higiene y el cuidado de la zona periocular. La acción humectante, limpiadora y calmante de las toallitas favorece el restablecimiento de las condiciones fisiológicas de la zona periocular y del ojo. Además suaviza las costras y favorece su eliminación. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6563,7 +6563,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento de acción calmante y protector de la mucosa bucal y gingival.",
     description:
       "Tratamiento de acción calmante y protector de la mucosa bucal y gingival. Fórmula de sabor fresco y agradable, estudiada especialmente para reducir y mejorar las molestias típicas de la mucosa bucal y gingival. Gracias al gel de Aloe vera y al Ácido hialurónico con una capacidad filmógena elevada, crea una auténtica capa protectora que cubre la superficie de toda la mucosa bucal, garantizando una acción calmante y reparadora sobre las zonas afectadas por enrojecimientos e irritaciones exógenas localizadas. Frasco de 150 La presencia de Xilitol al 10%, Propóleo y p-Timol permite mantener la boca purificada y protegida durante largo tiempo. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6601,7 +6601,7 @@ const importedProductsRaw: Product[] = [
       "Tratamiento intensivo para la higiene bucal: acción antiplaca y protectora de las encías.",
     description:
       "Tratamiento intensivo para la higiene bucal: acción antiplaca y protectora de las encías. Con patente registrada CLOREX-A2G®. Fórmula intensiva de sabor fresco, especialmente adecuada para el tratamento de desequilibrios bacterianos bucales, para sujetos con problemas en las encías, molestias periodontales, usuarios de prótesis, aparatos de ortodoncia, implantes endoóseos y en la preparación o después de cualquier cirugía dental para proteger las encías. Gracias a la innovadora patente registrada CLOREX-A2G®, la fórmula reduce al Frasco de 20 mínimo los riesgos de pigmentación de los dientes, provocada por la presencia con tapón do de Clorhexidina, permitiendo la utilización del producto durante periodos graduado de prolongados. El tapón dosificador facilita la preparación de las diluciones deseadas para utilizar el colutorio tanto como tratamiento cotidiano como de mantenimiento. INDICACION ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6639,7 +6639,7 @@ const importedProductsRaw: Product[] = [
       "Ayuda a reparar y proteger las encías enrojecidas y los dientes débiles y sensibles.",
     description:
       "Ayuda a reparar y proteger las encías enrojecidas y los dientes débiles y sensibles. Fórmula delicada con sabor a menta fresca ligeramente salina, estudiada especialmente para la limpieza de dientes y encías sensibles. El producto contiene una mezcla de ingredientes activos calmantes y protectores como el Aloe y el Ácido hialurónico, capaces de crear una barrera protectora invisible alrededor de los dientes y las encías que ayuda a aliviar rojeces, sangrados leves y otras molestias. Tubo de 100 Contiene Fluoruro de sodio, activo que ayuda a contrarrestar la formación de caries. ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6676,7 +6676,7 @@ const importedProductsRaw: Product[] = [
       "Producto sanitario en gel con aplicador que favorece la curación de aftas, estomatitis aftosas y microlesiones de la cavidad oral.",
     description:
       "Producto sanitario en gel con aplicador que favorece la curación de aftas, estomatitis aftosas y microlesiones de la cavidad oral. Fórmula sin alcohol. Gracias a la innovadora tecnología P4-SIVTM, a base de una mezcla seleccionada de polímeros naturales, forma una capa protectora altamente adhesiva sobre las lesiones, favorece la cicatrización y reduce rápidamente el dolor y el ardor. Con Clorhexidina Clorex-A2G® para una acción antimicrobiana. P4-SIVTM: solicitud de patente presentada por Unifarco. Tubo de 15 m con aplicador REDUCCIÓN RÁPIDA DEL ARDOR Y DEL DOLOR Y CURACIÓN MÁS RÁPIDA PRODUCTO SAN ACTIVOS PRINCIPALES ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6714,7 +6714,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de proteínas de suero de leche de alta digestibilidad, enriquecidas con fibra prebiótica y probióticos.",
     description:
       "Complemento alimenticio a base de proteínas de suero de leche de alta digestibilidad, enriquecidas con fibra prebiótica y probióticos. Las proteínas son constituyentes esenciales de todos los órganos del cuerpo, como los músculos, piel, corazón, ojos y cerebro. El 15-20% de nuestro organismo está formado por proteínas que se renuevan parcialmente cada día a través de la alimentación. Por lo tanto, es importante asegurar una ingesta diaria suficiente y equilibrada de proteínas. SABOR CHOCOLATE SABOR VAINILLA SABOR NEUTRO INFORMACIÓN NUTRICIONAL Por 1 dosis Por 1 dosis Por 1 dosis (15 g) (15 g) (16,5 g) SABOR CHOC ENERGÍA 208 kJ 211 kJ 237 kJ SABOR VAINI 49 kcal 50 kcal 56 kcal SABOR NEUT GRASAS TOTALES 0,8 g 0,7 g 0,8 g Sobre de 500 DE LAS CUALES ÁCIDOS GRASOS 0,3 g 0,3 g 0,3 g Envase de 30 SATURADOS INDICACION HIDRATOS DE CARBONO 2 g 2 g 2,3 g DE LOS CUALES AZÚCARES 0,7 g 0,8 g 0,9 g • CARENCIA P FIBRAS 3 g 3 g 3 g • MENOPAUS PROTEÍNAS 7 g 7 g 9 g • PERSONAS • REFORZAR SAL 0,08 g 0,09 g 0,05 g BEAUTY: FIR CABELLO Y MANGANESO 0,15 mg (7,5% VRN)* 0,15 mg (7,5% VRN)* 0,23 mg (11,22% VRN)* • SARCOPENI BACILLUS SUBTILIS LMG: S-31763 1,125 x 109 esporas 1,125 x 109 esporas 1,688 x 109 esporas • PERSONAS BACILLUS COAGULANS GBI-30 6086 • SOPORTE A 0,125 x 109 esporas 0,125 x 109 esporas 0,188 x 109 esporas ACTIVIDAD (ATCC: PTA-6086) GANEDENBC30®** • CONTROL D *VRN=Valores de Referencia",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6752,7 +6752,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de una mezcla completa de 3 fuentes proteicas vegetales de elevada digestibilidad.",
     description:
       "Complemento alimenticio a base de una mezcla completa de 3 fuentes proteicas vegetales de elevada digestibilidad. Apoyan la alimentación diaria de manera versátil y equilibrada. Ideales para vegetarianos y veganos. La vitamina B6 es una vitamina hidrosoluble que contribuye al metabolismo energético y proteico. Al no almacenarse en el cuerpo, es necesario un suministro regular de esta vitamina mediante la dieta. La espirulina es un alga que destaca por su riqueza en proteínas, vitaminas, minerales y oligoelementos. Con un contenido proteico de hasta un 65%, la espirulina también es una valiosa fuente de ácidos grasos poliinsaturados y minerales como potasio, calcio, magnesio, zinc, hierro, fósforo y selenio. Además, contiene betacaroteno, aportando beneficios para la salud ocular y cutánea. SABOR GREE Sobre de 500 Por 1 dosis INFORMACIÓN NUTRICIONAL Envase de 26 (13 g) 205 kJ INDICACION ENERGÍA 48 kcal • CARENCIA P GRASAS 0,7 g DE LAS CUALES ÁCIDOS GRASOS SATURADOS 0,2 g • MENOPAUS • PERSONAS HIDRATOS DE CARBONO 0,9 g DE LOS CUALES AZÚCARES 0,1 g • REFORZAR BEAUTY: FIR FIBRAS 0,6 g CABELLO Y • SARCOPENI Mezcla de proteínas con un perfil PROTEÍNAS 9 g aminoacídico óptimo, comparable al • PERSONAS de la proteína de suero de la leche. • SOPORTE A SAL 0,28 g ACTIVIDAD • CONTROL D 0,21 mg Contribuye al metabolismo VITAMINA B6 ADELGAZAM (15% VRN)* energético y proteico. • VEGANOS Rica",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6790,7 +6790,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de aminoácidos ramificados Leucina, Isoleucina, Valina en proporción óptima 4:1:1 y Vitamina B6.",
     description:
       "Complemento alimenticio a base de aminoácidos ramificados Leucina, Isoleucina, Valina en proporción óptima 4:1:1 y Vitamina B6. Los aminoácidos ramificados, Leucina, Isoleucina y Valina son aminoácidos esenciales, por lo que nuestro organismo no es capaz de sintetizarlos y se tienen que adquirir mediante los alimentos. A diferencia de los otros aminoácidos, su absorción es rápida y se transportan directamente a los músculos para producir energía, ayudando a mantener niveles normales de aminoácidos y el equilibrio proteico. Precursor proteico diario para estimular el crecimiento y la regeneración muscular y contrarrestar la sensación de cansancio y fatiga. Envase de 10 Por 5 CONTENIDO MEDIO ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6828,7 +6828,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de ß-hidroxi-ß metilbutirato, vitamina D y vitamina B6.",
     description:
       "Complemento alimenticio a base de ß-hidroxi-ß metilbutirato, vitamina D y vitamina B6. En situaciones de inactividad, ayuda a contrarrestar el catabolismo muscular. La vitamina B6 contribuye al metabolismo energético normal, de las proteínas y del glucógeno y a la reducción del cansancio y la fatiga. La vitamina D contribuye al mantenimiento normal de la función muscular y de los huesos y dientes en condiciones normales. Por 4 CONTENIDO MEDIO ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",
@@ -6866,7 +6866,7 @@ const importedProductsRaw: Product[] = [
       "Complemento alimenticio a base de una mezcla de sales minerales y vitaminas.",
     description:
       "Complemento alimenticio a base de una mezcla de sales minerales y vitaminas. Las sales minerales ayudan al equilibrio hidrosalino favoreciendo un buen estado de salud de las células y los tejidos, algo muy importante para la funcionalidad del organismo. Su fórmula rica en vitaminas y minerales estimula el metabolismo energético y promueve la conversión de los nutrientes en energía, sin aporte calórico ni de azúcares libres. Por dosis diaria CONTENIDO MEDIO ACCIÓN",
-    brandOrLaboratory: "Marca propia Amapola",
+    brandOrLaboratory: "Marca por confirmar",
     priceInCents: 0,
     taxRate: 21,
     currency: "EUR",

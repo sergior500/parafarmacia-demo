@@ -2,7 +2,7 @@ import type { AdminCatalogProduct } from "@/features/admin/admin-catalog";
 import { shopifyAdminGraphql, ShopifyApiError } from "@/server/shopify/admin-api";
 
 const PRODUCT_SET_MUTATION = `
-  mutation AmapolaProductSet($identifier: ProductSetIdentifiers, $input: ProductSetInput!) {
+  mutation PicualProductSet($identifier: ProductSetIdentifiers, $input: ProductSetInput!) {
     productSet(identifier: $identifier, input: $input, synchronous: true) {
       product {
         id

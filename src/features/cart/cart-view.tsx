@@ -214,7 +214,7 @@ export function CartView() {
                 <input
                   id="promo-code"
                   className="border-forest/15 min-w-0 flex-1 rounded-full border bg-white px-4 text-xs"
-                  placeholder="AMAPOLA10"
+                  placeholder="PICUAL10"
                 />
                 <Button size="sm" variant="outline">
                   Aplicar

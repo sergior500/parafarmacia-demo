@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: pharmacyConfig.name,
     images: [
       {
-        url: `${pharmacyConfig.siteUrl}/og.png`,
+        url: `${pharmacyConfig.siteUrl}/og-picual.png`,
         width: 1736,
         height: 908,
         alt: `${pharmacyConfig.name} — catálogo de parafarmacia de demostración`,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: `${pharmacyConfig.name} · Demostración`,
     description:
       "Catálogo de parafarmacia y flujo de compra completamente simulados.",
-    images: [`${pharmacyConfig.siteUrl}/og.png`],
+    images: [`${pharmacyConfig.siteUrl}/og-picual.png`],
   },
   robots: pharmacyConfig.allowIndexing
     ? { index: true, follow: true }

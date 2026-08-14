@@ -36,7 +36,7 @@ describe("catalogProductCreateSchema", () => {
   it("valida un alta manual pendiente", () => {
     const result = catalogProductCreateSchema.safeParse({
       ...update,
-      brandOrLaboratory: "Amapola",
+      brandOrLaboratory: "Picual",
       taxRate: 21,
       maximumUnitsPerOrder: 6,
     });

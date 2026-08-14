@@ -55,7 +55,7 @@ export const brands: Brand[] = [
   {
     id: "brand-amapola",
     slug: "amapola",
-    name: "Marca propia Amapola",
+    name: "Marca por confirmar",
     description:
       "Catálogo de marca propia procedente de las fichas técnicas facilitadas.",
     featured: true,

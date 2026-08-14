@@ -11,7 +11,7 @@ const product = {
   name: "Gel <suave>",
   shortDescription: "Limpieza",
   description: "Limpia & cuida\n\nUso diario",
-  brandOrLaboratory: "Amapola",
+  brandOrLaboratory: "Picual",
   priceInCents: 1295,
   taxRate: 21,
   currency: "EUR",

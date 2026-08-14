@@ -299,7 +299,11 @@ export function ProductsAdmin() {
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Marca o laboratorio
-              <Input name="brand" defaultValue="Amapola" required />
+              <Input
+                name="brand"
+                defaultValue="Marca por confirmar"
+                required
+              />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Categoría
