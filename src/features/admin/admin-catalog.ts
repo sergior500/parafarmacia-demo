@@ -3,11 +3,7 @@ import { z } from "zod";
 import type { Product } from "@/domain/product/product";
 
 export type CatalogReviewStatus = "pending" | "reviewed" | "published";
-export type ShopifySyncStatus =
-  | "not_synced"
-  | "syncing"
-  | "synced"
-  | "error";
+export type ShopifySyncStatus = "not_synced" | "syncing" | "synced" | "error";
 
 export interface AdminCatalogProduct extends Product {
   reviewStatus: CatalogReviewStatus;
@@ -36,6 +32,7 @@ export const catalogProductUpdateSchema = z.object({
   stock: nullableCommercialNumber,
   size: z.string().trim().max(80).optional(),
   ean: z.string().trim().max(32).optional(),
+  imageUrl: z.string().trim().max(500).optional(),
 });
 
 export const catalogProductCreateSchema = catalogProductUpdateSchema
@@ -44,22 +41,38 @@ export const catalogProductCreateSchema = catalogProductUpdateSchema
     brandOrLaboratory: z.string().trim().min(1).max(140),
     taxRate: z.number().int().min(0).max(100),
     maximumUnitsPerOrder: z.number().int().min(1).max(99),
-    imageUrl: z.string().trim().max(500).optional(),
   });
 
-export type CatalogProductUpdate = z.infer<
-  typeof catalogProductUpdateSchema
->;
-export type CatalogProductCreate = z.infer<
-  typeof catalogProductCreateSchema
->;
+export type CatalogProductUpdate = z.infer<typeof catalogProductUpdateSchema>;
+export type CatalogProductCreate = z.infer<typeof catalogProductCreateSchema>;
 
 export function canApproveForShopify(
-  product: Pick<AdminCatalogProduct, "priceInCents" | "priceVerified" | "size">,
+  product: Pick<
+    AdminCatalogProduct,
+    "priceInCents" | "priceVerified" | "stockVerified" | "size" | "imageUrl"
+  >,
 ): boolean {
   return (
     product.priceVerified &&
     product.priceInCents > 0 &&
-    Boolean(product.size?.trim())
+    product.stockVerified &&
+    Boolean(product.size?.trim()) &&
+    Boolean(product.imageUrl.trim())
   );
+}
+
+export type CommercialField = "price" | "stock" | "size" | "image";
+
+export function getMissingCommercialFields(
+  product: Pick<
+    AdminCatalogProduct,
+    "priceVerified" | "stockVerified" | "size" | "imageUrl"
+  >,
+): CommercialField[] {
+  const missing: CommercialField[] = [];
+  if (!product.priceVerified) missing.push("price");
+  if (!product.stockVerified) missing.push("stock");
+  if (!product.size?.trim()) missing.push("size");
+  if (!product.imageUrl.trim()) missing.push("image");
+  return missing;
 }

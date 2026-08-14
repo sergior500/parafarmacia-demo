@@ -17,9 +17,24 @@ interface AccessTokenResponse {
   expires_in?: number;
 }
 
+export const REQUIRED_SHOPIFY_SCOPES = [
+  "read_products",
+  "write_products",
+  "read_inventory",
+  "write_inventory",
+  "read_locations",
+  "read_orders",
+] as const;
+
+export interface ShopifyConnectionDiagnostics {
+  shop: { id: string; name: string; myshopifyDomain: string };
+  grantedScopes: string[];
+  missingScopes: string[];
+  permissionsReady: boolean;
+}
+
 let cachedAccessToken:
-  | { storeDomain: string; token: string; expiresAt: number }
-  | undefined;
+  { storeDomain: string; token: string; expiresAt: number } | undefined;
 let pendingAccessToken: Promise<string> | undefined;
 
 async function requestClientCredentialsToken(): Promise<string> {
@@ -90,7 +105,9 @@ async function requestClientCredentialsToken(): Promise<string> {
         "Shopify tardó demasiado en conceder el acceso.",
       );
     }
-    throw new ShopifyApiError("No se pudo autenticar la aplicación en Shopify.");
+    throw new ShopifyApiError(
+      "No se pudo autenticar la aplicación en Shopify.",
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -140,7 +157,9 @@ export async function shopifyAdminGraphql<T>(
         signal: controller.signal,
       },
     );
-    const body = (await response.json().catch(() => null)) as GraphqlEnvelope<T> | null;
+    const body = (await response
+      .json()
+      .catch(() => null)) as GraphqlEnvelope<T> | null;
     if (!response.ok) {
       throw new ShopifyApiError(
         response.status === 401 || response.status === 403
@@ -148,10 +167,13 @@ export async function shopifyAdminGraphql<T>(
           : `Shopify respondió con el estado ${response.status}.`,
       );
     }
-    if (!body) throw new ShopifyApiError("Shopify devolvió una respuesta vacía.");
+    if (!body)
+      throw new ShopifyApiError("Shopify devolvió una respuesta vacía.");
     if (body.errors?.length) {
       throw new ShopifyApiError(
-        body.errors.map((error) => error.message || "Error GraphQL").join(" · "),
+        body.errors
+          .map((error) => error.message || "Error GraphQL")
+          .join(" · "),
       );
     }
     if (!body.data) throw new ShopifyApiError("Shopify no devolvió datos.");
@@ -170,6 +192,23 @@ export async function shopifyAdminGraphql<T>(
 export async function testShopifyConnection() {
   const data = await shopifyAdminGraphql<{
     shop: { id: string; name: string; myshopifyDomain: string };
-  }>(`query PicualShopConnection { shop { id name myshopifyDomain } }`);
-  return data.shop;
+    currentAppInstallation: { accessScopes: Array<{ handle: string }> };
+  }>(`
+    query PicualShopConnection {
+      shop { id name myshopifyDomain }
+      currentAppInstallation { accessScopes { handle } }
+    }
+  `);
+  const grantedScopes = data.currentAppInstallation.accessScopes.map(
+    ({ handle }) => handle,
+  );
+  const missingScopes = REQUIRED_SHOPIFY_SCOPES.filter(
+    (scope) => !grantedScopes.includes(scope),
+  );
+  return {
+    shop: data.shop,
+    grantedScopes,
+    missingScopes,
+    permissionsReady: missingScopes.length === 0,
+  } satisfies ShopifyConnectionDiagnostics;
 }

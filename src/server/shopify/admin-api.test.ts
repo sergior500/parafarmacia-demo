@@ -38,9 +38,8 @@ describe("Shopify client credentials", () => {
     });
     vi.stubGlobal("fetch", fetchMock);
 
-    const { getShopifyAdminAccessToken } = await import(
-      "@/server/shopify/admin-api"
-    );
+    const { getShopifyAdminAccessToken } =
+      await import("@/server/shopify/admin-api");
     await expect(getShopifyAdminAccessToken()).resolves.toBe("temporary-token");
     await expect(getShopifyAdminAccessToken()).resolves.toBe("temporary-token");
 
@@ -61,11 +60,57 @@ describe("Shopify client credentials", () => {
       }),
     );
 
-    const { getShopifyAdminAccessToken } = await import(
-      "@/server/shopify/admin-api"
-    );
+    const { getShopifyAdminAccessToken } =
+      await import("@/server/shopify/admin-api");
     await expect(getShopifyAdminAccessToken()).rejects.toThrow(
       "La aplicación todavía no está instalada",
     );
+  });
+
+  it("reports the permissions that still need approval", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () =>
+          JSON.stringify({
+            access_token: "temporary-token",
+            expires_in: 86_399,
+          }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          data: {
+            shop: {
+              id: "gid://shopify/Shop/1",
+              name: "Farmacia Picual",
+              myshopifyDomain: "99vh1p-pz.myshopify.com",
+            },
+            currentAppInstallation: {
+              accessScopes: [
+                { handle: "read_products" },
+                { handle: "write_products" },
+              ],
+            },
+          },
+        }),
+      });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { testShopifyConnection } =
+      await import("@/server/shopify/admin-api");
+    const result = await testShopifyConnection();
+
+    expect(result.permissionsReady).toBe(false);
+    expect(result.grantedScopes).toEqual(["read_products", "write_products"]);
+    expect(result.missingScopes).toEqual([
+      "read_inventory",
+      "write_inventory",
+      "read_locations",
+      "read_orders",
+    ]);
   });
 });

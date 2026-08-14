@@ -4,6 +4,7 @@ import {
   canApproveForShopify,
   catalogProductCreateSchema,
   catalogProductUpdateSchema,
+  getMissingCommercialFields,
 } from "@/features/admin/admin-catalog";
 
 const update = {
@@ -45,20 +46,37 @@ describe("catalogProductCreateSchema", () => {
 });
 
 describe("canApproveForShopify", () => {
-  it("exige un precio verificado y un formato confirmado", () => {
+  it("exige precio, stock, formato e imagen confirmados", () => {
     expect(
       canApproveForShopify({
         priceInCents: 1290,
         priceVerified: true,
+        stockVerified: true,
         size: "50 ml",
+        imageUrl: "/images/producto.webp",
       }),
     ).toBe(true);
     expect(
       canApproveForShopify({
         priceInCents: 0,
         priceVerified: false,
+        stockVerified: false,
         size: "50 ml",
+        imageUrl: "",
       }),
     ).toBe(false);
+  });
+});
+
+describe("getMissingCommercialFields", () => {
+  it("mantiene visibles los datos que la farmacia debe completar", () => {
+    expect(
+      getMissingCommercialFields({
+        priceVerified: false,
+        stockVerified: true,
+        size: undefined,
+        imageUrl: "",
+      }),
+    ).toEqual(["price", "size", "image"]);
   });
 });

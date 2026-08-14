@@ -21,12 +21,20 @@ import {
   type CatalogProductCreate,
   type CatalogProductUpdate,
   type CatalogReviewStatus,
+  getMissingCommercialFields,
 } from "@/features/admin/admin-catalog";
 import { CatalogProductEditor } from "@/features/admin/catalog-product-editor";
 import { formatMoney } from "@/lib/format";
 import { categories } from "@/mocks/products";
 
 const PAGE_SIZE = 25;
+
+const commercialFieldLabels = {
+  price: "precio",
+  stock: "stock",
+  size: "formato",
+  image: "imagen",
+} as const;
 
 const reviewConfig: Record<
   CatalogReviewStatus,
@@ -53,9 +61,9 @@ const fieldClassName =
   "border-forest/15 text-ink focus:border-forest focus:ring-sage min-h-12 w-full rounded-2xl border bg-white px-4 text-sm shadow-sm outline-none focus:ring-3";
 
 async function apiError(response: Response): Promise<Error> {
-  const body = (await response.json().catch(() => null)) as
-    | { error?: string }
-    | null;
+  const body = (await response.json().catch(() => null)) as {
+    error?: string;
+  } | null;
   return new Error(body?.error || "No se pudo completar la operación.");
 }
 
@@ -65,9 +73,9 @@ function nullableNumber(formData: FormData, field: string): number | null {
 }
 
 export function ProductsAdmin() {
-  const [catalogProducts, setCatalogProducts] = useState<
-    AdminCatalogProduct[]
-  >([]);
+  const [catalogProducts, setCatalogProducts] = useState<AdminCatalogProduct[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [syncingProductId, setSyncingProductId] = useState<string | null>(null);
@@ -83,7 +91,9 @@ export function ProductsAdmin() {
     setLoading(true);
     setLoadError("");
     try {
-      const response = await fetch("/api/admin/products", { cache: "no-store" });
+      const response = await fetch("/api/admin/products", {
+        cache: "no-store",
+      });
       if (!response.ok) throw await apiError(response);
       const body = (await response.json()) as {
         products: AdminCatalogProduct[];
@@ -113,10 +123,13 @@ export function ProductsAdmin() {
             (value) => value.toLocaleLowerCase("es").includes(normalizedQuery),
           )
         : true;
-      return (
-        matchesQuery &&
-        (statusFilter === "all" || product.reviewStatus === statusFilter)
-      );
+      const missingFields = getMissingCommercialFields(product);
+      const matchesStatus =
+        statusFilter === "all" ||
+        product.reviewStatus === statusFilter ||
+        (statusFilter === "incomplete" && missingFields.length > 0) ||
+        (statusFilter === "commercially_ready" && missingFields.length === 0);
+      return matchesQuery && matchesStatus;
     });
   }, [catalogProducts, query, statusFilter]);
 
@@ -128,6 +141,16 @@ export function ProductsAdmin() {
     };
     for (const product of catalogProducts) result[product.reviewStatus] += 1;
     return result;
+  }, [catalogProducts]);
+
+  const commercialCounts = useMemo(() => {
+    const incomplete = catalogProducts.filter(
+      (product) => getMissingCommercialFields(product).length > 0,
+    ).length;
+    return {
+      incomplete,
+      ready: catalogProducts.length - incomplete,
+    };
   }, [catalogProducts]);
 
   const pageCount = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
@@ -179,7 +202,9 @@ export function ProductsAdmin() {
       setEditingProductId(body.product.id);
     } catch (error) {
       setNotice(
-        error instanceof Error ? error.message : "No se pudo crear el producto.",
+        error instanceof Error
+          ? error.message
+          : "No se pudo crear el producto.",
       );
     } finally {
       setSaving(false);
@@ -228,10 +253,14 @@ export function ProductsAdmin() {
           product.id === body.product.id ? body.product : product,
         ),
       );
-      setNotice(`${body.product.name} se ha sincronizado con Shopify como borrador.`);
+      setNotice(
+        `${body.product.name} se ha sincronizado con Shopify como borrador.`,
+      );
     } catch (error) {
       setNotice(
-        error instanceof Error ? error.message : "No se pudo sincronizar el producto.",
+        error instanceof Error
+          ? error.message
+          : "No se pudo sincronizar el producto.",
       );
       await loadProducts();
     } finally {
@@ -243,10 +272,22 @@ export function ProductsAdmin() {
     <div className="space-y-6">
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
-          ["Productos", catalogProducts.length, "Catálogo persistente"],
-          ["Pendientes", counts.pending, "Por revisar"],
-          ["Revisados", counts.reviewed, "Contenido validado"],
-          ["Aprobados", counts.published, `${catalogProducts.filter((product) => product.shopifySyncStatus === "synced").length} sincronizados`],
+          ["Productos reales", catalogProducts.length, "Importados de los PDF"],
+          [
+            "Datos pendientes",
+            commercialCounts.incomplete,
+            "La farmacia puede completarlos después",
+          ],
+          [
+            "Datos completos",
+            commercialCounts.ready,
+            `${counts.reviewed} fichas revisadas`,
+          ],
+          [
+            "Aprobados",
+            counts.published,
+            `${catalogProducts.filter((product) => product.shopifySyncStatus === "synced").length} sincronizados`,
+          ],
         ].map(([label, value, detail]) => (
           <Card className="p-5" key={label}>
             <p className="text-ink-muted text-xs font-bold tracking-wider uppercase">
@@ -262,8 +303,9 @@ export function ProductsAdmin() {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-ink-muted max-w-2xl text-sm">
-          Revisa el contenido técnico, completa precio, formato, stock e imagen,
-          aprueba la ficha y después envíala a Shopify desde esta misma tabla.
+          Las 183 referencias de los PDF son el catálogo real. Precio, formato,
+          stock e imagen pueden quedar pendientes hasta que la farmacia los
+          complete; solo las fichas completas se podrán aprobar y enviar.
         </p>
         <Button
           onClick={() => {
@@ -271,7 +313,11 @@ export function ProductsAdmin() {
             setEditingProductId(null);
           }}
         >
-          {showForm ? <X className="size-4" /> : <PackagePlus className="size-4" />}
+          {showForm ? (
+            <X className="size-4" />
+          ) : (
+            <PackagePlus className="size-4" />
+          )}
           {showForm ? "Cerrar formulario" : "Añadir producto"}
         </Button>
       </div>
@@ -292,34 +338,49 @@ export function ProductsAdmin() {
               Nuevo producto de parafarmacia
             </h2>
           </div>
-          <form className="grid gap-5 p-5 sm:grid-cols-2 sm:p-7" onSubmit={handleCreateProduct}>
+          <form
+            className="grid gap-5 p-5 sm:grid-cols-2 sm:p-7"
+            onSubmit={handleCreateProduct}
+          >
             <label className="grid gap-2 text-sm font-bold sm:col-span-2">
               Nombre del producto
-              <Input name="name" required placeholder="Ej. Gel limpiador suave" />
+              <Input
+                name="name"
+                required
+                placeholder="Ej. Gel limpiador suave"
+              />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Marca o laboratorio
-              <Input
-                name="brand"
-                defaultValue="Marca por confirmar"
-                required
-              />
+              <Input name="brand" defaultValue="Marca por confirmar" required />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Categoría
               <select className={fieldClassName} name="categoryId" required>
                 {categories.map((category) => (
-                  <option key={category.id} value={category.id}>{category.name}</option>
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
                 ))}
               </select>
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Precio con IVA (€)
-              <Input min="0" name="price" step="0.01" type="number" placeholder="Pendiente" />
+              <Input
+                min="0"
+                name="price"
+                step="0.01"
+                type="number"
+                placeholder="Pendiente"
+              />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               IVA
-              <select className={fieldClassName} defaultValue="21" name="taxRate">
+              <select
+                className={fieldClassName}
+                defaultValue="21"
+                name="taxRate"
+              >
                 <option value="21">21 %</option>
                 <option value="10">10 %</option>
                 <option value="4">4 %</option>
@@ -327,11 +388,23 @@ export function ProductsAdmin() {
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Stock inicial
-              <Input min="0" name="stock" step="1" type="number" placeholder="Pendiente" />
+              <Input
+                min="0"
+                name="stock"
+                step="1"
+                type="number"
+                placeholder="Pendiente"
+              />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Máximo por pedido
-              <Input defaultValue="6" min="1" name="maximumUnits" step="1" type="number" />
+              <Input
+                defaultValue="6"
+                min="1"
+                name="maximumUnits"
+                step="1"
+                type="number"
+              />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Tamaño o formato
@@ -339,7 +412,11 @@ export function ProductsAdmin() {
             </label>
             <label className="grid gap-2 text-sm font-bold">
               EAN
-              <Input inputMode="numeric" name="ean" placeholder="Código de barras" />
+              <Input
+                inputMode="numeric"
+                name="ean"
+                placeholder="Código de barras"
+              />
             </label>
             <label className="grid gap-2 text-sm font-bold sm:col-span-2">
               URL de imagen
@@ -347,15 +424,27 @@ export function ProductsAdmin() {
             </label>
             <label className="grid gap-2 text-sm font-bold sm:col-span-2">
               Descripción corta
-              <Input name="shortDescription" required placeholder="Resumen para la tarjeta" />
+              <Input
+                name="shortDescription"
+                required
+                placeholder="Resumen para la tarjeta"
+              />
             </label>
             <label className="grid gap-2 text-sm font-bold sm:col-span-2">
               Descripción completa
-              <textarea className={`${fieldClassName} min-h-28 py-3`} name="description" required />
+              <textarea
+                className={`${fieldClassName} min-h-28 py-3`}
+                name="description"
+                required
+              />
             </label>
             <div className="flex flex-wrap items-center gap-3 sm:col-span-2">
               <Button disabled={saving} type="submit">
-                {saving ? <LoaderCircle className="size-4 animate-spin" /> : <PackagePlus className="size-4" />}
+                {saving ? (
+                  <LoaderCircle className="size-4 animate-spin" />
+                ) : (
+                  <PackagePlus className="size-4" />
+                )}
                 {saving ? "Guardando…" : "Guardar en catálogo"}
               </Button>
               <span className="text-ink-muted text-xs">
@@ -367,29 +456,61 @@ export function ProductsAdmin() {
       ) : null}
 
       {notice ? (
-        <p className="border-forest/10 bg-sage/50 text-forest rounded-2xl border px-4 py-3 text-sm font-bold" role="status">
+        <p
+          className="border-forest/10 bg-sage/50 text-forest rounded-2xl border px-4 py-3 text-sm font-bold"
+          role="status"
+        >
           {notice}
         </p>
       ) : null}
 
       {loadError ? (
         <Card className="border-red-200 bg-red-50 p-5">
-          <p className="font-bold text-red-800" role="alert">{loadError}</p>
-          <Button className="mt-3" onClick={() => void loadProducts()} size="sm" variant="outline">Reintentar</Button>
+          <p className="font-bold text-red-800" role="alert">
+            {loadError}
+          </p>
+          <Button
+            className="mt-3"
+            onClick={() => void loadProducts()}
+            size="sm"
+            variant="outline"
+          >
+            Reintentar
+          </Button>
         </Card>
       ) : null}
 
       <Card className="overflow-hidden">
-        <div className="border-forest/10 grid gap-3 border-b p-4 md:grid-cols-[1fr_15rem]">
+        <div className="border-forest/10 grid gap-3 border-b p-4 md:grid-cols-[1fr_17rem]">
           <label className="relative">
             <span className="sr-only">Buscar productos</span>
             <Search className="text-ink-muted pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-            <Input className="pl-11" onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="Buscar por nombre, marca o EAN" type="search" value={query} />
+            <Input
+              className="pl-11"
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setPage(1);
+              }}
+              placeholder="Buscar por nombre, marca o EAN"
+              type="search"
+              value={query}
+            />
           </label>
           <label>
             <span className="sr-only">Filtrar por revisión</span>
-            <select className={fieldClassName} onChange={(event) => { setStatusFilter(event.target.value); setPage(1); }} value={statusFilter}>
+            <select
+              className={fieldClassName}
+              onChange={(event) => {
+                setStatusFilter(event.target.value);
+                setPage(1);
+              }}
+              value={statusFilter}
+            >
               <option value="all">Todos los estados</option>
+              <option value="incomplete">Con datos pendientes</option>
+              <option value="commercially_ready">
+                Datos comerciales completos
+              </option>
               <option value="pending">Pendientes</option>
               <option value="reviewed">Revisados</option>
               <option value="published">Aprobados</option>
@@ -412,42 +533,119 @@ export function ProductsAdmin() {
             </thead>
             <tbody>
               {loading ? (
-                <tr><td className="text-ink-muted px-5 py-10 text-center" colSpan={7}><LoaderCircle className="mr-2 inline size-5 animate-spin" />Cargando catálogo persistente…</td></tr>
+                <tr>
+                  <td
+                    className="text-ink-muted px-5 py-10 text-center"
+                    colSpan={7}
+                  >
+                    <LoaderCircle className="mr-2 inline size-5 animate-spin" />
+                    Cargando catálogo persistente…
+                  </td>
+                </tr>
               ) : null}
               {!loading && visibleProducts.length === 0 ? (
-                <tr><td className="text-ink-muted px-5 py-10 text-center" colSpan={7}>No hay productos que coincidan con el filtro.</td></tr>
+                <tr>
+                  <td
+                    className="text-ink-muted px-5 py-10 text-center"
+                    colSpan={7}
+                  >
+                    No hay productos que coincidan con el filtro.
+                  </td>
+                </tr>
               ) : null}
               {visibleProducts.map((product) => {
                 const config = reviewConfig[product.reviewStatus];
                 const Icon = config.icon;
-                const category = categories.find((item) => item.id === product.categoryId);
+                const category = categories.find(
+                  (item) => item.id === product.categoryId,
+                );
+                const missingFields = getMissingCommercialFields(product);
                 return (
                   <tr className="border-forest/10 border-t" key={product.id}>
                     <td className="px-5 py-4">
-                      <strong className="text-forest block">{product.name}</strong>
-                      <span className="text-ink-muted text-xs">{product.brandOrLaboratory}</span>
-                    </td>
-                    <td className="px-5 py-4">
-                      <span className="text-forest block text-xs font-bold">{category?.name ?? product.categoryId}</span>
-                      <span className="text-ink-muted text-[.68rem]">{product.sourceDocument ? `${product.sourceDocument} · pág. ${product.sourcePage}` : "Alta manual"}</span>
-                    </td>
-                    <td className="px-5 py-4"><span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-black ${config.className}`}><Icon className="size-4" /> {config.label}</span></td>
-                    <td className="px-5 py-4">
-                      <span className={`inline-flex rounded-full px-3 py-1.5 text-xs font-black ${product.shopifySyncStatus === "synced" ? "bg-emerald-100 text-emerald-800" : product.shopifySyncStatus === "error" ? "bg-red-100 text-red-800" : product.shopifySyncStatus === "syncing" ? "bg-sky-100 text-sky-800" : "bg-stone-100 text-stone-700"}`} title={product.shopifySyncError}>
-                        {product.shopifySyncStatus === "synced" ? "Sincronizado" : product.shopifySyncStatus === "error" ? "Con error" : product.shopifySyncStatus === "syncing" ? "Enviando" : "Sin enviar"}
+                      <strong className="text-forest block">
+                        {product.name}
+                      </strong>
+                      <span className="text-ink-muted text-xs">
+                        {product.brandOrLaboratory}
                       </span>
                     </td>
-                    <td className="px-5 py-4">{product.stockVerified ? product.stock : "—"}</td>
-                    <td className="px-5 py-4 text-right font-bold">{product.priceVerified ? formatMoney(product.priceInCents) : "Por definir"}</td>
+                    <td className="px-5 py-4">
+                      <span className="text-forest block text-xs font-bold">
+                        {category?.name ?? product.categoryId}
+                      </span>
+                      <span className="text-ink-muted text-[.68rem]">
+                        {product.sourceDocument
+                          ? `${product.sourceDocument} · pág. ${product.sourcePage}`
+                          : "Alta manual"}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span
+                        className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-black ${config.className}`}
+                      >
+                        <Icon className="size-4" /> {config.label}
+                      </span>
+                      <span
+                        className={`mt-2 block text-[.68rem] font-bold ${missingFields.length ? "text-amber-700" : "text-emerald-700"}`}
+                      >
+                        {missingFields.length
+                          ? `Faltan: ${missingFields.map((field) => commercialFieldLabels[field]).join(", ")}`
+                          : "Datos comerciales completos"}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span
+                        className={`inline-flex rounded-full px-3 py-1.5 text-xs font-black ${product.shopifySyncStatus === "synced" ? "bg-emerald-100 text-emerald-800" : product.shopifySyncStatus === "error" ? "bg-red-100 text-red-800" : product.shopifySyncStatus === "syncing" ? "bg-sky-100 text-sky-800" : "bg-stone-100 text-stone-700"}`}
+                        title={product.shopifySyncError}
+                      >
+                        {product.shopifySyncStatus === "synced"
+                          ? "Sincronizado"
+                          : product.shopifySyncStatus === "error"
+                            ? "Con error"
+                            : product.shopifySyncStatus === "syncing"
+                              ? "Enviando"
+                              : "Sin enviar"}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4">
+                      {product.stockVerified ? product.stock : "—"}
+                    </td>
+                    <td className="px-5 py-4 text-right font-bold">
+                      {product.priceVerified
+                        ? formatMoney(product.priceInCents)
+                        : "Por definir"}
+                    </td>
                     <td className="px-5 py-4 text-right">
                       <div className="flex justify-end gap-2">
                         {product.reviewStatus === "published" ? (
-                          <Button disabled={syncingProductId === product.id} onClick={() => void handleShopifySync(product.id)} size="sm" variant="secondary">
-                            {syncingProductId === product.id ? <LoaderCircle className="size-4 animate-spin" /> : <CloudUpload className="size-4" />}
-                            {product.shopifySyncStatus === "synced" ? "Actualizar" : "Enviar"}
+                          <Button
+                            disabled={syncingProductId === product.id}
+                            onClick={() => void handleShopifySync(product.id)}
+                            size="sm"
+                            variant="secondary"
+                          >
+                            {syncingProductId === product.id ? (
+                              <LoaderCircle className="size-4 animate-spin" />
+                            ) : (
+                              <CloudUpload className="size-4" />
+                            )}
+                            {product.shopifySyncStatus === "synced"
+                              ? "Actualizar"
+                              : "Enviar"}
                           </Button>
                         ) : null}
-                        <Button onClick={() => { setEditingProductId(product.id); setShowForm(false); window.scrollTo({ top: 180, behavior: "smooth" }); }} size="sm" variant="outline"><ScanSearch className="size-4" /> Revisar</Button>
+                        <Button
+                          onClick={() => {
+                            setEditingProductId(product.id);
+                            setShowForm(false);
+                            window.scrollTo({ top: 180, behavior: "smooth" });
+                          }}
+                          size="sm"
+                          variant="outline"
+                        >
+                          <ScanSearch className="size-4" /> Revisar
+                        </Button>
                       </div>
                     </td>
                   </tr>
@@ -458,10 +656,27 @@ export function ProductsAdmin() {
         </div>
 
         <div className="border-forest/10 flex flex-wrap items-center justify-between gap-3 border-t px-5 py-4">
-          <p className="text-ink-muted text-xs">Mostrando {visibleProducts.length} de {filteredProducts.length} · página {currentPage} de {pageCount}</p>
+          <p className="text-ink-muted text-xs">
+            Mostrando {visibleProducts.length} de {filteredProducts.length} ·
+            página {currentPage} de {pageCount}
+          </p>
           <div className="flex gap-2">
-            <Button disabled={currentPage <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))} size="sm" variant="outline">Anterior</Button>
-            <Button disabled={currentPage >= pageCount} onClick={() => setPage((value) => Math.min(pageCount, value + 1))} size="sm" variant="outline">Siguiente</Button>
+            <Button
+              disabled={currentPage <= 1}
+              onClick={() => setPage((value) => Math.max(1, value - 1))}
+              size="sm"
+              variant="outline"
+            >
+              Anterior
+            </Button>
+            <Button
+              disabled={currentPage >= pageCount}
+              onClick={() => setPage((value) => Math.min(pageCount, value + 1))}
+              size="sm"
+              variant="outline"
+            >
+              Siguiente
+            </Button>
           </div>
         </div>
       </Card>

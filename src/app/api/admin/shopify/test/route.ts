@@ -7,16 +7,27 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   const actor = await getAdminActor();
-  if (!actor) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  if (!actor)
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
   if (!isSameOriginRequest(request)) {
-    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
+    return NextResponse.json(
+      { error: "Origen no permitido." },
+      { status: 403 },
+    );
   }
 
   try {
-    return NextResponse.json({ shop: await testShopifyConnection() });
+    return NextResponse.json({
+      connection: { connected: true, ...(await testShopifyConnection()) },
+    });
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "No se pudo comprobar Shopify." },
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "No se pudo comprobar Shopify.",
+      },
       { status: 409 },
     );
   }

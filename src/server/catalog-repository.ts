@@ -94,7 +94,11 @@ function mapProduct(
 export async function listAdminProducts(): Promise<AdminCatalogProduct[]> {
   const db = getDb();
   const rows = await db
-    .select({ product: products, content: productContent, source: catalogSources })
+    .select({
+      product: products,
+      content: productContent,
+      source: catalogSources,
+    })
     .from(products)
     .innerJoin(productContent, eq(products.productId, productContent.productId))
     .leftJoin(catalogSources, eq(products.sourceId, catalogSources.sourceId))
@@ -289,6 +293,7 @@ export async function updateAdminProduct(
         priceCents: input.priceInCents,
         stockQuantity: input.stock,
         ean: input.ean || null,
+        imagePath: input.imageUrl || null,
         availableOnline: false,
         updatedAt: now,
       })
