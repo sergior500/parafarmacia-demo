@@ -261,7 +261,7 @@ export function ProductsAdmin() {
         ),
       );
       setNotice(
-        `${body.product.name} se ha sincronizado con Shopify como borrador.`,
+        `${body.product.name} se ha sincronizado con Shopify como borrador${getMissingCommercialFields(body.product).length ? " pendiente de completar" : ""}.`,
       );
     } catch (error) {
       setNotice(
@@ -682,23 +682,28 @@ export function ProductsAdmin() {
                     </td>
                     <td className="px-5 py-4 text-right">
                       <div className="flex justify-end gap-2">
-                        {product.reviewStatus === "published" ? (
-                          <Button
-                            disabled={syncingProductId === product.id}
-                            onClick={() => void handleShopifySync(product.id)}
-                            size="sm"
-                            variant="secondary"
-                          >
-                            {syncingProductId === product.id ? (
-                              <LoaderCircle className="size-4 animate-spin" />
-                            ) : (
-                              <CloudUpload className="size-4" />
-                            )}
-                            {product.shopifySyncStatus === "synced"
-                              ? "Actualizar"
+                        <Button
+                          disabled={syncingProductId === product.id}
+                          onClick={() => void handleShopifySync(product.id)}
+                          size="sm"
+                          variant="secondary"
+                          title={
+                            missingFields.length
+                              ? "Se creará como borrador pendiente; nunca se publicará automáticamente"
+                              : "Se creará como borrador en Shopify"
+                          }
+                        >
+                          {syncingProductId === product.id ? (
+                            <LoaderCircle className="size-4 animate-spin" />
+                          ) : (
+                            <CloudUpload className="size-4" />
+                          )}
+                          {product.shopifySyncStatus === "synced"
+                            ? "Actualizar"
+                            : missingFields.length
+                              ? "Crear borrador"
                               : "Enviar"}
-                          </Button>
-                        ) : null}
+                        </Button>
                         <Button
                           onClick={() => {
                             setEditingProductId(product.id);

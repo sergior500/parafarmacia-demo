@@ -8,6 +8,7 @@ import {
   getMissingCommercialFields,
   getShopifyBatchCandidates,
 } from "@/features/admin/admin-catalog";
+import { buildShopifyProductSetVariables } from "@/server/shopify/product-sync";
 
 const update = {
   reviewStatus: "reviewed" as const,
@@ -113,5 +114,37 @@ describe("getShopifyBatchCandidates", () => {
       id: `product-${index}`,
     }));
     expect(getShopifyBatchCandidates(products, 25)).toHaveLength(10);
+  });
+});
+
+describe("buildShopifyProductSetVariables", () => {
+  it("crea un borrador inequívocamente pendiente sin inventar datos comerciales", () => {
+    const variables = buildShopifyProductSetVariables({
+      id: "product-pending",
+      slug: "aceite-corporal",
+      name: "Aceite corporal",
+      brandOrLaboratory: "Marca por confirmar",
+      categoryId: "cuidado-corporal",
+      shortDescription: "Ficha importada del catálogo real.",
+      description: "Ficha importada del catálogo real.",
+      priceInCents: 0,
+      priceVerified: false,
+      stock: 0,
+      stockVerified: false,
+      taxRate: 21,
+      maximumUnitsPerOrder: 6,
+      imageUrl: "",
+      featured: false,
+      reviewStatus: "pending",
+      updatedAt: "2026-08-14T00:00:00.000Z",
+      shopifySyncStatus: "not_synced",
+    } as AdminCatalogProduct);
+
+    expect(variables.input.status).toBe("DRAFT");
+    expect(variables.input.tags).toContain("Pendiente de completar");
+    expect(variables.input.variants[0]?.price).toBe("0.00");
+    expect(variables.input.productOptions[0]?.values[0]?.name).toBe(
+      "Pendiente de definir",
+    );
   });
 });

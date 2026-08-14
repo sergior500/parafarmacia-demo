@@ -31,7 +31,13 @@ function plainTextToHtml(value: string): string {
 
 export function buildShopifyProductSetVariables(product: AdminCatalogProduct) {
   const defaultOption = "Formato";
-  const defaultValue = product.size?.trim() || "Único";
+  const defaultValue = product.size?.trim() || "Pendiente de definir";
+  const isCommerciallyComplete =
+    product.priceVerified &&
+    product.priceInCents > 0 &&
+    product.stockVerified &&
+    Boolean(product.size?.trim()) &&
+    Boolean(product.imageUrl.trim());
   return {
     identifier: { handle: product.slug },
     input: {
@@ -41,13 +47,19 @@ export function buildShopifyProductSetVariables(product: AdminCatalogProduct) {
       vendor: product.brandOrLaboratory,
       productType: product.categoryId,
       status: "DRAFT",
+      tags: isCommerciallyComplete
+        ? ["Farmacia Picual"]
+        : ["Farmacia Picual", "Pendiente de completar"],
       productOptions: [
         { name: defaultOption, position: 1, values: [{ name: defaultValue }] },
       ],
       variants: [
         {
           optionValues: [{ optionName: defaultOption, name: defaultValue }],
-          price: (product.priceInCents / 100).toFixed(2),
+          price:
+            product.priceVerified && product.priceInCents > 0
+              ? (product.priceInCents / 100).toFixed(2)
+              : "0.00",
           ...(product.ean ? { barcode: product.ean, sku: product.ean } : {}),
         },
       ],

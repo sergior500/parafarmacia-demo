@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-import { canApproveForShopify } from "@/features/admin/admin-catalog";
 import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
 import {
   findAdminProduct,
@@ -26,12 +25,6 @@ export async function POST(
   const { id } = await context.params;
   const product = await findAdminProduct(id);
   if (!product) return NextResponse.json({ error: "Producto no encontrado." }, { status: 404 });
-  if (product.reviewStatus !== "published" || !canApproveForShopify(product)) {
-    return NextResponse.json(
-      { error: "Aprueba la ficha y completa precio y formato antes de enviarla." },
-      { status: 409 },
-    );
-  }
   const configuration = getShopifyConfiguration();
   if (!configuration.configured) {
     return NextResponse.json(
