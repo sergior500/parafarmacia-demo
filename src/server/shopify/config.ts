@@ -15,22 +15,32 @@ export function normalizeShopifyStoreDomain(value: string): string | null {
 
 export function getShopifyConfiguration(): ShopifyConfigurationStatus & {
   adminAccessToken?: string;
+  clientId?: string;
+  clientSecret?: string;
   webhookSecret?: string;
 } {
   const rawDomain = process.env.SHOPIFY_STORE_DOMAIN ?? "";
   const storeDomain = normalizeShopifyStoreDomain(rawDomain) ?? undefined;
   const adminAccessToken = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN?.trim();
-  const webhookSecret = process.env.SHOPIFY_WEBHOOK_SECRET?.trim();
+  const clientId = process.env.SHOPIFY_CLIENT_ID?.trim();
+  const clientSecret = process.env.SHOPIFY_CLIENT_SECRET?.trim();
+  const webhookSecret =
+    process.env.SHOPIFY_WEBHOOK_SECRET?.trim() || clientSecret;
   const apiVersion = process.env.SHOPIFY_API_VERSION?.trim() || DEFAULT_API_VERSION;
   const missing: string[] = [];
 
   if (!storeDomain) missing.push("Dominio de la tienda");
-  if (!adminAccessToken) missing.push("Token de Admin API");
+  if (!adminAccessToken) {
+    if (!clientId) missing.push("Client ID");
+    if (!clientSecret) missing.push("Client secret");
+  }
 
   return {
     configured: missing.length === 0,
     storeDomain,
     adminAccessToken,
+    clientId,
+    clientSecret,
     webhookSecret,
     apiVersion,
     missing,

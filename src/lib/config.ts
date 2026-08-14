@@ -1,5 +1,5 @@
 export const pharmacyConfig = {
-  name: process.env.NEXT_PUBLIC_PHARMACY_NAME || "Picual",
+  name: process.env.NEXT_PUBLIC_PHARMACY_NAME || "Farmacia Picual",
   legalName: process.env.NEXT_PUBLIC_PHARMACY_LEGAL_NAME || "",
   address:
     process.env.NEXT_PUBLIC_PHARMACY_ADDRESS || "Sevilla — dirección pendiente",

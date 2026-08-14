@@ -4,10 +4,14 @@ import { getPublicShopifyStatus, normalizeShopifyStoreDomain } from "@/server/sh
 
 const originalDomain = process.env.SHOPIFY_STORE_DOMAIN;
 const originalToken = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN;
+const originalClientId = process.env.SHOPIFY_CLIENT_ID;
+const originalClientSecret = process.env.SHOPIFY_CLIENT_SECRET;
 
 afterEach(() => {
   process.env.SHOPIFY_STORE_DOMAIN = originalDomain;
   process.env.SHOPIFY_ADMIN_ACCESS_TOKEN = originalToken;
+  process.env.SHOPIFY_CLIENT_ID = originalClientId;
+  process.env.SHOPIFY_CLIENT_SECRET = originalClientSecret;
 });
 
 describe("Shopify configuration", () => {
@@ -27,5 +31,16 @@ describe("Shopify configuration", () => {
     const publicStatus = getPublicShopifyStatus();
     expect(publicStatus.configured).toBe(true);
     expect(JSON.stringify(publicStatus)).not.toContain("shpat_secret");
+  });
+
+  it("accepts client credentials without exposing either value", () => {
+    process.env.SHOPIFY_STORE_DOMAIN = "99vh1p-pz.myshopify.com";
+    process.env.SHOPIFY_ADMIN_ACCESS_TOKEN = "";
+    process.env.SHOPIFY_CLIENT_ID = "client-id-private";
+    process.env.SHOPIFY_CLIENT_SECRET = "client-secret-private";
+    const publicStatus = getPublicShopifyStatus();
+    expect(publicStatus.configured).toBe(true);
+    expect(JSON.stringify(publicStatus)).not.toContain("client-id-private");
+    expect(JSON.stringify(publicStatus)).not.toContain("client-secret-private");
   });
 });
