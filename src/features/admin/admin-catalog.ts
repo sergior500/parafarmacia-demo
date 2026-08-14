@@ -79,8 +79,6 @@ export function getMissingCommercialFields(
 
 export function isShopifyBatchCandidate(product: AdminCatalogProduct): boolean {
   return (
-    product.reviewStatus === "published" &&
-    canApproveForShopify(product) &&
     (product.shopifySyncStatus === "not_synced" ||
       product.shopifySyncStatus === "error")
   );
@@ -88,8 +86,20 @@ export function isShopifyBatchCandidate(product: AdminCatalogProduct): boolean {
 
 export function getShopifyBatchCandidates(
   products: AdminCatalogProduct[],
+  productIds?: string[],
   limit = 5,
 ): AdminCatalogProduct[] {
   const safeLimit = Math.max(1, Math.min(10, Math.trunc(limit)));
-  return products.filter(isShopifyBatchCandidate).slice(0, safeLimit);
+  const requestedIds = productIds?.length ? new Set(productIds) : undefined;
+  return products
+    .filter(
+      (product) =>
+        isShopifyBatchCandidate(product) &&
+        (!requestedIds || requestedIds.has(product.id)),
+    )
+    .sort((left, right) => {
+      if (!productIds) return 0;
+      return productIds.indexOf(left.id) - productIds.indexOf(right.id);
+    })
+    .slice(0, safeLimit);
 }

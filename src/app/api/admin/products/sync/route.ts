@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
 import {
   getShopifyBatchCandidates,
@@ -16,7 +17,10 @@ import { syncProductToShopify } from "@/server/shopify/product-sync";
 
 export const dynamic = "force-dynamic";
 
-const BATCH_SIZE = 5;
+const MAX_BATCH_SIZE = 10;
+const syncBatchSchema = z.object({
+  productIds: z.array(z.string().trim().min(1)).min(1).max(MAX_BATCH_SIZE),
+});
 
 export async function POST(request: Request) {
   const actor = await getAdminActor();
@@ -31,6 +35,16 @@ export async function POST(request: Request) {
   }
 
   try {
+    const parsedBody = syncBatchSchema.safeParse(
+      await request.json().catch(() => null),
+    );
+    if (!parsedBody.success) {
+      return NextResponse.json(
+        { error: `Selecciona entre 1 y ${MAX_BATCH_SIZE} productos por lote.` },
+        { status: 400 },
+      );
+    }
+
     const connection = await testShopifyConnection();
     if (!connection.grantedScopes.includes("write_products")) {
       return NextResponse.json(
@@ -44,7 +58,15 @@ export async function POST(request: Request) {
     }
 
     const products = await listAdminProducts();
-    const candidates = getShopifyBatchCandidates(products, BATCH_SIZE);
+    const candidates = getShopifyBatchCandidates(
+      products,
+      parsedBody.data.productIds,
+      MAX_BATCH_SIZE,
+    );
+    const selectedIds = new Set(candidates.map(({ id }) => id));
+    const skippedIds = parsedBody.data.productIds.filter(
+      (productId) => !selectedIds.has(productId),
+    );
     const results: Array<{
       productId: string;
       name: string;
@@ -81,10 +103,12 @@ export async function POST(request: Request) {
       isShopifyBatchCandidate,
     ).length;
     return NextResponse.json({
-      batchSize: BATCH_SIZE,
+      batchSize: MAX_BATCH_SIZE,
       attempted: results.length,
       succeeded: results.filter(({ status }) => status === "synced").length,
       failed: results.filter(({ status }) => status === "error").length,
+      skipped: skippedIds.length,
+      skippedIds,
       remaining,
       results,
     });

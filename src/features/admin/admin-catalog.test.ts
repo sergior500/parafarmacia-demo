@@ -96,16 +96,41 @@ describe("getShopifyBatchCandidates", () => {
     shopifySyncStatus: "not_synced",
   } as AdminCatalogProduct;
 
-  it("elige solo fichas aprobadas, completas y aún no sincronizadas", () => {
+  it("elige borradores pendientes aunque falten datos comerciales", () => {
     const candidates = getShopifyBatchCandidates([
       completeProduct,
-      { ...completeProduct, id: "product-2", reviewStatus: "reviewed" },
+      {
+        ...completeProduct,
+        id: "product-2",
+        reviewStatus: "pending",
+        priceVerified: false,
+      },
       { ...completeProduct, id: "product-3", shopifySyncStatus: "synced" },
-      { ...completeProduct, id: "product-4", priceVerified: false },
       { ...completeProduct, id: "product-5", shopifySyncStatus: "error" },
     ]);
 
-    expect(candidates.map(({ id }) => id)).toEqual(["product-1", "product-5"]);
+    expect(candidates.map(({ id }) => id)).toEqual([
+      "product-1",
+      "product-2",
+      "product-5",
+    ]);
+  });
+
+  it("respeta la selección y el orden solicitados", () => {
+    const candidates = getShopifyBatchCandidates(
+      [
+        completeProduct,
+        { ...completeProduct, id: "product-2" },
+        { ...completeProduct, id: "product-3" },
+      ],
+      ["product-3", "product-1"],
+      10,
+    );
+
+    expect(candidates.map(({ id }) => id)).toEqual([
+      "product-3",
+      "product-1",
+    ]);
   });
 
   it("limita cada lote a diez productos", () => {
@@ -113,7 +138,7 @@ describe("getShopifyBatchCandidates", () => {
       ...completeProduct,
       id: `product-${index}`,
     }));
-    expect(getShopifyBatchCandidates(products, 25)).toHaveLength(10);
+    expect(getShopifyBatchCandidates(products, undefined, 25)).toHaveLength(10);
   });
 });
 

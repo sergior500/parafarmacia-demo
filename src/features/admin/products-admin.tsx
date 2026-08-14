@@ -5,13 +5,23 @@ import {
   CheckCircle2,
   CloudUpload,
   FileWarning,
+  ListChecks,
   LoaderCircle,
   PackagePlus,
+  PauseCircle,
+  RefreshCcw,
   ScanSearch,
   Search,
+  ShieldCheck,
   X,
 } from "lucide-react";
-import { type FormEvent, useEffect, useMemo, useState } from "react";
+import {
+  type FormEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -29,6 +39,17 @@ import { formatMoney } from "@/lib/format";
 import { categories } from "@/mocks/products";
 
 const PAGE_SIZE = 25;
+const SHOPIFY_BATCH_LIMIT = 10;
+
+type BatchProgress = {
+  completed: number;
+  total: number;
+  succeeded: number;
+  failed: number;
+  skipped: number;
+  currentName: string;
+  stopped: boolean;
+};
 
 const commercialFieldLabels = {
   price: "precio",
@@ -88,6 +109,12 @@ export function ProductsAdmin() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [page, setPage] = useState(1);
   const [notice, setNotice] = useState("");
+  const [selectedProductIds, setSelectedProductIds] = useState<Set<string>>(
+    new Set<string>(),
+  );
+  const [showBatchPreview, setShowBatchPreview] = useState(false);
+  const [batchProgress, setBatchProgress] = useState<BatchProgress | null>(null);
+  const stopBatchRef = useRef(false);
 
   async function loadProducts() {
     setLoading(true);
@@ -166,6 +193,20 @@ export function ProductsAdmin() {
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE,
   );
+  const selectedProducts = catalogProducts.filter((product) =>
+    selectedProductIds.has(product.id),
+  );
+  const selectedIncompleteCount = selectedProducts.filter(
+    (product) => getMissingCommercialFields(product).length > 0,
+  ).length;
+  const selectableVisibleProducts = visibleProducts.filter(
+    isShopifyBatchCandidate,
+  );
+  const allSelectableVisibleSelected =
+    selectableVisibleProducts.length > 0 &&
+    selectableVisibleProducts.every((product) =>
+      selectedProductIds.has(product.id),
+    );
   const editingProduct = editingProductId
     ? catalogProducts.find((product) => product.id === editingProductId)
     : undefined;
@@ -275,27 +316,128 @@ export function ProductsAdmin() {
     }
   }
 
-  async function handleShopifyBatchSync() {
-    setSyncingBatch(true);
-    setNotice("");
-    try {
-      const response = await fetch("/api/admin/products/sync", {
-        method: "POST",
-      });
-      if (!response.ok) throw await apiError(response);
-      const body = (await response.json()) as {
-        attempted: number;
-        succeeded: number;
-        failed: number;
-        remaining: number;
-      };
-      if (body.attempted === 0) {
-        setNotice("No hay fichas aprobadas pendientes de sincronización.");
-      } else {
+  function toggleProductSelection(productId: string) {
+    setSelectedProductIds((current) => {
+      const next = new Set(current);
+      if (next.has(productId)) {
+        next.delete(productId);
+        return next;
+      }
+      if (next.size >= SHOPIFY_BATCH_LIMIT) {
         setNotice(
-          `Lote terminado: ${body.succeeded} sincronizados y ${body.failed} con error.${body.remaining ? ` Quedan ${body.remaining} para los siguientes lotes.` : ""}`,
+          `Cada lote admite un máximo de ${SHOPIFY_BATCH_LIMIT} productos para evitar envíos accidentales.`,
+        );
+        return current;
+      }
+      next.add(productId);
+      return next;
+    });
+    setBatchProgress(null);
+  }
+
+  function toggleVisibleSelection() {
+    setSelectedProductIds((current) => {
+      const next = new Set(current);
+      if (allSelectableVisibleSelected) {
+        for (const product of selectableVisibleProducts) next.delete(product.id);
+        return next;
+      }
+      for (const product of selectableVisibleProducts) {
+        if (next.size >= SHOPIFY_BATCH_LIMIT) break;
+        next.add(product.id);
+      }
+      if (
+        selectableVisibleProducts.some((product) => !next.has(product.id))
+      ) {
+        setNotice(
+          `Se han seleccionado los primeros ${SHOPIFY_BATCH_LIMIT} productos disponibles.`,
         );
       }
+      return next;
+    });
+    setBatchProgress(null);
+  }
+
+  async function handleShopifyBatchSync() {
+    const queue = selectedProducts.slice(0, SHOPIFY_BATCH_LIMIT);
+    if (queue.length === 0) return;
+
+    setSyncingBatch(true);
+    setShowBatchPreview(true);
+    setNotice("");
+    stopBatchRef.current = false;
+    const remainingSelection = new Set(queue.map(({ id }) => id));
+    let succeeded = 0;
+    let failed = 0;
+    let skipped = 0;
+    let completed = 0;
+    setBatchProgress({
+      completed,
+      total: queue.length,
+      succeeded,
+      failed,
+      skipped,
+      currentName: queue[0]?.name ?? "",
+      stopped: false,
+    });
+
+    try {
+      for (const product of queue) {
+        if (stopBatchRef.current) break;
+        setBatchProgress({
+          completed,
+          total: queue.length,
+          succeeded,
+          failed,
+          skipped,
+          currentName: product.name,
+          stopped: false,
+        });
+
+        const response = await fetch("/api/admin/products/sync", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ productIds: [product.id] }),
+        });
+        if (!response.ok) throw await apiError(response);
+        const body = (await response.json()) as {
+          succeeded: number;
+          failed: number;
+          skipped: number;
+        };
+        succeeded += body.succeeded;
+        failed += body.failed;
+        skipped += body.skipped;
+        completed += 1;
+        if (body.succeeded > 0 || body.skipped > 0) {
+          remainingSelection.delete(product.id);
+        }
+        setBatchProgress({
+          completed,
+          total: queue.length,
+          succeeded,
+          failed,
+          skipped,
+          currentName: product.name,
+          stopped: false,
+        });
+      }
+
+      const stopped = stopBatchRef.current;
+      setBatchProgress({
+        completed,
+        total: queue.length,
+        succeeded,
+        failed,
+        skipped,
+        currentName: "",
+        stopped,
+      });
+      setNotice(
+        stopped
+          ? `Lote detenido: ${succeeded} sincronizados y ${failed} con error. La selección restante se conserva.`
+          : `Lote terminado: ${succeeded} sincronizados, ${failed} con error y ${skipped} omitidos.${failed ? " Los errores siguen seleccionados para reintentarlos." : ""}`,
+      );
       await loadProducts();
     } catch (error) {
       setNotice(
@@ -303,7 +445,11 @@ export function ProductsAdmin() {
           ? error.message
           : "No se pudo sincronizar el lote.",
       );
+      setBatchProgress((current) =>
+        current ? { ...current, currentName: "", stopped: true } : current,
+      );
     } finally {
+      setSelectedProductIds(remainingSelection);
       setSyncingBatch(false);
     }
   }
@@ -345,22 +491,17 @@ export function ProductsAdmin() {
         <p className="text-ink-muted max-w-2xl text-sm">
           Las 183 referencias de los PDF son el catálogo real. Precio, formato,
           stock e imagen pueden quedar pendientes hasta que la farmacia los
-          complete; solo las fichas completas se podrán aprobar y enviar.
+          complete. Las fichas incompletas pueden enviarse a Shopify únicamente
+          como borradores protegidos.
         </p>
         <div className="flex flex-wrap gap-2">
           <Button
-            disabled={batchCandidateCount === 0 || syncingBatch}
-            onClick={() => void handleShopifyBatchSync()}
+            disabled={selectedProductIds.size === 0 || syncingBatch}
+            onClick={() => setShowBatchPreview(true)}
             variant="secondary"
           >
-            {syncingBatch ? (
-              <LoaderCircle className="size-4 animate-spin" />
-            ) : (
-              <CloudUpload className="size-4" />
-            )}
-            {syncingBatch
-              ? "Sincronizando lote…"
-              : `Enviar siguiente lote (${Math.min(5, batchCandidateCount)})`}
+            <ListChecks className="size-4" />
+            Revisar lote ({selectedProductIds.size})
           </Button>
           <Button
             onClick={() => {
@@ -381,9 +522,141 @@ export function ProductsAdmin() {
       {batchCandidateCount > 0 ? (
         <p className="border-forest/10 bg-cream text-ink-muted rounded-2xl border px-4 py-3 text-xs">
           Hay <strong className="text-forest">{batchCandidateCount}</strong>{" "}
-          fichas aprobadas pendientes de enviar. Cada lote procesa como máximo
-          cinco y Shopify las mantiene como borradores.
+          productos pendientes o con error. Selecciona hasta diez; todos se
+          crean como borradores y nunca se publican automáticamente.
         </p>
+      ) : null}
+
+      {showBatchPreview && (selectedProducts.length > 0 || batchProgress) ? (
+        <Card className="border-forest/15 overflow-hidden">
+          <div className="border-forest/10 bg-sage/45 flex flex-wrap items-start justify-between gap-3 border-b px-5 py-4 sm:px-7">
+            <div>
+              <p className="eyebrow">Vista previa del lote</p>
+              <h2 className="text-forest mt-1 text-xl font-black">
+                {selectedProducts.length} de {SHOPIFY_BATCH_LIMIT} productos
+                preparados
+              </h2>
+            </div>
+            {!syncingBatch ? (
+              <Button
+                aria-label="Cerrar vista previa"
+                onClick={() => setShowBatchPreview(false)}
+                size="sm"
+                variant="ghost"
+              >
+                <X className="size-4" /> Cerrar
+              </Button>
+            ) : null}
+          </div>
+          <div className="grid gap-5 p-5 lg:grid-cols-[1fr_18rem] sm:p-7">
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2 text-xs font-bold">
+                <span className="rounded-full bg-amber-100 px-3 py-1.5 text-amber-800">
+                  {selectedIncompleteCount} con datos pendientes
+                </span>
+                <span className="rounded-full bg-emerald-100 px-3 py-1.5 text-emerald-800">
+                  {selectedProducts.length - selectedIncompleteCount} completos
+                </span>
+                <span className="rounded-full bg-stone-100 px-3 py-1.5 text-stone-700">
+                  {selectedProducts.filter((product) => product.shopifySyncStatus === "error").length}{" "}
+                  reintentos
+                </span>
+              </div>
+              {selectedProducts.length ? (
+                <ol className="grid gap-2 text-sm sm:grid-cols-2">
+                  {selectedProducts.map((product, index) => (
+                    <li
+                      className="border-forest/10 flex gap-3 rounded-2xl border bg-white px-4 py-3"
+                      key={product.id}
+                    >
+                      <span className="text-forest font-black">{index + 1}.</span>
+                      <span>
+                        <strong className="text-forest block">{product.name}</strong>
+                        <span className="text-ink-muted text-xs">
+                          {getMissingCommercialFields(product).length
+                            ? "Borrador pendiente de completar"
+                            : "Datos comerciales completos"}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              ) : null}
+              {batchProgress ? (
+                <div className="border-forest/10 rounded-2xl border bg-white p-4" aria-live="polite">
+                  <div className="flex items-center justify-between gap-3 text-sm font-bold">
+                    <span>
+                      {syncingBatch
+                        ? `Procesando ${batchProgress.currentName}`
+                        : batchProgress.stopped
+                          ? "Proceso detenido"
+                          : "Proceso terminado"}
+                    </span>
+                    <span>
+                      {batchProgress.completed}/{batchProgress.total}
+                    </span>
+                  </div>
+                  <div className="bg-stone-100 mt-3 h-2 overflow-hidden rounded-full">
+                    <div
+                      className="bg-forest h-full rounded-full transition-all"
+                      style={{
+                        width: `${batchProgress.total ? (batchProgress.completed / batchProgress.total) * 100 : 0}%`,
+                      }}
+                    />
+                  </div>
+                  <p className="text-ink-muted mt-3 text-xs">
+                    {batchProgress.succeeded} sincronizados · {batchProgress.failed}{" "}
+                    con error · {batchProgress.skipped} omitidos
+                  </p>
+                </div>
+              ) : null}
+            </div>
+            <aside className="bg-cream border-forest/10 rounded-3xl border p-5">
+              <ShieldCheck className="text-forest size-7" />
+              <h3 className="text-forest mt-3 font-black">Envío protegido</h3>
+              <p className="text-ink-muted mt-2 text-sm leading-6">
+                Shopify recibirá borradores. Los precios desconocidos serán 0 €, el
+                inventario no se publicará y las fichas incompletas quedarán
+                etiquetadas como pendientes.
+              </p>
+              <div className="mt-5 grid gap-2">
+                {syncingBatch ? (
+                  <Button
+                    onClick={() => {
+                      stopBatchRef.current = true;
+                      setNotice("El lote se detendrá al terminar el producto actual.");
+                    }}
+                    variant="outline"
+                  >
+                    <PauseCircle className="size-4" /> Detener después del actual
+                  </Button>
+                ) : selectedProducts.length ? (
+                  <Button onClick={() => void handleShopifyBatchSync()}>
+                    {selectedProducts.some(
+                      (product) => product.shopifySyncStatus === "error",
+                    ) ? (
+                      <RefreshCcw className="size-4" />
+                    ) : (
+                      <CloudUpload className="size-4" />
+                    )}
+                    Sincronizar {selectedProducts.length} como borrador
+                  </Button>
+                ) : null}
+                {!syncingBatch && selectedProducts.length ? (
+                  <Button
+                    onClick={() => {
+                      setSelectedProductIds(new Set<string>());
+                      setBatchProgress(null);
+                    }}
+                    variant="ghost"
+                  >
+                    Limpiar selección
+                  </Button>
+                ) : null}
+              </div>
+            </aside>
+          </div>
+        </Card>
       ) : null}
 
       {editingProduct ? (
@@ -583,9 +856,22 @@ export function ProductsAdmin() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[1080px] text-left text-sm">
+          <table className="w-full min-w-[1140px] text-left text-sm">
             <thead className="bg-sage/60 text-forest">
               <tr>
+                <th className="px-5 py-4">
+                  <input
+                    aria-label="Seleccionar productos visibles para el lote"
+                    checked={allSelectableVisibleSelected}
+                    className="accent-forest size-4 rounded"
+                    disabled={
+                      selectableVisibleProducts.length === 0 || syncingBatch
+                    }
+                    onChange={toggleVisibleSelection}
+                    title="Seleccionar hasta diez productos de esta página"
+                    type="checkbox"
+                  />
+                </th>
                 <th className="px-5 py-4">Producto</th>
                 <th className="px-5 py-4">Origen / categoría</th>
                 <th className="px-5 py-4">Revisión</th>
@@ -600,7 +886,7 @@ export function ProductsAdmin() {
                 <tr>
                   <td
                     className="text-ink-muted px-5 py-10 text-center"
-                    colSpan={7}
+                    colSpan={8}
                   >
                     <LoaderCircle className="mr-2 inline size-5 animate-spin" />
                     Cargando catálogo persistente…
@@ -611,7 +897,7 @@ export function ProductsAdmin() {
                 <tr>
                   <td
                     className="text-ink-muted px-5 py-10 text-center"
-                    colSpan={7}
+                    colSpan={8}
                   >
                     No hay productos que coincidan con el filtro.
                   </td>
@@ -625,7 +911,27 @@ export function ProductsAdmin() {
                 );
                 const missingFields = getMissingCommercialFields(product);
                 return (
-                  <tr className="border-forest/10 border-t" key={product.id}>
+                  <tr
+                    className={`border-forest/10 border-t ${selectedProductIds.has(product.id) ? "bg-sage/25" : ""}`}
+                    key={product.id}
+                  >
+                    <td className="px-5 py-4">
+                      <input
+                        aria-label={`Seleccionar ${product.name}`}
+                        checked={selectedProductIds.has(product.id)}
+                        className="accent-forest size-4 rounded"
+                        disabled={
+                          !isShopifyBatchCandidate(product) || syncingBatch
+                        }
+                        onChange={() => toggleProductSelection(product.id)}
+                        title={
+                          product.shopifySyncStatus === "synced"
+                            ? "Este producto ya está sincronizado"
+                            : "Añadir al lote de borradores"
+                        }
+                        type="checkbox"
+                      />
+                    </td>
                     <td className="px-5 py-4">
                       <strong className="text-forest block">
                         {product.name}
@@ -683,7 +989,9 @@ export function ProductsAdmin() {
                     <td className="px-5 py-4 text-right">
                       <div className="flex justify-end gap-2">
                         <Button
-                          disabled={syncingProductId === product.id}
+                          disabled={
+                            syncingProductId === product.id || syncingBatch
+                          }
                           onClick={() => void handleShopifySync(product.id)}
                           size="sm"
                           variant="secondary"
