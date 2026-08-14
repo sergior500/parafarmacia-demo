@@ -33,9 +33,7 @@ interface ShopifyStatusResponse {
 }
 
 const scopeLabels: Record<string, string> = {
-  read_products: "Leer productos",
   write_products: "Crear y actualizar productos",
-  read_inventory: "Leer inventario",
   write_inventory: "Actualizar inventario",
   read_locations: "Leer ubicaciones",
   read_orders: "Leer pedidos",
@@ -194,7 +192,8 @@ export function ShopifyConnectionCard() {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <strong className="text-forest text-sm">Permisos necesarios</strong>
             <span className="text-ink-muted text-xs">
-              {6 - missingScopes.length} de 6 concedidos
+              {Object.keys(scopeLabels).length - missingScopes.length} de{" "}
+              {Object.keys(scopeLabels).length} concedidos
             </span>
           </div>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">

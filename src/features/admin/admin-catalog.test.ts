@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  type AdminCatalogProduct,
   canApproveForShopify,
   catalogProductCreateSchema,
   catalogProductUpdateSchema,
   getMissingCommercialFields,
+  getShopifyBatchCandidates,
 } from "@/features/admin/admin-catalog";
 
 const update = {
@@ -78,5 +80,38 @@ describe("getMissingCommercialFields", () => {
         imageUrl: "",
       }),
     ).toEqual(["price", "size", "image"]);
+  });
+});
+
+describe("getShopifyBatchCandidates", () => {
+  const completeProduct = {
+    id: "product-1",
+    reviewStatus: "published",
+    priceInCents: 1290,
+    priceVerified: true,
+    stockVerified: true,
+    size: "50 ml",
+    imageUrl: "/images/producto.webp",
+    shopifySyncStatus: "not_synced",
+  } as AdminCatalogProduct;
+
+  it("elige solo fichas aprobadas, completas y aún no sincronizadas", () => {
+    const candidates = getShopifyBatchCandidates([
+      completeProduct,
+      { ...completeProduct, id: "product-2", reviewStatus: "reviewed" },
+      { ...completeProduct, id: "product-3", shopifySyncStatus: "synced" },
+      { ...completeProduct, id: "product-4", priceVerified: false },
+      { ...completeProduct, id: "product-5", shopifySyncStatus: "error" },
+    ]);
+
+    expect(candidates.map(({ id }) => id)).toEqual(["product-1", "product-5"]);
+  });
+
+  it("limita cada lote a diez productos", () => {
+    const products = Array.from({ length: 12 }, (_, index) => ({
+      ...completeProduct,
+      id: `product-${index}`,
+    }));
+    expect(getShopifyBatchCandidates(products, 25)).toHaveLength(10);
   });
 });

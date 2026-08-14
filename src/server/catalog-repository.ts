@@ -295,6 +295,8 @@ export async function updateAdminProduct(
         ean: input.ean || null,
         imagePath: input.imageUrl || null,
         availableOnline: false,
+        shopifySyncStatus: "not_synced",
+        shopifySyncError: null,
         updatedAt: now,
       })
       .where(eq(products.productId, productId)),

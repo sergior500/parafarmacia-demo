@@ -90,10 +90,7 @@ describe("Shopify client credentials", () => {
               myshopifyDomain: "99vh1p-pz.myshopify.com",
             },
             currentAppInstallation: {
-              accessScopes: [
-                { handle: "read_products" },
-                { handle: "write_products" },
-              ],
+              accessScopes: [{ handle: "write_products" }],
             },
           },
         }),
@@ -105,9 +102,8 @@ describe("Shopify client credentials", () => {
     const result = await testShopifyConnection();
 
     expect(result.permissionsReady).toBe(false);
-    expect(result.grantedScopes).toEqual(["read_products", "write_products"]);
+    expect(result.grantedScopes).toEqual(["write_products"]);
     expect(result.missingScopes).toEqual([
-      "read_inventory",
       "write_inventory",
       "read_locations",
       "read_orders",

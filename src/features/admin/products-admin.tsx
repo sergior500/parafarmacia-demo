@@ -22,6 +22,7 @@ import {
   type CatalogProductUpdate,
   type CatalogReviewStatus,
   getMissingCommercialFields,
+  isShopifyBatchCandidate,
 } from "@/features/admin/admin-catalog";
 import { CatalogProductEditor } from "@/features/admin/catalog-product-editor";
 import { formatMoney } from "@/lib/format";
@@ -79,6 +80,7 @@ export function ProductsAdmin() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [syncingProductId, setSyncingProductId] = useState<string | null>(null);
+  const [syncingBatch, setSyncingBatch] = useState(false);
   const [loadError, setLoadError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
@@ -152,6 +154,11 @@ export function ProductsAdmin() {
       ready: catalogProducts.length - incomplete,
     };
   }, [catalogProducts]);
+
+  const batchCandidateCount = useMemo(
+    () => catalogProducts.filter(isShopifyBatchCandidate).length,
+    [catalogProducts],
+  );
 
   const pageCount = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
   const currentPage = Math.min(page, pageCount);
@@ -268,6 +275,39 @@ export function ProductsAdmin() {
     }
   }
 
+  async function handleShopifyBatchSync() {
+    setSyncingBatch(true);
+    setNotice("");
+    try {
+      const response = await fetch("/api/admin/products/sync", {
+        method: "POST",
+      });
+      if (!response.ok) throw await apiError(response);
+      const body = (await response.json()) as {
+        attempted: number;
+        succeeded: number;
+        failed: number;
+        remaining: number;
+      };
+      if (body.attempted === 0) {
+        setNotice("No hay fichas aprobadas pendientes de sincronización.");
+      } else {
+        setNotice(
+          `Lote terminado: ${body.succeeded} sincronizados y ${body.failed} con error.${body.remaining ? ` Quedan ${body.remaining} para los siguientes lotes.` : ""}`,
+        );
+      }
+      await loadProducts();
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "No se pudo sincronizar el lote.",
+      );
+    } finally {
+      setSyncingBatch(false);
+    }
+  }
+
   return (
     <div className="space-y-6">
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -307,20 +347,44 @@ export function ProductsAdmin() {
           stock e imagen pueden quedar pendientes hasta que la farmacia los
           complete; solo las fichas completas se podrán aprobar y enviar.
         </p>
-        <Button
-          onClick={() => {
-            setShowForm((visible) => !visible);
-            setEditingProductId(null);
-          }}
-        >
-          {showForm ? (
-            <X className="size-4" />
-          ) : (
-            <PackagePlus className="size-4" />
-          )}
-          {showForm ? "Cerrar formulario" : "Añadir producto"}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            disabled={batchCandidateCount === 0 || syncingBatch}
+            onClick={() => void handleShopifyBatchSync()}
+            variant="secondary"
+          >
+            {syncingBatch ? (
+              <LoaderCircle className="size-4 animate-spin" />
+            ) : (
+              <CloudUpload className="size-4" />
+            )}
+            {syncingBatch
+              ? "Sincronizando lote…"
+              : `Enviar siguiente lote (${Math.min(5, batchCandidateCount)})`}
+          </Button>
+          <Button
+            onClick={() => {
+              setShowForm((visible) => !visible);
+              setEditingProductId(null);
+            }}
+          >
+            {showForm ? (
+              <X className="size-4" />
+            ) : (
+              <PackagePlus className="size-4" />
+            )}
+            {showForm ? "Cerrar formulario" : "Añadir producto"}
+          </Button>
+        </div>
       </div>
+
+      {batchCandidateCount > 0 ? (
+        <p className="border-forest/10 bg-cream text-ink-muted rounded-2xl border px-4 py-3 text-xs">
+          Hay <strong className="text-forest">{batchCandidateCount}</strong>{" "}
+          fichas aprobadas pendientes de enviar. Cada lote procesa como máximo
+          cinco y Shopify las mantiene como borradores.
+        </p>
+      ) : null}
 
       {editingProduct ? (
         <CatalogProductEditor

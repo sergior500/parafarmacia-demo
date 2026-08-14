@@ -76,3 +76,20 @@ export function getMissingCommercialFields(
   if (!product.imageUrl.trim()) missing.push("image");
   return missing;
 }
+
+export function isShopifyBatchCandidate(product: AdminCatalogProduct): boolean {
+  return (
+    product.reviewStatus === "published" &&
+    canApproveForShopify(product) &&
+    (product.shopifySyncStatus === "not_synced" ||
+      product.shopifySyncStatus === "error")
+  );
+}
+
+export function getShopifyBatchCandidates(
+  products: AdminCatalogProduct[],
+  limit = 5,
+): AdminCatalogProduct[] {
+  const safeLimit = Math.max(1, Math.min(10, Math.trunc(limit)));
+  return products.filter(isShopifyBatchCandidate).slice(0, safeLimit);
+}
