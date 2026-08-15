@@ -11,9 +11,13 @@ import Link from "next/link";
 
 import { Card } from "@/components/ui/card";
 import { getCatalogHealth } from "@/server/catalog-repository";
+import { listShopifyOrders } from "@/server/shopify/orders";
 
 export async function AdminDashboard() {
-  const catalog = await getCatalogHealth();
+  const [catalog, ordersReport] = await Promise.all([
+    getCatalogHealth(),
+    listShopifyOrders().catch(() => null),
+  ]);
   const completionChecks = catalog.total * 4;
   const missingChecks =
     catalog.missingPrice +
@@ -99,13 +103,47 @@ export async function AdminDashboard() {
         <Card className="p-6 md:p-8">
           <span className="bg-sage text-forest grid size-11 place-items-center rounded-xl"><ShoppingBag className="size-5" /></span>
           <p className="eyebrow mt-6">Comercio</p>
-          <h2 className="font-display text-forest mt-2 text-3xl">Shopify pendiente</h2>
-          <p className="text-ink-muted mt-3 text-sm leading-6">
-            Pedidos, ventas, inventario publicado y pagos aparecerán aquí cuando se conecte la tienda de Shopify. No se muestran métricas ficticias.
-          </p>
-          <Link className="text-coral mt-5 inline-flex items-center gap-1 text-sm font-bold" href="/admin/configuracion">
-            Ver integraciones <ArrowUpRight className="size-4" />
-          </Link>
+          <h2 className="font-display text-forest mt-2 text-3xl">
+            {ordersReport ? "Shopify conectado" : "Shopify necesita atención"}
+          </h2>
+          {ordersReport ? (
+            <>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="border-forest/10 bg-cream rounded-2xl border p-4">
+                  <strong className="text-forest block text-xl">
+                    {new Intl.NumberFormat("es-ES", {
+                      style: "currency",
+                      currency: ordersReport.currencyCode,
+                    }).format(ordersReport.metrics.monthSales)}
+                  </strong>
+                  <span className="text-ink-muted text-xs font-bold">
+                    Ventas este mes
+                  </span>
+                </div>
+                <div className="border-forest/10 bg-cream rounded-2xl border p-4">
+                  <strong className="text-forest block text-xl">
+                    {ordersReport.metrics.pendingPreparation}
+                  </strong>
+                  <span className="text-ink-muted text-xs font-bold">
+                    Por preparar
+                  </span>
+                </div>
+              </div>
+              <Link className="text-coral mt-5 inline-flex items-center gap-1 text-sm font-bold" href="/admin/pedidos">
+                Ver pedidos y ventas <ArrowUpRight className="size-4" />
+              </Link>
+            </>
+          ) : (
+            <>
+              <p className="text-ink-muted mt-3 text-sm leading-6">
+                No se han podido consultar los pedidos. Revisa la conexión para
+                recuperar la actividad comercial real.
+              </p>
+              <Link className="text-coral mt-5 inline-flex items-center gap-1 text-sm font-bold" href="/admin/configuracion">
+                Ver integración <ArrowUpRight className="size-4" />
+              </Link>
+            </>
+          )}
         </Card>
       </div>
 

@@ -1,0 +1,86 @@
+import { describe, expect, it } from "vitest";
+
+import { buildOrdersReport } from "@/server/shopify/orders";
+
+function order(
+  id: string,
+  createdAt: string,
+  amount: string,
+  options: {
+    financial?: string;
+    fulfillment?: string;
+    cancelledAt?: string | null;
+    product?: string;
+    quantity?: number;
+  } = {},
+) {
+  return {
+    id: `gid://shopify/Order/${id}`,
+    legacyResourceId: id,
+    name: `#${id}`,
+    createdAt,
+    cancelledAt: options.cancelledAt ?? null,
+    displayFinancialStatus: options.financial ?? "PAID",
+    displayFulfillmentStatus: options.fulfillment ?? "UNFULFILLED",
+    email: "cliente@example.com",
+    customer: { displayName: "Cliente" },
+    displayAddress: { name: "Cliente", city: "Jaén", province: "Jaén" },
+    currentTotalPriceSet: {
+      shopMoney: { amount, currencyCode: "EUR" },
+    },
+    lineItems: {
+      nodes: [
+        {
+          name: options.product ?? "Crema facial",
+          quantity: options.quantity ?? 1,
+        },
+      ],
+    },
+  };
+}
+
+describe("buildOrdersReport", () => {
+  it("calcula ventas por día, semana y mes en la zona horaria de la farmacia", () => {
+    const report = buildOrdersReport(
+      [
+        order("1", "2026-08-15T08:00:00.000Z", "25.50", { quantity: 2 }),
+        order("2", "2026-08-11T12:00:00.000Z", "10.00"),
+        order("3", "2026-08-02T12:00:00.000Z", "15.00"),
+      ],
+      {
+        now: new Date("2026-08-15T12:00:00.000Z"),
+        timeZone: "Europe/Madrid",
+      },
+    );
+
+    expect(report.metrics.todaySales).toBe(25.5);
+    expect(report.metrics.weekSales).toBe(35.5);
+    expect(report.metrics.monthSales).toBe(50.5);
+    expect(report.metrics.monthOrders).toBe(3);
+    expect(report.topProducts[0]).toEqual({
+      name: "Crema facial",
+      quantity: 4,
+    });
+  });
+
+  it("excluye cancelados y pagos pendientes de las ventas", () => {
+    const report = buildOrdersReport(
+      [
+        order("1", "2026-08-15T08:00:00.000Z", "25.50", {
+          cancelledAt: "2026-08-15T09:00:00.000Z",
+        }),
+        order("2", "2026-08-15T10:00:00.000Z", "10.00", {
+          financial: "PENDING",
+        }),
+        order("3", "2026-08-15T11:00:00.000Z", "5.00", {
+          fulfillment: "FULFILLED",
+        }),
+      ],
+      { now: new Date("2026-08-15T12:00:00.000Z") },
+    );
+
+    expect(report.metrics.todaySales).toBe(5);
+    expect(report.metrics.monthOrders).toBe(2);
+    expect(report.metrics.pendingPreparation).toBe(1);
+  });
+});
