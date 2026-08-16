@@ -7,12 +7,12 @@ import { ShopifyInventoryManager } from "@/features/admin/shopify-inventory-mana
 import { requireAdminActor } from "@/server/admin-auth";
 import { listShopifyInventory } from "@/server/shopify/inventory";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Inventario · Panel interno",
   description: "Stock real por producto y ubicación de Shopify.",
 };
-
-export const dynamic = "force-dynamic";
 
 export default async function InventoryPage() {
   await requireAdminActor("/admin/inventario");

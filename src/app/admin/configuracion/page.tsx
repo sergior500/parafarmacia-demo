@@ -5,6 +5,8 @@ import { ShopifyConnectionCard } from "@/features/admin/shopify-connection-card"
 import { pharmacyConfig } from "@/lib/config";
 import { requireAdminActor } from "@/server/admin-auth";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Configuración · Panel interno",
 };

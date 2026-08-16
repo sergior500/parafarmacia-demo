@@ -7,12 +7,12 @@ import { ShopifyOrdersDashboard } from "@/features/admin/shopify-orders-dashboar
 import { requireAdminActor } from "@/server/admin-auth";
 import { listShopifyOrders } from "@/server/shopify/orders";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Pedidos · Panel interno",
   description: "Pedidos, ventas y actividad comercial real de Shopify.",
 };
-
-export const dynamic = "force-dynamic";
 
 export default async function OrdersPage() {
   await requireAdminActor("/admin/pedidos");

@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { AdminDashboard } from "@/features/admin/admin-dashboard";
 import { requireAdminActor } from "@/server/admin-auth";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Panel interno",
   description: "Estado real del catálogo y de las integraciones comerciales.",

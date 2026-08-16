@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { ProductsAdmin } from "@/features/admin/products-admin";
 import { requireAdminActor } from "@/server/admin-auth";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Productos · Panel interno",
 };
