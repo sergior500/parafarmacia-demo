@@ -12,6 +12,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
 
 interface ShopifyStatusResponse {
   configuration: {
@@ -73,7 +74,7 @@ export function ShopifyConnectionCard() {
   const loadStatus = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/admin/shopify/status", {
+      const response = await secureAdminFetch("/api/admin/shopify/status", {
         cache: "no-store",
       });
       if (!response.ok) throw new Error(await responseError(response));
@@ -98,7 +99,7 @@ export function ShopifyConnectionCard() {
     setTesting(true);
     setNotice("");
     try {
-      const response = await fetch("/api/admin/shopify/test", {
+      const response = await secureAdminFetch("/api/admin/shopify/test", {
         method: "POST",
       });
       if (!response.ok) throw new Error(await responseError(response));
@@ -129,7 +130,7 @@ export function ShopifyConnectionCard() {
     setActivatingWebhooks(true);
     setNotice("");
     try {
-      const response = await fetch("/api/admin/shopify/webhooks", {
+      const response = await secureAdminFetch("/api/admin/shopify/webhooks", {
         method: "POST",
       });
       if (!response.ok) throw new Error(await responseError(response));

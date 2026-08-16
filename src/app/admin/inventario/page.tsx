@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Card } from "@/components/ui/card";
 import { ShopifyInventoryManager } from "@/features/admin/shopify-inventory-manager";
-import { requireAdminActor } from "@/server/admin-auth";
+import { requireAdminCapability } from "@/server/admin-auth";
 import { listShopifyInventory } from "@/server/shopify/inventory";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function InventoryPage() {
-  await requireAdminActor("/admin/inventario");
+  await requireAdminCapability("inventory:read", "/admin/inventario");
   let report;
   let loadError: unknown;
   try {

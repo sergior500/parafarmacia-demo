@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
-import { adminMutationRateLimitResponse } from "@/server/admin-security";
+import { authorizeAdminMutation } from "@/server/admin-request-guard";
+import { ADMIN_RATE_LIMITS } from "@/server/admin-security";
 import { findAdminProduct } from "@/server/catalog-repository";
 import {
   readLimitedJsonBody,
@@ -24,13 +24,12 @@ export async function POST(
   request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
-  const actor = await getAdminActor();
-  if (!actor) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
-  }
-  const rateLimited = adminMutationRateLimitResponse(actor.userId);
-  if (rateLimited) return rateLimited;
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "catalog:publish",
+    rateLimit: ADMIN_RATE_LIMITS.publication,
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
 
   try {
     const parsed = publicationSchema.safeParse(
@@ -42,7 +41,10 @@ export async function POST(
     const { id } = await context.params;
     const product = await findAdminProduct(id);
     if (!product) {
-      return NextResponse.json({ error: "Producto no encontrado." }, { status: 404 });
+      return NextResponse.json(
+        { error: "Producto no encontrado." },
+        { status: 404 },
+      );
     }
 
     const connection = await testShopifyConnection();

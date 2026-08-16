@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
 
 import { Card } from "@/components/ui/card";
+import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
 import type { ShopifyFulfillmentOrder } from "@/server/shopify/orders";
 
 export function FulfillOrderForm({
@@ -38,18 +39,21 @@ export function FulfillOrderForm({
     setSuccess("");
     try {
       operationId.current ||= crypto.randomUUID();
-      const response = await fetch(`/api/admin/orders/${orderId}/fulfill`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          confirmed: true,
-          operationId: operationId.current,
-          notifyCustomer,
-          trackingCompany,
-          trackingNumber,
-          trackingUrl,
-        }),
-      });
+      const response = await secureAdminFetch(
+        `/api/admin/orders/${orderId}/fulfill`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            confirmed: true,
+            operationId: operationId.current,
+            notifyCustomer,
+            trackingCompany,
+            trackingNumber,
+            trackingUrl,
+          }),
+        },
+      );
       const body = (await response.json()) as { error?: string };
       if (!response.ok) {
         throw new Error(body.error || "No se pudo registrar el envío.");

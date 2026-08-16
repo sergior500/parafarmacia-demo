@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
+import { authorizeAdminMutation } from "@/server/admin-request-guard";
 import {
   isManualReadinessCheckId,
   setManualReadinessCheck,
@@ -19,15 +19,11 @@ export async function PATCH(
   request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
-  const actor = await getAdminActor();
-  if (!actor)
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json(
-      { error: "Origen no permitido." },
-      { status: 403 },
-    );
-  }
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "readiness:write",
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
 
   const { id } = await context.params;
   if (!isManualReadinessCheckId(id)) {

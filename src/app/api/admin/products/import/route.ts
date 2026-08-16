@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
-import { adminMutationRateLimitResponse } from "@/server/admin-security";
+import { authorizeAdminMutation } from "@/server/admin-request-guard";
+import { ADMIN_RATE_LIMITS } from "@/server/admin-security";
 import {
   changedCatalogCsvRecords,
   parseCatalogCsv,
@@ -19,15 +19,12 @@ import {
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  const actor = await getAdminActor();
-  if (!actor) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  }
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
-  }
-  const rateLimited = adminMutationRateLimitResponse(actor.userId);
-  if (rateLimited) return rateLimited;
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "catalog:write",
+    rateLimit: ADMIN_RATE_LIMITS.catalogImport,
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
 
   try {
     const csv = await readLimitedTextBody(request, {

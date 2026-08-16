@@ -5,8 +5,8 @@ import {
   getShopifyBatchCandidates,
   isShopifyBatchCandidate,
 } from "@/features/admin/admin-catalog";
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
-import { adminMutationRateLimitResponse } from "@/server/admin-security";
+import { authorizeAdminMutation } from "@/server/admin-request-guard";
+import { ADMIN_RATE_LIMITS } from "@/server/admin-security";
 import {
   listAdminProducts,
   markProductShopifyError,
@@ -28,18 +28,12 @@ const syncBatchSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const actor = await getAdminActor();
-  if (!actor) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  }
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json(
-      { error: "Origen no permitido." },
-      { status: 403 },
-    );
-  }
-  const rateLimited = adminMutationRateLimitResponse(actor.userId);
-  if (rateLimited) return rateLimited;
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "catalog:publish",
+    rateLimit: ADMIN_RATE_LIMITS.shopifySync,
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
 
   try {
     const parsedBody = syncBatchSchema.safeParse(

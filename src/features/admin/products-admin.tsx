@@ -17,13 +17,7 @@ import {
   ShieldCheck,
   X,
 } from "lucide-react";
-import {
-  type FormEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -41,6 +35,7 @@ import {
 } from "@/features/admin/admin-catalog";
 import { CatalogBulkImport } from "@/features/admin/catalog-bulk-import";
 import { CatalogProductEditor } from "@/features/admin/catalog-product-editor";
+import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
 import { formatMoney } from "@/lib/format";
 import { categories } from "@/mocks/products";
 
@@ -109,9 +104,9 @@ export function ProductsAdmin() {
   const [saving, setSaving] = useState(false);
   const [syncingProductId, setSyncingProductId] = useState<string | null>(null);
   const [syncingBatch, setSyncingBatch] = useState(false);
-  const [publicationProductId, setPublicationProductId] = useState<string | null>(
-    null,
-  );
+  const [publicationProductId, setPublicationProductId] = useState<
+    string | null
+  >(null);
   const [publishingBatch, setPublishingBatch] = useState(false);
   const [loadError, setLoadError] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -124,14 +119,16 @@ export function ProductsAdmin() {
     new Set<string>(),
   );
   const [showBatchPreview, setShowBatchPreview] = useState(false);
-  const [batchProgress, setBatchProgress] = useState<BatchProgress | null>(null);
+  const [batchProgress, setBatchProgress] = useState<BatchProgress | null>(
+    null,
+  );
   const stopBatchRef = useRef(false);
 
   async function loadProducts() {
     setLoading(true);
     setLoadError("");
     try {
-      const response = await fetch("/api/admin/products", {
+      const response = await secureAdminFetch("/api/admin/products", {
         cache: "no-store",
       });
       if (!response.ok) throw await apiError(response);
@@ -220,12 +217,10 @@ export function ProductsAdmin() {
   const selectedIncompleteCount = selectedProducts.filter(
     (product) => getMissingCommercialFields(product).length > 0,
   ).length;
-  const selectedPublishableCount = selectedProducts.filter(
-    canPublishToShopify,
-  ).length;
-  const selectedPublishedCount = selectedProducts.filter(
-    canHideFromShopify,
-  ).length;
+  const selectedPublishableCount =
+    selectedProducts.filter(canPublishToShopify).length;
+  const selectedPublishedCount =
+    selectedProducts.filter(canHideFromShopify).length;
   const selectableVisibleProducts = visibleProducts;
   const allSelectableVisibleSelected =
     selectableVisibleProducts.length > 0 &&
@@ -259,7 +254,7 @@ export function ProductsAdmin() {
     setSaving(true);
     setNotice("");
     try {
-      const response = await fetch("/api/admin/products", {
+      const response = await secureAdminFetch("/api/admin/products", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
@@ -286,7 +281,7 @@ export function ProductsAdmin() {
 
   async function handleSaveReview(input: CatalogProductUpdate) {
     if (!editingProductId) return;
-    const response = await fetch(
+    const response = await secureAdminFetch(
       `/api/admin/products/${encodeURIComponent(editingProductId)}`,
       {
         method: "PATCH",
@@ -315,7 +310,7 @@ export function ProductsAdmin() {
     setSyncingProductId(productId);
     setNotice("");
     try {
-      const response = await fetch(
+      const response = await secureAdminFetch(
         `/api/admin/products/${encodeURIComponent(productId)}/sync`,
         { method: "POST" },
       );
@@ -355,7 +350,7 @@ export function ProductsAdmin() {
     setPublicationProductId(product.id);
     setNotice("");
     try {
-      const response = await fetch(
+      const response = await secureAdminFetch(
         `/api/admin/products/${encodeURIComponent(product.id)}/publication`,
         {
           method: "POST",
@@ -412,11 +407,14 @@ export function ProductsAdmin() {
         SHOPIFY_REQUEST_BATCH_SIZE,
       );
       for (const productIds of batches) {
-        const response = await fetch("/api/admin/products/publication", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ action, productIds }),
-        });
+        const response = await secureAdminFetch(
+          "/api/admin/products/publication",
+          {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ action, productIds }),
+          },
+        );
         if (!response.ok) throw await apiError(response);
         const body = (await response.json()) as {
           changed: number;
@@ -479,16 +477,15 @@ export function ProductsAdmin() {
     setSelectedProductIds((current) => {
       const next = new Set(current);
       if (allSelectableVisibleSelected) {
-        for (const product of selectableVisibleProducts) next.delete(product.id);
+        for (const product of selectableVisibleProducts)
+          next.delete(product.id);
         return next;
       }
       for (const product of selectableVisibleProducts) {
         if (next.size >= SHOPIFY_SELECTION_LIMIT) break;
         next.add(product.id);
       }
-      if (
-        selectableVisibleProducts.some((product) => !next.has(product.id))
-      ) {
+      if (selectableVisibleProducts.some((product) => !next.has(product.id))) {
         setNotice(
           `Se han seleccionado los primeros ${SHOPIFY_SELECTION_LIMIT} productos disponibles.`,
         );
@@ -556,11 +553,11 @@ export function ProductsAdmin() {
           currentName:
             batches.length > 1
               ? `lote ${batchIndex + 1} de ${batches.length}`
-              : firstProduct?.name ?? "borradores seleccionados",
+              : (firstProduct?.name ?? "borradores seleccionados"),
           stopped: false,
         });
 
-        const response = await fetch("/api/admin/products/sync", {
+        const response = await secureAdminFetch("/api/admin/products/sync", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ productIds }),
@@ -597,7 +594,7 @@ export function ProductsAdmin() {
           currentName:
             batches.length > 1
               ? `lote ${batchIndex + 1} de ${batches.length}`
-              : firstProduct?.name ?? "borradores seleccionados",
+              : (firstProduct?.name ?? "borradores seleccionados"),
           stopped: false,
         });
       }
@@ -675,7 +672,9 @@ export function ProductsAdmin() {
         </p>
         <div className="flex flex-wrap gap-2">
           <Button
-            disabled={batchCandidateCount === 0 || syncingBatch || publishingBatch}
+            disabled={
+              batchCandidateCount === 0 || syncingBatch || publishingBatch
+            }
             onClick={selectAllShopifyCandidates}
             variant="outline"
           >
@@ -735,8 +734,8 @@ export function ProductsAdmin() {
       {batchCandidateCount > 0 ? (
         <p className="border-forest/10 bg-cream text-ink-muted rounded-2xl border px-4 py-3 text-xs">
           Hay <strong className="text-forest">{batchCandidateCount}</strong>{" "}
-          productos pendientes o con error. Puedes preparar todo el catálogo;
-          el panel lo dividirá en lotes técnicos de diez y todos se crearán como
+          productos pendientes o con error. Puedes preparar todo el catálogo; el
+          panel lo dividirá en lotes técnicos de diez y todos se crearán como
           borradores, sin publicarse automáticamente.
         </p>
       ) : null}
@@ -763,7 +762,7 @@ export function ProductsAdmin() {
               </Button>
             ) : null}
           </div>
-          <div className="grid gap-5 p-5 lg:grid-cols-[1fr_18rem] sm:p-7">
+          <div className="grid gap-5 p-5 sm:p-7 lg:grid-cols-[1fr_18rem]">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2 text-xs font-bold">
                 <span className="rounded-full bg-amber-100 px-3 py-1.5 text-amber-800">
@@ -773,7 +772,11 @@ export function ProductsAdmin() {
                   {selectedProducts.length - selectedIncompleteCount} completos
                 </span>
                 <span className="rounded-full bg-stone-100 px-3 py-1.5 text-stone-700">
-                  {selectedProducts.filter((product) => product.shopifySyncStatus === "error").length}{" "}
+                  {
+                    selectedProducts.filter(
+                      (product) => product.shopifySyncStatus === "error",
+                    ).length
+                  }{" "}
                   reintentos
                 </span>
               </div>
@@ -784,9 +787,13 @@ export function ProductsAdmin() {
                       className="border-forest/10 flex gap-3 rounded-2xl border bg-white px-4 py-3"
                       key={product.id}
                     >
-                      <span className="text-forest font-black">{index + 1}.</span>
+                      <span className="text-forest font-black">
+                        {index + 1}.
+                      </span>
                       <span>
-                        <strong className="text-forest block">{product.name}</strong>
+                        <strong className="text-forest block">
+                          {product.name}
+                        </strong>
                         <span className="text-ink-muted text-xs">
                           {getMissingCommercialFields(product).length
                             ? "Borrador pendiente de completar"
@@ -799,12 +806,15 @@ export function ProductsAdmin() {
               ) : null}
               {selectedProducts.length > 20 ? (
                 <p className="text-ink-muted text-xs font-bold">
-                  Y {selectedProducts.length - 20} productos más incluidos en
-                  la cola.
+                  Y {selectedProducts.length - 20} productos más incluidos en la
+                  cola.
                 </p>
               ) : null}
               {batchProgress ? (
-                <div className="border-forest/10 rounded-2xl border bg-white p-4" aria-live="polite">
+                <div
+                  className="border-forest/10 rounded-2xl border bg-white p-4"
+                  aria-live="polite"
+                >
                   <div className="flex items-center justify-between gap-3 text-sm font-bold">
                     <span>
                       {syncingBatch
@@ -817,7 +827,7 @@ export function ProductsAdmin() {
                       {batchProgress.completed}/{batchProgress.total}
                     </span>
                   </div>
-                  <div className="bg-stone-100 mt-3 h-2 overflow-hidden rounded-full">
+                  <div className="mt-3 h-2 overflow-hidden rounded-full bg-stone-100">
                     <div
                       className="bg-forest h-full rounded-full transition-all"
                       style={{
@@ -826,8 +836,9 @@ export function ProductsAdmin() {
                     />
                   </div>
                   <p className="text-ink-muted mt-3 text-xs">
-                    {batchProgress.succeeded} sincronizados · {batchProgress.failed}{" "}
-                    con error · {batchProgress.skipped} omitidos
+                    {batchProgress.succeeded} sincronizados ·{" "}
+                    {batchProgress.failed} con error · {batchProgress.skipped}{" "}
+                    omitidos
                   </p>
                 </div>
               ) : null}
@@ -836,21 +847,24 @@ export function ProductsAdmin() {
               <ShieldCheck className="text-forest size-7" />
               <h3 className="text-forest mt-3 font-black">Envío protegido</h3>
               <p className="text-ink-muted mt-2 text-sm leading-6">
-                Shopify recibirá borradores. Los precios desconocidos serán 0 €, el
-                inventario no se publicará y las fichas incompletas quedarán
-                etiquetadas como pendientes. La cola se procesa en grupos de diez
-                y puede detenerse entre grupos.
+                Shopify recibirá borradores. Los precios desconocidos serán 0 €,
+                el inventario no se publicará y las fichas incompletas quedarán
+                etiquetadas como pendientes. La cola se procesa en grupos de
+                diez y puede detenerse entre grupos.
               </p>
               <div className="mt-5 grid gap-2">
                 {syncingBatch ? (
                   <Button
                     onClick={() => {
                       stopBatchRef.current = true;
-                      setNotice("El lote se detendrá al terminar el producto actual.");
+                      setNotice(
+                        "El lote se detendrá al terminar el producto actual.",
+                      );
                     }}
                     variant="outline"
                   >
-                    <PauseCircle className="size-4" /> Detener después del actual
+                    <PauseCircle className="size-4" /> Detener después del
+                    actual
                   </Button>
                 ) : selectedProducts.length ? (
                   <Button onClick={() => void handleShopifyBatchSync()}>
@@ -891,7 +905,9 @@ export function ProductsAdmin() {
                 product.id === updatedProduct.id ? updatedProduct : product,
               ),
             );
-            setNotice("Imagen guardada y producto preparado para resincronizar.");
+            setNotice(
+              "Imagen guardada y producto preparado para resincronizar.",
+            );
           }}
           onSave={handleSaveReview}
         />

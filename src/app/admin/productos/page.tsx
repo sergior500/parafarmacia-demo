@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { ProductsAdmin } from "@/features/admin/products-admin";
-import { requireAdminActor } from "@/server/admin-auth";
+import { requireAdminCapability } from "@/server/admin-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProductsPage() {
-  await requireAdminActor("/admin/productos");
+  await requireAdminCapability("catalog:read", "/admin/productos");
   return (
     <>
       <header className="mb-8">

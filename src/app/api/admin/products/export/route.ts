@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
 
-import { getAdminActor } from "@/server/admin-auth";
+import { authorizeAdminRead } from "@/server/admin-request-guard";
 import { buildCatalogCsv } from "@/server/catalog-csv";
 import { listAdminProducts } from "@/server/catalog-repository";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const actor = await getAdminActor();
-  if (!actor) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  }
+  const authorization = await authorizeAdminRead("catalog:read");
+  if (authorization.response) return authorization.response;
   const csv = buildCatalogCsv(await listAdminProducts());
   return new NextResponse(csv, {
     headers: {

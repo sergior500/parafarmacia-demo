@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 
 import { catalogProductCreateSchema } from "@/features/admin/admin-catalog";
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
-import { adminMutationRateLimitResponse } from "@/server/admin-security";
+import {
+  authorizeAdminMutation,
+  authorizeAdminRead,
+} from "@/server/admin-request-guard";
 import {
   createAdminProduct,
   listAdminProducts,
@@ -15,9 +17,8 @@ import {
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const actor = await getAdminActor();
-  if (!actor)
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  const authorization = await authorizeAdminRead("catalog:read");
+  if (authorization.response) return authorization.response;
 
   try {
     return NextResponse.json({ products: await listAdminProducts() });
@@ -34,17 +35,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const actor = await getAdminActor();
-  if (!actor)
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json(
-      { error: "Origen no permitido." },
-      { status: 403 },
-    );
-  }
-  const rateLimited = adminMutationRateLimitResponse(actor.userId);
-  if (rateLimited) return rateLimited;
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "catalog:write",
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
 
   let body: unknown;
   try {

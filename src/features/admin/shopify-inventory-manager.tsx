@@ -13,6 +13,7 @@ import {
 import { useMemo, useState } from "react";
 
 import { Card } from "@/components/ui/card";
+import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
 import type {
   ShopifyInventoryItem,
   ShopifyInventoryReport,
@@ -79,7 +80,7 @@ export function ShopifyInventoryManager({
     setRefreshing(true);
     setError("");
     try {
-      const response = await fetch("/api/admin/inventory", {
+      const response = await secureAdminFetch("/api/admin/inventory", {
         cache: "no-store",
       });
       const body = (await response.json()) as InventoryResponse;
@@ -150,7 +151,7 @@ export function ShopifyInventoryManager({
     setError("");
     setNotice("");
     try {
-      const response = await fetch("/api/admin/inventory", {
+      const response = await secureAdminFetch("/api/admin/inventory", {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),

@@ -33,14 +33,26 @@ const worker = {
     env: Env,
     ctx: ExecutionContext,
   ): Promise<Response> {
-    const url = new URL(request.url);
+    const incomingUrl = new URL(request.url);
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-picual-request-id", crypto.randomUUID());
+    if (incomingUrl.pathname.startsWith("/admin")) {
+      const nonce = crypto.randomUUID().replace(/-/g, "");
+      requestHeaders.set("x-picual-csp-nonce", nonce);
+      requestHeaders.set(
+        "content-security-policy",
+        `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+      );
+    }
+    const trustedRequest = new Request(request, { headers: requestHeaders });
+    const url = new URL(trustedRequest.url);
 
     if (url.pathname === "/_vinext/image") {
       return handleImageOptimization(
-        request,
+        trustedRequest,
         {
           fetchAsset: (path) => {
-            const assetUrl = new URL(path, request.url);
+            const assetUrl = new URL(path, trustedRequest.url);
             if (!env.ASSETS && assetUrl.origin !== url.origin) {
               return Promise.resolve(
                 new Response("Origen de imagen no permitido.", { status: 403 }),
@@ -62,8 +74,8 @@ const worker = {
       );
     }
 
-    const response = await handler.fetch(request, env, ctx);
-    return applySecurityHeaders(request, response);
+    const response = await handler.fetch(trustedRequest, env, ctx);
+    return applySecurityHeaders(trustedRequest, response);
   },
 };
 

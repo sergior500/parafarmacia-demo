@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { isAdminIdentityAllowed } from "@/server/admin-auth";
+import {
+  hasAdminCapability,
+  isAdminIdentityAllowed,
+  isSameOriginRequest,
+  resolveAdminRole,
+} from "@/server/admin-auth";
 
 describe("isAdminIdentityAllowed", () => {
   const identity = { userId: "user-123", email: "admin@picual.example" };
@@ -36,5 +41,56 @@ describe("isAdminIdentityAllowed", () => {
         allowedUserIds: "user-123",
       }),
     ).toBe(true);
+  });
+
+  it("asigna el rol más privilegiado cuando una identidad aparece en varias listas", () => {
+    expect(
+      resolveAdminRole(identity, {
+        ownerEmails: "admin@picual.example",
+        auditorEmails: "admin@picual.example",
+      }),
+    ).toBe("owner");
+  });
+
+  it("separa las capacidades de catálogo, operaciones y auditoría", () => {
+    expect(
+      hasAdminCapability({ role: "catalog_manager" }, "catalog:write"),
+    ).toBe(true);
+    expect(
+      hasAdminCapability({ role: "catalog_manager" }, "orders:fulfill"),
+    ).toBe(false);
+    expect(
+      hasAdminCapability({ role: "operations_manager" }, "orders:fulfill"),
+    ).toBe(true);
+    expect(hasAdminCapability({ role: "auditor" }, "inventory:write")).toBe(
+      false,
+    );
+  });
+});
+
+describe("isSameOriginRequest", () => {
+  it("acepta únicamente el origen exacto", () => {
+    expect(
+      isSameOriginRequest(
+        new Request("https://farmacia.example/api/admin/products", {
+          method: "POST",
+          headers: {
+            origin: "https://farmacia.example",
+            "sec-fetch-site": "same-origin",
+          },
+        }),
+      ),
+    ).toBe(true);
+    expect(
+      isSameOriginRequest(
+        new Request("https://farmacia.example/api/admin/products", {
+          method: "POST",
+          headers: {
+            origin: "https://evil.example",
+            "sec-fetch-site": "cross-site",
+          },
+        }),
+      ),
+    ).toBe(false);
   });
 });

@@ -16,7 +16,7 @@ export default async function AdminLayout({
   const actor = await requireAdminActor("/admin");
   return (
     <>
-      <AdminNav actorLabel={actor.displayName} />
+      <AdminNav actor={actor} />
       <div className="page-shell py-10">{children}</div>
     </>
   );

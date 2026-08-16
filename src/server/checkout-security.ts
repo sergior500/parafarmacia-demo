@@ -1,4 +1,4 @@
-import { consumeRateLimit } from "@/server/admin-security";
+import { consumeRateLimit } from "@/server/rate-limit";
 
 const checkoutWindows = new Map<string, { count: number; resetAt: number }>();
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getAdminActor } from "@/server/admin-auth";
+import { authorizeAdminRead } from "@/server/admin-request-guard";
 import { getCatalogHealth } from "@/server/catalog-repository";
 import { testShopifyConnection } from "@/server/shopify/admin-api";
 import { getPublicShopifyStatus } from "@/server/shopify/config";
@@ -9,9 +9,8 @@ import { getShopifyWebhookStatus } from "@/server/shopify/webhook-subscriptions"
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const actor = await getAdminActor();
-  if (!actor)
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  const authorization = await authorizeAdminRead("shopify:manage");
+  if (authorization.response) return authorization.response;
 
   const configuration = getPublicShopifyStatus();
   let connection:

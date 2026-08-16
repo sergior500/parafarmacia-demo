@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
-import { adminMutationRateLimitResponse } from "@/server/admin-security";
+import { authorizeAdminMutation } from "@/server/admin-request-guard";
+import { ADMIN_RATE_LIMITS } from "@/server/admin-security";
 import {
   findAdminProduct,
   updateAdminProductImage,
@@ -22,15 +22,12 @@ export async function POST(
   request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
-  const actor = await getAdminActor();
-  if (!actor) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  }
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
-  }
-  const rateLimited = adminMutationRateLimitResponse(actor.userId);
-  if (rateLimited) return rateLimited;
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "catalog:write",
+    rateLimit: ADMIN_RATE_LIMITS.imageUpload,
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
 
   const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
   if (!contentType.startsWith("multipart/form-data;")) {
@@ -50,7 +47,10 @@ export async function POST(
   const { id } = await context.params;
   const product = await findAdminProduct(id);
   if (!product) {
-    return NextResponse.json({ error: "Producto no encontrado." }, { status: 404 });
+    return NextResponse.json(
+      { error: "Producto no encontrado." },
+      { status: 404 },
+    );
   }
 
   let formData: FormData;

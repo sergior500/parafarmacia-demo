@@ -20,7 +20,7 @@ import {
   formatShopifyMoney,
   fulfillmentStatusLabel,
 } from "@/features/admin/shopify-orders-dashboard";
-import { requireAdminActor } from "@/server/admin-auth";
+import { requireAdminCapability } from "@/server/admin-auth";
 import { getShopifyOrder } from "@/server/shopify/orders";
 
 export const dynamic = "force-dynamic";
@@ -32,7 +32,7 @@ export default async function OrderPage({
 }) {
   const { id } = await params;
   if (!/^\d+$/.test(id)) notFound();
-  await requireAdminActor(`/admin/pedidos/${id}`);
+  await requireAdminCapability("orders:read", `/admin/pedidos/${id}`);
 
   let order;
   try {

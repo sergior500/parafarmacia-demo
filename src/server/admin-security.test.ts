@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { consumeRateLimit } from "@/server/admin-security";
+import { consumeRateLimit } from "@/server/rate-limit";
 
 describe("consumeRateLimit", () => {
   it("bloquea el exceso y permite de nuevo tras la ventana", () => {

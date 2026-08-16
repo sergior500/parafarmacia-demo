@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Card } from "@/components/ui/card";
 import { ShopifyConnectionCard } from "@/features/admin/shopify-connection-card";
 import { pharmacyConfig } from "@/lib/config";
-import { requireAdminActor } from "@/server/admin-auth";
+import { requireAdminCapability } from "@/server/admin-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +23,7 @@ const adapters = [
 ] as const;
 
 export default async function ConfigurationPage() {
-  await requireAdminActor("/admin/configuracion");
+  await requireAdminCapability("shopify:manage", "/admin/configuracion");
   return (
     <>
       <header className="mb-8">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { ReadinessDashboard } from "@/features/admin/readiness-dashboard";
-import { requireAdminActor } from "@/server/admin-auth";
+import { requireAdminCapability } from "@/server/admin-auth";
 import { getProductionReadiness } from "@/server/production-readiness";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProductionReadinessPage() {
-  await requireAdminActor("/admin/preparacion");
+  await requireAdminCapability("readiness:write", "/admin/preparacion");
   const report = await getProductionReadiness();
   return (
     <>

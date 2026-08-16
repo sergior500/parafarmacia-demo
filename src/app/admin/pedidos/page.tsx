@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Card } from "@/components/ui/card";
 import { ShopifyOrdersDashboard } from "@/features/admin/shopify-orders-dashboard";
-import { requireAdminActor } from "@/server/admin-auth";
+import { requireAdminCapability } from "@/server/admin-auth";
 import { listShopifyOrders } from "@/server/shopify/orders";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function OrdersPage() {
-  await requireAdminActor("/admin/pedidos");
+  await requireAdminCapability("orders:read", "/admin/pedidos");
   let report;
   try {
     report = await listShopifyOrders();

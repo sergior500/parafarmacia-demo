@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { recordAdminOperation } from "@/server/admin-audit";
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
-import { adminMutationRateLimitResponse } from "@/server/admin-security";
+import { authorizeAdminMutation } from "@/server/admin-request-guard";
+import { ADMIN_RATE_LIMITS } from "@/server/admin-security";
 import {
   readLimitedJsonBody,
   requestBodyErrorResponse,
@@ -28,18 +28,12 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const actor = await getAdminActor();
-  if (!actor) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  }
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json(
-      { error: "Origen no permitido." },
-      { status: 403 },
-    );
-  }
-  const rateLimited = adminMutationRateLimitResponse(actor.userId);
-  if (rateLimited) return rateLimited;
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "orders:fulfill",
+    rateLimit: ADMIN_RATE_LIMITS.fulfillment,
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
   const { id } = await params;
   if (!/^\d+$/.test(id)) {
     return NextResponse.json({ error: "Pedido no válido." }, { status: 400 });

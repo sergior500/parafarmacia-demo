@@ -206,6 +206,49 @@ export const adminOperationLog = sqliteTable(
   ],
 );
 
+export const adminRateLimits = sqliteTable(
+  "admin_rate_limits",
+  {
+    rateKey: text("rate_key").primaryKey(),
+    count: integer("count").notNull(),
+    resetAt: integer("reset_at").notNull(),
+    updatedAt: integer("updated_at").notNull(),
+  },
+  (table) => [index("admin_rate_limits_reset_idx").on(table.resetAt)],
+);
+
+export const securityEventLog = sqliteTable(
+  "security_event_log",
+  {
+    eventId: text("event_id").primaryKey(),
+    requestId: text("request_id").notNull(),
+    actorId: text("actor_id"),
+    actorEmail: text("actor_email"),
+    actorRole: text("actor_role"),
+    eventType: text("event_type").notNull(),
+    outcome: text("outcome").notNull(),
+    method: text("method").notNull(),
+    route: text("route").notNull(),
+    networkFingerprint: text("network_fingerprint"),
+    userAgentFingerprint: text("user_agent_fingerprint"),
+    detail: text("detail"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    index("security_event_created_idx").on(table.createdAt),
+    index("security_event_actor_created_idx").on(
+      table.actorId,
+      table.createdAt,
+    ),
+    index("security_event_type_created_idx").on(
+      table.eventType,
+      table.createdAt,
+    ),
+  ],
+);
+
 export const productionReadinessChecks = sqliteTable(
   "production_readiness_checks",
   {

@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { Card } from "@/components/ui/card";
+import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
 import type {
   ProductionReadinessReport,
   ReadinessCheck,
@@ -97,11 +98,14 @@ export function ReadinessDashboard({
     setSavingId(check.id);
     setError("");
     try {
-      const response = await fetch(`/api/admin/readiness/${check.id}`, {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ready }),
-      });
+      const response = await secureAdminFetch(
+        `/api/admin/readiness/${check.id}`,
+        {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ ready }),
+        },
+      );
       const body = (await response.json().catch(() => null)) as {
         error?: string;
       } | null;

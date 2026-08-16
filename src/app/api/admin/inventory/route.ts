@@ -2,8 +2,11 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { recordAdminOperation } from "@/server/admin-audit";
-import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
-import { adminMutationRateLimitResponse } from "@/server/admin-security";
+import {
+  authorizeAdminMutation,
+  authorizeAdminRead,
+} from "@/server/admin-request-guard";
+import { ADMIN_RATE_LIMITS } from "@/server/admin-security";
 import {
   readLimitedJsonBody,
   requestBodyErrorResponse,
@@ -36,10 +39,8 @@ const inventoryUpdateSchema = z.discriminatedUnion("action", [
 ]);
 
 export async function GET() {
-  const actor = await getAdminActor();
-  if (!actor) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  }
+  const authorization = await authorizeAdminRead("inventory:read");
+  if (authorization.response) return authorization.response;
   try {
     return NextResponse.json({ report: await listShopifyInventory() });
   } catch (error) {
@@ -56,18 +57,12 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  const actor = await getAdminActor();
-  if (!actor) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  }
-  if (!isSameOriginRequest(request)) {
-    return NextResponse.json(
-      { error: "Origen no permitido." },
-      { status: 403 },
-    );
-  }
-  const rateLimited = adminMutationRateLimitResponse(actor.userId);
-  if (rateLimited) return rateLimited;
+  const authorization = await authorizeAdminMutation(request, {
+    capability: "inventory:write",
+    rateLimit: ADMIN_RATE_LIMITS.inventory,
+  });
+  if (authorization.response) return authorization.response;
+  const { actor } = authorization;
   let body: unknown;
   try {
     body = await readLimitedJsonBody(request, 8 * 1024);

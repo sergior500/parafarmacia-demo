@@ -14,6 +14,7 @@ import { type ChangeEvent, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
 
 interface ImportPreviewRow {
   rowNumber: number;
@@ -76,11 +77,14 @@ export function CatalogBulkImport({
     setReviewing(true);
     try {
       const text = await file.text();
-      const response = await fetch("/api/admin/products/import/preview", {
-        method: "POST",
-        headers: { "content-type": "text/csv" },
-        body: text,
-      });
+      const response = await secureAdminFetch(
+        "/api/admin/products/import/preview",
+        {
+          method: "POST",
+          headers: { "content-type": "text/csv" },
+          body: text,
+        },
+      );
       if (!response.ok) throw await apiError(response);
       const body = (await response.json()) as { preview: ImportPreview };
       setFileName(file.name);
@@ -102,7 +106,7 @@ export function CatalogBulkImport({
     setApplying(true);
     setError("");
     try {
-      const response = await fetch("/api/admin/products/import", {
+      const response = await secureAdminFetch("/api/admin/products/import", {
         method: "POST",
         headers: { "content-type": "text/csv" },
         body: fileText,
@@ -150,7 +154,7 @@ export function CatalogBulkImport({
         </Button>
       </div>
 
-      <div className="grid gap-5 p-5 lg:grid-cols-[18rem_1fr] sm:p-7">
+      <div className="grid gap-5 p-5 sm:p-7 lg:grid-cols-[18rem_1fr]">
         <div className="space-y-3">
           <input
             accept=".csv,text/csv"
@@ -213,7 +217,9 @@ export function CatalogBulkImport({
                   ["Con errores", preview.invalid],
                 ].map(([label, value]) => (
                   <div className="bg-cream rounded-2xl p-3" key={label}>
-                    <strong className="text-forest block text-xl">{value}</strong>
+                    <strong className="text-forest block text-xl">
+                      {value}
+                    </strong>
                     <span className="text-ink-muted text-xs">{label}</span>
                   </div>
                 ))}
@@ -226,7 +232,7 @@ export function CatalogBulkImport({
                       className={`rounded-2xl border px-4 py-3 text-xs ${
                         row.errors.length
                           ? "border-red-200 bg-red-50 text-red-900"
-                          : "border-forest/10 bg-white text-ink"
+                          : "border-forest/10 text-ink bg-white"
                       }`}
                       key={`${row.rowNumber}-${row.productId}`}
                     >
@@ -257,7 +263,9 @@ export function CatalogBulkImport({
 
               <div className="flex flex-wrap items-center gap-3">
                 <Button
-                  disabled={applying || preview.invalid > 0 || preview.changed === 0}
+                  disabled={
+                    applying || preview.invalid > 0 || preview.changed === 0
+                  }
                   onClick={() => void applyImport()}
                 >
                   {applying ? (
@@ -275,7 +283,8 @@ export function CatalogBulkImport({
                   </span>
                 ) : (
                   <span className="text-ink-muted text-xs">
-                    Los productos modificados quedarán listos para resincronizar.
+                    Los productos modificados quedarán listos para
+                    resincronizar.
                   </span>
                 )}
               </div>
@@ -284,7 +293,10 @@ export function CatalogBulkImport({
         </div>
       </div>
       {error ? (
-        <p className="border-t border-red-200 bg-red-50 px-5 py-3 text-sm font-bold text-red-800" role="alert">
+        <p
+          className="border-t border-red-200 bg-red-50 px-5 py-3 text-sm font-bold text-red-800"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}

@@ -19,6 +19,7 @@ import type {
   AdminCatalogProduct,
   CatalogProductUpdate,
 } from "@/features/admin/admin-catalog";
+import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
 import { categories } from "@/mocks/products";
 
 const fieldClassName =
@@ -64,7 +65,7 @@ export function CatalogProductEditor({
     try {
       const formData = new FormData();
       formData.set("image", file);
-      const response = await fetch(
+      const response = await secureAdminFetch(
         `/api/admin/products/${encodeURIComponent(product.id)}/image`,
         { method: "POST", body: formData },
       );
