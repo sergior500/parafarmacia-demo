@@ -35,6 +35,7 @@ import {
   getMissingCommercialFields,
   isShopifyBatchCandidate,
 } from "@/features/admin/admin-catalog";
+import { CatalogBulkImport } from "@/features/admin/catalog-bulk-import";
 import { CatalogProductEditor } from "@/features/admin/catalog-product-editor";
 import { formatMoney } from "@/lib/format";
 import { categories } from "@/mocks/products";
@@ -324,6 +325,18 @@ export function ProductsAdmin() {
     }
   }
 
+  async function handleCatalogImported(productIds: string[]) {
+    await loadProducts();
+    setSelectedProductIds(
+      new Set(productIds.slice(0, SHOPIFY_SELECTION_LIMIT)),
+    );
+    setBatchProgress(null);
+    setShowBatchPreview(productIds.length > 0);
+    setNotice(
+      `${productIds.length} productos actualizados en la base de datos y preparados para resincronizar como borradores.`,
+    );
+  }
+
   function toggleProductSelection(productId: string) {
     setSelectedProductIds((current) => {
       const next = new Set(current);
@@ -582,6 +595,8 @@ export function ProductsAdmin() {
           borradores, sin publicarse automáticamente.
         </p>
       ) : null}
+
+      <CatalogBulkImport onImported={handleCatalogImported} />
 
       {showBatchPreview && (selectedProducts.length > 0 || batchProgress) ? (
         <Card className="border-forest/15 overflow-hidden">

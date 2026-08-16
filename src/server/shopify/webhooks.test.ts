@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { verifyShopifyWebhook } from "@/server/shopify/webhooks";
+import {
+  getShopifyWebhookResourceId,
+  SUPPORTED_SHOPIFY_WEBHOOK_TOPICS,
+  verifyShopifyWebhook,
+} from "@/server/shopify/webhooks";
 
 async function sign(body: string, secret: string) {
   const key = await crypto.subtle.importKey(
@@ -20,5 +24,28 @@ describe("Shopify webhook verification", () => {
     const hmac = await sign(body, "secret");
     await expect(verifyShopifyWebhook(body, hmac, "secret")).resolves.toBe(true);
     await expect(verifyShopifyWebhook(`${body} `, hmac, "secret")).resolves.toBe(false);
+  });
+
+  it("identifica los recursos de producto, pedido e inventario", () => {
+    expect(getShopifyWebhookResourceId("products/delete", { id: 123 })).toBe(
+      "123",
+    );
+    expect(getShopifyWebhookResourceId("orders/create", { id: "456" })).toBe(
+      "456",
+    );
+    expect(
+      getShopifyWebhookResourceId("inventory_levels/update", {
+        inventory_item_id: 789,
+        available: 4,
+      }),
+    ).toBe("789");
+  });
+
+  it("limita los eventos a la lista operativa del panel", () => {
+    expect(SUPPORTED_SHOPIFY_WEBHOOK_TOPICS.has("products/update")).toBe(true);
+    expect(SUPPORTED_SHOPIFY_WEBHOOK_TOPICS.has("orders/create")).toBe(true);
+    expect(SUPPORTED_SHOPIFY_WEBHOOK_TOPICS.has("customers/create")).toBe(
+      false,
+    );
   });
 });

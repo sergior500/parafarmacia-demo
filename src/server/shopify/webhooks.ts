@@ -1,3 +1,13 @@
+import { z } from "zod";
+
+export const SUPPORTED_SHOPIFY_WEBHOOK_TOPICS = new Set([
+  "products/update",
+  "products/delete",
+  "inventory_levels/update",
+  "orders/create",
+  "orders/updated",
+]);
+
 export async function verifyShopifyWebhook(
   body: string,
   receivedHmac: string | null,
@@ -25,4 +35,38 @@ export async function verifyShopifyWebhook(
     difference |= expected.charCodeAt(index) ^ receivedHmac.charCodeAt(index);
   }
   return difference === 0;
+}
+
+const numericShopifyId = z
+  .union([z.number().int().nonnegative(), z.string().regex(/^\d+$/)])
+  .transform(String);
+
+const inventoryLevelPayload = z.object({
+  inventory_item_id: numericShopifyId,
+  available: z.number().int().nullable(),
+});
+
+const productPayload = z.object({ id: numericShopifyId });
+
+export function parseShopifyInventoryLevelPayload(payload: unknown) {
+  return inventoryLevelPayload.parse(payload);
+}
+
+export function parseShopifyProductPayload(payload: unknown) {
+  return productPayload.parse(payload);
+}
+
+export function getShopifyWebhookResourceId(
+  topic: string,
+  payload: unknown,
+): string | null {
+  if (topic === "inventory_levels/update") {
+    const result = inventoryLevelPayload.safeParse(payload);
+    return result.success ? result.data.inventory_item_id : null;
+  }
+  if (topic.startsWith("products/") || topic.startsWith("orders/")) {
+    const result = productPayload.safeParse(payload);
+    return result.success ? result.data.id : null;
+  }
+  return null;
 }

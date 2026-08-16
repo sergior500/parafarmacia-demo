@@ -1,5 +1,6 @@
 import { getDb } from "@db/index";
 import { shopifyWebhookReceipts } from "@db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 import {
@@ -7,7 +8,12 @@ import {
   requestBodyErrorResponse,
 } from "@/server/request-security";
 import { getShopifyConfiguration } from "@/server/shopify/config";
-import { verifyShopifyWebhook } from "@/server/shopify/webhooks";
+import { processShopifyWebhook } from "@/server/shopify/webhook-processor";
+import {
+  getShopifyWebhookResourceId,
+  SUPPORTED_SHOPIFY_WEBHOOK_TOPICS,
+  verifyShopifyWebhook,
+} from "@/server/shopify/webhooks";
 
 export const dynamic = "force-dynamic";
 
@@ -51,6 +57,7 @@ export async function POST(request: Request) {
     !/^[A-Za-z0-9._:-]{1,128}$/.test(webhookId) ||
     !topic ||
     !/^[a-z0-9_/-]{1,128}$/.test(topic) ||
+    !SUPPORTED_SHOPIFY_WEBHOOK_TOPICS.has(topic) ||
     shopDomain !== config.storeDomain
   ) {
     return NextResponse.json(
@@ -59,24 +66,56 @@ export async function POST(request: Request) {
     );
   }
 
-  let resourceId: string | null = null;
+  let payload: unknown;
   try {
-    const payload = JSON.parse(body) as { id?: string | number };
-    resourceId = payload.id === undefined ? null : String(payload.id);
+    payload = JSON.parse(body);
   } catch {
     return NextResponse.json({ error: "JSON no válido." }, { status: 400 });
   }
 
-  await getDb()
+  const db = getDb();
+  await db
     .insert(shopifyWebhookReceipts)
     .values({
       webhookId,
       topic,
       shopDomain,
-      resourceId,
+      resourceId: getShopifyWebhookResourceId(topic, payload),
       status: "received",
     })
     .onConflictDoNothing();
+
+  const receipts = await db
+    .select({ status: shopifyWebhookReceipts.status })
+    .from(shopifyWebhookReceipts)
+    .where(eq(shopifyWebhookReceipts.webhookId, webhookId))
+    .limit(1);
+  if (receipts[0]?.status === "processed") {
+    return new NextResponse(null, { status: 204 });
+  }
+
+  try {
+    await processShopifyWebhook(topic, payload);
+    await db
+      .update(shopifyWebhookReceipts)
+      .set({
+        status: "processed",
+        error: null,
+        processedAt: new Date().toISOString(),
+      })
+      .where(eq(shopifyWebhookReceipts.webhookId, webhookId));
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "No se pudo procesar el webhook.";
+    await db
+      .update(shopifyWebhookReceipts)
+      .set({ status: "error", error: message.slice(0, 500) })
+      .where(eq(shopifyWebhookReceipts.webhookId, webhookId));
+    return NextResponse.json(
+      { error: "No se pudo procesar el webhook." },
+      { status: 500 },
+    );
+  }
 
   return new NextResponse(null, { status: 204 });
 }

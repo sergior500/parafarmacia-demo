@@ -18,6 +18,7 @@ import type {
   ShopifySyncStatus,
 } from "@/features/admin/admin-catalog";
 import type { AdminActor } from "@/server/admin-auth";
+import type { CatalogCsvRecord } from "@/server/catalog-csv";
 
 function toReviewStatus(value: string): CatalogReviewStatus {
   return value === "reviewed" || value === "published" ? value : "pending";
@@ -163,6 +164,18 @@ export async function markProductShopifySynced(
 ) {
   const db = getDb();
   const now = new Date().toISOString();
+  const currentRows = await db
+    .select({
+      reviewStatus: products.reviewStatus,
+      stockQuantity: products.stockQuantity,
+    })
+    .from(products)
+    .where(eq(products.productId, productId))
+    .limit(1);
+  const current = currentRows[0];
+  const availableOnline =
+    current?.reviewStatus === "published" &&
+    (current.stockQuantity ?? 0) > 0;
   await db.batch([
     db
       .update(products)
@@ -174,6 +187,7 @@ export async function markProductShopifySynced(
         shopifySyncedAt: now,
         shopifySyncError: null,
         shopifyPayloadHash: result.payloadHash,
+        availableOnline,
         updatedAt: now,
       })
       .where(eq(products.productId, productId)),
@@ -327,6 +341,66 @@ export async function updateAdminProduct(
   ]);
 
   return findAdminProduct(productId);
+}
+
+export async function bulkUpdateAdminProducts(
+  rows: Array<{ record: CatalogCsvRecord; changes: string[] }>,
+  actor: AdminActor,
+) {
+  const db = getDb();
+  const now = new Date().toISOString();
+  const updatedIds: string[] = [];
+
+  for (let index = 0; index < rows.length; index += 25) {
+    const chunk = rows.slice(index, index + 25);
+    const statements = chunk.flatMap(({ record, changes }) => {
+      updatedIds.push(record.productId);
+      return [
+        db
+          .update(products)
+          .set({
+            reviewStatus: record.reviewStatus,
+            lifecycleStatus:
+              record.reviewStatus === "published" ? "approved" : "draft",
+            name: record.name,
+            brand: record.brandOrLaboratory,
+            categoryId: record.categoryId,
+            sizeLabel: record.size || null,
+            priceCents: record.priceInCents,
+            stockQuantity: record.stock,
+            ean: record.ean || null,
+            imagePath: record.imageUrl || null,
+            taxRate: record.taxRate,
+            maximumUnitsPerOrder: record.maximumUnitsPerOrder,
+            availableOnline: false,
+            shopifySyncStatus: "not_synced",
+            shopifySyncError: null,
+            updatedAt: now,
+          })
+          .where(eq(products.productId, record.productId)),
+        db.insert(catalogAuditLog).values({
+          auditId: crypto.randomUUID(),
+          productId: record.productId,
+          action: "bulk_csv_updated",
+          nextReviewStatus: record.reviewStatus,
+          actorId: actor.userId,
+          actorEmail: actor.email,
+          changesJson: JSON.stringify({ source: "catalog_csv", fields: changes }),
+          createdAt: now,
+        }),
+      ];
+    });
+    if (statements.length) {
+      await db.batch(
+        statements as [
+          (typeof statements)[number],
+          ...(typeof statements)[number][],
+        ],
+      );
+    }
+  }
+
+  return updatedIds;
 }
 
 export async function getCatalogHealth() {
