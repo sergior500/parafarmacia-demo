@@ -5,6 +5,7 @@ import {
   Cloud,
   LoaderCircle,
   PlugZap,
+  RadioTower,
   TriangleAlert,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -30,6 +31,16 @@ interface ShopifyStatusResponse {
     | { connected: false; error: string }
     | null;
   catalog: { shopifySynced: number; shopifyErrors: number; published: number };
+  webhooks:
+    | {
+        callbackUrl: string;
+        configured: number;
+        total: number;
+        ready: boolean;
+        missingTopics: string[];
+      }
+    | { ready: false; error: string }
+    | null;
 }
 
 const scopeLabels: Record<string, string> = {
@@ -50,6 +61,7 @@ export function ShopifyConnectionCard() {
   const [status, setStatus] = useState<ShopifyStatusResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [testing, setTesting] = useState(false);
+  const [activatingWebhooks, setActivatingWebhooks] = useState(false);
   const [notice, setNotice] = useState("");
 
   const loadStatus = useCallback(async () => {
@@ -107,6 +119,34 @@ export function ShopifyConnectionCard() {
     }
   }
 
+  async function activateWebhooks() {
+    setActivatingWebhooks(true);
+    setNotice("");
+    try {
+      const response = await fetch("/api/admin/shopify/webhooks", {
+        method: "POST",
+      });
+      if (!response.ok) throw new Error(await responseError(response));
+      const body = (await response.json()) as {
+        webhooks: { configured: number; total: number; ready: boolean };
+      };
+      setNotice(
+        body.webhooks.ready
+          ? "Automatización activa: Shopify ya notificará stock, productos y pedidos."
+          : `Se activaron ${body.webhooks.configured} de ${body.webhooks.total} eventos.`,
+      );
+      await loadStatus();
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "No se pudieron activar los webhooks.",
+      );
+    } finally {
+      setActivatingWebhooks(false);
+    }
+  }
+
   const configured = status?.configuration.configured ?? false;
   const connected = status?.connection?.connected === true;
   const permissionsReady =
@@ -156,11 +196,19 @@ export function ShopifyConnectionCard() {
         </span>
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         <div className="bg-sage/45 rounded-2xl p-4">
           <span className="text-ink-muted text-xs">Tienda</span>
           <strong className="text-forest mt-1 block text-sm">
             {status?.configuration.storeDomain ?? "Por conectar"}
+          </strong>
+        </div>
+        <div className="bg-sage/45 rounded-2xl p-4">
+          <span className="text-ink-muted text-xs">Automatización</span>
+          <strong className="text-forest mt-1 block text-sm">
+            {status?.webhooks && "configured" in status.webhooks
+              ? `${status.webhooks.configured}/${status.webhooks.total} eventos`
+              : "Pendiente"}
           </strong>
         </div>
         <div className="bg-sage/45 rounded-2xl p-4">
@@ -254,6 +302,24 @@ export function ShopifyConnectionCard() {
             <PlugZap className="size-4" />
           )}
           Probar conexión
+        </Button>
+        <Button
+          disabled={
+            !permissionsReady ||
+            activatingWebhooks ||
+            status?.webhooks?.ready === true
+          }
+          onClick={() => void activateWebhooks()}
+          variant="secondary"
+        >
+          {activatingWebhooks ? (
+            <LoaderCircle className="size-4 animate-spin" />
+          ) : (
+            <RadioTower className="size-4" />
+          )}
+          {status?.webhooks?.ready
+            ? "Automatización activa"
+            : "Activar automatización"}
         </Button>
         <span className="text-ink-muted inline-flex items-center gap-2 text-xs">
           <Cloud className="size-4" />
