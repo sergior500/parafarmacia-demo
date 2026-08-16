@@ -3,11 +3,13 @@
 import {
   CheckCircle2,
   FileCheck2,
+  ImagePlus,
   LoaderCircle,
   RotateCcw,
+  Trash2,
   X,
 } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -24,14 +26,60 @@ const fieldClassName =
 export function CatalogProductEditor({
   product,
   onClose,
+  onProductChanged,
   onSave,
 }: {
   product: AdminCatalogProduct;
   onClose: () => void;
+  onProductChanged: (product: AdminCatalogProduct) => void;
   onSave: (record: CatalogProductUpdate) => Promise<void>;
 }) {
   const [error, setError] = useState("");
+  const [imageUrl, setImageUrl] = useState(product.imageUrl);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  async function handleImageUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    setError("");
+    if (file.size > 5 * 1024 * 1024) {
+      setError("La imagen supera el máximo de 5 MB.");
+      return;
+    }
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      setError("Selecciona una imagen JPEG, PNG o WebP.");
+      return;
+    }
+
+    setUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.set("image", file);
+      const response = await fetch(
+        `/api/admin/products/${encodeURIComponent(product.id)}/image`,
+        { method: "POST", body: formData },
+      );
+      const body = (await response.json().catch(() => null)) as {
+        product?: AdminCatalogProduct;
+        error?: string;
+      } | null;
+      if (!response.ok || !body?.product) {
+        throw new Error(body?.error || "No se pudo subir la imagen.");
+      }
+      setImageUrl(body.product.imageUrl);
+      onProductChanged(body.product);
+    } catch (uploadError) {
+      setError(
+        uploadError instanceof Error
+          ? uploadError.message
+          : "No se pudo subir la imagen.",
+      );
+    } finally {
+      setUploadingImage(false);
+    }
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -70,7 +118,7 @@ export function CatalogProductEditor({
       stock,
       size: String(formData.get("size") ?? "").trim() || undefined,
       ean: String(formData.get("ean") ?? "").trim() || undefined,
-      imageUrl: String(formData.get("imageUrl") ?? "").trim() || undefined,
+      imageUrl: imageUrl.trim() || undefined,
       taxRate: Number(formData.get("taxRate") ?? product.taxRate),
       maximumUnitsPerOrder: Number(
         formData.get("maximumUnits") ?? product.maximumUnitsPerOrder,
@@ -124,7 +172,7 @@ export function CatalogProductEditor({
         </div>
         <Button
           aria-label="Cerrar revisión"
-          disabled={saving}
+          disabled={saving || uploadingImage}
           onClick={onClose}
           size="icon"
           variant="ghost"
@@ -237,17 +285,75 @@ export function CatalogProductEditor({
             placeholder="Código de barras, si procede"
           />
         </label>
-        <label className="grid gap-2 text-sm font-bold sm:col-span-2">
-          Imagen del producto
-          <Input
-            defaultValue={product.imageUrl}
-            name="imageUrl"
-            placeholder="Pendiente: URL o ruta de la imagen definitiva"
-          />
-          <span className="text-ink-muted text-xs">
-            Puede dejarse vacía mientras la ficha esté pendiente o revisada.
-          </span>
-        </label>
+        <fieldset className="grid gap-3 sm:col-span-2">
+          <legend className="text-sm font-bold">Imagen principal</legend>
+          <div className="border-forest/10 bg-cream grid gap-4 rounded-3xl border p-4 sm:grid-cols-[9rem_1fr] sm:items-center">
+            <div className="border-forest/10 flex aspect-square items-center justify-center overflow-hidden rounded-2xl border bg-white">
+              {imageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element -- R2 images are immutable user uploads and should bypass the optimizer.
+                <img
+                  alt={`Imagen de ${product.name}`}
+                  className="h-full w-full object-contain p-2"
+                  src={imageUrl}
+                />
+              ) : (
+                <ImagePlus className="text-forest/35 size-10" />
+              )}
+            </div>
+            <div>
+              <p className="text-forest text-sm font-black">
+                {imageUrl ? "Imagen lista" : "Añade la fotografía del producto"}
+              </p>
+              <p className="text-ink-muted mt-1 text-xs leading-5">
+                JPEG, PNG o WebP · máximo 5 MB. Usa únicamente imágenes propias
+                o autorizadas por el laboratorio.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <label className="bg-forest text-cream hover:bg-forest/90 inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-xl px-4 py-2 text-xs font-black">
+                  {uploadingImage ? (
+                    <LoaderCircle className="size-4 animate-spin" />
+                  ) : (
+                    <ImagePlus className="size-4" />
+                  )}
+                  {uploadingImage
+                    ? "Subiendo…"
+                    : imageUrl
+                      ? "Sustituir imagen"
+                      : "Seleccionar imagen"}
+                  <input
+                    accept="image/jpeg,image/png,image/webp"
+                    className="sr-only"
+                    disabled={uploadingImage || saving}
+                    onChange={(event) => void handleImageUpload(event)}
+                    type="file"
+                  />
+                </label>
+                {imageUrl ? (
+                  <Button
+                    disabled={uploadingImage || saving}
+                    onClick={() => setImageUrl("")}
+                    size="sm"
+                    type="button"
+                    variant="outline"
+                  >
+                    <Trash2 className="size-4" /> Quitar al guardar
+                  </Button>
+                ) : null}
+              </div>
+            </div>
+          </div>
+          <details className="text-xs">
+            <summary className="text-ink-muted cursor-pointer font-bold">
+              Usar una URL externa en su lugar
+            </summary>
+            <Input
+              className="mt-2"
+              onChange={(event) => setImageUrl(event.target.value)}
+              placeholder="https://…"
+              value={imageUrl}
+            />
+          </details>
+        </fieldset>
         <label className="grid gap-2 text-sm font-bold sm:col-span-2">
           Descripción corta
           <textarea
@@ -311,7 +417,7 @@ export function CatalogProductEditor({
         <div className="flex flex-wrap gap-3 sm:col-span-2">
           {product.reviewStatus !== "pending" ? (
             <Button
-              disabled={saving}
+              disabled={saving || uploadingImage}
               name="intent"
               type="submit"
               value="pending"
@@ -321,7 +427,7 @@ export function CatalogProductEditor({
             </Button>
           ) : null}
           <Button
-            disabled={saving}
+            disabled={saving || uploadingImage}
             name="intent"
             type="submit"
             value="reviewed"
@@ -330,7 +436,7 @@ export function CatalogProductEditor({
             <FileCheck2 className="size-4" /> Guardar como revisado
           </Button>
           <Button
-            disabled={saving}
+            disabled={saving || uploadingImage}
             name="intent"
             type="submit"
             value="published"

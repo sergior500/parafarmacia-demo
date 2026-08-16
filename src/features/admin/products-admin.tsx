@@ -740,6 +740,14 @@ export function ProductsAdmin() {
         <CatalogProductEditor
           product={editingProduct}
           onClose={() => setEditingProductId(null)}
+          onProductChanged={(updatedProduct) => {
+            setCatalogProducts((current) =>
+              current.map((product) =>
+                product.id === updatedProduct.id ? updatedProduct : product,
+              ),
+            );
+            setNotice("Imagen guardada y producto preparado para resincronizar.");
+          }}
           onSave={handleSaveReview}
         />
       ) : null}

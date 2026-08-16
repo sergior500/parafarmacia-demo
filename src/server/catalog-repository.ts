@@ -343,6 +343,49 @@ export async function updateAdminProduct(
   return findAdminProduct(productId);
 }
 
+export async function updateAdminProductImage(
+  productId: string,
+  imageUrl: string,
+  actor: AdminActor,
+): Promise<AdminCatalogProduct | null> {
+  const db = getDb();
+  const currentRows = await db
+    .select({ productId: products.productId, imagePath: products.imagePath })
+    .from(products)
+    .where(eq(products.productId, productId))
+    .limit(1);
+  const current = currentRows[0];
+  if (!current) return null;
+
+  const now = new Date().toISOString();
+  await db.batch([
+    db
+      .update(products)
+      .set({
+        imagePath: imageUrl,
+        availableOnline: false,
+        shopifySyncStatus: "not_synced",
+        shopifySyncError: null,
+        updatedAt: now,
+      })
+      .where(eq(products.productId, productId)),
+    db.insert(catalogAuditLog).values({
+      auditId: crypto.randomUUID(),
+      productId,
+      action: "image_uploaded",
+      actorId: actor.userId,
+      actorEmail: actor.email,
+      changesJson: JSON.stringify({
+        previousImageUrl: current.imagePath,
+        imageUrl,
+      }),
+      createdAt: now,
+    }),
+  ]);
+
+  return findAdminProduct(productId);
+}
+
 export async function bulkUpdateAdminProducts(
   rows: Array<{ record: CatalogCsvRecord; changes: string[] }>,
   actor: AdminActor,

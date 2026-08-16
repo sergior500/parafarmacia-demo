@@ -42,4 +42,23 @@ describe("Shopify product payload", () => {
     expect(variables.input.descriptionHtml).toContain("&amp;");
     expect(variables.input.descriptionHtml).not.toContain("<suave>");
   });
+
+  it("turns a stored product image path into a public Shopify source", () => {
+    const variables = buildShopifyProductSetVariables(
+      {
+        ...product,
+        imageUrl:
+          "/media/product-images/123e4567-e89b-42d3-a456-426614174000.webp",
+      },
+      "https://farmacia.example.com",
+    );
+    expect(variables.input.files).toEqual([
+      expect.objectContaining({
+        originalSource: expect.stringMatching(
+          /^https?:\/\/[^/]+\/media\/product-images\//,
+        ),
+        contentType: "IMAGE",
+      }),
+    ]);
+  });
 });

@@ -1,4 +1,5 @@
 import type { AdminCatalogProduct } from "@/features/admin/admin-catalog";
+import { pharmacyConfig } from "@/lib/config";
 import { shopifyAdminGraphql, ShopifyApiError } from "@/server/shopify/admin-api";
 
 const PRODUCT_SET_MUTATION = `
@@ -29,9 +30,13 @@ function plainTextToHtml(value: string): string {
     .join("");
 }
 
-function shopifyImageInput(imageUrl: string, productName: string) {
+function shopifyImageInput(
+  imageUrl: string,
+  productName: string,
+  siteUrl: string,
+) {
   try {
-    const url = new URL(imageUrl);
+    const url = new URL(imageUrl, siteUrl);
     if (url.protocol !== "https:") return undefined;
     return {
       originalSource: url.toString(),
@@ -43,7 +48,10 @@ function shopifyImageInput(imageUrl: string, productName: string) {
   }
 }
 
-export function buildShopifyProductSetVariables(product: AdminCatalogProduct) {
+export function buildShopifyProductSetVariables(
+  product: AdminCatalogProduct,
+  siteUrl = pharmacyConfig.siteUrl,
+) {
   const defaultOption = "Formato";
   const defaultValue = product.size?.trim() || "Pendiente de definir";
   const isCommerciallyComplete =
@@ -52,7 +60,7 @@ export function buildShopifyProductSetVariables(product: AdminCatalogProduct) {
     product.stockVerified &&
     Boolean(product.size?.trim()) &&
     Boolean(product.imageUrl.trim());
-  const image = shopifyImageInput(product.imageUrl, product.name);
+  const image = shopifyImageInput(product.imageUrl, product.name, siteUrl);
   return {
     identifier: { handle: product.slug },
     input: {

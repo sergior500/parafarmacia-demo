@@ -50,10 +50,15 @@ export async function PATCH(
   if (
     parsed.data.reviewStatus === "published" &&
     (!(parsed.data.priceInCents && parsed.data.priceInCents > 0) ||
-      !parsed.data.size)
+      parsed.data.stock === null ||
+      !parsed.data.size ||
+      !parsed.data.imageUrl)
   ) {
     return NextResponse.json(
-      { error: "Para aprobar la ficha debes completar precio y tamaño." },
+      {
+        error:
+          "Para aprobar la ficha debes completar precio, stock, tamaño e imagen.",
+      },
       { status: 400 },
     );
   }
