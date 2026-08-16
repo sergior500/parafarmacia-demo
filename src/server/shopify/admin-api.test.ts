@@ -108,6 +108,9 @@ describe("Shopify client credentials", () => {
       "read_locations",
       "read_orders",
       "write_merchant_managed_fulfillment_orders",
+      "unauthenticated_read_product_listings",
+      "unauthenticated_write_checkouts",
+      "unauthenticated_read_checkouts",
     ]);
   });
 });

@@ -5,11 +5,13 @@ import {
   LayoutDashboard,
   LockKeyhole,
   Settings,
+  ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
 
 const links = [
   { href: "/admin", label: "Resumen", icon: LayoutDashboard },
+  { href: "/admin/preparacion", label: "Preparación", icon: ShieldCheck },
   { href: "/admin/pedidos", label: "Pedidos", icon: ClipboardList },
   { href: "/admin/productos", label: "Productos", icon: Boxes },
   { href: "/admin/inventario", label: "Inventario", icon: Container },

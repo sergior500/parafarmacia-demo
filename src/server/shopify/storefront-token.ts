@@ -38,20 +38,8 @@ export function selectReusableStorefrontToken(tokens: StorefrontAccessToken[]) {
 }
 
 async function loadOrCreateStorefrontToken() {
-  const existing = await shopifyAdminGraphql<{
-    shop: { storefrontAccessTokens: { nodes: StorefrontAccessToken[] } };
-  }>(`
-    query PicualStorefrontTokens {
-      shop {
-        storefrontAccessTokens(first: 100) {
-          nodes { accessToken title accessScopes { handle } }
-        }
-      }
-    }
-  `);
-  const reusable = selectReusableStorefrontToken(
-    existing.shop.storefrontAccessTokens.nodes,
-  );
+  const existing = await listStorefrontTokens();
+  const reusable = selectReusableStorefrontToken(existing);
   if (reusable) return reusable.accessToken;
 
   const created = await shopifyAdminGraphql<StorefrontTokenCreatePayload>(
@@ -82,6 +70,32 @@ async function loadOrCreateStorefrontToken() {
     );
   }
   return result.storefrontAccessToken.accessToken;
+}
+
+async function listStorefrontTokens() {
+  const existing = await shopifyAdminGraphql<{
+    shop: { storefrontAccessTokens: { nodes: StorefrontAccessToken[] } };
+  }>(`
+    query PicualStorefrontTokens {
+      shop {
+        storefrontAccessTokens(first: 100) {
+          nodes { accessToken title accessScopes { handle } }
+        }
+      }
+    }
+  `);
+  return existing.shop.storefrontAccessTokens.nodes;
+}
+
+export async function getShopifyStorefrontTokenStatus() {
+  if (getShopifyConfiguration().storefrontAccessToken?.trim()) {
+    return { ready: true, source: "environment" as const };
+  }
+  const reusable = selectReusableStorefrontToken(await listStorefrontTokens());
+  return {
+    ready: Boolean(reusable),
+    source: reusable ? ("shopify" as const) : ("missing" as const),
+  };
 }
 
 export async function getShopifyStorefrontAccessToken() {

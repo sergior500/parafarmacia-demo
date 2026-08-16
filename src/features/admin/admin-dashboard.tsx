@@ -5,6 +5,7 @@ import {
   CircleDollarSign,
   ImageOff,
   ScanSearch,
+  ShieldCheck,
   ShoppingBag,
 } from "lucide-react";
 import Link from "next/link";
@@ -64,10 +65,14 @@ export async function AdminDashboard() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {metrics.map(({ label, value, detail, icon: Icon, tone }) => (
           <Card className="p-5" key={label}>
-            <span className={`grid size-10 place-items-center rounded-xl ${tone}`}>
+            <span
+              className={`grid size-10 place-items-center rounded-xl ${tone}`}
+            >
               <Icon aria-hidden="true" className="size-5" />
             </span>
-            <p className="text-forest mt-5 text-3xl font-black tracking-[-0.04em]">{value}</p>
+            <p className="text-forest mt-5 text-3xl font-black tracking-[-0.04em]">
+              {value}
+            </p>
             <p className="text-ink-muted mt-1 text-sm">{label}</p>
             <p className="text-ink-muted mt-3 text-xs font-bold">{detail}</p>
           </Card>
@@ -79,9 +84,14 @@ export async function AdminDashboard() {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="eyebrow">Trabajo pendiente</p>
-              <h2 className="font-display text-forest mt-2 text-3xl">Preparar el catálogo comercial</h2>
+              <h2 className="font-display text-forest mt-2 text-3xl">
+                Preparar el catálogo comercial
+              </h2>
             </div>
-            <Link className="text-coral inline-flex items-center gap-1 text-sm font-bold" href="/admin/productos">
+            <Link
+              className="text-coral inline-flex items-center gap-1 text-sm font-bold"
+              href="/admin/productos"
+            >
               Abrir productos <ArrowUpRight className="size-4" />
             </Link>
           </div>
@@ -92,7 +102,10 @@ export async function AdminDashboard() {
               ["Sin imagen definitiva", catalog.missingImage],
               ["Sin formato confirmado", catalog.missingSize],
             ].map(([label, value]) => (
-              <div className="border-forest/10 bg-cream rounded-2xl border p-4" key={label}>
+              <div
+                className="border-forest/10 bg-cream rounded-2xl border p-4"
+                key={label}
+              >
                 <strong className="text-forest text-2xl">{value}</strong>
                 <p className="text-ink-muted mt-1 text-xs font-bold">{label}</p>
               </div>
@@ -101,7 +114,9 @@ export async function AdminDashboard() {
         </Card>
 
         <Card className="p-6 md:p-8">
-          <span className="bg-sage text-forest grid size-11 place-items-center rounded-xl"><ShoppingBag className="size-5" /></span>
+          <span className="bg-sage text-forest grid size-11 place-items-center rounded-xl">
+            <ShoppingBag className="size-5" />
+          </span>
           <p className="eyebrow mt-6">Comercio</p>
           <h2 className="font-display text-forest mt-2 text-3xl">
             {ordersReport ? "Shopify conectado" : "Shopify necesita atención"}
@@ -129,7 +144,10 @@ export async function AdminDashboard() {
                   </span>
                 </div>
               </div>
-              <Link className="text-coral mt-5 inline-flex items-center gap-1 text-sm font-bold" href="/admin/pedidos">
+              <Link
+                className="text-coral mt-5 inline-flex items-center gap-1 text-sm font-bold"
+                href="/admin/pedidos"
+              >
                 Ver pedidos y ventas <ArrowUpRight className="size-4" />
               </Link>
             </>
@@ -139,7 +157,10 @@ export async function AdminDashboard() {
                 No se han podido consultar los pedidos. Revisa la conexión para
                 recuperar la actividad comercial real.
               </p>
-              <Link className="text-coral mt-5 inline-flex items-center gap-1 text-sm font-bold" href="/admin/configuracion">
+              <Link
+                className="text-coral mt-5 inline-flex items-center gap-1 text-sm font-bold"
+                href="/admin/configuracion"
+              >
                 Ver integración <ArrowUpRight className="size-4" />
               </Link>
             </>
@@ -148,11 +169,24 @@ export async function AdminDashboard() {
       </div>
 
       <Card className="mt-6 flex flex-col gap-4 p-6 sm:flex-row sm:items-center md:p-8">
-        <span className="bg-coral-light text-coral grid size-11 shrink-0 place-items-center rounded-xl"><ImageOff className="size-5" /></span>
-        <div>
-          <h2 className="text-forest font-black">Siguiente cuello de botella: imágenes y precios</h2>
-          <p className="text-ink-muted mt-1 text-sm">La estructura y el contenido técnico ya están cargados; estos datos deben facilitarlos o validarlos desde la farmacia.</p>
+        <span className="bg-coral-light text-coral grid size-11 shrink-0 place-items-center rounded-xl">
+          <ImageOff className="size-5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-forest font-black">
+            Siguiente cuello de botella: imágenes y precios
+          </h2>
+          <p className="text-ink-muted mt-1 text-sm">
+            La estructura y el contenido técnico ya están cargados; estos datos
+            deben facilitarlos o validarlos desde la farmacia.
+          </p>
         </div>
+        <Link
+          className="bg-forest inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full px-5 text-sm font-black text-white"
+          href="/admin/preparacion"
+        >
+          <ShieldCheck className="size-4" /> Ver preparación
+        </Link>
       </Card>
     </>
   );

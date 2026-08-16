@@ -197,3 +197,16 @@ export const adminOperationLog = sqliteTable(
     ),
   ],
 );
+
+export const productionReadinessChecks = sqliteTable(
+  "production_readiness_checks",
+  {
+    checkId: text("check_id").primaryKey(),
+    ready: integer("ready", { mode: "boolean" }).notNull().default(false),
+    verifiedBy: text("verified_by"),
+    verifiedAt: text("verified_at"),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+);

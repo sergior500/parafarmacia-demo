@@ -23,6 +23,9 @@ export const REQUIRED_SHOPIFY_SCOPES = [
   "read_locations",
   "read_orders",
   "write_merchant_managed_fulfillment_orders",
+  "unauthenticated_read_product_listings",
+  "unauthenticated_write_checkouts",
+  "unauthenticated_read_checkouts",
 ] as const;
 
 export interface ShopifyConnectionDiagnostics {
