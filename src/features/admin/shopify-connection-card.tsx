@@ -45,6 +45,8 @@ interface ShopifyStatusResponse {
 
 const scopeLabels: Record<string, string> = {
   write_products: "Crear y actualizar productos",
+  read_publications: "Leer canales de venta",
+  write_publications: "Publicar y ocultar productos",
   write_inventory: "Actualizar inventario",
   read_locations: "Leer ubicaciones",
   read_orders: "Leer pedidos",

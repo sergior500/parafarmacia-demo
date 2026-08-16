@@ -69,7 +69,8 @@ export function buildShopifyProductSetVariables(
       descriptionHtml: plainTextToHtml(product.description),
       vendor: product.brandOrLaboratory,
       productType: product.categoryId,
-      status: "DRAFT",
+      status:
+        product.shopifyPublicationStatus === "published" ? "ACTIVE" : "DRAFT",
       tags: isCommerciallyComplete
         ? ["Farmacia Picual"]
         : ["Farmacia Picual", "Pendiente de completar"],

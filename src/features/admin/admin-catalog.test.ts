@@ -98,6 +98,7 @@ describe("getShopifyBatchCandidates", () => {
     size: "50 ml",
     imageUrl: "/images/producto.webp",
     shopifySyncStatus: "not_synced",
+    shopifyPublicationStatus: "hidden",
   } as AdminCatalogProduct;
 
   it("elige borradores pendientes aunque falten datos comerciales", () => {

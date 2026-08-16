@@ -27,6 +27,7 @@ const product = {
   priceVerified: true,
   stockVerified: true,
   shopifySyncStatus: "not_synced",
+  shopifyPublicationStatus: "hidden",
 } satisfies AdminCatalogProduct;
 
 describe("Shopify product payload", () => {
@@ -60,5 +61,13 @@ describe("Shopify product payload", () => {
         contentType: "IMAGE",
       }),
     ]);
+  });
+
+  it("keeps an already published product active when its data is updated", () => {
+    const variables = buildShopifyProductSetVariables({
+      ...product,
+      shopifyPublicationStatus: "published",
+    });
+    expect(variables.input.status).toBe("ACTIVE");
   });
 });

@@ -68,6 +68,11 @@ export const products = sqliteTable(
     shopifySyncedAt: text("shopify_synced_at"),
     shopifySyncError: text("shopify_sync_error"),
     shopifyPayloadHash: text("shopify_payload_hash"),
+    shopifyPublicationStatus: text("shopify_publication_status")
+      .notNull()
+      .default("hidden"),
+    shopifyPublicationError: text("shopify_publication_error"),
+    shopifyPublishedAt: text("shopify_published_at"),
     sourceId: text("source_id").references(() => catalogSources.sourceId),
     sourcePage: integer("source_page"),
     createdAt: text("created_at")
@@ -85,6 +90,9 @@ export const products = sqliteTable(
     index("products_review_status_idx").on(table.reviewStatus),
     index("products_source_idx").on(table.sourceId),
     index("products_shopify_sync_status_idx").on(table.shopifySyncStatus),
+    index("products_shopify_publication_status_idx").on(
+      table.shopifyPublicationStatus,
+    ),
   ],
 );
 

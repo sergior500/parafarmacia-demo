@@ -4,6 +4,8 @@ import {
   BadgeCheck,
   CheckCircle2,
   CloudUpload,
+  Eye,
+  EyeOff,
   FileWarning,
   ListChecks,
   LoaderCircle,
@@ -28,6 +30,8 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   type AdminCatalogProduct,
+  canHideFromShopify,
+  canPublishToShopify,
   type CatalogProductCreate,
   type CatalogProductUpdate,
   type CatalogReviewStatus,
@@ -105,6 +109,10 @@ export function ProductsAdmin() {
   const [saving, setSaving] = useState(false);
   const [syncingProductId, setSyncingProductId] = useState<string | null>(null);
   const [syncingBatch, setSyncingBatch] = useState(false);
+  const [publicationProductId, setPublicationProductId] = useState<string | null>(
+    null,
+  );
+  const [publishingBatch, setPublishingBatch] = useState(false);
   const [loadError, setLoadError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
@@ -166,7 +174,11 @@ export function ProductsAdmin() {
         (statusFilter === "shopify_error" &&
           product.shopifySyncStatus === "error") ||
         (statusFilter === "shopify_synced" &&
-          product.shopifySyncStatus === "synced");
+          product.shopifySyncStatus === "synced") ||
+        (statusFilter === "shopify_published" &&
+          product.shopifyPublicationStatus === "published") ||
+        (statusFilter === "shopify_hidden" &&
+          product.shopifyPublicationStatus !== "published");
       return matchesQuery && matchesStatus;
     });
   }, [catalogProducts, query, statusFilter]);
@@ -208,9 +220,13 @@ export function ProductsAdmin() {
   const selectedIncompleteCount = selectedProducts.filter(
     (product) => getMissingCommercialFields(product).length > 0,
   ).length;
-  const selectableVisibleProducts = visibleProducts.filter(
-    isShopifyBatchCandidate,
-  );
+  const selectedPublishableCount = selectedProducts.filter(
+    canPublishToShopify,
+  ).length;
+  const selectedPublishedCount = selectedProducts.filter(
+    canHideFromShopify,
+  ).length;
+  const selectableVisibleProducts = visibleProducts;
   const allSelectableVisibleSelected =
     selectableVisibleProducts.length > 0 &&
     selectableVisibleProducts.every((product) =>
@@ -322,6 +338,109 @@ export function ProductsAdmin() {
       await loadProducts();
     } finally {
       setSyncingProductId(null);
+    }
+  }
+
+  async function handlePublication(
+    product: AdminCatalogProduct,
+    action: "publish" | "hide",
+  ) {
+    const confirmed = window.confirm(
+      action === "publish"
+        ? `¿Publicar “${product.name}”? Quedará visible y disponible para comprar en la tienda online.`
+        : `¿Ocultar “${product.name}”? Dejará de estar disponible para los clientes.`,
+    );
+    if (!confirmed) return;
+
+    setPublicationProductId(product.id);
+    setNotice("");
+    try {
+      const response = await fetch(
+        `/api/admin/products/${encodeURIComponent(product.id)}/publication`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ action }),
+        },
+      );
+      if (!response.ok) throw await apiError(response);
+      const body = (await response.json()) as { product: AdminCatalogProduct };
+      setCatalogProducts((current) =>
+        current.map((currentProduct) =>
+          currentProduct.id === body.product.id ? body.product : currentProduct,
+        ),
+      );
+      setNotice(
+        action === "publish"
+          ? `${body.product.name} ya está visible en la tienda online.`
+          : `${body.product.name} se ha ocultado de la tienda online.`,
+      );
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "No se pudo cambiar la visibilidad del producto.",
+      );
+      await loadProducts();
+    } finally {
+      setPublicationProductId(null);
+    }
+  }
+
+  async function handlePublicationBatch(action: "publish" | "hide") {
+    const eligible = selectedProducts.filter((product) =>
+      action === "publish"
+        ? canPublishToShopify(product)
+        : canHideFromShopify(product),
+    );
+    if (!eligible.length) return;
+    const confirmed = window.confirm(
+      action === "publish"
+        ? `Vas a publicar ${eligible.length} productos y quedarán disponibles para comprar. ¿Continuar?`
+        : `Vas a ocultar ${eligible.length} productos de la tienda online. ¿Continuar?`,
+    );
+    if (!confirmed) return;
+
+    setPublishingBatch(true);
+    setNotice("");
+    let changed = 0;
+    let failed = 0;
+    let skipped = 0;
+    try {
+      const batches = chunkShopifyProductIds(
+        eligible.map(({ id }) => id),
+        SHOPIFY_REQUEST_BATCH_SIZE,
+      );
+      for (const productIds of batches) {
+        const response = await fetch("/api/admin/products/publication", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ action, productIds }),
+        });
+        if (!response.ok) throw await apiError(response);
+        const body = (await response.json()) as {
+          changed: number;
+          failed: number;
+          skipped: number;
+        };
+        changed += body.changed;
+        failed += body.failed;
+        skipped += body.skipped;
+      }
+      setNotice(
+        `${action === "publish" ? "Publicación" : "Ocultación"} terminada: ${changed} actualizados, ${failed} con error y ${skipped} omitidos.`,
+      );
+      setSelectedProductIds(new Set<string>());
+      await loadProducts();
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "No se pudo completar la operación por lotes.",
+      );
+      await loadProducts();
+    } finally {
+      setPublishingBatch(false);
     }
   }
 
@@ -532,7 +651,7 @@ export function ProductsAdmin() {
           [
             "Aprobados",
             counts.published,
-            `${catalogProducts.filter((product) => product.shopifySyncStatus === "synced").length} sincronizados`,
+            `${catalogProducts.filter((product) => product.shopifyPublicationStatus === "published").length} visibles en tienda`,
           ],
         ].map(([label, value, detail]) => (
           <Card className="p-5" key={label}>
@@ -556,7 +675,7 @@ export function ProductsAdmin() {
         </p>
         <div className="flex flex-wrap gap-2">
           <Button
-            disabled={batchCandidateCount === 0 || syncingBatch}
+            disabled={batchCandidateCount === 0 || syncingBatch || publishingBatch}
             onClick={selectAllShopifyCandidates}
             variant="outline"
           >
@@ -564,12 +683,38 @@ export function ProductsAdmin() {
             Preparar pendientes ({batchCandidateCount})
           </Button>
           <Button
-            disabled={selectedProductIds.size === 0 || syncingBatch}
+            disabled={
+              selectedProductIds.size === 0 || syncingBatch || publishingBatch
+            }
             onClick={() => setShowBatchPreview(true)}
             variant="secondary"
           >
             <ListChecks className="size-4" />
             Revisar lote ({selectedProductIds.size})
+          </Button>
+          <Button
+            disabled={
+              selectedPublishableCount === 0 || syncingBatch || publishingBatch
+            }
+            onClick={() => void handlePublicationBatch("publish")}
+            variant="secondary"
+          >
+            {publishingBatch ? (
+              <LoaderCircle className="size-4 animate-spin" />
+            ) : (
+              <Eye className="size-4" />
+            )}
+            Publicar ({selectedPublishableCount})
+          </Button>
+          <Button
+            disabled={
+              selectedPublishedCount === 0 || syncingBatch || publishingBatch
+            }
+            onClick={() => void handlePublicationBatch("hide")}
+            variant="outline"
+          >
+            <EyeOff className="size-4" />
+            Ocultar ({selectedPublishedCount})
           </Button>
           <Button
             onClick={() => {
@@ -939,12 +1084,14 @@ export function ProductsAdmin() {
               <option value="shopify_pending">Shopify · sin enviar</option>
               <option value="shopify_error">Shopify · con error</option>
               <option value="shopify_synced">Shopify · sincronizados</option>
+              <option value="shopify_published">Tienda · publicados</option>
+              <option value="shopify_hidden">Tienda · ocultos</option>
             </select>
           </label>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[1140px] text-left text-sm">
+          <table className="w-full min-w-[1320px] text-left text-sm">
             <thead className="bg-sage/60 text-forest">
               <tr>
                 <th className="px-5 py-4">
@@ -953,10 +1100,12 @@ export function ProductsAdmin() {
                     checked={allSelectableVisibleSelected}
                     className="accent-forest size-4 rounded"
                     disabled={
-                      selectableVisibleProducts.length === 0 || syncingBatch
+                      selectableVisibleProducts.length === 0 ||
+                      syncingBatch ||
+                      publishingBatch
                     }
                     onChange={toggleVisibleSelection}
-                    title="Seleccionar los productos pendientes de esta página"
+                    title="Seleccionar los productos visibles de esta página"
                     type="checkbox"
                   />
                 </th>
@@ -1008,15 +1157,9 @@ export function ProductsAdmin() {
                         aria-label={`Seleccionar ${product.name}`}
                         checked={selectedProductIds.has(product.id)}
                         className="accent-forest size-4 rounded"
-                        disabled={
-                          !isShopifyBatchCandidate(product) || syncingBatch
-                        }
+                        disabled={syncingBatch || publishingBatch}
                         onChange={() => toggleProductSelection(product.id)}
-                        title={
-                          product.shopifySyncStatus === "synced"
-                            ? "Este producto ya está sincronizado"
-                            : "Añadir al lote de borradores"
-                        }
+                        title="Seleccionar para acciones en lote"
                         type="checkbox"
                       />
                     </td>
@@ -1065,6 +1208,23 @@ export function ProductsAdmin() {
                               ? "Enviando"
                               : "Sin enviar"}
                       </span>
+                      <span
+                        className={`mt-2 flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-black ${product.shopifyPublicationStatus === "published" ? "bg-emerald-100 text-emerald-800" : product.shopifyPublicationStatus === "publishing" ? "bg-sky-100 text-sky-800" : product.shopifyPublicationStatus === "error" ? "bg-red-100 text-red-800" : "bg-stone-100 text-stone-700"}`}
+                        title={product.shopifyPublicationError}
+                      >
+                        {canHideFromShopify(product) ? (
+                          <Eye className="size-3.5" />
+                        ) : (
+                          <EyeOff className="size-3.5" />
+                        )}
+                        {product.shopifyPublicationStatus === "published"
+                          ? "Visible"
+                          : product.shopifyPublicationStatus === "publishing"
+                            ? "Cambiando…"
+                            : product.shopifyPublicationStatus === "error"
+                              ? "Error de visibilidad"
+                              : "Oculto"}
+                      </span>
                     </td>
                     <td className="px-5 py-4">
                       {product.stockVerified ? product.stock : "—"}
@@ -1078,7 +1238,10 @@ export function ProductsAdmin() {
                       <div className="flex justify-end gap-2">
                         <Button
                           disabled={
-                            syncingProductId === product.id || syncingBatch
+                            syncingProductId === product.id ||
+                            syncingBatch ||
+                            publishingBatch ||
+                            publicationProductId === product.id
                           }
                           onClick={() => void handleShopifySync(product.id)}
                           size="sm"
@@ -1100,6 +1263,46 @@ export function ProductsAdmin() {
                               ? "Crear borrador"
                               : "Enviar"}
                         </Button>
+                        {canHideFromShopify(product) ? (
+                          <Button
+                            disabled={
+                              publicationProductId === product.id ||
+                              syncingBatch ||
+                              publishingBatch
+                            }
+                            onClick={() =>
+                              void handlePublication(product, "hide")
+                            }
+                            size="sm"
+                            variant="outline"
+                          >
+                            {publicationProductId === product.id ? (
+                              <LoaderCircle className="size-4 animate-spin" />
+                            ) : (
+                              <EyeOff className="size-4" />
+                            )}
+                            Ocultar
+                          </Button>
+                        ) : canPublishToShopify(product) ? (
+                          <Button
+                            disabled={
+                              publicationProductId === product.id ||
+                              syncingBatch ||
+                              publishingBatch
+                            }
+                            onClick={() =>
+                              void handlePublication(product, "publish")
+                            }
+                            size="sm"
+                          >
+                            {publicationProductId === product.id ? (
+                              <LoaderCircle className="size-4 animate-spin" />
+                            ) : (
+                              <Eye className="size-4" />
+                            )}
+                            Publicar
+                          </Button>
+                        ) : null}
                         <Button
                           onClick={() => {
                             setEditingProductId(product.id);

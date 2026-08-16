@@ -15,6 +15,7 @@ import type {
   CatalogProductCreate,
   CatalogProductUpdate,
   CatalogReviewStatus,
+  ShopifyPublicationStatus,
   ShopifySyncStatus,
 } from "@/features/admin/admin-catalog";
 import type { AdminActor } from "@/server/admin-auth";
@@ -32,6 +33,12 @@ function toShopifySyncStatus(value: string): ShopifySyncStatus {
   return value === "syncing" || value === "synced" || value === "error"
     ? value
     : "not_synced";
+}
+
+function toShopifyPublicationStatus(value: string): ShopifyPublicationStatus {
+  return value === "publishing" || value === "published" || value === "error"
+    ? value
+    : "hidden";
 }
 
 type ProductRow = typeof products.$inferSelect;
@@ -89,6 +96,11 @@ function mapProduct(
     shopifyProductId: row.shopifyProductId ?? undefined,
     shopifySyncedAt: row.shopifySyncedAt ?? undefined,
     shopifySyncError: row.shopifySyncError ?? undefined,
+    shopifyPublicationStatus: toShopifyPublicationStatus(
+      row.shopifyPublicationStatus,
+    ),
+    shopifyPublicationError: row.shopifyPublicationError ?? undefined,
+    shopifyPublishedAt: row.shopifyPublishedAt ?? undefined,
   };
 }
 
@@ -164,18 +176,6 @@ export async function markProductShopifySynced(
 ) {
   const db = getDb();
   const now = new Date().toISOString();
-  const currentRows = await db
-    .select({
-      reviewStatus: products.reviewStatus,
-      stockQuantity: products.stockQuantity,
-    })
-    .from(products)
-    .where(eq(products.productId, productId))
-    .limit(1);
-  const current = currentRows[0];
-  const availableOnline =
-    current?.reviewStatus === "published" &&
-    (current.stockQuantity ?? 0) > 0;
   await db.batch([
     db
       .update(products)
@@ -187,7 +187,6 @@ export async function markProductShopifySynced(
         shopifySyncedAt: now,
         shopifySyncError: null,
         shopifyPayloadHash: result.payloadHash,
-        availableOnline,
         updatedAt: now,
       })
       .where(eq(products.productId, productId)),
@@ -212,6 +211,64 @@ export async function markProductShopifyError(
     .set({
       shopifySyncStatus: "error",
       shopifySyncError: message.slice(0, 500),
+      updatedAt: new Date().toISOString(),
+    })
+    .where(eq(products.productId, productId));
+}
+
+export async function markProductPublicationChanging(productId: string) {
+  await getDb()
+    .update(products)
+    .set({
+      shopifyPublicationStatus: "publishing",
+      shopifyPublicationError: null,
+      updatedAt: new Date().toISOString(),
+    })
+    .where(eq(products.productId, productId));
+}
+
+export async function markProductPublicationChanged(
+  productId: string,
+  published: boolean,
+  publicationId: string,
+  actor: AdminActor,
+) {
+  const db = getDb();
+  const now = new Date().toISOString();
+  await db.batch([
+    db
+      .update(products)
+      .set({
+        availableOnline: published,
+        shopifyPublicationStatus: published ? "published" : "hidden",
+        shopifyPublicationError: null,
+        shopifyPublishedAt: published ? now : null,
+        updatedAt: now,
+      })
+      .where(eq(products.productId, productId)),
+    db.insert(catalogAuditLog).values({
+      auditId: crypto.randomUUID(),
+      productId,
+      action: published ? "shopify_published" : "shopify_hidden",
+      actorId: actor.userId,
+      actorEmail: actor.email,
+      changesJson: JSON.stringify({ publicationId, published }),
+      createdAt: now,
+    }),
+  ]);
+}
+
+export async function markProductPublicationError(
+  productId: string,
+  message: string,
+  hiddenForSafety = false,
+) {
+  await getDb()
+    .update(products)
+    .set({
+      ...(hiddenForSafety ? { availableOnline: false } : {}),
+      shopifyPublicationStatus: "error",
+      shopifyPublicationError: message.slice(0, 500),
       updatedAt: new Date().toISOString(),
     })
     .where(eq(products.productId, productId));
@@ -311,7 +368,6 @@ export async function updateAdminProduct(
         imagePath: input.imageUrl || null,
         taxRate: input.taxRate,
         maximumUnitsPerOrder: input.maximumUnitsPerOrder,
-        availableOnline: false,
         shopifySyncStatus: "not_synced",
         shopifySyncError: null,
         updatedAt: now,
@@ -363,7 +419,6 @@ export async function updateAdminProductImage(
       .update(products)
       .set({
         imagePath: imageUrl,
-        availableOnline: false,
         shopifySyncStatus: "not_synced",
         shopifySyncError: null,
         updatedAt: now,
@@ -415,7 +470,6 @@ export async function bulkUpdateAdminProducts(
             imagePath: record.imageUrl || null,
             taxRate: record.taxRate,
             maximumUnitsPerOrder: record.maximumUnitsPerOrder,
-            availableOnline: false,
             shopifySyncStatus: "not_synced",
             shopifySyncError: null,
             updatedAt: now,

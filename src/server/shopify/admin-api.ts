@@ -19,6 +19,8 @@ interface AccessTokenResponse {
 
 export const REQUIRED_SHOPIFY_SCOPES = [
   "write_products",
+  "read_publications",
+  "write_publications",
   "write_inventory",
   "read_locations",
   "read_orders",

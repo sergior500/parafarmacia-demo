@@ -95,6 +95,9 @@ async function markProductDeletedInShopify(shopifyProductId: string) {
         shopifyPayloadHash: null,
         shopifySyncError:
           "El producto fue eliminado en Shopify. Vuelve a sincronizarlo desde este panel.",
+        shopifyPublicationStatus: "hidden",
+        shopifyPublicationError: null,
+        shopifyPublishedAt: null,
         availableOnline: false,
         updatedAt: now,
       })

@@ -4,6 +4,11 @@ import type { Product } from "@/domain/product/product";
 
 export type CatalogReviewStatus = "pending" | "reviewed" | "published";
 export type ShopifySyncStatus = "not_synced" | "syncing" | "synced" | "error";
+export type ShopifyPublicationStatus =
+  | "hidden"
+  | "publishing"
+  | "published"
+  | "error";
 
 export interface AdminCatalogProduct extends Product {
   reviewStatus: CatalogReviewStatus;
@@ -15,6 +20,9 @@ export interface AdminCatalogProduct extends Product {
   shopifyProductId?: string;
   shopifySyncedAt?: string;
   shopifySyncError?: string;
+  shopifyPublicationStatus: ShopifyPublicationStatus;
+  shopifyPublicationError?: string;
+  shopifyPublishedAt?: string;
 }
 
 const nullableCommercialNumber = z.number().int().nonnegative().nullable();
@@ -79,6 +87,48 @@ export function isShopifyBatchCandidate(product: AdminCatalogProduct): boolean {
   return (
     (product.shopifySyncStatus === "not_synced" ||
       product.shopifySyncStatus === "error")
+  );
+}
+
+export function canPublishToShopify(
+  product: Pick<
+    AdminCatalogProduct,
+    | "reviewStatus"
+    | "priceInCents"
+    | "priceVerified"
+    | "stockVerified"
+    | "size"
+    | "imageUrl"
+    | "shopifySyncStatus"
+    | "shopifyProductId"
+    | "shopifyPublicationStatus"
+    | "shopifyPublishedAt"
+  >,
+): boolean {
+  return (
+    product.reviewStatus === "published" &&
+    canApproveForShopify(product) &&
+    product.shopifySyncStatus === "synced" &&
+    Boolean(product.shopifyProductId) &&
+    !canHideFromShopify(product)
+  );
+}
+
+export function canHideFromShopify(
+  product: Pick<
+    AdminCatalogProduct,
+    | "shopifySyncStatus"
+    | "shopifyProductId"
+    | "shopifyPublicationStatus"
+    | "shopifyPublishedAt"
+  >,
+): boolean {
+  return (
+    product.shopifySyncStatus === "synced" &&
+    Boolean(product.shopifyProductId) &&
+    (product.shopifyPublicationStatus === "published" ||
+      (product.shopifyPublicationStatus === "error" &&
+        Boolean(product.shopifyPublishedAt)))
   );
 }
 

@@ -104,6 +104,8 @@ describe("Shopify client credentials", () => {
     expect(result.permissionsReady).toBe(false);
     expect(result.grantedScopes).toEqual(["write_products"]);
     expect(result.missingScopes).toEqual([
+      "read_publications",
+      "write_publications",
       "write_inventory",
       "read_locations",
       "read_orders",

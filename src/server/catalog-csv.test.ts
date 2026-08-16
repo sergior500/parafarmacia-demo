@@ -35,6 +35,7 @@ function product(
     priceVerified: true,
     stockVerified: true,
     shopifySyncStatus: "synced",
+    shopifyPublicationStatus: "hidden",
     ...overrides,
   };
 }
