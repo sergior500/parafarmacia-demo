@@ -2,16 +2,22 @@ import { NextResponse } from "next/server";
 
 import { catalogProductCreateSchema } from "@/features/admin/admin-catalog";
 import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
+import { adminMutationRateLimitResponse } from "@/server/admin-security";
 import {
   createAdminProduct,
   listAdminProducts,
 } from "@/server/catalog-repository";
+import {
+  readLimitedJsonBody,
+  requestBodyErrorResponse,
+} from "@/server/request-security";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const actor = await getAdminActor();
-  if (!actor) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  if (!actor)
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
 
   try {
     return NextResponse.json({ products: await listAdminProducts() });
@@ -29,12 +35,30 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const actor = await getAdminActor();
-  if (!actor) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  if (!actor)
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
   if (!isSameOriginRequest(request)) {
-    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
+    return NextResponse.json(
+      { error: "Origen no permitido." },
+      { status: 403 },
+    );
   }
+  const rateLimited = adminMutationRateLimitResponse(actor.userId);
+  if (rateLimited) return rateLimited;
 
-  const parsed = catalogProductCreateSchema.safeParse(await request.json());
+  let body: unknown;
+  try {
+    body = await readLimitedJsonBody(request);
+  } catch (error) {
+    return (
+      requestBodyErrorResponse(error) ??
+      NextResponse.json(
+        { error: "No se pudo leer la petición." },
+        { status: 400 },
+      )
+    );
+  }
+  const parsed = catalogProductCreateSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { error: "Los datos del producto no son válidos." },

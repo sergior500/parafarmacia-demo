@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
+import { adminMutationRateLimitResponse } from "@/server/admin-security";
 import { testShopifyConnection } from "@/server/shopify/admin-api";
 
 export const dynamic = "force-dynamic";
@@ -15,6 +16,8 @@ export async function POST(request: Request) {
       { status: 403 },
     );
   }
+  const rateLimited = adminMutationRateLimitResponse(actor.userId);
+  if (rateLimited) return rateLimited;
 
   try {
     return NextResponse.json({

@@ -5,6 +5,8 @@ import {
   handleImageOptimization,
 } from "vinext/server/image-optimization";
 
+import { applySecurityHeaders } from "../src/server/security-headers";
+
 interface Env {
   ASSETS?: { fetch(request: Request): Promise<Response> };
   DB: D1Database;
@@ -60,7 +62,8 @@ const worker = {
       );
     }
 
-    return handler.fetch(request, env, ctx);
+    const response = await handler.fetch(request, env, ctx);
+    return applySecurityHeaders(request, response);
   },
 };
 

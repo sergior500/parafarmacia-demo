@@ -6,12 +6,17 @@ import {
   isShopifyBatchCandidate,
 } from "@/features/admin/admin-catalog";
 import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
+import { adminMutationRateLimitResponse } from "@/server/admin-security";
 import {
   listAdminProducts,
   markProductShopifyError,
   markProductShopifySynced,
   markProductShopifySyncing,
 } from "@/server/catalog-repository";
+import {
+  readLimitedJsonBody,
+  requestBodyErrorResponse,
+} from "@/server/request-security";
 import { testShopifyConnection } from "@/server/shopify/admin-api";
 import { syncProductToShopify } from "@/server/shopify/product-sync";
 
@@ -33,10 +38,12 @@ export async function POST(request: Request) {
       { status: 403 },
     );
   }
+  const rateLimited = adminMutationRateLimitResponse(actor.userId);
+  if (rateLimited) return rateLimited;
 
   try {
     const parsedBody = syncBatchSchema.safeParse(
-      await request.json().catch(() => null),
+      await readLimitedJsonBody(request, 16 * 1024),
     );
     if (!parsedBody.success) {
       return NextResponse.json(
@@ -113,6 +120,8 @@ export async function POST(request: Request) {
       results,
     });
   } catch (error) {
+    const bodyError = requestBodyErrorResponse(error);
+    if (bodyError) return bodyError;
     return NextResponse.json(
       {
         error:

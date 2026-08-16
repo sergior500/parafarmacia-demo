@@ -13,12 +13,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Card } from "@/components/ui/card";
+import { FulfillOrderForm } from "@/features/admin/fulfill-order-form";
 import {
   financialStatusLabel,
   formatShopifyDate,
   formatShopifyMoney,
   fulfillmentStatusLabel,
 } from "@/features/admin/shopify-orders-dashboard";
+import { requireAdminActor } from "@/server/admin-auth";
 import { getShopifyOrder } from "@/server/shopify/orders";
 
 export const dynamic = "force-dynamic";
@@ -30,6 +32,7 @@ export default async function OrderPage({
 }) {
   const { id } = await params;
   if (!/^\d+$/.test(id)) notFound();
+  await requireAdminActor(`/admin/pedidos/${id}`);
 
   let order;
   try {
@@ -174,6 +177,13 @@ export default async function OrderPage({
             </dl>
           </Card>
 
+          {!order.cancelled && order.fulfillmentOrders.length ? (
+            <FulfillOrderForm
+              fulfillmentOrders={order.fulfillmentOrders}
+              orderId={order.legacyId}
+            />
+          ) : null}
+
           <Card className="p-6">
             <UserRound className="text-coral size-7" />
             <h2 className="text-forest mt-4 text-xl font-black">Cliente</h2>
@@ -181,7 +191,8 @@ export default async function OrderPage({
             <div className="text-ink-muted mt-3 space-y-2 text-sm">
               {order.customerEmail ? (
                 <p className="flex items-start gap-2 break-all">
-                  <Mail className="mt-0.5 size-4 shrink-0" /> {order.customerEmail}
+                  <Mail className="mt-0.5 size-4 shrink-0" />{" "}
+                  {order.customerEmail}
                 </p>
               ) : null}
               {order.phone ? (
@@ -197,11 +208,19 @@ export default async function OrderPage({
               <MapPin className="text-coral size-7" />
               <h2 className="text-forest mt-4 text-xl font-black">Entrega</h2>
               <address className="text-ink-muted mt-4 text-sm leading-6 not-italic">
-                {order.address.name ? <strong className="text-forest block">{order.address.name}</strong> : null}
+                {order.address.name ? (
+                  <strong className="text-forest block">
+                    {order.address.name}
+                  </strong>
+                ) : null}
                 {order.address.lines.map((line) => (
-                  <span className="block" key={line}>{line}</span>
+                  <span className="block" key={line}>
+                    {line}
+                  </span>
                 ))}
-                {order.address.phone ? <span className="mt-2 block">{order.address.phone}</span> : null}
+                {order.address.phone ? (
+                  <span className="mt-2 block">{order.address.phone}</span>
+                ) : null}
               </address>
             </Card>
           ) : null}
@@ -209,7 +228,9 @@ export default async function OrderPage({
           {order.note ? (
             <Card className="p-6">
               <h2 className="text-forest font-black">Nota del pedido</h2>
-              <p className="text-ink-muted mt-3 text-sm leading-6">{order.note}</p>
+              <p className="text-ink-muted mt-3 text-sm leading-6">
+                {order.note}
+              </p>
             </Card>
           ) : null}
         </aside>

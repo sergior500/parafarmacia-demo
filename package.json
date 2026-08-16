@@ -29,7 +29,7 @@
     "clsx": "^2.1.1",
     "drizzle-orm": "0.45.2",
     "lucide-react": "^0.468.0",
-    "next": "16.2.11",
+    "next": "16.3.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-hook-form": "^7.65.0",
@@ -52,7 +52,7 @@
     "@vitest/coverage-v8": "^4.1.10",
     "drizzle-kit": "0.31.10",
     "eslint": "^9.39.1",
-    "eslint-config-next": "16.2.11",
+    "eslint-config-next": "16.3.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "jsdom": "^27.2.0",
     "prettier": "^3.6.2",
@@ -64,5 +64,10 @@
     "vite": "8.0.13",
     "vitest": "4.1.10",
     "wrangler": "4.92.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "nanoid@<3.3.18": "3.3.18"
+    }
   }
 }

@@ -22,6 +22,7 @@ export const REQUIRED_SHOPIFY_SCOPES = [
   "write_inventory",
   "read_locations",
   "read_orders",
+  "write_merchant_managed_fulfillment_orders",
 ] as const;
 
 export interface ShopifyConnectionDiagnostics {

@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Card } from "@/components/ui/card";
 import { ShopifyOrdersDashboard } from "@/features/admin/shopify-orders-dashboard";
+import { requireAdminActor } from "@/server/admin-auth";
 import { listShopifyOrders } from "@/server/shopify/orders";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function OrdersPage() {
+  await requireAdminActor("/admin/pedidos");
   let report;
   try {
     report = await listShopifyOrders();
@@ -58,7 +60,9 @@ function OrdersHeader() {
   return (
     <header className="mb-8">
       <p className="eyebrow">Operación comercial · Shopify</p>
-      <h1 className="display-title text-forest mt-2 text-5xl">Pedidos y ventas</h1>
+      <h1 className="display-title text-forest mt-2 text-5xl">
+        Pedidos y ventas
+      </h1>
       <p className="text-ink-muted mt-3 max-w-3xl">
         Seguimiento de ingresos, preparación y productos vendidos con datos
         obtenidos directamente de la tienda.

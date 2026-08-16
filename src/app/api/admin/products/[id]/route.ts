@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 
 import { catalogProductUpdateSchema } from "@/features/admin/admin-catalog";
 import { getAdminActor, isSameOriginRequest } from "@/server/admin-auth";
+import { adminMutationRateLimitResponse } from "@/server/admin-security";
 import { updateAdminProduct } from "@/server/catalog-repository";
+import {
+  readLimitedJsonBody,
+  requestBodyErrorResponse,
+} from "@/server/request-security";
 
 export const dynamic = "force-dynamic";
 
@@ -11,12 +16,30 @@ export async function PATCH(
   context: { params: Promise<{ id: string }> },
 ) {
   const actor = await getAdminActor();
-  if (!actor) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  if (!actor)
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
   if (!isSameOriginRequest(request)) {
-    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
+    return NextResponse.json(
+      { error: "Origen no permitido." },
+      { status: 403 },
+    );
   }
+  const rateLimited = adminMutationRateLimitResponse(actor.userId);
+  if (rateLimited) return rateLimited;
 
-  const parsed = catalogProductUpdateSchema.safeParse(await request.json());
+  let body: unknown;
+  try {
+    body = await readLimitedJsonBody(request);
+  } catch (error) {
+    return (
+      requestBodyErrorResponse(error) ??
+      NextResponse.json(
+        { error: "No se pudo leer la petición." },
+        { status: 400 },
+      )
+    );
+  }
+  const parsed = catalogProductUpdateSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { error: "Los cambios de la ficha no son válidos." },
@@ -39,7 +62,10 @@ export async function PATCH(
   try {
     const product = await updateAdminProduct(id, parsed.data, actor);
     if (!product) {
-      return NextResponse.json({ error: "Producto no encontrado." }, { status: 404 });
+      return NextResponse.json(
+        { error: "Producto no encontrado." },
+        { status: 404 },
+      );
     }
     return NextResponse.json({ product });
   } catch (error) {

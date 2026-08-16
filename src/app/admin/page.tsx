@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 
 import { AdminDashboard } from "@/features/admin/admin-dashboard";
+import { requireAdminActor } from "@/server/admin-auth";
 
 export const metadata: Metadata = {
   title: "Panel interno",
   description: "Estado real del catálogo y de las integraciones comerciales.",
 };
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  await requireAdminActor("/admin");
   return (
     <>
       <header className="mb-8">

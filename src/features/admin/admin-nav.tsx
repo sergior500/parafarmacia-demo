@@ -1,6 +1,7 @@
 import {
   Boxes,
   ClipboardList,
+  Container,
   LayoutDashboard,
   LockKeyhole,
   Settings,
@@ -11,6 +12,7 @@ const links = [
   { href: "/admin", label: "Resumen", icon: LayoutDashboard },
   { href: "/admin/pedidos", label: "Pedidos", icon: ClipboardList },
   { href: "/admin/productos", label: "Productos", icon: Boxes },
+  { href: "/admin/inventario", label: "Inventario", icon: Container },
   { href: "/admin/configuracion", label: "Configuración", icon: Settings },
 ];
 

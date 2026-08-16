@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { buildOrdersReport } from "@/server/shopify/orders";
+import {
+  buildOrdersReport,
+  mapFulfillmentOrders,
+} from "@/server/shopify/orders";
 
 function order(
   id: string,
@@ -82,5 +85,60 @@ describe("buildOrdersReport", () => {
     expect(report.metrics.todaySales).toBe(5);
     expect(report.metrics.monthOrders).toBe(2);
     expect(report.metrics.pendingPreparation).toBe(1);
+  });
+});
+
+describe("mapFulfillmentOrders", () => {
+  it("solo devuelve preparaciones abiertas con unidades pendientes", () => {
+    const result = mapFulfillmentOrders([
+      {
+        id: "gid://shopify/FulfillmentOrder/1",
+        status: "OPEN",
+        assignedLocation: {
+          name: "Farmacia Picual",
+          location: { id: "gid://shopify/Location/1" },
+        },
+        lineItems: {
+          nodes: [
+            {
+              id: "gid://shopify/FulfillmentOrderLineItem/1",
+              remainingQuantity: 2,
+              lineItem: { name: "Crema facial", sku: "PIC-1" },
+            },
+          ],
+        },
+      },
+      {
+        id: "gid://shopify/FulfillmentOrder/2",
+        status: "CLOSED",
+        assignedLocation: null,
+        lineItems: {
+          nodes: [
+            {
+              id: "gid://shopify/FulfillmentOrderLineItem/2",
+              remainingQuantity: 1,
+              lineItem: { name: "Gel", sku: null },
+            },
+          ],
+        },
+      },
+    ]);
+
+    expect(result).toEqual([
+      {
+        id: "gid://shopify/FulfillmentOrder/1",
+        status: "OPEN",
+        locationId: "gid://shopify/Location/1",
+        locationName: "Farmacia Picual",
+        items: [
+          {
+            id: "gid://shopify/FulfillmentOrderLineItem/1",
+            name: "Crema facial",
+            sku: "PIC-1",
+            remainingQuantity: 2,
+          },
+        ],
+      },
+    ]);
   });
 });

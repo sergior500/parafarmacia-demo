@@ -1,4 +1,7 @@
-import { shopifyAdminGraphql } from "@/server/shopify/admin-api";
+import {
+  shopifyAdminGraphql,
+  ShopifyApiError,
+} from "@/server/shopify/admin-api";
 
 const SHOP_TIME_ZONE = "Europe/Madrid";
 const ORDER_WINDOW_DAYS = 60;
@@ -71,6 +74,33 @@ const ORDER_DETAIL_QUERY = `
           discountedTotalSet { shopMoney { amount currencyCode } }
         }
       }
+      fulfillmentOrders(first: 20) {
+        nodes {
+          id
+          status
+          assignedLocation { name location { id } }
+          lineItems(first: 100) {
+            nodes {
+              id
+              remainingQuantity
+              lineItem { name sku }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const FULFILLMENT_CREATE_MUTATION = `
+  mutation PicualFulfillmentCreate(
+    $fulfillment: FulfillmentInput!
+    $idempotencyKey: String!
+  ) {
+    fulfillmentCreate(fulfillment: $fulfillment)
+      @idempotent(key: $idempotencyKey) {
+      fulfillment { id status createdAt }
+      userErrors { field message }
     }
   }
 `;
@@ -135,6 +165,23 @@ interface RawOrderDetail extends RawOrderSummary {
       discountedTotalSet: ShopifyMoneySet;
     }>;
   };
+  fulfillmentOrders: {
+    nodes: Array<{
+      id: string;
+      status: string;
+      assignedLocation: {
+        name: string;
+        location: { id: string } | null;
+      } | null;
+      lineItems: {
+        nodes: Array<{
+          id: string;
+          remainingQuantity: number;
+          lineItem: { name: string; sku: string | null } | null;
+        }>;
+      };
+    }>;
+  };
 }
 
 export interface ShopifyOrderSummary {
@@ -178,6 +225,28 @@ export interface ShopifyOrderDetail extends ShopifyOrderSummary {
     unitPrice: number;
     total: number;
   }>;
+  fulfillmentOrders: ShopifyFulfillmentOrder[];
+}
+
+export interface ShopifyFulfillmentOrder {
+  id: string;
+  status: string;
+  locationId?: string;
+  locationName: string;
+  items: Array<{
+    id: string;
+    name: string;
+    sku?: string;
+    remainingQuantity: number;
+  }>;
+}
+
+export interface ShopifyFulfillmentInput {
+  operationId: string;
+  notifyCustomer: boolean;
+  trackingCompany?: string;
+  trackingNumber?: string;
+  trackingUrl?: string;
 }
 
 export interface ShopifyOrdersReport {
@@ -219,7 +288,10 @@ function dayOrdinal(value: Date, timeZone = SHOP_TIME_ZONE): number {
 }
 
 function mapOrder(order: RawOrderSummary): ShopifyOrderSummary {
-  const destination = [order.displayAddress?.city, order.displayAddress?.province]
+  const destination = [
+    order.displayAddress?.city,
+    order.displayAddress?.province,
+  ]
     .filter(Boolean)
     .join(", ");
   return {
@@ -399,6 +471,96 @@ export async function getShopifyOrder(
       unitPrice: moneyAmount(item.originalUnitPriceSet),
       total: moneyAmount(item.discountedTotalSet),
     })),
+    fulfillmentOrders: mapFulfillmentOrders(order.fulfillmentOrders.nodes),
   };
 }
 
+export function mapFulfillmentOrders(
+  fulfillmentOrders: RawOrderDetail["fulfillmentOrders"]["nodes"],
+): ShopifyFulfillmentOrder[] {
+  return fulfillmentOrders
+    .filter(
+      (fulfillmentOrder) =>
+        ["OPEN", "IN_PROGRESS"].includes(fulfillmentOrder.status) &&
+        fulfillmentOrder.lineItems.nodes.some(
+          (item) => item.remainingQuantity > 0,
+        ),
+    )
+    .map((fulfillmentOrder) => ({
+      id: fulfillmentOrder.id,
+      status: fulfillmentOrder.status,
+      locationId: fulfillmentOrder.assignedLocation?.location?.id,
+      locationName:
+        fulfillmentOrder.assignedLocation?.name ?? "Ubicación de la tienda",
+      items: fulfillmentOrder.lineItems.nodes
+        .filter((item) => item.remainingQuantity > 0)
+        .map((item) => ({
+          id: item.id,
+          name: item.lineItem?.name ?? "Producto",
+          sku: item.lineItem?.sku ?? undefined,
+          remainingQuantity: item.remainingQuantity,
+        })),
+    }));
+}
+
+export async function fulfillShopifyOrder(
+  legacyId: string,
+  input: ShopifyFulfillmentInput,
+) {
+  const order = await getShopifyOrder(legacyId);
+  if (!order) throw new ShopifyApiError("El pedido no existe en Shopify.");
+  if (order.cancelled) {
+    throw new ShopifyApiError("No se puede preparar un pedido cancelado.");
+  }
+  if (!order.fulfillmentOrders.length) {
+    throw new ShopifyApiError(
+      "Este pedido no tiene productos pendientes de preparación.",
+    );
+  }
+
+  const completed: Array<{ id: string; status: string }> = [];
+  for (const [index, fulfillmentOrder] of order.fulfillmentOrders.entries()) {
+    const trackingInfo =
+      input.trackingNumber || input.trackingCompany || input.trackingUrl
+        ? {
+            company: input.trackingCompany || undefined,
+            number: input.trackingNumber || undefined,
+            url: input.trackingUrl || undefined,
+          }
+        : undefined;
+    const data = await shopifyAdminGraphql<{
+      fulfillmentCreate: {
+        fulfillment: {
+          id: string;
+          status: string;
+          createdAt: string;
+        } | null;
+        userErrors: Array<{ field?: string[]; message: string }>;
+      };
+    }>(FULFILLMENT_CREATE_MUTATION, {
+      idempotencyKey: `${input.operationId}:${index}`,
+      fulfillment: {
+        lineItemsByFulfillmentOrder: [
+          { fulfillmentOrderId: fulfillmentOrder.id },
+        ],
+        notifyCustomer: input.notifyCustomer,
+        trackingInfo,
+      },
+    });
+    if (data.fulfillmentCreate.userErrors.length) {
+      throw new ShopifyApiError(
+        data.fulfillmentCreate.userErrors
+          .map((error) => error.message)
+          .join(" · "),
+      );
+    }
+    if (!data.fulfillmentCreate.fulfillment) {
+      throw new ShopifyApiError("Shopify no ha creado el envío.");
+    }
+    completed.push({
+      id: data.fulfillmentCreate.fulfillment.id,
+      status: data.fulfillmentCreate.fulfillment.status,
+    });
+  }
+  return { completed };
+}

@@ -70,8 +70,12 @@ export const products = sqliteTable(
     shopifyPayloadHash: text("shopify_payload_hash"),
     sourceId: text("source_id").references(() => catalogSources.sourceId),
     sourcePage: integer("source_page"),
-    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => [
     uniqueIndex("products_slug_uq").on(table.slug),
@@ -93,7 +97,9 @@ export const shopifyWebhookReceipts = sqliteTable(
     resourceId: text("resource_id"),
     status: text("status").notNull().default("received"),
     error: text("error"),
-    receivedAt: text("received_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    receivedAt: text("received_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
     processedAt: text("processed_at"),
   },
   (table) => [
@@ -154,11 +160,39 @@ export const catalogAuditLog = sqliteTable(
     actorId: text("actor_id").notNull(),
     actorEmail: text("actor_email").notNull(),
     changesJson: text("changes_json").notNull().default("{}"),
-    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => [
     index("catalog_audit_product_created_idx").on(
       table.productId,
+      table.createdAt,
+    ),
+  ],
+);
+
+export const adminOperationLog = sqliteTable(
+  "admin_operation_log",
+  {
+    auditId: text("audit_id").primaryKey(),
+    actorId: text("actor_id").notNull(),
+    actorEmail: text("actor_email").notNull(),
+    action: text("action").notNull(),
+    resourceType: text("resource_type").notNull(),
+    resourceId: text("resource_id"),
+    metadataJson: text("metadata_json").notNull().default("{}"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    index("admin_operation_actor_created_idx").on(
+      table.actorId,
+      table.createdAt,
+    ),
+    index("admin_operation_action_created_idx").on(
+      table.action,
       table.createdAt,
     ),
   ],
