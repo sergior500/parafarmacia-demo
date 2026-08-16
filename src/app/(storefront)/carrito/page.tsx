@@ -6,7 +6,7 @@ import { CartView } from "@/features/cart/cart-view";
 export const metadata: Metadata = {
   title: "Carrito",
   description:
-    "Revisa los productos de parafarmacia antes de finalizar la compra de demostración.",
+    "Revisa los productos de parafarmacia antes de continuar al pago seguro.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/carrito" },
 };
@@ -16,7 +16,7 @@ export default function CartPage() {
     <div className="page-shell">
       <Breadcrumbs items={[{ label: "Carrito" }]} />
       <header className="pb-10">
-        <p className="eyebrow">Compra de demostración</p>
+        <p className="eyebrow">Compra segura</p>
         <h1 className="display-title text-forest mt-2 text-5xl md:text-6xl">
           Tu carrito
         </h1>

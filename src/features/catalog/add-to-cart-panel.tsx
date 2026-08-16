@@ -37,7 +37,7 @@ export function AddToCartPanel({ product }: { product: Product }) {
   function buyNow() {
     try {
       addToCart(product, selectedQuantity);
-      router.push("/solicitud-pedido");
+      router.push("/carrito");
     } catch (error) {
       setMessage(
         error instanceof Error ? error.message : "No se ha podido añadir.",

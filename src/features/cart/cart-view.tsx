@@ -2,10 +2,11 @@
 
 import {
   Bookmark,
-  LockKeyhole,
+  LoaderCircle,
   Minus,
   PackageCheck,
   Plus,
+  ShieldCheck,
   Tag,
   Trash2,
 } from "lucide-react";
@@ -26,6 +27,10 @@ export function CartView() {
   const { cart, removeFromCart, updateCartQuantity } = useDemo();
   const [error, setError] = useState("");
   const [promoMessage, setPromoMessage] = useState("");
+  const [promoCode, setPromoCode] = useState("");
+  const [appliedPromoCode, setAppliedPromoCode] = useState("");
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
   const totals = calculateCartTotals(cart);
   const recommendations = products
     .filter(
@@ -45,6 +50,39 @@ export function CartView() {
           ? caught.message
           : "No se ha podido actualizar la cantidad.",
       );
+    }
+  }
+
+  async function startCheckout() {
+    setCheckoutLoading(true);
+    setCheckoutError("");
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          lines: cart.map((line) => ({
+            productId: line.product.id,
+            quantity: line.quantity,
+          })),
+          discountCode: appliedPromoCode || undefined,
+        }),
+      });
+      const body = (await response.json().catch(() => null)) as {
+        checkoutUrl?: string;
+        error?: string;
+      } | null;
+      if (!response.ok || !body?.checkoutUrl) {
+        throw new Error(body?.error || "No se pudo preparar el pago seguro.");
+      }
+      window.location.assign(body.checkoutUrl);
+    } catch (checkoutFailure) {
+      setCheckoutError(
+        checkoutFailure instanceof Error
+          ? checkoutFailure.message
+          : "No se pudo preparar el pago seguro.",
+      );
+      setCheckoutLoading(false);
     }
   }
 
@@ -194,15 +232,19 @@ export function CartView() {
                 <dd>{formatMoney(totals.totalInCents)}</dd>
               </div>
               <p className="text-ink-muted text-[.65rem]">
-                IVA incluido · sin cobro real
+                IVA incluido · Shopify confirmará disponibilidad y total final
               </p>
             </dl>
             <form
               className="border-forest/10 mt-5 border-t pt-5"
               onSubmit={(event) => {
                 event.preventDefault();
+                const normalized = promoCode.trim().toUpperCase();
+                setAppliedPromoCode(normalized);
                 setPromoMessage(
-                  "Código reconocido como demo; no se ha aplicado un descuento real.",
+                  normalized
+                    ? "Shopify comprobará el código antes del pago."
+                    : "Introduce un código promocional.",
                 );
               }}
             >
@@ -215,6 +257,8 @@ export function CartView() {
                   id="promo-code"
                   className="border-forest/15 min-w-0 flex-1 rounded-full border bg-white px-4 text-xs"
                   placeholder="PICUAL10"
+                  value={promoCode}
+                  onChange={(event) => setPromoCode(event.target.value)}
                 />
                 <Button size="sm" variant="outline">
                   Aplicar
@@ -226,14 +270,26 @@ export function CartView() {
                 </p>
               ) : null}
             </form>
-            <Button asChild className="mt-6 w-full" size="lg">
-              <Link href="/solicitud-pedido">
-                <LockKeyhole aria-hidden="true" className="size-4" />
-                Finalizar compra demo
-              </Link>
+            {checkoutError ? (
+              <p className="mt-4 rounded-xl bg-red-50 p-3 text-xs font-bold text-red-800" role="alert">
+                {checkoutError}
+              </p>
+            ) : null}
+            <Button
+              className="mt-6 w-full"
+              disabled={checkoutLoading}
+              onClick={() => void startCheckout()}
+              size="lg"
+            >
+              {checkoutLoading ? (
+                <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
+              ) : (
+                <ShieldCheck aria-hidden="true" className="size-4" />
+              )}
+              {checkoutLoading ? "Preparando pago…" : "Continuar al pago seguro"}
             </Button>
             <p className="text-ink-muted mt-3 text-center text-[.65rem]">
-              Compra como invitado · no necesitas crear una cuenta
+              Compra como invitado · pago protegido por Shopify
             </p>
           </Card>
         </aside>

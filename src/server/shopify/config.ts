@@ -18,6 +18,7 @@ export function getShopifyConfiguration(): ShopifyConfigurationStatus & {
   clientId?: string;
   clientSecret?: string;
   webhookSecret?: string;
+  storefrontAccessToken?: string;
 } {
   const rawDomain = process.env.SHOPIFY_STORE_DOMAIN ?? "";
   const storeDomain = normalizeShopifyStoreDomain(rawDomain) ?? undefined;
@@ -26,6 +27,8 @@ export function getShopifyConfiguration(): ShopifyConfigurationStatus & {
   const clientSecret = process.env.SHOPIFY_CLIENT_SECRET?.trim();
   const webhookSecret =
     process.env.SHOPIFY_WEBHOOK_SECRET?.trim() || clientSecret;
+  const storefrontAccessToken =
+    process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN?.trim();
   const apiVersion = process.env.SHOPIFY_API_VERSION?.trim() || DEFAULT_API_VERSION;
   const missing: string[] = [];
 
@@ -42,6 +45,7 @@ export function getShopifyConfiguration(): ShopifyConfigurationStatus & {
     clientId,
     clientSecret,
     webhookSecret,
+    storefrontAccessToken,
     apiVersion,
     missing,
   };
