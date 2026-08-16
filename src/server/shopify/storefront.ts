@@ -8,6 +8,7 @@ import {
   safeShopifyCheckoutUrl,
 } from "@/server/shopify/checkout-contract";
 import { getShopifyConfiguration } from "@/server/shopify/config";
+import { getShopifyStorefrontAccessToken } from "@/server/shopify/storefront-token";
 
 interface StorefrontEnvelope<T> {
   data?: T;
@@ -58,10 +59,7 @@ export async function createShopifyCheckout(
         "Uno de los productos ya no forma parte del catálogo.",
       );
     }
-    if (
-      product.shopifySyncStatus !== "synced" ||
-      !product.shopifyVariantId
-    ) {
+    if (product.shopifySyncStatus !== "synced" || !product.shopifyVariantId) {
       throw new ShopifyCheckoutError(
         `${product.name} todavía no está preparado para el pago.`,
       );
@@ -71,10 +69,7 @@ export async function createShopifyCheckout(
         `El máximo permitido de ${product.name} es ${product.maximumUnitsPerOrder}.`,
       );
     }
-    if (
-      product.stockQuantity !== null &&
-      quantity > product.stockQuantity
-    ) {
+    if (product.stockQuantity !== null && quantity > product.stockQuantity) {
       throw new ShopifyCheckoutError(
         `Shopify no tiene unidades suficientes de ${product.name}.`,
       );
@@ -97,18 +92,14 @@ async function createStorefrontCart(
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15_000);
   try {
+    const storefrontAccessToken = await getShopifyStorefrontAccessToken();
     const response = await fetch(
       `https://${configuration.storeDomain}/api/${configuration.apiVersion}/graphql.json`,
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          ...(configuration.storefrontAccessToken
-            ? {
-                "x-shopify-storefront-access-token":
-                  configuration.storefrontAccessToken,
-              }
-            : {}),
+          "x-shopify-storefront-access-token": storefrontAccessToken,
           ...(buyerIp ? { "shopify-storefront-buyer-ip": buyerIp } : {}),
         },
         body: JSON.stringify({
@@ -138,8 +129,10 @@ async function createStorefrontCart(
     }
     if (envelope.errors?.length) {
       throw new ShopifyCheckoutError(
-        envelope.errors.map(({ message }) => message).filter(Boolean).join(" · ") ||
-          "Shopify rechazó la creación del carrito.",
+        envelope.errors
+          .map(({ message }) => message)
+          .filter(Boolean)
+          .join(" · ") || "Shopify rechazó la creación del carrito.",
       );
     }
     const result = envelope.data?.cartCreate;
