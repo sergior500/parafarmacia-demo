@@ -22,6 +22,7 @@ const nullableCommercialNumber = z.number().int().nonnegative().nullable();
 export const catalogProductUpdateSchema = z.object({
   reviewStatus: z.enum(["pending", "reviewed", "published"]),
   name: z.string().trim().min(1).max(180),
+  brandOrLaboratory: z.string().trim().min(1).max(140),
   shortDescription: z.string().trim().min(1).max(500),
   description: z.string().trim().min(1),
   usage: z.string().trim().optional(),
@@ -33,15 +34,12 @@ export const catalogProductUpdateSchema = z.object({
   size: z.string().trim().max(80).optional(),
   ean: z.string().trim().max(32).optional(),
   imageUrl: z.string().trim().max(500).optional(),
+  taxRate: z.number().int().min(0).max(100),
+  maximumUnitsPerOrder: z.number().int().min(1).max(99),
 });
 
 export const catalogProductCreateSchema = catalogProductUpdateSchema
-  .omit({ reviewStatus: true, usage: true, ingredients: true, warnings: true })
-  .extend({
-    brandOrLaboratory: z.string().trim().min(1).max(140),
-    taxRate: z.number().int().min(0).max(100),
-    maximumUnitsPerOrder: z.number().int().min(1).max(99),
-  });
+  .omit({ reviewStatus: true, usage: true, ingredients: true, warnings: true });
 
 export type CatalogProductUpdate = z.infer<typeof catalogProductUpdateSchema>;
 export type CatalogProductCreate = z.infer<typeof catalogProductCreateSchema>;
@@ -102,4 +100,17 @@ export function getShopifyBatchCandidates(
       return productIds.indexOf(left.id) - productIds.indexOf(right.id);
     })
     .slice(0, safeLimit);
+}
+
+export function chunkShopifyProductIds(
+  productIds: string[],
+  batchSize = 10,
+): string[][] {
+  const safeBatchSize = Math.max(1, Math.min(10, Math.trunc(batchSize)));
+  const uniqueIds = [...new Set(productIds.filter(Boolean))];
+  const batches: string[][] = [];
+  for (let index = 0; index < uniqueIds.length; index += safeBatchSize) {
+    batches.push(uniqueIds.slice(index, index + safeBatchSize));
+  }
+  return batches;
 }

@@ -31,6 +31,7 @@ import {
   type CatalogProductCreate,
   type CatalogProductUpdate,
   type CatalogReviewStatus,
+  chunkShopifyProductIds,
   getMissingCommercialFields,
   isShopifyBatchCandidate,
 } from "@/features/admin/admin-catalog";
@@ -39,7 +40,8 @@ import { formatMoney } from "@/lib/format";
 import { categories } from "@/mocks/products";
 
 const PAGE_SIZE = 25;
-const SHOPIFY_BATCH_LIMIT = 10;
+const SHOPIFY_REQUEST_BATCH_SIZE = 10;
+const SHOPIFY_SELECTION_LIMIT = 250;
 
 type BatchProgress = {
   completed: number;
@@ -157,7 +159,13 @@ export function ProductsAdmin() {
         statusFilter === "all" ||
         product.reviewStatus === statusFilter ||
         (statusFilter === "incomplete" && missingFields.length > 0) ||
-        (statusFilter === "commercially_ready" && missingFields.length === 0);
+        (statusFilter === "commercially_ready" && missingFields.length === 0) ||
+        (statusFilter === "shopify_pending" &&
+          product.shopifySyncStatus === "not_synced") ||
+        (statusFilter === "shopify_error" &&
+          product.shopifySyncStatus === "error") ||
+        (statusFilter === "shopify_synced" &&
+          product.shopifySyncStatus === "synced");
       return matchesQuery && matchesStatus;
     });
   }, [catalogProducts, query, statusFilter]);
@@ -323,9 +331,9 @@ export function ProductsAdmin() {
         next.delete(productId);
         return next;
       }
-      if (next.size >= SHOPIFY_BATCH_LIMIT) {
+      if (next.size >= SHOPIFY_SELECTION_LIMIT) {
         setNotice(
-          `Cada lote admite un máximo de ${SHOPIFY_BATCH_LIMIT} productos para evitar envíos accidentales.`,
+          `La cola admite un máximo de ${SHOPIFY_SELECTION_LIMIT} productos.`,
         );
         return current;
       }
@@ -343,14 +351,14 @@ export function ProductsAdmin() {
         return next;
       }
       for (const product of selectableVisibleProducts) {
-        if (next.size >= SHOPIFY_BATCH_LIMIT) break;
+        if (next.size >= SHOPIFY_SELECTION_LIMIT) break;
         next.add(product.id);
       }
       if (
         selectableVisibleProducts.some((product) => !next.has(product.id))
       ) {
         setNotice(
-          `Se han seleccionado los primeros ${SHOPIFY_BATCH_LIMIT} productos disponibles.`,
+          `Se han seleccionado los primeros ${SHOPIFY_SELECTION_LIMIT} productos disponibles.`,
         );
       }
       return next;
@@ -358,9 +366,29 @@ export function ProductsAdmin() {
     setBatchProgress(null);
   }
 
+  function selectAllShopifyCandidates() {
+    const candidateIds = catalogProducts
+      .filter(isShopifyBatchCandidate)
+      .slice(0, SHOPIFY_SELECTION_LIMIT)
+      .map(({ id }) => id);
+    setSelectedProductIds(new Set(candidateIds));
+    setBatchProgress(null);
+    setShowBatchPreview(candidateIds.length > 0);
+    setNotice(
+      candidateIds.length
+        ? `${candidateIds.length} productos preparados. Revisa el resumen antes de enviarlos como borradores.`
+        : "No quedan productos pendientes de sincronizar.",
+    );
+  }
+
   async function handleShopifyBatchSync() {
-    const queue = selectedProducts.slice(0, SHOPIFY_BATCH_LIMIT);
+    const queue = selectedProducts.slice(0, SHOPIFY_SELECTION_LIMIT);
     if (queue.length === 0) return;
+    const batches = chunkShopifyProductIds(
+      queue.map(({ id }) => id),
+      SHOPIFY_REQUEST_BATCH_SIZE,
+    );
+    const productsById = new Map(queue.map((product) => [product.id, product]));
 
     setSyncingBatch(true);
     setShowBatchPreview(true);
@@ -382,35 +410,51 @@ export function ProductsAdmin() {
     });
 
     try {
-      for (const product of queue) {
+      for (const [batchIndex, productIds] of batches.entries()) {
         if (stopBatchRef.current) break;
+        const firstProduct = productIds[0]
+          ? productsById.get(productIds[0])
+          : undefined;
         setBatchProgress({
           completed,
           total: queue.length,
           succeeded,
           failed,
           skipped,
-          currentName: product.name,
+          currentName:
+            batches.length > 1
+              ? `lote ${batchIndex + 1} de ${batches.length}`
+              : firstProduct?.name ?? "borradores seleccionados",
           stopped: false,
         });
 
         const response = await fetch("/api/admin/products/sync", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ productIds: [product.id] }),
+          body: JSON.stringify({ productIds }),
         });
         if (!response.ok) throw await apiError(response);
         const body = (await response.json()) as {
           succeeded: number;
           failed: number;
           skipped: number;
+          skippedIds: string[];
+          results: Array<{
+            productId: string;
+            status: "synced" | "error";
+          }>;
         };
         succeeded += body.succeeded;
         failed += body.failed;
         skipped += body.skipped;
-        completed += 1;
-        if (body.succeeded > 0 || body.skipped > 0) {
-          remainingSelection.delete(product.id);
+        completed += productIds.length;
+        for (const result of body.results) {
+          if (result.status === "synced") {
+            remainingSelection.delete(result.productId);
+          }
+        }
+        for (const skippedId of body.skippedIds) {
+          remainingSelection.delete(skippedId);
         }
         setBatchProgress({
           completed,
@@ -418,7 +462,10 @@ export function ProductsAdmin() {
           succeeded,
           failed,
           skipped,
-          currentName: product.name,
+          currentName:
+            batches.length > 1
+              ? `lote ${batchIndex + 1} de ${batches.length}`
+              : firstProduct?.name ?? "borradores seleccionados",
           stopped: false,
         });
       }
@@ -496,6 +543,14 @@ export function ProductsAdmin() {
         </p>
         <div className="flex flex-wrap gap-2">
           <Button
+            disabled={batchCandidateCount === 0 || syncingBatch}
+            onClick={selectAllShopifyCandidates}
+            variant="outline"
+          >
+            <CloudUpload className="size-4" />
+            Preparar pendientes ({batchCandidateCount})
+          </Button>
+          <Button
             disabled={selectedProductIds.size === 0 || syncingBatch}
             onClick={() => setShowBatchPreview(true)}
             variant="secondary"
@@ -522,8 +577,9 @@ export function ProductsAdmin() {
       {batchCandidateCount > 0 ? (
         <p className="border-forest/10 bg-cream text-ink-muted rounded-2xl border px-4 py-3 text-xs">
           Hay <strong className="text-forest">{batchCandidateCount}</strong>{" "}
-          productos pendientes o con error. Selecciona hasta diez; todos se
-          crean como borradores y nunca se publican automáticamente.
+          productos pendientes o con error. Puedes preparar todo el catálogo;
+          el panel lo dividirá en lotes técnicos de diez y todos se crearán como
+          borradores, sin publicarse automáticamente.
         </p>
       ) : null}
 
@@ -533,8 +589,7 @@ export function ProductsAdmin() {
             <div>
               <p className="eyebrow">Vista previa del lote</p>
               <h2 className="text-forest mt-1 text-xl font-black">
-                {selectedProducts.length} de {SHOPIFY_BATCH_LIMIT} productos
-                preparados
+                {selectedProducts.length} productos preparados
               </h2>
             </div>
             {!syncingBatch ? (
@@ -564,7 +619,7 @@ export function ProductsAdmin() {
               </div>
               {selectedProducts.length ? (
                 <ol className="grid gap-2 text-sm sm:grid-cols-2">
-                  {selectedProducts.map((product, index) => (
+                  {selectedProducts.slice(0, 20).map((product, index) => (
                     <li
                       className="border-forest/10 flex gap-3 rounded-2xl border bg-white px-4 py-3"
                       key={product.id}
@@ -581,6 +636,12 @@ export function ProductsAdmin() {
                     </li>
                   ))}
                 </ol>
+              ) : null}
+              {selectedProducts.length > 20 ? (
+                <p className="text-ink-muted text-xs font-bold">
+                  Y {selectedProducts.length - 20} productos más incluidos en
+                  la cola.
+                </p>
               ) : null}
               {batchProgress ? (
                 <div className="border-forest/10 rounded-2xl border bg-white p-4" aria-live="polite">
@@ -617,7 +678,8 @@ export function ProductsAdmin() {
               <p className="text-ink-muted mt-2 text-sm leading-6">
                 Shopify recibirá borradores. Los precios desconocidos serán 0 €, el
                 inventario no se publicará y las fichas incompletas quedarán
-                etiquetadas como pendientes.
+                etiquetadas como pendientes. La cola se procesa en grupos de diez
+                y puede detenerse entre grupos.
               </p>
               <div className="mt-5 grid gap-2">
                 {syncingBatch ? (
@@ -851,6 +913,9 @@ export function ProductsAdmin() {
               <option value="pending">Pendientes</option>
               <option value="reviewed">Revisados</option>
               <option value="published">Aprobados</option>
+              <option value="shopify_pending">Shopify · sin enviar</option>
+              <option value="shopify_error">Shopify · con error</option>
+              <option value="shopify_synced">Shopify · sincronizados</option>
             </select>
           </label>
         </div>
@@ -868,7 +933,7 @@ export function ProductsAdmin() {
                       selectableVisibleProducts.length === 0 || syncingBatch
                     }
                     onChange={toggleVisibleSelection}
-                    title="Seleccionar hasta diez productos de esta página"
+                    title="Seleccionar los productos pendientes de esta página"
                     type="checkbox"
                   />
                 </th>

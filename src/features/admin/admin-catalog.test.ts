@@ -5,6 +5,7 @@ import {
   canApproveForShopify,
   catalogProductCreateSchema,
   catalogProductUpdateSchema,
+  chunkShopifyProductIds,
   getMissingCommercialFields,
   getShopifyBatchCandidates,
 } from "@/features/admin/admin-catalog";
@@ -13,11 +14,14 @@ import { buildShopifyProductSetVariables } from "@/server/shopify/product-sync";
 const update = {
   reviewStatus: "reviewed" as const,
   name: "Gel limpiador",
+  brandOrLaboratory: "Laboratorio real",
   shortDescription: "Limpieza diaria.",
   description: "Gel para la limpieza diaria de la piel.",
   categoryId: "cat-facial",
   priceInCents: null,
   stock: null,
+  taxRate: 21,
+  maximumUnitsPerOrder: 6,
 };
 
 describe("catalogProductUpdateSchema", () => {
@@ -142,6 +146,20 @@ describe("getShopifyBatchCandidates", () => {
   });
 });
 
+describe("chunkShopifyProductIds", () => {
+  it("divide una cola completa en peticiones de diez sin duplicados", () => {
+    const ids = [
+      ...Array.from({ length: 23 }, (_, index) => `product-${index}`),
+      "product-2",
+    ];
+    expect(chunkShopifyProductIds(ids)).toEqual([
+      ids.slice(0, 10),
+      ids.slice(10, 20),
+      ids.slice(20, 23),
+    ]);
+  });
+});
+
 describe("buildShopifyProductSetVariables", () => {
   it("crea un borrador inequívocamente pendiente sin inventar datos comerciales", () => {
     const variables = buildShopifyProductSetVariables({
@@ -171,5 +189,38 @@ describe("buildShopifyProductSetVariables", () => {
     expect(variables.input.productOptions[0]?.values[0]?.name).toBe(
       "Pendiente de definir",
     );
+    expect(variables.input).not.toHaveProperty("files");
+  });
+
+  it("adjunta imágenes HTTPS verificables a la ficha de Shopify", () => {
+    const variables = buildShopifyProductSetVariables({
+      ...({} as AdminCatalogProduct),
+      id: "product-image",
+      slug: "producto-con-imagen",
+      name: "Producto con imagen",
+      brandOrLaboratory: "Laboratorio real",
+      categoryId: "cuidado-facial",
+      shortDescription: "Descripción corta",
+      description: "Descripción completa",
+      priceInCents: 1200,
+      priceVerified: true,
+      stock: 2,
+      stockVerified: true,
+      taxRate: 21,
+      maximumUnitsPerOrder: 6,
+      imageUrl: "https://cdn.example.com/producto.jpg",
+      size: "50 ml",
+      reviewStatus: "reviewed",
+      updatedAt: "2026-08-16T00:00:00.000Z",
+      shopifySyncStatus: "not_synced",
+    });
+
+    expect(variables.input.files).toEqual([
+      {
+        originalSource: "https://cdn.example.com/producto.jpg",
+        alt: "Producto con imagen",
+        contentType: "IMAGE",
+      },
+    ]);
   });
 });

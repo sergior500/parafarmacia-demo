@@ -29,6 +29,20 @@ function plainTextToHtml(value: string): string {
     .join("");
 }
 
+function shopifyImageInput(imageUrl: string, productName: string) {
+  try {
+    const url = new URL(imageUrl);
+    if (url.protocol !== "https:") return undefined;
+    return {
+      originalSource: url.toString(),
+      alt: productName,
+      contentType: "IMAGE",
+    };
+  } catch {
+    return undefined;
+  }
+}
+
 export function buildShopifyProductSetVariables(product: AdminCatalogProduct) {
   const defaultOption = "Formato";
   const defaultValue = product.size?.trim() || "Pendiente de definir";
@@ -38,6 +52,7 @@ export function buildShopifyProductSetVariables(product: AdminCatalogProduct) {
     product.stockVerified &&
     Boolean(product.size?.trim()) &&
     Boolean(product.imageUrl.trim());
+  const image = shopifyImageInput(product.imageUrl, product.name);
   return {
     identifier: { handle: product.slug },
     input: {
@@ -50,6 +65,7 @@ export function buildShopifyProductSetVariables(product: AdminCatalogProduct) {
       tags: isCommerciallyComplete
         ? ["Farmacia Picual"]
         : ["Farmacia Picual", "Pendiente de completar"],
+      ...(image ? { files: [image] } : {}),
       productOptions: [
         { name: defaultOption, position: 1, values: [{ name: defaultValue }] },
       ],

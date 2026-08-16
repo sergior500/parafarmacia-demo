@@ -58,6 +58,7 @@ export function CatalogProductEditor({
     const record: CatalogProductUpdate = {
       reviewStatus: intent,
       name: String(formData.get("name") ?? "").trim(),
+      brandOrLaboratory: String(formData.get("brand") ?? "").trim(),
       shortDescription: String(formData.get("shortDescription") ?? "").trim(),
       description: String(formData.get("description") ?? "").trim(),
       usage: String(formData.get("usage") ?? "").trim() || undefined,
@@ -70,6 +71,10 @@ export function CatalogProductEditor({
       size: String(formData.get("size") ?? "").trim() || undefined,
       ean: String(formData.get("ean") ?? "").trim() || undefined,
       imageUrl: String(formData.get("imageUrl") ?? "").trim() || undefined,
+      taxRate: Number(formData.get("taxRate") ?? product.taxRate),
+      maximumUnitsPerOrder: Number(
+        formData.get("maximumUnits") ?? product.maximumUnitsPerOrder,
+      ),
     };
 
     if (
@@ -137,6 +142,14 @@ export function CatalogProductEditor({
           <Input defaultValue={product.name} name="name" required />
         </label>
         <label className="grid gap-2 text-sm font-bold">
+          Marca o laboratorio
+          <Input
+            defaultValue={product.brandOrLaboratory}
+            name="brand"
+            required
+          />
+        </label>
+        <label className="grid gap-2 text-sm font-bold">
           Categoría
           <select
             className={fieldClassName}
@@ -188,6 +201,29 @@ export function CatalogProductEditor({
             min="0"
             name="stock"
             placeholder="Pendiente"
+            step="1"
+            type="number"
+          />
+        </label>
+        <label className="grid gap-2 text-sm font-bold">
+          IVA
+          <select
+            className={fieldClassName}
+            defaultValue={String(product.taxRate)}
+            name="taxRate"
+          >
+            <option value="21">21 %</option>
+            <option value="10">10 %</option>
+            <option value="4">4 %</option>
+            <option value="0">0 %</option>
+          </select>
+        </label>
+        <label className="grid gap-2 text-sm font-bold">
+          Máximo por pedido
+          <Input
+            defaultValue={product.maximumUnitsPerOrder}
+            min="1"
+            name="maximumUnits"
             step="1"
             type="number"
           />
