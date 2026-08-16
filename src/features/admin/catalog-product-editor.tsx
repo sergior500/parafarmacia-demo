@@ -2,6 +2,7 @@
 
 import {
   CheckCircle2,
+  Download,
   FileCheck2,
   ImagePlus,
   LoaderCircle,
@@ -22,6 +23,12 @@ import { categories } from "@/mocks/products";
 
 const fieldClassName =
   "border-forest/15 text-ink focus:border-forest focus:ring-sage min-h-12 w-full rounded-2xl border bg-white px-4 text-sm shadow-sm outline-none focus:ring-3";
+
+function imageDownloadName(slug: string, imageUrl: string): string {
+  const match = imageUrl.match(/\.(jpe?g|png|webp)(?:[?#]|$)/i);
+  const extension = match?.[1]?.toLowerCase() ?? "jpg";
+  return `${slug}-imagen.${extension === "jpeg" ? "jpg" : extension}`;
+}
 
 export function CatalogProductEditor({
   product,
@@ -329,15 +336,27 @@ export function CatalogProductEditor({
                   />
                 </label>
                 {imageUrl ? (
-                  <Button
-                    disabled={uploadingImage || saving}
-                    onClick={() => setImageUrl("")}
-                    size="sm"
-                    type="button"
-                    variant="outline"
-                  >
-                    <Trash2 className="size-4" /> Quitar al guardar
-                  </Button>
+                  <>
+                    {imageUrl.startsWith("/") && !imageUrl.startsWith("//") ? (
+                      <Button asChild size="sm" variant="outline">
+                        <a
+                          download={imageDownloadName(product.slug, imageUrl)}
+                          href={imageUrl}
+                        >
+                          <Download className="size-4" /> Descargar imagen
+                        </a>
+                      </Button>
+                    ) : null}
+                    <Button
+                      disabled={uploadingImage || saving}
+                      onClick={() => setImageUrl("")}
+                      size="sm"
+                      type="button"
+                      variant="outline"
+                    >
+                      <Trash2 className="size-4" /> Quitar al guardar
+                    </Button>
+                  </>
                 ) : null}
               </div>
             </div>
