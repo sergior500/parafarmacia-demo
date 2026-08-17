@@ -8,7 +8,11 @@ export interface ShopifyConfigurationStatus {
 }
 
 export function normalizeShopifyStoreDomain(value: string): string | null {
-  const candidate = value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const candidate = value
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\//, "")
+    .replace(/\/$/, "");
   if (!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(candidate)) return null;
   return candidate;
 }
@@ -18,6 +22,7 @@ export function getShopifyConfiguration(): ShopifyConfigurationStatus & {
   clientId?: string;
   clientSecret?: string;
   webhookSecret?: string;
+  webhookSecrets: string[];
   storefrontAccessToken?: string;
 } {
   const rawDomain = process.env.SHOPIFY_STORE_DOMAIN ?? "";
@@ -27,9 +32,13 @@ export function getShopifyConfiguration(): ShopifyConfigurationStatus & {
   const clientSecret = process.env.SHOPIFY_CLIENT_SECRET?.trim();
   const webhookSecret =
     process.env.SHOPIFY_WEBHOOK_SECRET?.trim() || clientSecret;
+  const webhookSecrets = Array.from(
+    new Set([webhookSecret, clientSecret].filter(Boolean) as string[]),
+  );
   const storefrontAccessToken =
     process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN?.trim();
-  const apiVersion = process.env.SHOPIFY_API_VERSION?.trim() || DEFAULT_API_VERSION;
+  const apiVersion =
+    process.env.SHOPIFY_API_VERSION?.trim() || DEFAULT_API_VERSION;
   const missing: string[] = [];
 
   if (!storeDomain) missing.push("Dominio de la tienda");
@@ -45,6 +54,7 @@ export function getShopifyConfiguration(): ShopifyConfigurationStatus & {
     clientId,
     clientSecret,
     webhookSecret,
+    webhookSecrets,
     storefrontAccessToken,
     apiVersion,
     missing,

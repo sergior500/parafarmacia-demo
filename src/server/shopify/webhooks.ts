@@ -26,15 +26,27 @@ export async function verifyShopifyWebhook(
     key,
     new TextEncoder().encode(body),
   );
-  const expected = btoa(
-    String.fromCharCode(...new Uint8Array(signature)),
-  );
+  const expected = btoa(String.fromCharCode(...new Uint8Array(signature)));
   if (expected.length !== receivedHmac.length) return false;
   let difference = 0;
   for (let index = 0; index < expected.length; index += 1) {
     difference |= expected.charCodeAt(index) ^ receivedHmac.charCodeAt(index);
   }
   return difference === 0;
+}
+
+export async function verifyShopifyWebhookWithSecrets(
+  body: string,
+  receivedHmac: string | null,
+  secrets: readonly string[],
+): Promise<boolean> {
+  if (!receivedHmac || secrets.length === 0) return false;
+  const results = await Promise.all(
+    Array.from(new Set(secrets.filter(Boolean))).map((secret) =>
+      verifyShopifyWebhook(body, receivedHmac, secret),
+    ),
+  );
+  return results.some(Boolean);
 }
 
 const numericShopifyId = z

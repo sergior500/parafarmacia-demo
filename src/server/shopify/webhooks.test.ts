@@ -4,6 +4,7 @@ import {
   getShopifyWebhookResourceId,
   SUPPORTED_SHOPIFY_WEBHOOK_TOPICS,
   verifyShopifyWebhook,
+  verifyShopifyWebhookWithSecrets,
 } from "@/server/shopify/webhooks";
 
 async function sign(body: string, secret: string) {
@@ -14,7 +15,11 @@ async function sign(body: string, secret: string) {
     false,
     ["sign"],
   );
-  const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(body));
+  const signature = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    new TextEncoder().encode(body),
+  );
   return btoa(String.fromCharCode(...new Uint8Array(signature)));
 }
 
@@ -22,8 +27,29 @@ describe("Shopify webhook verification", () => {
   it("accepts the original signed body and rejects modified content", async () => {
     const body = JSON.stringify({ id: 123 });
     const hmac = await sign(body, "secret");
-    await expect(verifyShopifyWebhook(body, hmac, "secret")).resolves.toBe(true);
-    await expect(verifyShopifyWebhook(`${body} `, hmac, "secret")).resolves.toBe(false);
+    await expect(verifyShopifyWebhook(body, hmac, "secret")).resolves.toBe(
+      true,
+    );
+    await expect(
+      verifyShopifyWebhook(`${body} `, hmac, "secret"),
+    ).resolves.toBe(false);
+  });
+
+  it("acepta firmas del secreto anterior y del nuevo durante una rotación", async () => {
+    const body = JSON.stringify({ id: 123 });
+    const oldHmac = await sign(body, "old-secret");
+    const newHmac = await sign(body, "new-secret");
+    const secrets = ["old-secret", "new-secret"];
+
+    await expect(
+      verifyShopifyWebhookWithSecrets(body, oldHmac, secrets),
+    ).resolves.toBe(true);
+    await expect(
+      verifyShopifyWebhookWithSecrets(body, newHmac, secrets),
+    ).resolves.toBe(true);
+    await expect(
+      verifyShopifyWebhookWithSecrets(body, await sign(body, "other"), secrets),
+    ).resolves.toBe(false);
   });
 
   it("identifica los recursos de producto, pedido e inventario", () => {

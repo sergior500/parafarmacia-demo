@@ -12,14 +12,14 @@ import { processShopifyWebhook } from "@/server/shopify/webhook-processor";
 import {
   getShopifyWebhookResourceId,
   SUPPORTED_SHOPIFY_WEBHOOK_TOPICS,
-  verifyShopifyWebhook,
+  verifyShopifyWebhookWithSecrets,
 } from "@/server/shopify/webhooks";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   const config = getShopifyConfiguration();
-  if (!config.webhookSecret || !config.storeDomain) {
+  if (config.webhookSecrets.length === 0 || !config.storeDomain) {
     return NextResponse.json(
       { error: "Webhooks no configurados." },
       { status: 503 },
@@ -40,10 +40,10 @@ export async function POST(request: Request) {
       )
     );
   }
-  const valid = await verifyShopifyWebhook(
+  const valid = await verifyShopifyWebhookWithSecrets(
     body,
     request.headers.get("x-shopify-hmac-sha256"),
-    config.webhookSecret,
+    config.webhookSecrets,
   );
   if (!valid) {
     return NextResponse.json({ error: "Firma no válida." }, { status: 401 });
@@ -106,7 +106,9 @@ export async function POST(request: Request) {
       .where(eq(shopifyWebhookReceipts.webhookId, webhookId));
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "No se pudo procesar el webhook.";
+      error instanceof Error
+        ? error.message
+        : "No se pudo procesar el webhook.";
     await db
       .update(shopifyWebhookReceipts)
       .set({ status: "error", error: message.slice(0, 500) })
