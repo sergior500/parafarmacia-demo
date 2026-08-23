@@ -8,6 +8,8 @@ La demo no debe publicarse como tienda real hasta completar, como mínimo:
 - Catálogo definitivo, proveedor de datos, precios, IVA e imágenes autorizadas.
 - Reglas de stock, promociones, gastos de envío, cancelaciones y devoluciones.
 - Condiciones de compra, privacidad, cookies y accesibilidad validadas.
+- Cierre del [bloque legal y de confianza](./legal-readiness.md), incluida la
+  revisión profesional de los textos que se publicarán.
 
 ## Plataforma
 
