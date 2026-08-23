@@ -210,7 +210,10 @@ export const adminUsers = sqliteTable(
   "admin_users",
   {
     email: text("email").primaryKey(),
+    // Temporary Sites/ChatGPT identity. Kept separate so the production
+    // Shopify identity can be linked and verified before the cut-over.
     userId: text("user_id"),
+    shopifyUserId: text("shopify_user_id"),
     displayName: text("display_name").notNull(),
     role: text("role").notNull(),
     enabled: integer("enabled", { mode: "boolean" }).notNull().default(true),
@@ -225,6 +228,7 @@ export const adminUsers = sqliteTable(
   },
   (table) => [
     uniqueIndex("admin_users_user_id_uq").on(table.userId),
+    uniqueIndex("admin_users_shopify_user_id_uq").on(table.shopifyUserId),
     index("admin_users_enabled_role_idx").on(table.enabled, table.role),
   ],
 );

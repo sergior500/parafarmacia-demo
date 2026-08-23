@@ -11,14 +11,15 @@ import { type FormEvent, type ReactNode, useState } from "react";
 
 import { Card } from "@/components/ui/card";
 import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
-import { type AdminRole,adminRoleLabel } from "@/server/admin-roles";
+import { type AdminRole, adminRoleLabel } from "@/server/admin-roles";
 
 export interface AdminTeamUser {
   email: string;
   displayName: string;
   role: AdminRole;
   enabled: boolean;
-  linked: boolean;
+  developmentIdentityLinked: boolean;
+  shopifyIdentityLinked: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -115,8 +116,9 @@ export function AdminTeamManager({
           {editingEmail ? "Editar acceso" : "Añadir persona"}
         </h2>
         <p className="text-ink-muted mt-2 text-sm leading-6">
-          La persona se identificará con ChatGPT y el panel aplicará únicamente
-          los permisos seleccionados.
+          Añade su correo profesional y asigna solo los permisos necesarios.
+          Shopify vinculará automáticamente su identidad verificada durante la
+          migración definitiva.
         </p>
         <form className="mt-6 space-y-4" onSubmit={submit}>
           <Field label="Nombre">
@@ -130,7 +132,7 @@ export function AdminTeamManager({
               value={form.displayName}
             />
           </Field>
-          <Field label="Correo de su cuenta ChatGPT">
+          <Field label="Correo profesional">
             <input
               className={inputClass}
               disabled={Boolean(editingEmail)}
@@ -239,12 +241,23 @@ export function AdminTeamManager({
                       : "bg-stone-200 text-stone-700"
                   }`}
                 >
-                  {user.enabled
-                    ? user.linked
-                      ? "Identidad vinculada"
-                      : "Pendiente de entrar"
-                    : "Desactivado"}
+                  {user.enabled ? "Acceso activo" : "Desactivado"}
                 </span>
+                {user.enabled ? (
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-black ${
+                      user.shopifyIdentityLinked
+                        ? "bg-emerald-100 text-emerald-800"
+                        : "bg-amber-100 text-amber-800"
+                    }`}
+                  >
+                    {user.shopifyIdentityLinked
+                      ? "Shopify vinculado"
+                      : user.developmentIdentityLinked
+                        ? "Acceso actual · Shopify pendiente"
+                        : "Pendiente de primer acceso"}
+                  </span>
+                ) : null}
               </div>
               <button
                 className="border-forest/15 text-forest inline-flex min-h-10 items-center justify-center gap-2 rounded-full border px-4 text-xs font-black"

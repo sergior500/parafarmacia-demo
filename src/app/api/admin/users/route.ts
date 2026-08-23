@@ -36,7 +36,8 @@ function publicUser(user: AdminUserRecord) {
     displayName: user.displayName,
     role: user.role,
     enabled: user.enabled,
-    linked: Boolean(user.userId),
+    developmentIdentityLinked: Boolean(user.userId),
+    shopifyIdentityLinked: Boolean(user.shopifyUserId),
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
   };

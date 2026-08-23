@@ -5,6 +5,7 @@ import { and, asc, eq, isNull, or } from "drizzle-orm";
 export interface AdminUserRecord {
   email: string;
   userId?: string;
+  shopifyUserId?: string;
   displayName: string;
   role: string;
   enabled: boolean;
@@ -25,6 +26,7 @@ function mapAdminUser(row: typeof adminUsers.$inferSelect): AdminUserRecord {
   return {
     email: row.email,
     userId: row.userId ?? undefined,
+    shopifyUserId: row.shopifyUserId ?? undefined,
     displayName: row.displayName,
     role: row.role,
     enabled: row.enabled,
@@ -33,6 +35,55 @@ function mapAdminUser(row: typeof adminUsers.$inferSelect): AdminUserRecord {
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
   };
+}
+
+/**
+ * Links a Shopify staff identity only after the OAuth layer has validated the
+ * token and Shopify has asserted that the email is verified. This function is
+ * intentionally not exposed through an admin form: identifiers must never be
+ * entered or trusted from the browser.
+ */
+export async function findAdminUserByShopifyIdentity(identity: {
+  shopifyUserId: string;
+  email: string;
+  emailVerified: boolean;
+}): Promise<AdminUserRecord | null> {
+  if (!identity.emailVerified) return null;
+  const shopifyUserId = identity.shopifyUserId.trim();
+  const email = identity.email.trim().toLowerCase();
+  if (!shopifyUserId || !email) return null;
+
+  const rows = await getDb()
+    .select()
+    .from(adminUsers)
+    .where(
+      or(
+        eq(adminUsers.shopifyUserId, shopifyUserId),
+        eq(adminUsers.email, email),
+      ),
+    )
+    .limit(2);
+  const byShopifyId = rows.find((row) => row.shopifyUserId === shopifyUserId);
+  const byEmail = rows.find((row) => row.email === email);
+  const match = byShopifyId ?? byEmail;
+  if (!match?.enabled) return null;
+  if (match.shopifyUserId && match.shopifyUserId !== shopifyUserId) return null;
+
+  if (!match.shopifyUserId) {
+    const bound = await getDb()
+      .update(adminUsers)
+      .set({ shopifyUserId, updatedAt: new Date().toISOString() })
+      .where(
+        and(
+          eq(adminUsers.email, match.email),
+          isNull(adminUsers.shopifyUserId),
+        ),
+      )
+      .returning();
+    if (!bound[0]) return null;
+    return mapAdminUser(bound[0]);
+  }
+  return mapAdminUser(match);
 }
 
 export async function listAdminUsers(): Promise<AdminUserRecord[]> {
