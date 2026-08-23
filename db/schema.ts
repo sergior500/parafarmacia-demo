@@ -233,6 +233,20 @@ export const adminUsers = sqliteTable(
   ],
 );
 
+export const customerSessions = sqliteTable(
+  "customer_sessions",
+  {
+    sessionIdHash: text("session_id_hash").primaryKey(),
+    accessTokenCiphertext: text("access_token_ciphertext").notNull(),
+    idTokenCiphertext: text("id_token_ciphertext").notNull(),
+    refreshTokenCiphertext: text("refresh_token_ciphertext"),
+    expiresAt: integer("expires_at").notNull(),
+    createdAt: integer("created_at").notNull(),
+    lastSeenAt: integer("last_seen_at").notNull(),
+  },
+  (table) => [index("customer_sessions_expires_idx").on(table.expiresAt)],
+);
+
 export const adminRateLimits = sqliteTable(
   "admin_rate_limits",
   {

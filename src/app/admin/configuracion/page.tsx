@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { ShopifyConnectionCard } from "@/features/admin/shopify-connection-card";
 import { pharmacyConfig } from "@/lib/config";
 import { requireAdminCapability } from "@/server/admin-auth";
+import { getShopifyCustomerAccountConfiguration } from "@/server/shopify/customer-account-config";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,7 @@ const adapters = [
 
 export default async function ConfigurationPage() {
   await requireAdminCapability("shopify:manage", "/admin/configuracion");
+  const customerAccounts = getShopifyCustomerAccountConfiguration();
   return (
     <>
       <header className="mb-8">
@@ -56,6 +58,44 @@ export default async function ConfigurationPage() {
               <dd className="font-bold">{pharmacyConfig.siteUrl}</dd>
             </div>
           </dl>
+        </Card>
+        <Card className="p-6">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="eyebrow">Área de cliente</p>
+              <h2 className="font-display text-forest mt-1 text-3xl">
+                Cuentas de Shopify
+              </h2>
+            </div>
+            <span
+              className={`rounded-full px-3 py-2 text-xs font-black ${
+                customerAccounts.configured
+                  ? "bg-emerald-100 text-emerald-800"
+                  : "bg-amber-100 text-amber-800"
+              }`}
+            >
+              {customerAccounts.configured ? "Preparado" : "Pendiente"}
+            </span>
+          </div>
+          <p className="text-ink-muted mt-3 text-sm leading-6">
+            Acceso sin contraseñas propias, sesiones cifradas y lectura de
+            pedidos y direcciones desde Shopify.
+          </p>
+          {customerAccounts.callbackUri ? (
+            <div className="bg-sage/40 mt-4 rounded-2xl p-4 text-xs">
+              <span className="text-ink-muted block">
+                URL de retorno autorizada
+              </span>
+              <code className="text-forest mt-1 block font-bold break-all">
+                {customerAccounts.callbackUri}
+              </code>
+            </div>
+          ) : null}
+          {!customerAccounts.configured ? (
+            <p className="mt-4 text-xs font-bold text-amber-800">
+              Pendiente: {customerAccounts.missing.join(" · ")}
+            </p>
+          ) : null}
         </Card>
         <Card className="p-6">
           <h2 className="font-display text-forest text-3xl">
