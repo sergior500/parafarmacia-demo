@@ -6,12 +6,12 @@ import {
   ShopifyCustomerAccountError,
 } from "@/server/shopify/customer-account-api";
 import { getShopifyCustomerAccountConfiguration } from "@/server/shopify/customer-account-config";
+import { customerAuthRateLimitExceeded } from "@/server/shopify/customer-account-rate-limit";
 import {
   constantTimeEqual,
   decodeOAuthAttempt,
   validateIdTokenClaims,
 } from "@/server/shopify/customer-account-security";
-import { customerAuthRateLimitExceeded } from "@/server/shopify/customer-account-rate-limit";
 import {
   createCustomerSession,
   customerOAuthCookieName,

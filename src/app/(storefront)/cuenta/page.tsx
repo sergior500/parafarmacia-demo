@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -13,18 +13,18 @@ import {
   UserRound,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import Link from "next/link";
-import type { LucideIcon } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
-  getCustomerAccountProfile,
-  ShopifyCustomerAccountError,
   type CustomerAccountOrder,
   type CustomerAccountProfile,
+  getCustomerAccountProfile,
+  ShopifyCustomerAccountError,
 } from "@/server/shopify/customer-account-api";
 import { getShopifyCustomerAccountConfiguration } from "@/server/shopify/customer-account-config";
 import {

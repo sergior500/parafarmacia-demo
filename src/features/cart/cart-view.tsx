@@ -18,13 +18,14 @@ import { ProductVisual } from "@/components/shared/product-visual";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { calculateCartTotals } from "@/domain/cart/cart";
+import { handOffToShopifyCheckout } from "@/features/cart/checkout-handoff";
 import { ProductCard } from "@/features/catalog/product-card";
 import { useDemo } from "@/features/demo/demo-provider";
 import { formatMoney } from "@/lib/format";
 import { products } from "@/mocks/products";
 
 export function CartView() {
-  const { cart, removeFromCart, updateCartQuantity } = useDemo();
+  const { cart, clearCart, removeFromCart, updateCartQuantity } = useDemo();
   const [error, setError] = useState("");
   const [promoMessage, setPromoMessage] = useState("");
   const [promoCode, setPromoCode] = useState("");
@@ -75,7 +76,10 @@ export function CartView() {
       if (!response.ok || !body?.checkoutUrl) {
         throw new Error(body?.error || "No se pudo preparar el pago seguro.");
       }
-      window.location.assign(body.checkoutUrl);
+      // The successful order finishes on Shopify's hosted thank-you page, so
+      // our browser storage does not receive a completion callback. Clear only
+      // after Shopify has accepted the cart and returned a validated URL.
+      handOffToShopifyCheckout(body.checkoutUrl, clearCart);
     } catch (checkoutFailure) {
       setCheckoutError(
         checkoutFailure instanceof Error
@@ -271,7 +275,10 @@ export function CartView() {
               ) : null}
             </form>
             {checkoutError ? (
-              <p className="mt-4 rounded-xl bg-red-50 p-3 text-xs font-bold text-red-800" role="alert">
+              <p
+                className="mt-4 rounded-xl bg-red-50 p-3 text-xs font-bold text-red-800"
+                role="alert"
+              >
                 {checkoutError}
               </p>
             ) : null}
@@ -282,11 +289,16 @@ export function CartView() {
               size="lg"
             >
               {checkoutLoading ? (
-                <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
+                <LoaderCircle
+                  aria-hidden="true"
+                  className="size-4 animate-spin"
+                />
               ) : (
                 <ShieldCheck aria-hidden="true" className="size-4" />
               )}
-              {checkoutLoading ? "Preparando pago…" : "Continuar al pago seguro"}
+              {checkoutLoading
+                ? "Preparando pago…"
+                : "Continuar al pago seguro"}
             </Button>
             <p className="text-ink-muted mt-3 text-center text-[.65rem]">
               Compra como invitado · pago protegido por Shopify

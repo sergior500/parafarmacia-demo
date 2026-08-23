@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 import { recordAdminOperation } from "@/server/admin-audit";
 import {
@@ -16,27 +15,9 @@ import {
   listShopifyInventory,
   setShopifyInventoryQuantity,
 } from "@/server/shopify/inventory";
+import { inventoryUpdateSchema } from "@/server/shopify/inventory-input";
 
 export const dynamic = "force-dynamic";
-
-const shopifyId = (resource: string) =>
-  z.string().regex(new RegExp(`^gid://shopify/${resource}/\\d+(?:\\?.*)?$`));
-
-const inventoryUpdateSchema = z.discriminatedUnion("action", [
-  z.object({
-    action: z.literal("set"),
-    inventoryItemId: shopifyId("InventoryItem"),
-    locationId: shopifyId("Location"),
-    quantity: z.number().int().min(0).max(999_999),
-    compareQuantity: z.number().int().min(0).max(999_999),
-  }),
-  z.object({
-    action: z.literal("activate"),
-    inventoryItemId: shopifyId("InventoryItem"),
-    locationId: shopifyId("Location"),
-    quantity: z.number().int().min(0).max(999_999),
-  }),
-]);
 
 export async function GET() {
   const authorization = await authorizeAdminRead("inventory:read");

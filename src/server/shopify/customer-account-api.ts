@@ -4,8 +4,8 @@ import {
 } from "@/server/shopify/customer-account-config";
 import {
   createPkceChallenge,
-  randomBase64Url,
   type CustomerOAuthAttempt,
+  randomBase64Url,
 } from "@/server/shopify/customer-account-security";
 import type { CustomerTokenSet } from "@/server/shopify/customer-account-session";
 

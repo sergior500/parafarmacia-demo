@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { createCustomerAuthorization } from "@/server/shopify/customer-account-api";
 import { getShopifyCustomerAccountConfiguration } from "@/server/shopify/customer-account-config";
+import { customerAuthRateLimitExceeded } from "@/server/shopify/customer-account-rate-limit";
 import {
   encodeOAuthAttempt,
   safeCustomerReturnPath,
@@ -10,7 +11,6 @@ import {
   customerOAuthCookieName,
   secureCustomerCookieOptions,
 } from "@/server/shopify/customer-account-session";
-import { customerAuthRateLimitExceeded } from "@/server/shopify/customer-account-rate-limit";
 
 export const dynamic = "force-dynamic";
 
