@@ -119,7 +119,9 @@ describe("activateShopifyInventory", () => {
       "inventorySetQuantities",
     );
     expect(shopifyAdminGraphql.mock.calls[2]?.[1]).toMatchObject({
-      input: { ignoreCompareQuantity: true },
+      input: {
+        quantities: [expect.objectContaining({ changeFromQuantity: null })],
+      },
     });
   });
 

@@ -163,7 +163,7 @@ export function ShopifyInventoryManager({
       inventoryItemId: item.id,
       locationId: level.locationId,
       quantity: nextQuantity,
-      compareQuantity: level.available,
+      changeFromQuantity: level.available,
     });
   }
 

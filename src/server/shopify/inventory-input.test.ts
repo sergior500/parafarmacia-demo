@@ -14,7 +14,7 @@ describe("inventoryUpdateSchema", () => {
         action: "set",
         ...identifiers,
         quantity: 1,
-        compareQuantity: -1,
+        changeFromQuantity: -1,
       }).success,
     ).toBe(true);
   });
@@ -25,7 +25,7 @@ describe("inventoryUpdateSchema", () => {
         action: "set",
         ...identifiers,
         quantity: -1,
-        compareQuantity: -1,
+        changeFromQuantity: -1,
       }).success,
     ).toBe(false);
   });

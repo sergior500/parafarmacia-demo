@@ -262,7 +262,7 @@ export async function setShopifyInventoryQuantity(input: {
   inventoryItemId: string;
   locationId: string;
   quantity: number;
-  compareQuantity: number;
+  changeFromQuantity: number;
 }) {
   const data = await shopifyAdminGraphql<{
     inventorySetQuantities: {
@@ -285,7 +285,7 @@ export async function setShopifyInventoryQuantity(input: {
           inventoryItemId: input.inventoryItemId,
           locationId: input.locationId,
           quantity: input.quantity,
-          compareQuantity: input.compareQuantity,
+          changeFromQuantity: input.changeFromQuantity,
         },
       ],
     },
@@ -348,7 +348,6 @@ export async function activateShopifyInventory(input: {
       };
     }>(SET_INVENTORY_MUTATION, {
       input: {
-        ignoreCompareQuantity: true,
         name: "available",
         reason: "correction",
         referenceDocumentUri: "picual-admin://inventory/activation",
@@ -357,7 +356,7 @@ export async function activateShopifyInventory(input: {
             inventoryItemId: input.inventoryItemId,
             locationId: input.locationId,
             quantity: input.quantity,
-            compareQuantity: null,
+            changeFromQuantity: null,
           },
         ],
       },
