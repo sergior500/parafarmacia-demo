@@ -34,13 +34,23 @@ pedido enviado
   formulario de preparación.
 - Inventario usa comparación optimista con la cantidad leída para detectar
   cambios concurrentes en Shopify.
+- La cancelación solo se ofrece antes de cualquier envío total o parcial, exige
+  escribir el número del pedido y confirmar que la acción es irreversible.
+- Esta operación anula una compra pendiente; no equivale a aceptar una
+  devolución de producto abierto después de la entrega.
+- Si Shopify ya capturó dinero, la cancelación desde el panel siempre devuelve
+  todo el importe al método original; no se permite cancelar conservando el
+  cobro.
+- El operador decide si reponer las unidades y si Shopify debe notificar al
+  cliente. El motivo y una nota interna son obligatorios y la operación queda
+  auditada.
 
 ## Operaciones todavía delegadas en Shopify
 
-La aplicación no implementa todavía cancelaciones, devoluciones, reembolsos,
-etiquetas de transporte ni conciliación de pagos. Esas operaciones permanecen
-en Shopify hasta desarrollar y probar sus equivalentes en el panel. No deben
-simularse como completadas.
+La aplicación implementa cancelación completa con reembolso íntegro cuando
+corresponde. Todavía delega en Shopify devoluciones, reembolsos parciales,
+etiquetas de transporte y conciliación de pagos. No deben simularse como
+completadas.
 
 ## Pruebas de desarrollo
 

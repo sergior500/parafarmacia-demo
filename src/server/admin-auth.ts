@@ -1,10 +1,7 @@
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 
-import {
-  type AdminRole,
-  isAdminRole,
-} from "@/server/admin-roles";
+import { type AdminRole, isAdminRole } from "@/server/admin-roles";
 
 export {
   type AdminRole,
@@ -30,6 +27,7 @@ export type AdminCapability =
   | "inventory:write"
   | "orders:read"
   | "orders:fulfill"
+  | "orders:cancel"
   | "shopify:manage"
   | "security:read"
   | "team:read"
@@ -46,6 +44,7 @@ const ROLE_CAPABILITIES: Record<AdminRole, ReadonlySet<AdminCapability>> = {
     "inventory:write",
     "orders:read",
     "orders:fulfill",
+    "orders:cancel",
     "shopify:manage",
     "security:read",
     "team:read",
@@ -66,6 +65,7 @@ const ROLE_CAPABILITIES: Record<AdminRole, ReadonlySet<AdminCapability>> = {
     "inventory:write",
     "orders:read",
     "orders:fulfill",
+    "orders:cancel",
   ]),
   auditor: new Set<AdminCapability>([
     "dashboard:read",

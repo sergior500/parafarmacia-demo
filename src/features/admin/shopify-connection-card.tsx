@@ -52,6 +52,7 @@ const scopeLabels: Record<string, string> = {
   read_locations: "Leer ubicaciones",
   read_orders: "Leer pedidos",
   write_merchant_managed_fulfillment_orders: "Preparar y registrar envíos",
+  write_orders: "Cancelar y gestionar pedidos",
   unauthenticated_read_product_listings: "Mostrar el catálogo público",
   unauthenticated_write_checkouts: "Crear carritos de compra",
   unauthenticated_read_checkouts: "Abrir el checkout seguro",

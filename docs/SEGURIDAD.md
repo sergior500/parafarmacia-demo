@@ -42,12 +42,12 @@ La plataforma de hosting es una frontera de confianza: la aplicación confía en
 
 ### 3.2 Roles de mínimo privilegio
 
-| Rol                   |          Catálogo | Publicar |        Inventario |               Pedidos | Equipo | Shopify/configuración | Seguridad |
-| --------------------- | ----------------: | -------: | ----------------: | --------------------: | -----: | --------------------: | --------: |
-| Propietario           | Lectura/escritura |       Sí | Lectura/escritura | Lectura y preparación |     Sí |                    Sí |        Sí |
-| Gestor de catálogo    | Lectura/escritura |       Sí | Lectura/escritura |                    No |     No |                    No |        No |
-| Gestor de operaciones |                No |       No | Lectura/escritura | Lectura y preparación |     No |                    No |        No |
-| Auditor               |      Solo lectura |       No |      Solo lectura |          Solo lectura |     No |                    No |   Lectura |
+| Rol                   |          Catálogo | Publicar |        Inventario |                      Pedidos | Equipo | Shopify/configuración | Seguridad |
+| --------------------- | ----------------: | -------: | ----------------: | ---------------------------: | -----: | --------------------: | --------: |
+| Propietario           | Lectura/escritura |       Sí | Lectura/escritura | Lectura, envío y cancelación |     Sí |                    Sí |        Sí |
+| Gestor de catálogo    | Lectura/escritura |       Sí | Lectura/escritura |                           No |     No |                    No |        No |
+| Gestor de operaciones |                No |       No | Lectura/escritura | Lectura, envío y cancelación |     No |                    No |        No |
+| Auditor               |      Solo lectura |       No |      Solo lectura |                 Solo lectura |     No |                    No |   Lectura |
 
 Las listas antiguas `ADMIN_ALLOWED_*` se interpretan como propietario para conservar compatibilidad. El panel `/admin/equipo` guarda el personal y sus roles en D1; las listas de entorno quedan como acceso de arranque y recuperación hasta completar la transferencia a la cuenta real de la farmacia.
 
@@ -79,7 +79,7 @@ El token CSRF no protege frente a una vulnerabilidad XSS ejecutada dentro del pr
 
 En producción los límites se almacenan en D1 y se actualizan atómicamente. La clave es una huella HMAC de administrador, red y familia de operación; no se guarda la IP en texto claro.
 
-Se aplican políticas más estrictas a importaciones, imágenes, sincronización, publicación, inventario, preparación de pedidos, gestión del equipo y configuración de Shopify. Los lotes de catálogo están limitados a diez productos.
+Se aplican políticas más estrictas a importaciones, imágenes, sincronización, publicación, inventario, preparación y cancelación de pedidos, gestión del equipo y configuración de Shopify. Los lotes de catálogo están limitados a diez productos.
 
 Si D1 o el secreto de seguridad no están disponibles, la operación se bloquea con `503`: el sistema falla de forma cerrada. En desarrollo local se conserva un limitador en memoria para facilitar pruebas.
 
@@ -98,7 +98,7 @@ Si D1 o el secreto de seguridad no están disponibles, la operación se bloquea 
 
 Antes de publicar un producto, el servidor comprueba que está sincronizado, aprobado y que dispone de precio, stock, formato e imagen. Ocultar o publicar establece un estado deseado en Shopify, reduciendo el efecto de repeticiones.
 
-Las operaciones de inventario y preparación de pedidos utilizan claves de idempotencia de Shopify. La preparación de un pedido conserva el mismo identificador durante un reintento para evitar dobles ejecuciones.
+Las operaciones de inventario y preparación de pedidos utilizan claves de idempotencia de Shopify. La preparación de un pedido conserva el mismo identificador durante un reintento para evitar dobles ejecuciones. Antes de cancelar se vuelve a leer el pedido: si ya está cancelado, el servidor considera alcanzado el estado deseado sin repetir el efecto. La cancelación exige además motivo, nota interna, número de pedido exacto y doble confirmación humana.
 
 ## 5. Protección del navegador
 

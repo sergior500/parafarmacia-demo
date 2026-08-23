@@ -8,7 +8,7 @@
 | Imágenes   | R2, validación de tipo/firma y sincronización con Shopify                     |
 | Inventario | Shopify por ubicación, activación y actualización con control de concurrencia |
 | Checkout   | Shopify Storefront API y checkout alojado por Shopify                         |
-| Pedidos    | Lectura, métricas, detalle y fulfillment desde el panel propio                |
+| Pedidos    | Lectura, métricas, detalle, fulfillment y cancelación completa desde el panel |
 | Clientes   | Shopify Customer Account OAuth 2.0 + PKCE                                     |
 | Eventos    | Webhooks Shopify autenticados e idempotentes                                  |
 | Panel      | Identidad del hosting, roles y permisos comprobados en servidor               |
@@ -23,7 +23,7 @@
 | Transporte   | Zonas, tarifas, transportista, plazos, incidencias y seguimiento                         |
 | Fiscalidad   | Configuración fiscal revisada para los territorios de venta                              |
 | Legal        | Identidad mercantil, privacidad, cookies, compra, desistimiento y devoluciones validadas |
-| Comunicación | Dominio, remitente de correo, plantillas y datos de contacto reales                      |
+| Comunicación | Dominio, remitente, plantillas transaccionales personalizadas y datos de contacto reales |
 | Operación    | Responsables, MFA, copias, restauración, alertas, soporte e incidentes                   |
 | Analítica    | Herramienta, consentimiento y política de medición                                       |
 

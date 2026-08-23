@@ -104,4 +104,13 @@ test("carga el panel actual y bloquea mutaciones sin CSRF", async ({
   await expect(response.json()).resolves.toMatchObject({
     error: expect.stringContaining("seguridad"),
   });
+
+  const cancellation = await page.request.post(
+    "/api/admin/orders/1001/cancel",
+    {
+      headers: { origin: "http://localhost:3000" },
+      data: {},
+    },
+  );
+  expect(cancellation.status()).toBe(419);
 });

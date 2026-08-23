@@ -106,6 +106,29 @@ const FULFILLMENT_CREATE_MUTATION = `
   }
 `;
 
+const ORDER_CANCEL_MUTATION = `
+  mutation PicualOrderCancel(
+    $orderId: ID!
+    $notifyCustomer: Boolean!
+    $refundMethod: OrderCancelRefundMethodInput!
+    $restock: Boolean!
+    $reason: OrderCancelReason!
+    $staffNote: String!
+  ) {
+    orderCancel(
+      orderId: $orderId
+      notifyCustomer: $notifyCustomer
+      refundMethod: $refundMethod
+      restock: $restock
+      reason: $reason
+      staffNote: $staffNote
+    ) {
+      job { id done }
+      orderCancelUserErrors { field message code }
+    }
+  }
+`;
+
 interface ShopifyMoney {
   amount: string;
   currencyCode: string;
@@ -252,6 +275,33 @@ export interface ShopifyFulfillmentInput {
   trackingUrl?: string;
 }
 
+export const SHOPIFY_ORDER_CANCEL_REASONS = [
+  "CUSTOMER",
+  "DECLINED",
+  "FRAUD",
+  "INVENTORY",
+  "OTHER",
+  "STAFF",
+] as const;
+
+export type ShopifyOrderCancelReason =
+  (typeof SHOPIFY_ORDER_CANCEL_REASONS)[number];
+
+export interface ShopifyOrderCancellationInput {
+  operationId: string;
+  confirmation: string;
+  reason: ShopifyOrderCancelReason;
+  staffNote: string;
+  notifyCustomer: boolean;
+  restock: boolean;
+  refundOriginalPaymentMethods: boolean;
+}
+
+export interface ShopifyOrderCancellationResult {
+  alreadyCancelled: boolean;
+  job?: { id: string; done: boolean };
+}
+
 export interface ShopifyOrdersReport {
   currencyCode: string;
   orders: ShopifyOrderSummary[];
@@ -277,6 +327,39 @@ export function canFulfillShopifyOrder(
   return (
     !order.cancelled && order.fullyPaid && order.fulfillmentOrders.length > 0
   );
+}
+
+export function orderHasCapturedPayment(
+  order: Pick<ShopifyOrderDetail, "financialStatus">,
+): boolean {
+  return ["PAID", "PARTIALLY_PAID", "PARTIALLY_REFUNDED"].includes(
+    order.financialStatus,
+  );
+}
+
+export function canCancelShopifyOrder(
+  order: Pick<ShopifyOrderDetail, "cancelled" | "fulfillmentStatus">,
+): boolean {
+  return (
+    !order.cancelled &&
+    !["FULFILLED", "PARTIALLY_FULFILLED"].includes(order.fulfillmentStatus)
+  );
+}
+
+export function buildOrderCancellationVariables(
+  orderId: string,
+  input: ShopifyOrderCancellationInput,
+) {
+  return {
+    orderId: `gid://shopify/Order/${orderId}`,
+    notifyCustomer: input.notifyCustomer,
+    refundMethod: {
+      originalPaymentMethodsRefund: input.refundOriginalPaymentMethods,
+    },
+    restock: input.restock,
+    reason: input.reason,
+    staffNote: input.staffNote,
+  };
 }
 
 function moneyAmount(value: ShopifyMoneySet): number {
@@ -584,4 +667,53 @@ export async function fulfillShopifyOrder(
     });
   }
   return { completed };
+}
+
+export async function cancelShopifyOrder(
+  legacyId: string,
+  input: ShopifyOrderCancellationInput,
+): Promise<ShopifyOrderCancellationResult> {
+  const order = await getShopifyOrder(legacyId);
+  if (!order) throw new ShopifyApiError("El pedido no existe en Shopify.");
+  if (order.cancelled) return { alreadyCancelled: true };
+  if (!canCancelShopifyOrder(order)) {
+    throw new ShopifyApiError(
+      "Un pedido enviado total o parcialmente no puede cancelarse. Debe gestionarse como devolución o reembolso.",
+    );
+  }
+  if (input.confirmation !== order.name) {
+    throw new ShopifyApiError(
+      `Escribe ${order.name} exactamente para confirmar la cancelación.`,
+    );
+  }
+  if (orderHasCapturedPayment(order) && !input.refundOriginalPaymentMethods) {
+    throw new ShopifyApiError(
+      "Un pedido cobrado solo puede cancelarse desde este panel devolviendo el importe al método de pago original.",
+    );
+  }
+
+  const data = await shopifyAdminGraphql<{
+    orderCancel: {
+      job: { id: string; done: boolean } | null;
+      orderCancelUserErrors: Array<{
+        field?: string[];
+        message: string;
+        code?: string;
+      }>;
+    };
+  }>(ORDER_CANCEL_MUTATION, buildOrderCancellationVariables(legacyId, input));
+
+  if (data.orderCancel.orderCancelUserErrors.length) {
+    throw new ShopifyApiError(
+      data.orderCancel.orderCancelUserErrors
+        .map((error) => error.message)
+        .join(" · "),
+    );
+  }
+  if (!data.orderCancel.job) {
+    throw new ShopifyApiError(
+      "Shopify no ha confirmado la solicitud de cancelación.",
+    );
+  }
+  return { alreadyCancelled: false, job: data.orderCancel.job };
 }

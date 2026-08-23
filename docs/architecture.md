@@ -13,7 +13,7 @@ Worker Vinext + rutas de servidor
   ├─ R2: imágenes validadas
   └─ Shopify APIs
        ├─ Storefront: carrito y checkout
-       ├─ Admin: productos, publicación, stock, pedidos y fulfillment
+       ├─ Admin: productos, publicación, stock, pedidos, cancelación y fulfillment
        └─ Customer Account: identidad e historial del cliente
 ```
 
@@ -82,7 +82,9 @@ El documento normativo completo es [SEGURIDAD.md](./SEGURIDAD.md).
 2. Shopify aloja el checkout y procesa el pago con el proveedor configurado.
 3. El panel lee pedidos y fulfillment orders mediante Admin API.
 4. Un operador autorizado confirma la preparación y registra el fulfillment.
-5. Webhooks y lecturas posteriores mantienen el estado observable.
+5. Antes del envío, un gestor autorizado puede solicitar una cancelación
+   completa con devolución al método original cuando ya hubo cobro.
+6. Webhooks y lecturas posteriores mantienen el estado observable.
 
 ## Despliegue
 

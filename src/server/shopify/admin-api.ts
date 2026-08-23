@@ -24,6 +24,7 @@ export const REQUIRED_SHOPIFY_SCOPES = [
   "write_inventory",
   "read_locations",
   "read_orders",
+  "write_orders",
   "write_merchant_managed_fulfillment_orders",
   "unauthenticated_read_product_listings",
   "unauthenticated_write_checkouts",

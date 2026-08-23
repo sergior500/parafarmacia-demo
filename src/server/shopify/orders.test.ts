@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  buildOrderCancellationVariables,
   buildOrdersReport,
+  canCancelShopifyOrder,
   canFulfillShopifyOrder,
   mapFulfillmentOrders,
+  orderHasCapturedPayment,
 } from "@/server/shopify/orders";
 
 function order(
@@ -184,5 +187,62 @@ describe("canFulfillShopifyOrder", () => {
         fulfillmentOrders: [],
       }),
     ).toBe(false);
+  });
+});
+
+describe("order cancellation", () => {
+  it("solo ofrece cancelación antes del envío y detecta importes cobrados", () => {
+    expect(
+      canCancelShopifyOrder({
+        cancelled: false,
+        fulfillmentStatus: "UNFULFILLED",
+      }),
+    ).toBe(true);
+    expect(
+      canCancelShopifyOrder({
+        cancelled: false,
+        fulfillmentStatus: "FULFILLED",
+      }),
+    ).toBe(false);
+    expect(
+      canCancelShopifyOrder({
+        cancelled: false,
+        fulfillmentStatus: "PARTIALLY_FULFILLED",
+      }),
+    ).toBe(false);
+    expect(
+      canCancelShopifyOrder({
+        cancelled: true,
+        fulfillmentStatus: "UNFULFILLED",
+      }),
+    ).toBe(false);
+    expect(orderHasCapturedPayment({ financialStatus: "PAID" })).toBe(true);
+    expect(orderHasCapturedPayment({ financialStatus: "PARTIALLY_PAID" })).toBe(
+      true,
+    );
+    expect(orderHasCapturedPayment({ financialStatus: "AUTHORIZED" })).toBe(
+      false,
+    );
+  });
+
+  it("construye una cancelación completa sin enviar campos del cliente", () => {
+    expect(
+      buildOrderCancellationVariables("1001", {
+        operationId: "5f25bdb4-41c0-4d9e-9184-cad5f23189da",
+        confirmation: "#1001",
+        reason: "CUSTOMER",
+        staffNote: "El cliente solicita cancelar el pedido.",
+        notifyCustomer: true,
+        restock: true,
+        refundOriginalPaymentMethods: true,
+      }),
+    ).toEqual({
+      orderId: "gid://shopify/Order/1001",
+      notifyCustomer: true,
+      refundMethod: { originalPaymentMethodsRefund: true },
+      restock: true,
+      reason: "CUSTOMER",
+      staffNote: "El cliente solicita cancelar el pedido.",
+    });
   });
 });

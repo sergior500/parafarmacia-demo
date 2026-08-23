@@ -31,8 +31,8 @@ La aplicación queda disponible en `http://localhost:3000`.
   preparación, equipo, configuración, seguridad y control de apertura.
 - Catálogo persistido en Cloudflare D1 e imágenes en R2.
 - Sincronización de productos y stock con Shopify Admin API.
-- Pedidos y métricas comerciales leídos de Shopify; registro de envíos mediante
-  una mutación idempotente.
+- Pedidos y métricas comerciales leídos de Shopify; registro de envíos y
+  cancelación completa protegidos desde el panel.
 - Cuentas de cliente mediante Shopify Customer Account API con OAuth 2.0,
   PKCE y tokens cifrados en servidor.
 - Webhooks de Shopify con verificación HMAC, límites de tamaño, temas

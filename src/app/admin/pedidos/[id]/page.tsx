@@ -13,6 +13,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Card } from "@/components/ui/card";
+import { CancelOrderForm } from "@/features/admin/cancel-order-form";
 import { FulfillOrderForm } from "@/features/admin/fulfill-order-form";
 import {
   financialStatusLabel,
@@ -20,10 +21,15 @@ import {
   formatShopifyMoney,
   fulfillmentStatusLabel,
 } from "@/features/admin/shopify-order-format";
-import { requireAdminCapability } from "@/server/admin-auth";
 import {
+  hasAdminCapability,
+  requireAdminCapability,
+} from "@/server/admin-auth";
+import {
+  canCancelShopifyOrder,
   canFulfillShopifyOrder,
   getShopifyOrder,
+  orderHasCapturedPayment,
 } from "@/server/shopify/orders";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +41,10 @@ export default async function OrderPage({
 }) {
   const { id } = await params;
   if (!/^\d+$/.test(id)) notFound();
-  await requireAdminCapability("orders:read", `/admin/pedidos/${id}`);
+  const actor = await requireAdminCapability(
+    "orders:read",
+    `/admin/pedidos/${id}`,
+  );
 
   let order;
   try {
@@ -184,6 +193,15 @@ export default async function OrderPage({
             <FulfillOrderForm
               fulfillmentOrders={order.fulfillmentOrders}
               orderId={order.legacyId}
+            />
+          ) : null}
+
+          {hasAdminCapability(actor, "orders:cancel") &&
+          canCancelShopifyOrder(order) ? (
+            <CancelOrderForm
+              orderId={order.legacyId}
+              orderName={order.name}
+              requiresRefund={orderHasCapturedPayment(order)}
             />
           ) : null}
 
