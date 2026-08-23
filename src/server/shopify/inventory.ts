@@ -54,6 +54,22 @@ const TRACK_INVENTORY_MUTATION = `
   }
 `;
 
+const INVENTORY_ITEM_LEVEL_QUERY = `
+  query PicualInventoryItemLevel($inventoryItemId: ID!, $locationId: ID!) {
+    inventoryItem(id: $inventoryItemId) {
+      inventoryLevel(locationId: $locationId, includeInactive: true) {
+        id
+        isActive
+        location { id name }
+        quantities(names: ["available", "committed", "on_hand"]) {
+          name
+          quantity
+        }
+      }
+    }
+  }
+`;
+
 const ACTIVATE_INVENTORY_MUTATION = `
   mutation PicualInventoryActivate(
     $inventoryItemId: ID!
@@ -309,6 +325,52 @@ export async function activateShopifyInventory(input: {
         .map((error) => error.message)
         .join(" · "),
     );
+  }
+
+  const current = await shopifyAdminGraphql<{
+    inventoryItem: { inventoryLevel: RawInventoryLevel | null } | null;
+  }>(INVENTORY_ITEM_LEVEL_QUERY, {
+    inventoryItemId: input.inventoryItemId,
+    locationId: input.locationId,
+  });
+
+  if (current.inventoryItem?.inventoryLevel?.isActive) {
+    const data = await shopifyAdminGraphql<{
+      inventorySetQuantities: {
+        inventoryAdjustmentGroup: {
+          changes: Array<{
+            name: string;
+            delta: number;
+            quantityAfterChange: number;
+          }>;
+        } | null;
+        userErrors: Array<{ code?: string; field?: string[]; message: string }>;
+      };
+    }>(SET_INVENTORY_MUTATION, {
+      input: {
+        ignoreCompareQuantity: true,
+        name: "available",
+        reason: "correction",
+        referenceDocumentUri: "picual-admin://inventory/activation",
+        quantities: [
+          {
+            inventoryItemId: input.inventoryItemId,
+            locationId: input.locationId,
+            quantity: input.quantity,
+            compareQuantity: null,
+          },
+        ],
+      },
+      idempotencyKey: crypto.randomUUID(),
+    });
+    if (data.inventorySetQuantities.userErrors.length) {
+      throw new ShopifyApiError(
+        data.inventorySetQuantities.userErrors
+          .map((error) => error.message)
+          .join(" · "),
+      );
+    }
+    return { quantity: input.quantity };
   }
 
   const data = await shopifyAdminGraphql<{

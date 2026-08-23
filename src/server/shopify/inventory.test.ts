@@ -1,6 +1,16 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { mapInventoryReport } from "@/server/shopify/inventory";
+import {
+  activateShopifyInventory,
+  mapInventoryReport,
+} from "@/server/shopify/inventory";
+
+const shopifyAdminGraphql = vi.hoisted(() => vi.fn());
+
+vi.mock("@/server/shopify/admin-api", () => ({
+  shopifyAdminGraphql,
+  ShopifyApiError: class ShopifyApiError extends Error {},
+}));
 
 describe("mapInventoryReport", () => {
   it("resume seguimiento, stock bajo y agotados por ubicación", () => {
@@ -65,5 +75,86 @@ describe("mapInventoryReport", () => {
     });
     expect(report.items[0]?.variantTitle).toBe("Formato único");
     expect(report.locations[0]?.city).toBe("Jaén");
+  });
+});
+
+describe("activateShopifyInventory", () => {
+  beforeEach(() => shopifyAdminGraphql.mockReset());
+
+  it("sets the initial quantity when the location was already active", async () => {
+    shopifyAdminGraphql
+      .mockResolvedValueOnce({
+        inventoryItemUpdate: {
+          inventoryItem: { id: "item-1", tracked: true },
+          userErrors: [],
+        },
+      })
+      .mockResolvedValueOnce({
+        inventoryItem: {
+          inventoryLevel: {
+            id: "level-1",
+            isActive: true,
+            location: { id: "location-1", name: "Farmacia" },
+            quantities: [{ name: "available", quantity: 0 }],
+          },
+        },
+      })
+      .mockResolvedValueOnce({
+        inventorySetQuantities: {
+          inventoryAdjustmentGroup: {
+            changes: [{ name: "available", delta: 1, quantityAfterChange: 1 }],
+          },
+          userErrors: [],
+        },
+      });
+
+    await expect(
+      activateShopifyInventory({
+        inventoryItemId: "item-1",
+        locationId: "location-1",
+        quantity: 1,
+      }),
+    ).resolves.toEqual({ quantity: 1 });
+    expect(shopifyAdminGraphql.mock.calls[2]?.[0]).toContain(
+      "inventorySetQuantities",
+    );
+    expect(shopifyAdminGraphql.mock.calls[2]?.[1]).toMatchObject({
+      input: { ignoreCompareQuantity: true },
+    });
+  });
+
+  it("activates a new inventory level when the location is not stocked", async () => {
+    shopifyAdminGraphql
+      .mockResolvedValueOnce({
+        inventoryItemUpdate: {
+          inventoryItem: { id: "item-1", tracked: true },
+          userErrors: [],
+        },
+      })
+      .mockResolvedValueOnce({
+        inventoryItem: { inventoryLevel: null },
+      })
+      .mockResolvedValueOnce({
+        inventoryActivate: {
+          inventoryLevel: {
+            id: "level-1",
+            isActive: true,
+            location: { id: "location-1", name: "Farmacia" },
+            quantities: [{ name: "available", quantity: 2 }],
+          },
+          userErrors: [],
+        },
+      });
+
+    await expect(
+      activateShopifyInventory({
+        inventoryItemId: "item-1",
+        locationId: "location-1",
+        quantity: 2,
+      }),
+    ).resolves.toEqual({ quantity: 2 });
+    expect(shopifyAdminGraphql.mock.calls[2]?.[0]).toContain(
+      "inventoryActivate",
+    );
   });
 });
