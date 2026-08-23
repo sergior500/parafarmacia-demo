@@ -19,8 +19,9 @@ describe("customer account security", () => {
     await expect(decryptCustomerSecret(encrypted, secret)).resolves.toBe(
       "access-token",
     );
+    const replacement = encrypted.endsWith("A") ? "B" : "A";
     await expect(
-      decryptCustomerSecret(`${encrypted.slice(0, -1)}A`, secret),
+      decryptCustomerSecret(`${encrypted.slice(0, -1)}${replacement}`, secret),
     ).resolves.toBeNull();
   });
 

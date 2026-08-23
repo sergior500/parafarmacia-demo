@@ -94,6 +94,7 @@ export default async function HomePage() {
               src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/hero-parafarmacia-editorial.png`}
               alt="Composición editorial de envases cosméticos sin marca sobre pedestales verde salvia"
               fill
+              unoptimized
               className="object-cover"
               priority
               sizes="(min-width: 1024px) 55vw, 100vw"
