@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildOrdersReport,
+  canFulfillShopifyOrder,
   mapFulfillmentOrders,
 } from "@/server/shopify/orders";
 
@@ -23,6 +24,7 @@ function order(
     name: `#${id}`,
     createdAt,
     cancelledAt: options.cancelledAt ?? null,
+    fullyPaid: (options.financial ?? "PAID") === "PAID",
     displayFinancialStatus: options.financial ?? "PAID",
     displayFulfillmentStatus: options.fulfillment ?? "UNFULFILLED",
     email: "cliente@example.com",
@@ -84,7 +86,7 @@ describe("buildOrdersReport", () => {
 
     expect(report.metrics.todaySales).toBe(5);
     expect(report.metrics.monthOrders).toBe(2);
-    expect(report.metrics.pendingPreparation).toBe(1);
+    expect(report.metrics.pendingPreparation).toBe(0);
   });
 });
 
@@ -140,5 +142,47 @@ describe("mapFulfillmentOrders", () => {
         ],
       },
     ]);
+  });
+});
+
+describe("canFulfillShopifyOrder", () => {
+  const pendingFulfillment = [
+    {
+      id: "gid://shopify/FulfillmentOrder/1",
+      status: "OPEN",
+      locationName: "Farmacia Picual",
+      items: [],
+    },
+  ];
+
+  it("solo permite enviar pedidos pagados, activos y con preparación pendiente", () => {
+    expect(
+      canFulfillShopifyOrder({
+        cancelled: false,
+        fullyPaid: true,
+        fulfillmentOrders: pendingFulfillment,
+      }),
+    ).toBe(true);
+    expect(
+      canFulfillShopifyOrder({
+        cancelled: false,
+        fullyPaid: false,
+        fulfillmentOrders: pendingFulfillment,
+      }),
+    ).toBe(false);
+    expect(
+      canFulfillShopifyOrder({
+        cancelled: true,
+        fullyPaid: true,
+        fulfillmentOrders: pendingFulfillment,
+      }),
+    ).toBe(false);
+    expect(
+      canFulfillShopifyOrder({
+        cancelled: false,
+        fullyPaid: true,
+        fulfillmentOrders: [],
+      }),
+    ).toBe(false);
   });
 });

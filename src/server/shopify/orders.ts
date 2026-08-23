@@ -18,6 +18,7 @@ const ORDERS_QUERY = `
         name
         createdAt
         cancelledAt
+        fullyPaid
         displayFinancialStatus
         displayFulfillmentStatus
         email
@@ -120,6 +121,7 @@ interface RawOrderSummary {
   name: string;
   createdAt: string;
   cancelledAt: string | null;
+  fullyPaid: boolean;
   displayFinancialStatus: string | null;
   displayFulfillmentStatus: string;
   email: string | null;
@@ -193,6 +195,7 @@ export interface ShopifyOrderSummary {
   customerEmail?: string;
   destination: string;
   financialStatus: string;
+  fullyPaid: boolean;
   fulfillmentStatus: string;
   cancelled: boolean;
   amount: number;
@@ -265,6 +268,17 @@ export interface ShopifyOrdersReport {
   topProducts: Array<{ name: string; quantity: number }>;
 }
 
+export function canFulfillShopifyOrder(
+  order: Pick<
+    ShopifyOrderDetail,
+    "cancelled" | "fullyPaid" | "fulfillmentOrders"
+  >,
+): boolean {
+  return (
+    !order.cancelled && order.fullyPaid && order.fulfillmentOrders.length > 0
+  );
+}
+
 function moneyAmount(value: ShopifyMoneySet): number {
   const parsed = Number(value.shopMoney.amount);
   return Number.isFinite(parsed) ? parsed : 0;
@@ -307,6 +321,7 @@ function mapOrder(order: RawOrderSummary): ShopifyOrderSummary {
     customerEmail: order.email ?? undefined,
     destination: destination || "Sin dirección de envío",
     financialStatus: order.displayFinancialStatus ?? "UNKNOWN",
+    fullyPaid: order.fullyPaid,
     fulfillmentStatus: order.displayFulfillmentStatus,
     cancelled: Boolean(order.cancelledAt),
     amount: moneyAmount(order.currentTotalPriceSet),
@@ -364,6 +379,7 @@ export function buildOrdersReport(
     }
     if (
       !order.cancelledAt &&
+      order.fullyPaid &&
       !["FULFILLED", "RESTOCKED"].includes(order.displayFulfillmentStatus)
     ) {
       pendingPreparation += 1;
@@ -511,6 +527,11 @@ export async function fulfillShopifyOrder(
   if (!order) throw new ShopifyApiError("El pedido no existe en Shopify.");
   if (order.cancelled) {
     throw new ShopifyApiError("No se puede preparar un pedido cancelado.");
+  }
+  if (!order.fullyPaid) {
+    throw new ShopifyApiError(
+      "El pago todavía no está confirmado. No se puede registrar el envío.",
+    );
   }
   if (!order.fulfillmentOrders.length) {
     throw new ShopifyApiError(

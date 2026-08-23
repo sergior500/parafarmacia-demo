@@ -189,7 +189,8 @@ export function FulfillOrderForm({
           Registrar como enviado
         </button>
         <p className="text-ink-muted text-xs leading-5">
-          Esta acción actualiza el pedido real y descuenta el stock en Shopify.
+          Esta acción actualiza el pedido real. Shopify ya reserva el stock al
+          crear el pedido, evitando descontarlo una segunda vez al enviarlo.
         </p>
       </form>
     </Card>

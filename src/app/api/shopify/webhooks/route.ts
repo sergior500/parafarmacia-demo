@@ -1,6 +1,6 @@
 import { getDb } from "@db/index";
 import { shopifyWebhookReceipts } from "@db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq, lt, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 import {
@@ -74,6 +74,7 @@ export async function POST(request: Request) {
   }
 
   const db = getDb();
+  const now = new Date();
   await db
     .insert(shopifyWebhookReceipts)
     .values({
@@ -85,12 +86,33 @@ export async function POST(request: Request) {
     })
     .onConflictDoNothing();
 
-  const receipts = await db
-    .select({ status: shopifyWebhookReceipts.status })
-    .from(shopifyWebhookReceipts)
-    .where(eq(shopifyWebhookReceipts.webhookId, webhookId))
-    .limit(1);
-  if (receipts[0]?.status === "processed") {
+  // Shopify may deliver the same event more than once or retry after a
+  // timeout. Claiming the receipt atomically prevents two workers from
+  // applying the same stock change at the same time. A stale claim can be
+  // recovered after five minutes if a worker stopped unexpectedly.
+  const staleClaimBefore = new Date(now.getTime() - 5 * 60_000).toISOString();
+  const claimed = await db
+    .update(shopifyWebhookReceipts)
+    .set({
+      status: "processing",
+      error: null,
+      processedAt: now.toISOString(),
+    })
+    .where(
+      and(
+        eq(shopifyWebhookReceipts.webhookId, webhookId),
+        or(
+          eq(shopifyWebhookReceipts.status, "received"),
+          eq(shopifyWebhookReceipts.status, "error"),
+          and(
+            eq(shopifyWebhookReceipts.status, "processing"),
+            lt(shopifyWebhookReceipts.processedAt, staleClaimBefore),
+          ),
+        ),
+      ),
+    )
+    .returning({ webhookId: shopifyWebhookReceipts.webhookId });
+  if (claimed.length === 0) {
     return new NextResponse(null, { status: 204 });
   }
 

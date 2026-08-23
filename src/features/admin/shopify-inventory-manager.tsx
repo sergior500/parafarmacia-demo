@@ -43,6 +43,9 @@ export function ShopifyInventoryManager({
 }) {
   const [report, setReport] = useState(initialReport);
   const [query, setQuery] = useState("");
+  const [stockFilter, setStockFilter] = useState<
+    "all" | "low" | "out" | "untracked"
+  >("all");
   const [locationId, setLocationId] = useState(
     initialReport.locations.find((location) => location.isActive)?.id ?? "all",
   );
@@ -61,19 +64,59 @@ export function ShopifyInventoryManager({
   const normalizedQuery = query.trim().toLocaleLowerCase("es");
   const visibleItems = useMemo(
     () =>
-      report.items.filter((item) => {
-        const matchesQuery =
-          !normalizedQuery ||
-          `${item.productTitle} ${item.variantTitle} ${item.sku ?? ""}`
-            .toLocaleLowerCase("es")
-            .includes(normalizedQuery);
-        const matchesLocation =
-          locationId === "all" ||
-          item.levels.some((level) => level.locationId === locationId) ||
-          !item.tracked;
-        return matchesQuery && matchesLocation;
-      }),
-    [locationId, normalizedQuery, report.items],
+      report.items
+        .filter((item) => {
+          const matchesQuery =
+            !normalizedQuery ||
+            `${item.productTitle} ${item.variantTitle} ${item.sku ?? ""}`
+              .toLocaleLowerCase("es")
+              .includes(normalizedQuery);
+          const matchesLocation =
+            locationId === "all" ||
+            item.levels.some((level) => level.locationId === locationId) ||
+            !item.tracked;
+          const relevantLevels = item.levels.filter(
+            (level) =>
+              level.isActive &&
+              (locationId === "all" || level.locationId === locationId),
+          );
+          const matchesStock =
+            stockFilter === "all" ||
+            (stockFilter === "untracked" && !item.tracked) ||
+            (stockFilter === "out" &&
+              item.tracked &&
+              relevantLevels.some((level) => level.available <= 0)) ||
+            (stockFilter === "low" &&
+              item.tracked &&
+              relevantLevels.some(
+                (level) => level.available > 0 && level.available <= 5,
+              ));
+          return matchesQuery && matchesLocation && matchesStock;
+        })
+        .sort((left, right) => {
+          const risk = (item: ShopifyInventoryItem) => {
+            if (!item.tracked) return 3;
+            if (
+              item.levels.some(
+                (level) => level.isActive && level.available <= 0,
+              )
+            )
+              return 0;
+            if (
+              item.levels.some(
+                (level) =>
+                  level.isActive && level.available > 0 && level.available <= 5,
+              )
+            )
+              return 1;
+            return 2;
+          };
+          return (
+            risk(left) - risk(right) ||
+            left.productTitle.localeCompare(right.productTitle, "es")
+          );
+        }),
+    [locationId, normalizedQuery, report.items, stockFilter],
   );
 
   async function refreshInventory() {
@@ -204,7 +247,7 @@ export function ShopifyInventoryManager({
       </section>
 
       <Card className="p-5 sm:p-6">
-        <div className="grid gap-4 lg:grid-cols-[1fr_18rem_auto] lg:items-end">
+        <div className="grid gap-4 lg:grid-cols-[1fr_15rem_15rem_auto] lg:items-end">
           <label className="block">
             <span className="text-forest text-xs font-black tracking-wider uppercase">
               Buscar producto o SKU
@@ -219,6 +262,25 @@ export function ShopifyInventoryManager({
                 value={query}
               />
             </span>
+          </label>
+          <label className="block">
+            <span className="text-forest text-xs font-black tracking-wider uppercase">
+              Estado del stock
+            </span>
+            <select
+              className="border-forest/15 text-forest mt-2 min-h-12 w-full rounded-2xl border bg-white px-4 text-sm font-bold"
+              onChange={(event) =>
+                setStockFilter(
+                  event.target.value as "all" | "low" | "out" | "untracked",
+                )
+              }
+              value={stockFilter}
+            >
+              <option value="all">Todos los estados</option>
+              <option value="out">Agotados</option>
+              <option value="low">Stock bajo (1–5)</option>
+              <option value="untracked">Sin seguimiento</option>
+            </select>
           </label>
           <label className="block">
             <span className="text-forest text-xs font-black tracking-wider uppercase">

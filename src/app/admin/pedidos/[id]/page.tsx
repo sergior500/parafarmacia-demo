@@ -19,9 +19,12 @@ import {
   formatShopifyDate,
   formatShopifyMoney,
   fulfillmentStatusLabel,
-} from "@/features/admin/shopify-orders-dashboard";
+} from "@/features/admin/shopify-order-format";
 import { requireAdminCapability } from "@/server/admin-auth";
-import { getShopifyOrder } from "@/server/shopify/orders";
+import {
+  canFulfillShopifyOrder,
+  getShopifyOrder,
+} from "@/server/shopify/orders";
 
 export const dynamic = "force-dynamic";
 
@@ -177,11 +180,24 @@ export default async function OrderPage({
             </dl>
           </Card>
 
-          {!order.cancelled && order.fulfillmentOrders.length ? (
+          {canFulfillShopifyOrder(order) ? (
             <FulfillOrderForm
               fulfillmentOrders={order.fulfillmentOrders}
               orderId={order.legacyId}
             />
+          ) : null}
+
+          {!order.cancelled &&
+          !order.fullyPaid &&
+          order.fulfillmentOrders.length ? (
+            <Card className="border-amber-200 bg-amber-50 p-6 text-amber-950">
+              <CircleAlert className="size-6" />
+              <h2 className="mt-3 font-black">Envío bloqueado</h2>
+              <p className="mt-2 text-sm leading-6">
+                El pago aún no está confirmado. El panel habilitará la
+                preparación cuando Shopify indique que el pedido está pagado.
+              </p>
+            </Card>
           ) : null}
 
           <Card className="p-6">
