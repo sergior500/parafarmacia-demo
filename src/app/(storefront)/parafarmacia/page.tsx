@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { CatalogView } from "@/features/catalog/catalog-view";
-import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
+import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 
 export const metadata: Metadata = {
   title: "Parafarmacia online: cuidado personal, higiene y bienestar",

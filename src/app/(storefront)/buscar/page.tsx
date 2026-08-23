@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { CatalogView } from "@/features/catalog/catalog-view";
 import { articles, brands, needs } from "@/mocks/content";
-import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
+import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 
 export const metadata: Metadata = {
   title: "Buscar productos",

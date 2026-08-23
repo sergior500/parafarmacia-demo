@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { FAQSection } from "@/components/shared/faq-section";
 import { CatalogView } from "@/features/catalog/catalog-view";
 import { commonFaqs } from "@/mocks/content";
-import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
+import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 
 export async function generateStaticParams() {
   const categories = await catalogProvider.listCategories();

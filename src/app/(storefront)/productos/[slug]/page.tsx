@@ -27,14 +27,7 @@ import { pharmacyConfig } from "@/lib/config";
 import { formatMoney } from "@/lib/format";
 import { commonFaqs } from "@/mocks/content";
 import { categories } from "@/mocks/products";
-import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
-
-export async function generateStaticParams() {
-  const products = await catalogProvider.listProducts();
-  return products
-    .filter((product) => product.status !== "withdrawn")
-    .map((product) => ({ slug: product.slug }));
-}
+import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 
 export async function generateMetadata({
   params,

@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/features/catalog/product-card";
 import { SearchAutocomplete } from "@/features/search/search-autocomplete";
 import { articles, needs, promotions } from "@/mocks/content";
-import { catalogProvider } from "@/providers/catalog/mock-catalog-provider";
+import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 
 export const metadata: Metadata = {
   title: "Parafarmacia online clara, cercana y fácil de elegir",

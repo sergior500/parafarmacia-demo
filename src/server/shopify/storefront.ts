@@ -7,6 +7,7 @@ import {
   buildShopifyCartInput,
   safeShopifyCheckoutUrl,
 } from "@/server/shopify/checkout-contract";
+import { checkoutEligibilityError } from "@/server/shopify/checkout-eligibility";
 import { getShopifyConfiguration } from "@/server/shopify/config";
 import { getShopifyStorefrontAccessToken } from "@/server/shopify/storefront-token";
 
@@ -45,8 +46,11 @@ export async function createShopifyCheckout(
       name: products.name,
       stockQuantity: products.stockQuantity,
       maximumUnitsPerOrder: products.maximumUnitsPerOrder,
+      reviewStatus: products.reviewStatus,
+      availableOnline: products.availableOnline,
       shopifyVariantId: products.shopifyVariantId,
       shopifySyncStatus: products.shopifySyncStatus,
+      shopifyPublicationStatus: products.shopifyPublicationStatus,
     })
     .from(products)
     .where(inArray(products.productId, requestedIds));
@@ -59,7 +63,10 @@ export async function createShopifyCheckout(
         "Uno de los productos ya no forma parte del catálogo.",
       );
     }
-    if (product.shopifySyncStatus !== "synced" || !product.shopifyVariantId) {
+    const eligibilityError = checkoutEligibilityError(product);
+    if (eligibilityError) throw new ShopifyCheckoutError(eligibilityError);
+    const merchandiseId = product.shopifyVariantId;
+    if (!merchandiseId) {
       throw new ShopifyCheckoutError(
         `${product.name} todavía no está preparado para el pago.`,
       );
@@ -74,7 +81,7 @@ export async function createShopifyCheckout(
         `Shopify no tiene unidades suficientes de ${product.name}.`,
       );
     }
-    return { merchandiseId: product.shopifyVariantId, quantity };
+    return { merchandiseId, quantity };
   });
 
   return createStorefrontCart(lines, input.discountCode, buyerIp);
