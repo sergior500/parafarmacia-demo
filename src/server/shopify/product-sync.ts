@@ -1,6 +1,9 @@
 import type { AdminCatalogProduct } from "@/features/admin/admin-catalog";
 import { pharmacyConfig } from "@/lib/config";
-import { shopifyAdminGraphql, ShopifyApiError } from "@/server/shopify/admin-api";
+import {
+  shopifyAdminGraphql,
+  ShopifyApiError,
+} from "@/server/shopify/admin-api";
 
 const PRODUCT_SET_MUTATION = `
   mutation PicualProductSet($identifier: ProductSetIdentifiers, $input: ProductSetInput!) {
@@ -16,6 +19,21 @@ const PRODUCT_SET_MUTATION = `
     }
   }
 `;
+
+const STOCK_LOCATIONS_QUERY = `
+  query PicualStockLocations {
+    locations(first: 50) {
+      nodes { id name isActive fulfillsOnlineOrders }
+    }
+  }
+`;
+
+interface StockLocation {
+  id: string;
+  name: string;
+  isActive: boolean;
+  fulfillsOnlineOrders: boolean;
+}
 
 function plainTextToHtml(value: string): string {
   const escaped = value
@@ -51,6 +69,7 @@ function shopifyImageInput(
 export function buildShopifyProductSetVariables(
   product: AdminCatalogProduct,
   siteUrl = pharmacyConfig.siteUrl,
+  stockLocationId?: string,
 ) {
   const defaultOption = "Formato";
   const defaultValue = product.size?.trim() || "Pendiente de definir";
@@ -85,6 +104,22 @@ export function buildShopifyProductSetVariables(
             product.priceVerified && product.priceInCents > 0
               ? (product.priceInCents / 100).toFixed(2)
               : "0.00",
+          inventoryItem: {
+            requiresShipping: true,
+            tracked: product.stockVerified,
+          },
+          inventoryPolicy: "DENY",
+          ...(product.stockVerified && stockLocationId
+            ? {
+                inventoryQuantities: [
+                  {
+                    locationId: stockLocationId,
+                    name: "available",
+                    quantity: product.stock,
+                  },
+                ],
+              }
+            : {}),
           ...(product.ean ? { barcode: product.ean, sku: product.ean } : {}),
         },
       ],
@@ -92,19 +127,53 @@ export function buildShopifyProductSetVariables(
   };
 }
 
+export function selectStockLocation(
+  locations: StockLocation[],
+): StockLocation | undefined {
+  return (
+    locations.find(
+      (location) => location.isActive && location.fulfillsOnlineOrders,
+    ) ?? locations.find((location) => location.isActive)
+  );
+}
+
+async function getStockLocation(): Promise<StockLocation> {
+  const data = await shopifyAdminGraphql<{
+    locations: { nodes: StockLocation[] };
+  }>(STOCK_LOCATIONS_QUERY);
+  const location = selectStockLocation(data.locations.nodes);
+  if (!location) {
+    throw new ShopifyApiError(
+      "No hay una ubicación activa en Shopify para controlar el stock.",
+    );
+  }
+  return location;
+}
+
 async function sha256(value: string): Promise<string> {
   const bytes = new TextEncoder().encode(value);
   const hash = await crypto.subtle.digest("SHA-256", bytes);
-  return Array.from(new Uint8Array(hash), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return Array.from(new Uint8Array(hash), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
 }
 
 export async function syncProductToShopify(product: AdminCatalogProduct) {
-  const variables = buildShopifyProductSetVariables(product);
+  const stockLocation = product.stockVerified
+    ? await getStockLocation()
+    : undefined;
+  const variables = buildShopifyProductSetVariables(
+    product,
+    pharmacyConfig.siteUrl,
+    stockLocation?.id,
+  );
   const data = await shopifyAdminGraphql<{
     productSet: {
       product: {
         id: string;
-        variants: { nodes: Array<{ id: string; inventoryItem?: { id: string } }> };
+        variants: {
+          nodes: Array<{ id: string; inventoryItem?: { id: string } }>;
+        };
       } | null;
       userErrors: Array<{ field?: string[]; message: string }>;
     };

@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 
 import type { AdminCatalogProduct } from "@/features/admin/admin-catalog";
-import { buildShopifyProductSetVariables } from "@/server/shopify/product-sync";
+import {
+  buildShopifyProductSetVariables,
+  selectStockLocation,
+} from "@/server/shopify/product-sync";
 
 const product = {
   id: "pdf-1",
@@ -39,6 +42,8 @@ describe("Shopify product payload", () => {
       price: "12.95",
       barcode: "8412345678901",
       sku: "8412345678901",
+      inventoryItem: { requiresShipping: true, tracked: true },
+      inventoryPolicy: "DENY",
     });
     expect(variables.input.descriptionHtml).toContain("&amp;");
     expect(variables.input.descriptionHtml).not.toContain("<suave>");
@@ -69,5 +74,60 @@ describe("Shopify product payload", () => {
       shopifyPublicationStatus: "published",
     });
     expect(variables.input.status).toBe("ACTIVE");
+  });
+
+  it("sets verified stock at the selected Shopify location", () => {
+    const variables = buildShopifyProductSetVariables(
+      product,
+      "https://farmacia.example.com",
+      "gid://shopify/Location/123",
+    );
+
+    expect(variables.input.variants[0]).toMatchObject({
+      inventoryItem: { tracked: true },
+      inventoryPolicy: "DENY",
+      inventoryQuantities: [
+        {
+          locationId: "gid://shopify/Location/123",
+          name: "available",
+          quantity: 4,
+        },
+      ],
+    });
+  });
+
+  it("does not invent inventory quantities when stock is pending", () => {
+    const variables = buildShopifyProductSetVariables(
+      { ...product, stock: 0, stockVerified: false },
+      "https://farmacia.example.com",
+      "gid://shopify/Location/123",
+    );
+
+    expect(variables.input.variants[0]).toMatchObject({
+      inventoryItem: { tracked: false },
+      inventoryPolicy: "DENY",
+    });
+    expect(variables.input.variants[0]).not.toHaveProperty(
+      "inventoryQuantities",
+    );
+  });
+
+  it("prefers an active location that fulfills online orders", () => {
+    expect(
+      selectStockLocation([
+        {
+          id: "inactive",
+          name: "Cerrada",
+          isActive: false,
+          fulfillsOnlineOrders: true,
+        },
+        {
+          id: "active",
+          name: "Farmacia",
+          isActive: true,
+          fulfillsOnlineOrders: true,
+        },
+      ])?.id,
+    ).toBe("active");
   });
 });
