@@ -25,6 +25,12 @@ import { categories } from "@/mocks/products";
 const fieldClassName =
   "border-forest/15 text-ink focus:border-forest focus:ring-sage min-h-12 w-full rounded-2xl border bg-white px-4 text-sm shadow-sm outline-none focus:ring-3";
 
+type ProductReviewIntent = "pending" | "reviewed" | "published";
+
+function isProductReviewIntent(value: string): value is ProductReviewIntent {
+  return ["pending", "reviewed", "published"].includes(value);
+}
+
 function imageDownloadName(slug: string, imageUrl: string): string {
   const match = imageUrl.match(/\.(jpe?g|png|webp)(?:[?#]|$)/i);
   const extension = match?.[1]?.toLowerCase() ?? "jpg";
@@ -93,8 +99,14 @@ export function CatalogProductEditor({
     event.preventDefault();
     setError("");
     const formData = new FormData(event.currentTarget);
-    const intent = String(formData.get("intent") ?? "reviewed") as
-      "pending" | "reviewed" | "published";
+    const submitter = (event.nativeEvent as SubmitEvent).submitter;
+    const submittedIntent =
+      submitter instanceof HTMLButtonElement && submitter.name === "intent"
+        ? submitter.value
+        : "reviewed";
+    const intent: ProductReviewIntent = isProductReviewIntent(submittedIntent)
+      ? submittedIntent
+      : "reviewed";
     const priceValue = String(formData.get("price") ?? "").trim();
     const stockValue = String(formData.get("stock") ?? "").trim();
     const priceInCents = priceValue
