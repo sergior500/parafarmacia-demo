@@ -43,6 +43,13 @@
       "when": 1786921175404,
       "tag": "0005_optimal_stone_men",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1787486289444,
+      "tag": "0006_first_santa_claus",
+      "breakpoints": true
     }
   ]
 }

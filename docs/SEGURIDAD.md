@@ -1,8 +1,8 @@
 # Arquitectura y controles de seguridad
 
 **Proyecto:** Farmacia Picual - comercio electrónico de parafarmacia
-**Versión del documento:** 1.0
-**Fecha de revisión:** 17 de agosto de 2026
+**Versión del documento:** 1.1
+**Fecha de revisión:** 23 de agosto de 2026
 **Ámbito:** escaparate público, panel administrativo, base de datos D1, almacenamiento R2 e integración con Shopify.
 
 ## 1. Objetivo y límite de la garantía
@@ -33,27 +33,31 @@ La plataforma de hosting es una frontera de confianza: la aplicación confía en
 ### 3.1 Autenticación
 
 - Las páginas y APIs del panel requieren una identidad autenticada suministrada por Sites.
-- Una identidad autenticada no obtiene acceso automáticamente: también debe aparecer en una lista administrativa configurada en el servidor.
+- Una identidad autenticada no obtiene acceso automáticamente: también debe aparecer en la lista administrativa persistente o en la lista de propietarios de arranque configurada en el servidor.
 - Una configuración vacía bloquea el acceso. No existe un administrador predeterminado en producción.
+- El correo permite preparar una invitación, pero en el primer acceso queda vinculado al identificador estable de esa persona. Una identidad distinta no puede reutilizar después el mismo registro.
+- Los accesos desactivados dejan de autorizar inmediatamente nuevas peticiones.
 - Las rutas de navegador redirigen a inicio de sesión; las APIs responden con `401` sin ejecutar la operación.
 - En desarrollo local se utiliza un propietario de pruebas. Esta excepción no se activa con `NODE_ENV=production`.
 
 ### 3.2 Roles de mínimo privilegio
 
-| Rol                   |          Catálogo | Publicar |        Inventario |               Pedidos | Shopify/configuración | Seguridad |
-| --------------------- | ----------------: | -------: | ----------------: | --------------------: | --------------------: | --------: |
-| Propietario           | Lectura/escritura |       Sí | Lectura/escritura | Lectura y preparación |                    Sí |        Sí |
-| Gestor de catálogo    | Lectura/escritura |       Sí | Lectura/escritura |                    No |                    No |        No |
-| Gestor de operaciones |                No |       No | Lectura/escritura | Lectura y preparación |                    No |        No |
-| Auditor               |      Solo lectura |       No |      Solo lectura |          Solo lectura |                    No |   Lectura |
+| Rol                   |          Catálogo | Publicar |        Inventario |               Pedidos | Equipo | Shopify/configuración | Seguridad |
+| --------------------- | ----------------: | -------: | ----------------: | --------------------: | -----: | --------------------: | --------: |
+| Propietario           | Lectura/escritura |       Sí | Lectura/escritura | Lectura y preparación |     Sí |                    Sí |        Sí |
+| Gestor de catálogo    | Lectura/escritura |       Sí | Lectura/escritura |                    No |     No |                    No |        No |
+| Gestor de operaciones |                No |       No | Lectura/escritura | Lectura y preparación |     No |                    No |        No |
+| Auditor               |      Solo lectura |       No |      Solo lectura |          Solo lectura |     No |                    No |   Lectura |
 
-Las listas antiguas `ADMIN_ALLOWED_*` se interpretan como propietario para conservar compatibilidad. En producción deben utilizarse las listas específicas por rol y conceder a cada persona únicamente lo necesario.
+Las listas antiguas `ADMIN_ALLOWED_*` se interpretan como propietario para conservar compatibilidad. El panel `/admin/equipo` guarda el personal y sus roles en D1; las listas de entorno quedan como acceso de arranque y recuperación hasta completar la transferencia a la cuenta real de la farmacia.
+
+El sistema impide que una persona desactive su propio acceso, cambie su propio rol o desactive/degrade al último propietario persistente. No se eliminan cuentas: se desactivan para conservar trazabilidad.
 
 La interfaz oculta secciones no permitidas, pero la seguridad real se aplica de nuevo en el servidor. Manipular el HTML o llamar manualmente a una API no evita la comprobación.
 
 ### 3.3 MFA y protección de cuentas
 
-La aplicación no gestiona contraseñas. Cada cuenta administrativa debe activar autenticación multifactor en su proveedor de identidad, usar un dispositivo individual y no compartir sesiones. La baja de un empleado exige retirarlo inmediatamente de las listas de acceso y revocar sus sesiones.
+La aplicación no gestiona contraseñas. Cada cuenta administrativa debe activar autenticación multifactor en su proveedor de identidad, usar un dispositivo individual y no compartir sesiones. La baja de un empleado exige desactivar su acceso desde `Equipo` y revocar sus sesiones en el proveedor de identidad.
 
 ## 4. Protección de operaciones administrativas
 
@@ -75,7 +79,7 @@ El token CSRF no protege frente a una vulnerabilidad XSS ejecutada dentro del pr
 
 En producción los límites se almacenan en D1 y se actualizan atómicamente. La clave es una huella HMAC de administrador, red y familia de operación; no se guarda la IP en texto claro.
 
-Se aplican políticas más estrictas a importaciones, imágenes, sincronización, publicación, inventario, preparación de pedidos y configuración de Shopify. Los lotes de catálogo están limitados a diez productos.
+Se aplican políticas más estrictas a importaciones, imágenes, sincronización, publicación, inventario, preparación de pedidos, gestión del equipo y configuración de Shopify. Los lotes de catálogo están limitados a diez productos.
 
 Si D1 o el secreto de seguridad no están disponibles, la operación se bloquea con `503`: el sistema falla de forma cerrada. En desarrollo local se conserva un limitador en memoria para facilitar pruebas.
 
@@ -203,7 +207,7 @@ Estas verificaciones no sustituyen una prueba de penetración ejecutada desde fu
 Ante indicios de acceso no autorizado:
 
 1. Bloquear temporalmente las mutaciones administrativas.
-2. Retirar la identidad sospechosa de las listas de acceso.
+2. Desactivar la identidad sospechosa desde `Equipo` y, si es un propietario de arranque, retirarla también de la configuración segura.
 3. Revocar sesiones y rotar el secreto de seguridad.
 4. Revocar/rotar credenciales Shopify y tokens Storefront cuando proceda.
 5. Conservar registros, referencias de petición y cronología sin alterarlos.

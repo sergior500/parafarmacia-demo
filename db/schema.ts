@@ -206,6 +206,29 @@ export const adminOperationLog = sqliteTable(
   ],
 );
 
+export const adminUsers = sqliteTable(
+  "admin_users",
+  {
+    email: text("email").primaryKey(),
+    userId: text("user_id"),
+    displayName: text("display_name").notNull(),
+    role: text("role").notNull(),
+    enabled: integer("enabled", { mode: "boolean" }).notNull().default(true),
+    createdBy: text("created_by").notNull(),
+    updatedBy: text("updated_by").notNull(),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    uniqueIndex("admin_users_user_id_uq").on(table.userId),
+    index("admin_users_enabled_role_idx").on(table.enabled, table.role),
+  ],
+);
+
 export const adminRateLimits = sqliteTable(
   "admin_rate_limits",
   {

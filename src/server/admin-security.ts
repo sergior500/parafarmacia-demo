@@ -23,6 +23,7 @@ export const ADMIN_RATE_LIMITS = {
   },
   inventory: { scope: "inventory", limit: 20, windowMs: 60_000 },
   fulfillment: { scope: "fulfillment", limit: 10, windowMs: 5 * 60_000 },
+  team: { scope: "team", limit: 10, windowMs: 5 * 60_000 },
   shopifyManage: {
     scope: "shopify-manage",
     limit: 5,

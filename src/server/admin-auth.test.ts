@@ -65,6 +65,10 @@ describe("isAdminIdentityAllowed", () => {
     expect(hasAdminCapability({ role: "auditor" }, "inventory:write")).toBe(
       false,
     );
+    expect(hasAdminCapability({ role: "owner" }, "team:write")).toBe(true);
+    expect(
+      hasAdminCapability({ role: "operations_manager" }, "team:read"),
+    ).toBe(false);
   });
 });
 

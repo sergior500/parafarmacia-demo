@@ -7,6 +7,7 @@ import {
   LockKeyhole,
   Settings,
   ShieldCheck,
+  UserRoundCog,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -49,6 +50,12 @@ const links = [
     capability: "inventory:read",
   },
   {
+    href: "/admin/equipo",
+    label: "Equipo",
+    icon: UserRoundCog,
+    capability: "team:read",
+  },
+  {
     href: "/admin/seguridad",
     label: "Seguridad",
     icon: Fingerprint,
@@ -84,6 +91,12 @@ export function AdminNav({ actor }: { actor: AdminActor }) {
               {actor.displayName} · {adminRoleLabel(actor.role)}
             </span>
           </div>
+          <Link
+            className="text-ink-muted hover:text-forest text-xs font-bold"
+            href="/signout-with-chatgpt?return_to=/"
+          >
+            Cerrar sesión
+          </Link>
         </div>
         <nav aria-label="Navegación del panel" className="mt-6 overflow-x-auto">
           <ul className="flex min-w-max gap-2">

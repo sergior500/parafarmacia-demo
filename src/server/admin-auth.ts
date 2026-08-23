@@ -1,6 +1,17 @@
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 
+import {
+  type AdminRole,
+  isAdminRole,
+} from "@/server/admin-roles";
+
+export {
+  type AdminRole,
+  adminRoleLabel,
+  isAdminRole,
+} from "@/server/admin-roles";
+
 export interface AdminActor {
   userId: string;
   email: string;
@@ -9,9 +20,6 @@ export interface AdminActor {
 }
 
 type AuthenticatedIdentity = AdminActor;
-
-export type AdminRole =
-  "owner" | "catalog_manager" | "operations_manager" | "auditor";
 
 export type AdminCapability =
   | "dashboard:read"
@@ -24,6 +32,8 @@ export type AdminCapability =
   | "orders:fulfill"
   | "shopify:manage"
   | "security:read"
+  | "team:read"
+  | "team:write"
   | "readiness:write";
 
 const ROLE_CAPABILITIES: Record<AdminRole, ReadonlySet<AdminCapability>> = {
@@ -38,6 +48,8 @@ const ROLE_CAPABILITIES: Record<AdminRole, ReadonlySet<AdminCapability>> = {
     "orders:fulfill",
     "shopify:manage",
     "security:read",
+    "team:read",
+    "team:write",
     "readiness:write",
   ]),
   catalog_manager: new Set<AdminCapability>([
@@ -137,15 +149,6 @@ export function hasAdminCapability(
   return ROLE_CAPABILITIES[actor.role].has(capability);
 }
 
-export function adminRoleLabel(role: AdminRole): string {
-  return {
-    owner: "Propietario",
-    catalog_manager: "Catálogo",
-    operations_manager: "Operaciones",
-    auditor: "Solo lectura",
-  }[role];
-}
-
 async function getAuthenticatedIdentity(): Promise<AuthenticatedIdentity | null> {
   const requestHeaders = await headers();
   const userId = requestHeaders.get("oai-authenticated-user-id")?.trim();
@@ -170,7 +173,7 @@ export async function getAdminActor(): Promise<AdminActor | null> {
   if (process.env.NODE_ENV !== "production") return localAdminActor();
   const identity = await getAuthenticatedIdentity();
   if (!identity) return null;
-  const role = resolveAdminRole(identity);
+  const role = await resolvePersistedAdminRole(identity);
   return role ? { ...identity, role } : null;
 }
 
@@ -180,7 +183,7 @@ export async function requireAdminActor(
   if (process.env.NODE_ENV !== "production") return localAdminActor();
   const identity = await getAuthenticatedIdentity();
   if (!identity) redirect(signInPath(returnTo));
-  const role = resolveAdminRole(identity);
+  const role = await resolvePersistedAdminRole(identity);
   if (!role) notFound();
   return { ...identity, role };
 }
@@ -211,6 +214,24 @@ function localAdminActor(): AdminActor {
     displayName: "Administración local",
     role: "owner",
   };
+}
+
+async function resolvePersistedAdminRole(
+  identity: Pick<AuthenticatedIdentity, "userId" | "email">,
+): Promise<AdminRole | null> {
+  const configuredRole = resolveAdminRole(identity);
+  if (configuredRole) return configuredRole;
+  try {
+    const { findAdminUserByIdentity } = await import("@/server/admin-users");
+    const user = await findAdminUserByIdentity(identity);
+    return user && isAdminRole(user.role) ? user.role : null;
+  } catch (error) {
+    console.error(
+      "No se pudo verificar el acceso administrativo persistente.",
+      error instanceof Error ? error.message : "Error desconocido",
+    );
+    return null;
+  }
 }
 
 function adminRoleConfiguration(): AdminRoleConfiguration {
