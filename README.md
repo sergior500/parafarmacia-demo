@@ -65,9 +65,9 @@ en `drizzle/`.
 ## Arquitectura
 
 - `src/app`: rutas públicas, panel y endpoints de servidor.
-- `src/domain`: reglas puras de catálogo, cesta y pedidos.
+- `src/domain`: reglas puras de catálogo y cesta.
 - `src/features`: casos de uso e interfaz de cada área.
-- `src/providers`: acceso al catálogo persistido y fronteras sustituibles.
+- `src/providers`: acceso al catálogo persistido.
 - `src/server`: autenticación, seguridad, D1/R2 y contratos con Shopify.
 - `worker`: entrada del Worker, recursos estáticos y cabeceras defensivas.
 

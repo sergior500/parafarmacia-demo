@@ -8,14 +8,15 @@ export default function PrivacyPage() {
   return (
     <InfoPage
       legal
-      eyebrow="Placeholder legal"
-      intro="No se presenta este texto como política de privacidad definitiva."
+      eyebrow="Información provisional"
+      intro="La política definitiva se completará con la identidad y los proveedores confirmados por la farmacia."
       title="Privacidad"
     >
       <p>
-        El prototipo guarda datos ficticios únicamente en el almacenamiento
-        local del navegador. El tratamiento real, los plazos, bases jurídicas y
-        derechos quedan pendientes de validación especializada.
+        El sitio conserva la cesta y los favoritos en el almacenamiento local de
+        este dispositivo. Los datos de cuenta, pedido y pago se tratarán
+        mediante Shopify cuando se habilite la venta, con los plazos, bases
+        jurídicas y derechos que se publiquen tras la validación especializada.
       </p>
     </InfoPage>
   );

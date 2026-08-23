@@ -1,7 +1,10 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const bundle = JSON.parse(
-  readFileSync(new URL("../database/seed/catalog_bundle.json", import.meta.url), "utf8"),
+  readFileSync(
+    new URL("../database/seed/catalog_bundle.json", import.meta.url),
+    "utf8",
+  ),
 );
 
 function sqlValue(value) {
@@ -17,7 +20,10 @@ function insertStatements(table, columns, rows, transform = (row) => row) {
     const values = rows
       .slice(index, index + 40)
       .map(transform)
-      .map((row) => `(${columns.map((column) => sqlValue(row[column])).join(", ")})`)
+      .map(
+        (row) =>
+          `(${columns.map((column) => sqlValue(row[column])).join(", ")})`,
+      )
       .join(",\n");
     chunks.push(
       `INSERT INTO ${table} (${columns.join(", ")}) VALUES\n${values};`,
@@ -96,7 +102,7 @@ const statements = [
 
 const header = [
   "-- Generated from database/seed/catalog_bundle.json.",
-  "-- Real PDF catalogue only: 183 products; no demo prices, stock or EANs.",
+  "-- Real PDF catalogue only: 183 products; no invented prices, stock or EANs.",
   "-- Regenerate with: node scripts/generate-d1-seed.mjs",
   "",
 ].join("\n");

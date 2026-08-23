@@ -67,17 +67,17 @@ export const commonFaqs: FAQ[] = [
   {
     question: "¿Los productos y precios son reales?",
     answer:
-      "Todas las fichas proceden de los catálogos facilitados. Algunas tienen precio y stock claramente marcados como datos demo para enseñar la compra; no se exportan a la base de datos definitiva.",
+      "Las fichas proceden de los catálogos facilitados. El precio y el stock solo se muestran como disponibles cuando han sido verificados y publicados en Shopify.",
   },
   {
-    question: "¿Se realiza algún cobro?",
+    question: "¿Cómo se realiza el pago?",
     answer:
-      "No. La demo permite elegir tarjeta o Bizum, pero no conecta con una pasarela de pago, no solicita datos bancarios ni reserva stock.",
+      "La cesta se transfiere al checkout seguro de Shopify, donde se confirman disponibilidad, entrega, descuentos e importe final antes del pago.",
   },
   {
-    question: "¿Cuándo recibiría mi pedido en una tienda real?",
+    question: "¿Cuándo recibiré mi pedido?",
     answer:
-      "El plazo dependerá del transportista, la zona y el horario de preparación que se acuerden antes del lanzamiento.",
+      "Shopify mostrará las opciones y el plazo disponibles para tu dirección antes del pago, una vez que la farmacia haya configurado el transportista.",
   },
 ];
 
@@ -89,7 +89,7 @@ export const articles: Article[] = [
     excerpt:
       "Textura, nivel de protección y rutina: una guía sencilla para comparar opciones.",
     category: "Protección solar",
-    author: "Equipo editorial de demostración",
+    author: "Equipo editorial",
     publishedAt: "2026-06-12",
     updatedAt: "2026-07-28",
     readTime: "6 min",
@@ -128,7 +128,7 @@ export const articles: Article[] = [
     excerpt:
       "Cómo reducir pasos y priorizar texturas suaves en la limpieza e hidratación diaria.",
     category: "Dermocosmética",
-    author: "Equipo editorial de demostración",
+    author: "Equipo editorial",
     publishedAt: "2026-05-18",
     updatedAt: "2026-07-20",
     readTime: "5 min",
@@ -150,7 +150,7 @@ export const articles: Article[] = [
     ],
     relatedCategorySlugs: ["cuidado-facial"],
     sources: [
-      "Contenido editorial de demostración; las fichas de fabricantes deberán ser la fuente de cada producto.",
+      "Contenido general pendiente de revisión editorial; las fichas de fabricantes son la fuente de cada producto.",
     ],
   },
   {
@@ -160,7 +160,7 @@ export const articles: Article[] = [
     excerpt:
       "Una lista contenida para preparar higiene, baño y cambio sin acumular productos innecesarios.",
     category: "Bebé y maternidad",
-    author: "Equipo editorial de demostración",
+    author: "Equipo editorial",
     publishedAt: "2026-04-08",
     updatedAt: "2026-07-10",
     readTime: "7 min",
@@ -181,9 +181,7 @@ export const articles: Article[] = [
       },
     ],
     relatedCategorySlugs: ["cuidado-infantil"],
-    sources: [
-      "Contenido de demostración pendiente de revisión editorial profesional.",
-    ],
+    sources: ["Contenido pendiente de revisión editorial profesional."],
   },
 ];
 
@@ -192,7 +190,7 @@ export const promotions: Promotion[] = [
     id: "promo-routine",
     title: "Rutina esencial de hidratación",
     description:
-      "Tres pasos visuales para enseñar cómo funcionan los packs y productos complementarios.",
+      "Una selección de productos complementarios para una rutina sencilla.",
     href: "/categorias/cuidado-facial",
     accent: "sage",
     productIds: [
@@ -204,7 +202,8 @@ export const promotions: Promotion[] = [
   {
     id: "promo-sun",
     title: "Especial protección diaria",
-    description: "Selección editorial de fotoprotección facial para la demo.",
+    description:
+      "Selección editorial de fotoprotección facial para uso diario.",
     href: "/categorias/proteccion-solar",
     accent: "peach",
     productIds: ["pdf-dermocosmetica-151"],

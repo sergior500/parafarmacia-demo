@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/features/catalog/product-card";
 import { products } from "@/mocks/products";
 
-const KEY = "parafarmacia-demo-favorites-v2";
+const KEY = "farmacia-picual-favorites-v1";
 
 export function FavoritesView() {
   const [ids, setIds] = useState<string[] | null>(null);

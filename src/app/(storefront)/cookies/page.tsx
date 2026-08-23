@@ -8,14 +8,14 @@ export default function CookiesPage() {
   return (
     <InfoPage
       legal
-      eyebrow="Placeholder legal"
-      intro="No existen servicios de analítica ni cookies de terceros en esta fase."
+      eyebrow="Privacidad y almacenamiento"
+      intro="Actualmente no se han activado servicios de analítica ni publicidad de terceros."
       title="Cookies"
     >
       <p>
-        La demostración utiliza almacenamiento local para conservar el carrito,
-        los pedidos mock y el rol seleccionado. La política definitiva dependerá
-        de las tecnologías reales incorporadas.
+        El sitio utiliza almacenamiento local estrictamente funcional para
+        conservar la cesta y los favoritos en este dispositivo. Esta política se
+        actualizará antes de activar cualquier servicio opcional.
       </p>
     </InfoPage>
   );

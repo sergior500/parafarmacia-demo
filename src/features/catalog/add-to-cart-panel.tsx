@@ -7,10 +7,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { getMaximumCartQuantity } from "@/domain/cart/cart";
 import { isProductAvailable, type Product } from "@/domain/product/product";
-import { useDemo } from "@/features/demo/demo-provider";
+import { useStorefront } from "@/features/storefront/storefront-provider";
 
 export function AddToCartPanel({ product }: { product: Product }) {
-  const { addToCart, cart, hydrated } = useDemo();
+  const { addToCart, cart, hydrated } = useStorefront();
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");

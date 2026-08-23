@@ -14,11 +14,11 @@ import {
   type Product,
 } from "@/domain/product/product";
 import { FavoriteButton } from "@/features/catalog/favorite-button";
-import { useDemo } from "@/features/demo/demo-provider";
+import { useStorefront } from "@/features/storefront/storefront-provider";
 import { formatMoney } from "@/lib/format";
 
 export function ProductCard({ product }: { product: Product }) {
-  const { addToCart, cart, hydrated } = useDemo();
+  const { addToCart, cart, hydrated } = useStorefront();
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
   const available = isProductAvailable(product);

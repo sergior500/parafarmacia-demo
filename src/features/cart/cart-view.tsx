@@ -13,19 +13,19 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 
-import { FreeShippingProgress } from "@/components/commerce/free-shipping-progress";
 import { ProductVisual } from "@/components/shared/product-visual";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { calculateCartTotals } from "@/domain/cart/cart";
 import { handOffToShopifyCheckout } from "@/features/cart/checkout-handoff";
 import { ProductCard } from "@/features/catalog/product-card";
-import { useDemo } from "@/features/demo/demo-provider";
+import { useStorefront } from "@/features/storefront/storefront-provider";
 import { formatMoney } from "@/lib/format";
 import { products } from "@/mocks/products";
 
 export function CartView() {
-  const { cart, clearCart, removeFromCart, updateCartQuantity } = useDemo();
+  const { cart, clearCart, removeFromCart, updateCartQuantity } =
+    useStorefront();
   const [error, setError] = useState("");
   const [promoMessage, setPromoMessage] = useState("");
   const [promoCode, setPromoCode] = useState("");
@@ -142,7 +142,7 @@ export function CartView() {
                     {line.product.name}
                   </Link>
                   <p className="text-ink-muted mt-1 text-xs">
-                    {line.product.size ?? "Formato demo"}
+                    {line.product.size ?? "Formato pendiente"}
                   </p>
                   <p className="text-forest mt-3 font-black">
                     {formatMoney(line.product.priceInCents * line.quantity)}
@@ -217,9 +217,9 @@ export function CartView() {
         <aside>
           <Card className="sticky top-40 p-6">
             <h2 className="font-display text-forest text-3xl">Resumen</h2>
-            <div className="mt-5">
-              <FreeShippingProgress totalInCents={totals.totalInCents} />
-            </div>
+            <p className="bg-sage/65 text-forest mt-5 rounded-2xl p-4 text-sm font-bold">
+              Shopify calculará la entrega disponible antes del pago.
+            </p>
             <dl className="mt-6 grid gap-3 text-sm">
               <div className="flex justify-between">
                 <dt className="text-ink-muted">Productos</dt>

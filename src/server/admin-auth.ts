@@ -210,7 +210,7 @@ export function isSameOriginRequest(request: Request): boolean {
 function localAdminActor(): AdminActor {
   return {
     userId: "local-admin",
-    email: "local@demo.invalid",
+    email: "local-admin@localhost.invalid",
     displayName: "Administración local",
     role: "owner",
   };

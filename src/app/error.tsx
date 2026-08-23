@@ -20,7 +20,7 @@ export default function ErrorPage({
         Algo no ha salido bien
       </h1>
       <p className="text-ink-muted mt-3">
-        La demostración no ha podido mostrar este contenido.
+        No hemos podido mostrar este contenido.
       </p>
       <Button className="mt-7" onClick={reset}>
         Intentar de nuevo

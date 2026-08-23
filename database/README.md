@@ -23,7 +23,7 @@ Este directorio contiene un esquema compatible con PostgreSQL 15+ y Supabase, ad
 
 ## Flujo de revisión en el panel
 
-La demo presenta tres estados comprensibles para el equipo de catálogo:
+El panel presenta tres estados comprensibles para el equipo de catálogo:
 
 - **Pendiente**: equivale a `pending_commercial_validation`; la ficha no puede
   venderse.
@@ -33,6 +33,6 @@ La demo presenta tres estados comprensibles para el equipo de catálogo:
   `lifecycle_status=published` y `available_online=true`, siempre que se cumplan
   todas las validaciones.
 
-En la demo estas revisiones se guardan solo en el navegador. La base de datos de
-producción deberá guardar el usuario revisor, la fecha, el historial de cambios
-y la versión de la fuente.
+Las revisiones se guardan en D1 con el estado del producto y un historial de
+operaciones administrativas. La apertura definitiva debe conservar además la
+identidad del revisor, la fecha y la versión de la fuente.

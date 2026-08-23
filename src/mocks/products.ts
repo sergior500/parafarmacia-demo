@@ -59,34 +59,15 @@ export const categories: Category[] = [
   },
 ];
 
-/**
- * Catálogo visible de la demo. Solo contiene fichas trazables a los PDF
- * facilitados; no se mezclan referencias comerciales creadas para el prototipo.
- */
-const demoCommerce: Record<
-  string,
-  { priceInCents: number; stock: number; featured?: boolean }
-> = {
-  "pdf-dermocosmetica-006": { priceInCents: 1490, stock: 12, featured: true },
-  "pdf-dermocosmetica-007": { priceInCents: 1590, stock: 8, featured: true },
-  "pdf-dermocosmetica-008": { priceInCents: 1390, stock: 15, featured: true },
-  "pdf-dermocosmetica-009": { priceInCents: 1190, stock: 18, featured: true },
-  "pdf-dermocosmetica-010": { priceInCents: 1690, stock: 7 },
-  "pdf-dermocosmetica-012": { priceInCents: 1490, stock: 10 },
-  "pdf-dermocosmetica-014": { priceInCents: 1390, stock: 11 },
-  "pdf-dermocosmetica-016": { priceInCents: 1990, stock: 6 },
-  "pdf-dermocosmetica-017": { priceInCents: 1890, stock: 9 },
-  "pdf-dermocosmetica-019": { priceInCents: 1790, stock: 5 },
-};
+const featuredProductIds = new Set([
+  "pdf-dermocosmetica-006",
+  "pdf-dermocosmetica-007",
+  "pdf-dermocosmetica-008",
+  "pdf-dermocosmetica-009",
+]);
 
-export const products: Product[] = productsFromPdf.map((product) => {
-  const commercialData = demoCommerce[product.id];
-  if (!commercialData) return product;
-
-  return {
-    ...product,
-    ...commercialData,
-    availableForOnlineSale: true,
-    badges: ["Datos comerciales demo", ...(product.badges ?? [])],
-  };
-});
+/** Catálogo trazable a los PDF facilitados, sin precios ni stock inventados. */
+export const products: Product[] = productsFromPdf.map((product) => ({
+  ...product,
+  featured: featuredProductIds.has(product.id),
+}));

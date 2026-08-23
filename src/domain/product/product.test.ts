@@ -25,7 +25,15 @@ describe("búsqueda de catálogo", () => {
   it("filtra por categoría y disponibilidad", () => {
     expect(
       filterProducts(products, { category: "cat-facial", available: true }),
-    ).toHaveLength(10);
+    ).toHaveLength(0);
+    expect(
+      products.every(
+        (product) =>
+          product.priceInCents === 0 &&
+          product.stock === 0 &&
+          !product.availableForOnlineSale,
+      ),
+    ).toBe(true);
     expect(
       filterProducts(products, { category: "cat-infantil" }).length,
     ).toBeGreaterThan(0);

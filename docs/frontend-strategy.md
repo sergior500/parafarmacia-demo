@@ -30,9 +30,8 @@ producto. El recurso del hero es original, sin marcas, texto ni promesas.
 - Navegación por necesidad para personas que no conocen nombres técnicos.
 - Precio por unidad, stock, entrega y devoluciones cerca de la acción de compra.
 - Barra fija de compra en la ficha móvil.
-- Progreso hacia envío gratuito y compra como invitado en el carrito.
-- Checkout dividido visualmente en contacto, dirección, envío, pago, revisión y
-  confirmación.
+- Entrega calculada por Shopify y compra como invitado en el carrito.
+- Checkout alojado por Shopify para contacto, dirección, envío y pago.
 - No se muestran reseñas, descuentos, urgencia o disponibilidad inventados.
 
 ## Accesibilidad
@@ -45,22 +44,22 @@ mensajes con `role=status` o `role=alert`. Las animaciones se desactivan con
 ## Estrategia SEO
 
 - Canonical en inicio, categorías, productos, marcas y artículos.
-- `noindex` para búsqueda, carrito, checkout, confirmación, cuenta y favoritos.
+- `noindex` para búsqueda, carrito, cuenta y favoritos.
 - Los parámetros de filtros y ordenación se bloquean en `robots.txt` cuando se
   activa la indexación.
 - Sitemap limitado a páginas comerciales y editoriales con valor propio.
 - `WebSite` y `SearchAction` globales; `Article` en las guías y `FAQPage` solo
   donde las preguntas son visibles.
 - No se publica `Product`, `Offer`, `Review` ni `LocalBusiness` estructurado
-  mientras precio, reseñas y datos empresariales sigan siendo simulados.
-- La demo permanece completamente en `noindex` hasta activar explícitamente
+  mientras precio, reseñas y datos empresariales no estén validados.
+- La tienda permanece completamente en `noindex` hasta activar explícitamente
   `NEXT_PUBLIC_ALLOW_INDEXING=true` después de validar contenido y negocio.
 
 ## Rendimiento
 
 - App Router y Server Components para páginas y datos públicos.
 - Componentes cliente limitados a búsqueda, filtros, carrito, favoritos y
-  preferencias.
+  estado local de la cesta y favoritos.
 - `next/image` con dimensiones reservadas y prioridad solo en el hero.
 - Sin carruseles automáticos ni librerías visuales adicionales.
 - Rejillas CSS, contenido estático y recursos bajo el primer viewport cargados

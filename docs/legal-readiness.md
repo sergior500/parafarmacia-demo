@@ -7,8 +7,9 @@
 ## Regla de salida
 
 La web no se considerará lista para comercio real hasta que la empresa haya
-confirmado los datos, políticas y responsables de cada apartado. La demo debe
-seguir identificándose como demostración mientras falte esa validación.
+confirmado los datos, políticas y responsables de cada apartado. Mientras
+falten, no deben habilitarse cobros reales, indexación ni productos sin datos
+comerciales verificados.
 
 ## Pie de página y aviso legal
 
@@ -67,8 +68,8 @@ Referencia: [Guía sobre el uso de las cookies de la AEPD](https://www.aepd.es/r
 
 ## Reseñas
 
-- No incluir reseñas ficticias ni presentar contenido de demostración como
-  opiniones reales.
+- No incluir reseñas ficticias ni presentar contenido editorial como opiniones
+  reales.
 - Marcar «compra verificada» solo si el pedido se comprueba técnicamente.
 - Informar de cómo se verifican, moderan, ordenan y publican las reseñas, y de
   cualquier incentivo o patrocinio.

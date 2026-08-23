@@ -27,7 +27,7 @@ export function InfoPage({
           </h1>
           <p className="text-ink-muted mt-5 text-lg">{intro}</p>
         </header>
-        <Card className="prose-demo p-7 md:p-10">
+        <Card className="prose-content p-7 md:p-10">
           {legal ? (
             <div className="border-coral/30 bg-coral-light/30 text-forest mb-7 rounded-2xl border p-5 font-bold">
               Contenido pendiente de validación jurídica.

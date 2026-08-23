@@ -73,7 +73,7 @@ describe("reglas del carrito", () => {
 
   it("aplica promociones a productos activos", () => {
     expect(canApplyPromotion(activeProduct)).toBe(true);
-    expect(applyPromotion(activeProduct, { id: "demo", percentage: 10 })).toBe(
+    expect(applyPromotion(activeProduct, { id: "promo", percentage: 10 })).toBe(
       Math.round(activeProduct.priceInCents * 0.9),
     );
   });
@@ -81,7 +81,7 @@ describe("reglas del carrito", () => {
   it("no aplica promociones a productos inactivos", () => {
     expect(canApplyPromotion(inactiveProduct)).toBe(false);
     expect(
-      applyPromotion(inactiveProduct, { id: "demo", percentage: 20 }),
+      applyPromotion(inactiveProduct, { id: "promo", percentage: 20 }),
     ).toBe(inactiveProduct.priceInCents);
   });
 

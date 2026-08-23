@@ -4,15 +4,15 @@ import { InfoPage } from "@/components/shared/info-page";
 
 export const metadata: Metadata = {
   title: "Cómo comprar",
-  description: "Explicación del flujo de compra simulado de parafarmacia.",
+  description: "Cómo comprar de forma segura en Farmacia Picual.",
 };
 
 export default function HowToBuyPage() {
   return (
     <InfoPage
-      eyebrow="Proceso de demostración"
-      intro="En esta fase no existe una compra real. El recorrido permite validar catálogo, carrito, checkout y gestión de pedidos."
-      title="Cómo funciona"
+      eyebrow="Compra segura"
+      intro="Elige tus productos en Farmacia Picual y completa el pago en el entorno protegido de Shopify."
+      title="Cómo comprar"
     >
       <h2>1. Explora el catálogo</h2>
       <p>
@@ -24,15 +24,15 @@ export default function HowToBuyPage() {
         Modifica cantidades, elimina productos y consulta el total con impuestos
         incluidos.
       </p>
-      <h2>3. Finaliza la compra demo</h2>
+      <h2>3. Continúa al pago seguro</h2>
       <p>
-        Utiliza exclusivamente datos ficticios. El sistema crea un pedido local
-        y vacía el carrito, sin realizar ningún cobro.
+        Shopify volverá a comprobar disponibilidad, descuentos, entrega e
+        importe antes de solicitar el pago.
       </p>
-      <h2>4. Gestiona el pedido</h2>
+      <h2>4. Sigue tu pedido</h2>
       <p>
-        El panel permite preparar, enviar, entregar o cancelar el pedido, además
-        de consultar ventas y rendimiento de productos.
+        Recibirás las comunicaciones configuradas para la confirmación,
+        preparación y envío del pedido.
       </p>
     </InfoPage>
   );

@@ -106,7 +106,7 @@ export function ProductVisual({
       aria-label={
         usesCatalogImage
           ? undefined
-          : `Representación de demostración de ${product.name}`
+          : `Representación gráfica de ${product.name}`
       }
       className={cn(
         "relative grid aspect-[4/3] place-items-center overflow-hidden rounded-[1.4rem] bg-gradient-to-br",
@@ -122,7 +122,7 @@ export function ProductVisual({
       />
       <span className="absolute -bottom-16 -left-8 size-36 rounded-full border-[1.8rem] border-white/45" />
       <span className="absolute top-4 left-4 z-10 text-[0.52rem] font-black tracking-[0.16em] text-black/30 uppercase">
-        {usesCatalogImage ? "Ficha de catálogo" : "Producto demo"}
+        {usesCatalogImage ? "Ficha de catálogo" : "Vista orientativa"}
       </span>
 
       {usesCatalogImage ? (

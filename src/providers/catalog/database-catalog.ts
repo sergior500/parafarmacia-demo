@@ -1,9 +1,9 @@
 import type { Product } from "@/domain/product/product";
 import type { AdminCatalogProduct } from "@/features/admin/admin-catalog";
-import { products as demoProducts } from "@/mocks/products";
+import { products as catalogProducts } from "@/mocks/products";
 
-const demoProductsById = new Map(
-  demoProducts.map((product) => [product.id, product]),
+const catalogProductsById = new Map(
+  catalogProducts.map((product) => [product.id, product]),
 );
 
 function isPublishedForSale(product: AdminCatalogProduct) {
@@ -66,7 +66,7 @@ export function buildStorefrontProducts(
   adminProducts: AdminCatalogProduct[],
 ): Product[] {
   return adminProducts.flatMap((product) => {
-    const fallback = demoProductsById.get(product.id);
+    const fallback = catalogProductsById.get(product.id);
     if (!fallback && !isPublishedForSale(product)) return [];
     return [toPublicProduct(product, fallback)];
   });

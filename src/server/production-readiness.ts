@@ -398,9 +398,9 @@ export async function setManualReadinessCheck(
 function identityIsComplete() {
   return Boolean(
     pharmacyConfig.legalName.trim() &&
-    !pharmacyConfig.address.toLowerCase().includes("pendiente") &&
-    !pharmacyConfig.phone.includes("000 000") &&
-    !pharmacyConfig.email.endsWith(".invalid"),
+    pharmacyConfig.address.trim() &&
+    pharmacyConfig.phone.trim() &&
+    pharmacyConfig.email.trim(),
   );
 }
 

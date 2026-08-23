@@ -78,7 +78,7 @@ export default async function ArticlePage({
         </div>
       </header>
       <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1fr_16rem]">
-        <div className="prose-demo rounded-[2rem] bg-white p-7 md:p-10">
+        <div className="prose-content rounded-[2rem] bg-white p-7 md:p-10">
           <p className="text-forest text-lg font-bold">{article.intro}</p>
           {article.sections.map((section) => (
             <section key={section.title}>

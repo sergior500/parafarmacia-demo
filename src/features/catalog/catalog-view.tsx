@@ -25,7 +25,7 @@ import {
 import { buildAllCategoriesHref } from "@/features/catalog/catalog-navigation";
 import { getPaginationItems } from "@/features/catalog/catalog-pagination";
 import { ProductCard } from "@/features/catalog/product-card";
-import { useDemo } from "@/features/demo/demo-provider";
+import { useStorefront } from "@/features/storefront/storefront-provider";
 import { cn } from "@/lib/utils";
 import { brands, needs } from "@/mocks/content";
 
@@ -47,7 +47,7 @@ export function CatalogView({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { hydrated } = useDemo();
+  const { hydrated } = useStorefront();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const categorySlug =

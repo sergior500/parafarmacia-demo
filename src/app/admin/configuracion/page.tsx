@@ -51,7 +51,9 @@ export default async function ConfigurationPage() {
             </div>
             <div>
               <dt className="text-ink-muted">Dirección</dt>
-              <dd className="font-bold">{pharmacyConfig.address}</dd>
+              <dd className="font-bold">
+                {pharmacyConfig.address || "Pendiente"}
+              </dd>
             </div>
             <div>
               <dt className="text-ink-muted">Sitio</dt>

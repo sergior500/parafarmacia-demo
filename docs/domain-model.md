@@ -3,9 +3,8 @@
 ## Producto
 
 El catálogo contiene exclusivamente parafarmacia. Cada producto tiene estado,
-marca, precio en céntimos, IVA, categoría, stock, disponibilidad online y un
-EAN de demostración. Los estados son `active`, `inactive`,
-`temporarily_unavailable` y `withdrawn`.
+marca, precio en céntimos, IVA, categoría, stock y disponibilidad online. Los
+estados son `active`, `inactive`, `temporarily_unavailable` y `withdrawn`.
 
 La ficha retirada nunca aparece en el catálogo. La ficha inactiva puede
 conservarse para gestión interna, pero no se puede comprar. Las promociones
@@ -19,17 +18,16 @@ siempre en céntimos enteros.
 
 ## Pedido
 
-La compra demo crea directamente un pedido `confirmed`. El equipo puede
-avanzarlo a preparación, envío y entrega, o registrar cancelación y reembolso
-cuando corresponde. Cada acción genera una entrada de auditoría.
+La cesta se valida en servidor y se transfiere al checkout de Shopify. Shopify
+es la fuente de verdad para cobro, pedido, cliente e inventario comercial. El
+panel lee esos pedidos y permite registrar preparación, seguimiento y
+cancelación completa cuando corresponde. Cada mutación sensible queda auditada.
 
 ## Roles
 
 - `owner`: visión global y gestión del negocio.
-- `order_manager`: preparación, envío, entrega y cancelación.
-- `catalog_manager`: catálogo, stock y métricas agregadas; no ve clientes.
-- `customer_support`: consulta pedidos y puede registrar reembolsos.
-- `technical_admin`: configuración técnica; no ve datos de clientes.
+- `operations_manager`: pedidos, inventario, preparación y cancelación.
+- `catalog_manager`: catálogo, stock y publicación; no puede cancelar pedidos.
+- `auditor`: acceso de solo lectura a métricas y seguridad.
 
-Los permisos de la demo viven en el dominio y deberán repetirse en el servidor
-cuando exista autenticación real.
+Los permisos se comprueban en servidor para cada lectura y mutación protegida.

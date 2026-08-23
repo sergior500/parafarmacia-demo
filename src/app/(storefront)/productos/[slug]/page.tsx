@@ -90,7 +90,7 @@ export default async function ProductPage({
     {
       question: `¿Para quién está pensado ${product.name}?`,
       answer: product.skinTypes?.length
-        ? `La ficha demo lo clasifica para: ${product.skinTypes.join(", ")}. Confirma siempre la información del envase definitivo.`
+        ? `La ficha lo clasifica para: ${product.skinTypes.join(", ")}. Confirma siempre la información del envase definitivo.`
         : "La indicación concreta deberá incorporarse desde la ficha validada del fabricante.",
     },
     {
@@ -215,7 +215,7 @@ export default async function ProductPage({
               {pricePending
                 ? "Precio y stock pendientes de validación"
                 : available
-                  ? `${product.stock} unidades en stock demo`
+                  ? `${product.stock} unidades disponibles`
                   : "Temporalmente no disponible"}
             </Badge>
           </div>
@@ -365,10 +365,10 @@ export default async function ProductPage({
         <Info aria-hidden="true" className="text-coral size-5 shrink-0" />
         <p className="text-ink-muted text-xs leading-relaxed">
           <strong className="text-forest block">
-            Ficha comercial simulada
+            Información comercial por completar
           </strong>{" "}
-          Marca y formato se usan como referencia; precio, stock, imagen y
-          textos deberán validarse antes de publicar.
+          Los campos pendientes deberán validarse antes de habilitar la venta
+          del producto.
         </p>
       </aside>
     </div>

@@ -5,27 +5,26 @@ import { pharmacyConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Sobre la tienda",
-  description: "Identidad provisional de la futura tienda de parafarmacia.",
+  description: "Conoce la propuesta de parafarmacia online de Farmacia Picual.",
 };
 
 export default function AboutPage() {
   return (
     <InfoPage
-      eyebrow="Identidad provisional"
-      intro="El nombre definitivo, la titularidad, la dirección y los datos comerciales siguen pendientes."
+      eyebrow="Farmacia Picual"
+      intro="Una parafarmacia online pensada para encontrar productos por categoría, necesidad o rutina."
       title={`Sobre ${pharmacyConfig.name}`}
     >
-      <h2>Una base preparada para evolucionar</h2>
+      <h2>Una experiencia clara y cercana</h2>
       <p>
-        Esta experiencia separa el catálogo, el inventario, los pedidos y la
-        analítica para poder incorporar más adelante el ERP, el pago, el
-        transporte y las notificaciones seleccionados.
+        Organizamos el catálogo para que puedas comparar productos, entender la
+        información disponible y comprar con un proceso sencillo.
       </p>
-      <h2>Una demostración, no una tienda activa</h2>
+      <h2>Información responsable</h2>
       <p>
-        El prototipo no procesa pagos ni descuenta stock real. La identidad, la
-        información comercial y las condiciones deberán validarse antes de
-        cualquier publicación.
+        Solo publicamos como comprables los productos cuyo precio, stock y
+        disponibilidad hayan sido confirmados. Los datos legales completos de la
+        farmacia se incorporarán antes de habilitar la venta definitiva.
       </p>
     </InfoPage>
   );

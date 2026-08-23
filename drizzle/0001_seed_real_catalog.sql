@@ -1,5 +1,5 @@
 -- Generated from database/seed/catalog_bundle.json.
--- Real PDF catalogue only: 183 products; no demo prices, stock or EANs.
+-- Real PDF catalogue only: 183 products; no invented prices, stock or EANs.
 -- Regenerate with: node scripts/generate-d1-seed.mjs
 PRAGMA foreign_keys = ON;
 --> statement-breakpoint

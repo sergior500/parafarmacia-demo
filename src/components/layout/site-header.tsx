@@ -12,8 +12,8 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 
-import { useDemo } from "@/features/demo/demo-provider";
 import { SearchAutocomplete } from "@/features/search/search-autocomplete";
+import { useStorefront } from "@/features/storefront/storefront-provider";
 import { pharmacyConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { categories } from "@/mocks/products";
@@ -30,18 +30,16 @@ const mainNavigation = [
 ] as const;
 
 export function SiteHeader() {
-  const { cartCount } = useDemo();
+  const { cartCount } = useStorefront();
   const [open, setOpen] = useState(false);
 
   return (
     <header className="border-forest/8 bg-cream/95 sticky top-0 z-40 border-b backdrop-blur-xl">
       <div className="bg-petrol text-white">
         <div className="page-shell flex min-h-8 items-center justify-center gap-x-8 text-[.65rem] font-bold sm:justify-between">
-          <span>Envío a domicilio</span>
-          <span className="hidden sm:inline">Tarjeta o Bizum</span>
-          <span className="hidden md:inline">
-            Atención cercana de lunes a viernes
-          </span>
+          <span>Catálogo especializado</span>
+          <span className="hidden sm:inline">Compra segura con Shopify</span>
+          <span className="hidden md:inline">Fichas técnicas trazables</span>
           <span className="hidden lg:inline">
             Compra segura · condiciones visibles
           </span>
@@ -140,7 +138,7 @@ export function SiteHeader() {
               className="text-coral text-[.76rem] font-black"
               href="/parafarmacia?orden=price-asc"
             >
-              Ofertas demo
+              Ver por precio
             </Link>
           </li>
         </ul>

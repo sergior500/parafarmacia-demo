@@ -20,8 +20,8 @@ export default function FavoritesPage() {
           Favoritos
         </h1>
         <p className="text-ink-muted mt-4 max-w-xl text-sm">
-          Guardados localmente para comparar y volver más tarde durante la
-          demostración.
+          Guardados localmente en este dispositivo para comparar y volver más
+          tarde.
         </p>
       </header>
       <FavoritesView />

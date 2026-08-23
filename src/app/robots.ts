@@ -13,7 +13,6 @@ export default function robots(): MetadataRoute.Robots {
           disallow: [
             "/admin/",
             "/carrito",
-            "/solicitud-pedido",
             "/cuenta",
             "/favoritos",
             "/buscar",

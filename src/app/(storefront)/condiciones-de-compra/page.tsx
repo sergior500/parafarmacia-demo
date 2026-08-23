@@ -9,14 +9,14 @@ export default function TermsPage() {
     <InfoPage
       legal
       eyebrow="Condiciones provisionales"
-      intro="La demostración no acepta pedidos ni formaliza contratos de compraventa."
+      intro="La compra se completa en el entorno seguro de Shopify. Las condiciones definitivas se publicarán antes de habilitar cobros reales."
       title="Condiciones de compra"
     >
       <p>
         Los métodos de pago previstos son tarjeta bancaria y Bizum. El proveedor
         de pago, la autenticación y las condiciones definitivas se configurarán
-        antes del lanzamiento; esta demo nunca solicita datos bancarios ni
-        realiza cargos.
+        antes del lanzamiento. Farmacia Picual no almacena datos bancarios; el
+        pago se gestiona mediante los proveedores configurados en Shopify.
       </p>
       <p>
         Precios, disponibilidad, territorio, preparación, entrega y costes de

@@ -77,7 +77,7 @@ export default async function BrandPage({
           </div>
         ) : (
           <p className="text-ink-muted mt-6">
-            No hay productos activos para esta marca en la demo.
+            No hay productos activos para esta marca.
           </p>
         )}
       </section>

@@ -4,13 +4,13 @@ import type {
   ProductFilters,
 } from "@/domain/product/product";
 import { filterProducts } from "@/domain/product/product";
-import { categories, products as demoProducts } from "@/mocks/products";
+import { categories, products as catalogProducts } from "@/mocks/products";
 import { buildStorefrontProducts } from "@/providers/catalog/database-catalog";
 import type { CatalogProvider } from "@/providers/ports";
 import { listAdminProducts } from "@/server/catalog-repository";
 
-function failClosedDemoProducts(): Product[] {
-  return demoProducts.map((product) => ({
+function failClosedCatalogProducts(): Product[] {
+  return catalogProducts.map((product) => ({
     ...product,
     availableForOnlineSale: false,
   }));
@@ -22,7 +22,7 @@ export class DatabaseCatalogProvider implements CatalogProvider {
       return buildStorefrontProducts(await listAdminProducts());
     } catch (error) {
       console.error("No se pudo cargar el catálogo administrado.", error);
-      return failClosedDemoProducts();
+      return failClosedCatalogProducts();
     }
   }
 

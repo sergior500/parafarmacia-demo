@@ -28,7 +28,7 @@ import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 export const metadata: Metadata = {
   title: "Parafarmacia online clara, cercana y fácil de elegir",
   description:
-    "Descubre dermocosmética, protección solar, higiene, cuidado infantil y bienestar en una experiencia de parafarmacia online de demostración.",
+    "Descubre dermocosmética, protección solar, higiene, cuidado infantil y bienestar en Farmacia Picual.",
   alternates: { canonical: "/" },
 };
 
@@ -83,9 +83,9 @@ export default async function HomePage() {
               <SearchAutocomplete />
             </div>
             <div className="text-forest/65 mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[.7rem] font-bold">
-              <span>Productos originales</span>
-              <span>Envío a domicilio</span>
-              <span>Atención cercana</span>
+              <span>Catálogo especializado</span>
+              <span>Compra segura con Shopify</span>
+              <span>Información clara</span>
             </div>
           </div>
 
@@ -196,7 +196,7 @@ export default async function HomePage() {
             <div>
               <p className="eyebrow">Fichas del catálogo facilitado</p>
               <h2 className="display-title text-forest mt-3 text-4xl md:text-5xl">
-                Una selección lista para recorrer la demo.
+                Productos destacados del catálogo.
               </h2>
             </div>
             <Button asChild variant="outline">
@@ -207,9 +207,9 @@ export default async function HomePage() {
             </Button>
           </div>
           <p className="text-ink-muted mt-4 max-w-2xl text-sm">
-            Los productos proceden de las fichas técnicas recibidas. El precio y
-            el stock de esta selección son exclusivamente demostrativos y no
-            forman parte de la exportación definitiva.
+            Los productos proceden de las fichas técnicas recibidas. Solo se
+            podrán comprar cuando precio, stock y publicación estén confirmados
+            en Shopify.
           </p>
           <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product) => (
@@ -230,7 +230,7 @@ export default async function HomePage() {
               <p
                 className={`text-[.65rem] font-black tracking-[.14em] uppercase ${index === 0 ? "text-peach" : "text-forest/55"}`}
               >
-                Packs y rutinas · demo
+                Packs y rutinas
               </p>
               <h2 className="font-display mt-14 max-w-md text-4xl leading-none tracking-[-.045em]">
                 {promotion.title}
@@ -319,14 +319,14 @@ export default async function HomePage() {
           <div>
             <ShieldCheck aria-hidden="true" className="text-coral size-7" />
             <h2 className="font-display text-forest mt-5 text-3xl tracking-[-.04em]">
-              La confianza no se simula.
+              La confianza se verifica.
             </h2>
           </div>
           <div>
             <p className="text-ink-muted text-sm leading-relaxed">
-              Las opiniones verificadas aparecerán cuando exista un sistema real
-              capaz de demostrar la compra y moderar el contenido. En esta demo
-              no mostramos estrellas, contadores ni testimonios inventados.
+              Las opiniones aparecerán cuando podamos verificar la compra y
+              moderar el contenido con criterios transparentes. No mostramos
+              estrellas, contadores ni testimonios sin trazabilidad.
             </p>
             <Link
               className="text-forest mt-5 inline-flex items-center gap-2 text-sm font-bold"

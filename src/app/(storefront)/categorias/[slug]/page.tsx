@@ -71,9 +71,9 @@ export default async function CategoryPage({
           </h2>
           <p className="text-ink-muted mt-5 max-w-2xl text-sm leading-relaxed">
             Compara formatos, necesidades y disponibilidad sin depender
-            únicamente de la marca. La selección actual es demostrativa; las
-            fichas definitivas se completarán con la información validada de
-            fabricantes y distribuidores.
+            únicamente de la marca. Las fichas incompletas permanecerán fuera de
+            venta hasta incorporar información validada de fabricantes y
+            distribuidores.
           </p>
         </div>
         <div>
