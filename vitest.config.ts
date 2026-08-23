@@ -1,12 +1,12 @@
-import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@db": path.resolve(__dirname, "./db"),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@db": fileURLToPath(new URL("./db", import.meta.url)),
     },
   },
   test: {

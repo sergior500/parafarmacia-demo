@@ -1,25 +1,49 @@
 # Flujo comercial de pedidos
 
+## Fuente de verdad
+
+Shopify es la fuente de verdad de checkout, cobro, pedido, reserva de stock y
+fulfillment. El panel de Farmacia Picual presenta y opera esos datos mediante la
+Admin API; no mantiene una copia manipulable del pedido en el navegador.
+
 ```text
-borrador → confirmado → en preparación → enviado → entregado
-                 ↘ cancelado             ↘ reembolsado
-                        ↘ cancelado              ↘ reembolsado
+cesta local
+   ↓ Shopify acepta variantes y cantidades
+checkout de Shopify
+   ↓ pago confirmado por el proveedor
+pedido pagado y stock comprometido
+   ↓ comprobación humana en el panel
+fulfillment de Shopify
+   ↓ transportista / seguimiento
+pedido enviado
 ```
 
-La confirmación sucede al terminar el formulario demo. No hay cobro ni reserva
-real de stock.
+## Reglas implementadas
 
-## Acciones
+- La aplicación rechaza productos sin variante Shopify válida, precio, stock,
+  formato, imagen o aprobación necesaria para publicar/vender.
+- La cesta se conserva si falla la creación del checkout y solo se borra tras
+  recibir una URL de checkout válida.
+- El panel considera pendiente de preparación un pedido pagado, no cancelado y
+  con unidades pendientes de fulfillment.
+- No se permite registrar un envío de un pedido cancelado, impagado o sin
+  unidades pendientes.
+- Registrar el envío exige confirmación explícita del operador y usa una clave
+  idempotente por operación para evitar dobles ejecuciones en reintentos.
+- El correo al cliente y los datos de seguimiento son opciones explícitas del
+  formulario de preparación.
+- Inventario usa comparación optimista con la cantidad leída para detectar
+  cambios concurrentes en Shopify.
 
-| Desde          | Acción                | Resultado      | Roles                               |
-| -------------- | --------------------- | -------------- | ----------------------------------- |
-| Confirmado     | Iniciar preparación   | En preparación | Administración, gestión de pedidos  |
-| Confirmado     | Cancelar con motivo   | Cancelado      | Administración, gestión de pedidos  |
-| En preparación | Marcar como enviado   | Enviado        | Administración, gestión de pedidos  |
-| En preparación | Cancelar con motivo   | Cancelado      | Administración, gestión de pedidos  |
-| Enviado        | Marcar como entregado | Entregado      | Administración, gestión de pedidos  |
-| Enviado        | Registrar reembolso   | Reembolsado    | Administración, atención al cliente |
-| Entregado      | Registrar reembolso   | Reembolsado    | Administración, atención al cliente |
+## Operaciones todavía delegadas en Shopify
 
-Cancelar y reembolsar exigen motivo. Todas las transiciones y notas internas se
-añaden al historial del pedido.
+La aplicación no implementa todavía cancelaciones, devoluciones, reembolsos,
+etiquetas de transporte ni conciliación de pagos. Esas operaciones permanecen
+en Shopify hasta desarrollar y probar sus equivalentes en el panel. No deben
+simularse como completadas.
+
+## Pruebas de desarrollo
+
+La tienda de desarrollo usa una pasarela de prueba. Los pedidos creados allí no
+representan dinero real. Activar pagos reales o marcar un pedido como enviado
+modifica sistemas externos y requiere una comprobación deliberada del operador.

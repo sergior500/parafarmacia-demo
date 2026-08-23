@@ -3,6 +3,7 @@
     "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -35,5 +36,9 @@
     "vitest.config.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".next/types/validator.ts",
+    ".next/dev/types/validator.ts"
+  ]
 }

@@ -19,10 +19,16 @@ describe("customer account security", () => {
     await expect(decryptCustomerSecret(encrypted, secret)).resolves.toBe(
       "access-token",
     );
-    const replacement = encrypted.endsWith("A") ? "B" : "A";
-    await expect(
-      decryptCustomerSecret(`${encrypted.slice(0, -1)}${replacement}`, secret),
-    ).resolves.toBeNull();
+    const parts = encrypted.split(".");
+    const ciphertext = parts[2];
+    if (!ciphertext) throw new Error("Cifrado de prueba incompleto.");
+    const replacement = ciphertext[0] === "A" ? "B" : "A";
+    const tampered = [
+      parts[0],
+      parts[1],
+      `${replacement}${ciphertext.slice(1)}`,
+    ].join(".");
+    await expect(decryptCustomerSecret(tampered, secret)).resolves.toBeNull();
   });
 
   it("caduca el intento OAuth y limita el retorno a la cuenta", async () => {

@@ -1,16 +1,17 @@
-# Tienda de parafarmacia — demo
+# Farmacia Picual
 
-Prototipo funcional de comercio electrónico de parafarmacia. Permite demostrar
-catálogo, búsqueda, carrito, confirmación de un pedido y control administrativo
-de ventas, stock y estados del pedido sin conectar servicios reales.
+Escaparate y panel de gestión para una tienda de parafarmacia conectada con
+Shopify. La aplicación mantiene la experiencia de compra y la administración
+propias; Shopify aporta checkout, pagos, pedidos y la fuente comercial de
+inventario.
 
-> **Solo demostración.** Las marcas son referencias reconocibles, pero precios,
-> stock, EAN, imágenes, clientes y pedidos son ficticios. No se procesan pagos,
-> no se reservan existencias y no se envían notificaciones.
+La instalación actual es un entorno de desarrollo. Antes de vender debe
+migrarse a una organización y tienda propiedad de la farmacia, completar el
+catálogo y activar pagos, envíos, dominio y textos legales definitivos.
 
 ## Puesta en marcha
 
-Requiere Node.js 24 (o una versión compatible con Next.js 16) y pnpm 10.
+Requiere Node.js 24 y pnpm 10.
 
 ```bash
 pnpm install
@@ -20,73 +21,74 @@ pnpm dev
 
 La aplicación queda disponible en `http://localhost:3000`.
 
-## Variables de entorno
+## Componentes
 
-| Variable                          | Uso                   |
-| --------------------------------- | --------------------- |
-| `NEXT_PUBLIC_PHARMACY_NAME`       | Nombre visible        |
-| `NEXT_PUBLIC_PHARMACY_LEGAL_NAME` | Razón social futura   |
-| `NEXT_PUBLIC_PHARMACY_ADDRESS`    | Dirección provisional |
-| `NEXT_PUBLIC_PHARMACY_PHONE`      | Teléfono provisional  |
-| `NEXT_PUBLIC_PHARMACY_EMAIL`      | Correo provisional    |
-| `NEXT_PUBLIC_SITE_URL`            | URL base del sitio    |
+- Escaparate responsive con catálogo, categorías, marcas, búsqueda, favoritos,
+  cesta y páginas de producto.
+- Checkout seguro creado mediante Shopify Storefront API. La cesta local solo
+  se vacía cuando Shopify acepta las líneas y devuelve una URL válida.
+- Panel privado con catálogo, imágenes, publicación, inventario, pedidos,
+  preparación, equipo, configuración, seguridad y control de apertura.
+- Catálogo persistido en Cloudflare D1 e imágenes en R2.
+- Sincronización de productos y stock con Shopify Admin API.
+- Pedidos y métricas comerciales leídos de Shopify; registro de envíos mediante
+  una mutación idempotente.
+- Cuentas de cliente mediante Shopify Customer Account API con OAuth 2.0,
+  PKCE y tokens cifrados en servidor.
+- Webhooks de Shopify con verificación HMAC, límites de tamaño, temas
+  permitidos, idempotencia y registro de eventos.
+- Autenticación administrativa del hosting y autorización por capacidades en
+  servidor. La interfaz no es una frontera de seguridad.
 
-Las credenciales de futuros proveedores deberán ser variables de servidor y no
-enviarse al navegador.
-
-## Comandos
+## Comandos de calidad
 
 ```bash
-pnpm dev          # desarrollo
-pnpm build        # compilación de producción
-pnpm start        # servir la compilación
+pnpm build        # compilación Vinext/Cloudflare
 pnpm lint         # ESLint
 pnpm typecheck    # TypeScript
 pnpm test         # Vitest
 pnpm test:e2e     # Playwright
-pnpm format       # Prettier
+pnpm audit        # avisos conocidos de dependencias
 ```
 
-## Alcance actual
+## Configuración
 
-- Catálogo de 15 referencias de parafarmacia en nueve categorías.
-- Búsqueda, filtros por categoría y disponibilidad y ordenación por precio.
-- Carrito persistido en el navegador y formulario de compra ficticio.
-- Pedidos con estados confirmado, en preparación, enviado, entregado,
-  cancelado y reembolsado.
-- Panel con ventas semanales y mensuales, ticket medio, ventas por día,
-  productos más vendidos y alertas de stock.
-- Roles de administración, pedidos, catálogo, atención al cliente y sistemas.
-- Auditoría de cambios de estado y notas internas.
-- Búsqueda predictiva, favoritos y área de cuenta simulada.
-- Páginas de marcas y centro editorial con artículos individuales.
-- Base SEO con canonical, noindex selectivo, sitemap y datos estructurados prudentes.
+`.env.example` documenta las variables locales. En producción las credenciales
+de Shopify, los secretos de sesión y los secretos CSRF deben almacenarse como
+secretos del hosting, nunca con prefijo `NEXT_PUBLIC_`, en Git o en el
+navegador.
 
-## Arquitectura de la demo
+Los recursos de hosting están declarados en `.openai/hosting.json`: D1 con el
+binding `DB` y R2 con el binding `PRODUCT_IMAGES`. Las migraciones se encuentran
+en `drizzle/`.
 
-- `src/domain`: reglas puras de productos, carrito, pedidos, usuarios y
-  auditoría.
-- `src/providers`: adaptadores locales sustituibles por ERP, pago o transporte.
-- `src/features`: catálogo, carrito, compra, estado demo y panel.
-- `src/app`: rutas de Next.js y metadatos.
-- `src/mocks`: productos y pedidos ficticios.
+## Arquitectura
 
-El carrito, los pedidos y el rol elegido se guardan en `localStorage`. Es útil
-para una presentación, pero no aporta persistencia multiusuario ni seguridad de
-servidor.
+- `src/app`: rutas públicas, panel y endpoints de servidor.
+- `src/domain`: reglas puras de catálogo, cesta y pedidos.
+- `src/features`: casos de uso e interfaz de cada área.
+- `src/providers`: acceso al catálogo persistido y fronteras sustituibles.
+- `src/server`: autenticación, seguridad, D1/R2 y contratos con Shopify.
+- `worker`: entrada del Worker, recursos estáticos y cabeceras defensivas.
 
-## Limitaciones
+Los datos comerciales autoritativos no dependen de `localStorage`. El navegador
+solo conserva preferencias reversibles como la cesta o favoritos; precio,
+stock, permisos, publicación y pedidos se validan de nuevo en servidor.
 
-- Sin autenticación ni permisos comprobados en servidor.
-- Sin base de datos, ERP, pago, transporte, correo o reserva de stock.
-- Sin condiciones comerciales y textos legales definitivos.
-- Los datos locales pueden manipularse y no deben usarse en producción.
+## Documentación operativa
 
-## Documentación útil
-
-- [Guion de demostración](docs/guion-demo-comercial.md)
-- [Preguntas para continuar el desarrollo](docs/preguntas-continuidad.md)
+- [Arquitectura](docs/architecture.md)
 - [Flujo de pedidos](docs/order-workflow.md)
-- [Integraciones pendientes](docs/integrations-pending.md)
+- [Arquitectura y controles de seguridad](docs/SEGURIDAD.md)
+- [Migración a la tienda definitiva](docs/MIGRACION_TIENDA_SHOPIFY.md)
+- [Migración de autenticación](docs/MIGRACION_AUTENTICACION_SHOPIFY.md)
 - [Preparación para producción](docs/production-readiness.md)
-- [Decisiones de UX, SEO y rendimiento](docs/frontend-strategy.md)
+- [Preparación legal](docs/legal-readiness.md)
+
+## Estado de producción
+
+La aplicación puede probarse técnicamente en la tienda de desarrollo y con la
+pasarela de pruebas. No debe habilitar ventas reales hasta cerrar los bloqueos
+externos enumerados en `docs/production-readiness.md`. Ningún control aislado
+garantiza riesgo cero; la apertura requiere operación segura, monitorización y
+una revisión independiente de la configuración final.
