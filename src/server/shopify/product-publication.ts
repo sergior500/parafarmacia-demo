@@ -77,6 +77,11 @@ async function updateProductStatus(productId: string, status: "ACTIVE" | "DRAFT"
   if (!data.productUpdate.product) {
     throw new ShopifyApiError("Shopify no devolvió el producto actualizado.");
   }
+  if (data.productUpdate.product.status !== status) {
+    throw new ShopifyApiError(
+      "Shopify no confirmó el estado solicitado para el producto.",
+    );
+  }
 }
 
 async function publishProduct(productId: string, publicationId: string) {
@@ -117,10 +122,15 @@ export async function setShopifyProductPublication(
 ) {
   const publicationId = await getOnlineStorePublicationId();
   if (action === "publish") {
-    // First attach the draft to the channel, then activate it. If activation
-    // fails, the product remains a non-visible draft.
-    await publishProduct(productId, publicationId);
+    // Shopify only confirms channel publication for ACTIVE products. If the
+    // channel mutation fails, revert to DRAFT so the product fails closed.
     await updateProductStatus(productId, "ACTIVE");
+    try {
+      await publishProduct(productId, publicationId);
+    } catch (error) {
+      await updateProductStatus(productId, "DRAFT").catch(() => undefined);
+      throw error;
+    }
   } else {
     // Draft status removes customer visibility immediately, even if the
     // publication cleanup subsequently fails.

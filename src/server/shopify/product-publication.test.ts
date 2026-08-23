@@ -42,7 +42,7 @@ describe("Shopify publication eligibility", () => {
 describe("Shopify publication workflow", () => {
   beforeEach(() => shopifyAdminGraphql.mockReset());
 
-  it("attaches the product to Online Store before activating it", async () => {
+  it("activates the product before attaching it to Online Store", async () => {
     shopifyAdminGraphql
       .mockResolvedValueOnce({
         publications: {
@@ -53,14 +53,14 @@ describe("Shopify publication workflow", () => {
         },
       })
       .mockResolvedValueOnce({
-        publishablePublish: {
-          publishable: { publishedOnPublication: true },
+        productUpdate: {
+          product: { id: "product-1", status: "ACTIVE" },
           userErrors: [],
         },
       })
       .mockResolvedValueOnce({
-        productUpdate: {
-          product: { id: "product-1", status: "ACTIVE" },
+        publishablePublish: {
+          publishable: { publishedOnPublication: true },
           userErrors: [],
         },
       });
@@ -71,11 +71,48 @@ describe("Shopify publication workflow", () => {
     await expect(
       setShopifyProductPublication("product-1", "publish"),
     ).resolves.toEqual({ publicationId: "publication-online", published: true });
-    expect(shopifyAdminGraphql.mock.calls[1]?.[0]).toContain(
+    expect(shopifyAdminGraphql.mock.calls[1]?.[1]).toEqual({
+      product: { id: "product-1", status: "ACTIVE" },
+    });
+    expect(shopifyAdminGraphql.mock.calls[2]?.[0]).toContain(
       "publishablePublish",
     );
-    expect(shopifyAdminGraphql.mock.calls[2]?.[1]).toEqual({
-      product: { id: "product-1", status: "ACTIVE" },
+  });
+
+  it("reverts to draft when Shopify cannot confirm publication", async () => {
+    shopifyAdminGraphql
+      .mockResolvedValueOnce({
+        publications: {
+          nodes: [{ id: "publication-online", supportsFuturePublishing: true }],
+        },
+      })
+      .mockResolvedValueOnce({
+        productUpdate: {
+          product: { id: "product-1", status: "ACTIVE" },
+          userErrors: [],
+        },
+      })
+      .mockResolvedValueOnce({
+        publishablePublish: {
+          publishable: { publishedOnPublication: false },
+          userErrors: [],
+        },
+      })
+      .mockResolvedValueOnce({
+        productUpdate: {
+          product: { id: "product-1", status: "DRAFT" },
+          userErrors: [],
+        },
+      });
+    const { setShopifyProductPublication } = await import(
+      "@/server/shopify/product-publication"
+    );
+
+    await expect(
+      setShopifyProductPublication("product-1", "publish"),
+    ).rejects.toThrow("Shopify no confirmó la publicación del producto.");
+    expect(shopifyAdminGraphql.mock.calls[3]?.[1]).toEqual({
+      product: { id: "product-1", status: "DRAFT" },
     });
   });
 
