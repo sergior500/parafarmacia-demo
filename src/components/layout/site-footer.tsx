@@ -106,7 +106,10 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="page-shell flex flex-wrap justify-between gap-3 py-5 text-[.65rem] text-white/45">
           <span>© 2026 {pharmacyConfig.name}</span>
-          <Link href="/admin">Acceso al panel interno</Link>
+          {/* The protected admin route is owned by the Sites sign-in flow.
+              A document navigation lets anonymous visitors leave the Next
+              router cleanly and continue through /signin-with-chatgpt. */}
+          <a href="/admin">Acceso al panel interno</a>
           <span>Pago seguro gestionado por Shopify</span>
         </div>
       </div>

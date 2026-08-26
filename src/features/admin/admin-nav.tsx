@@ -91,12 +91,12 @@ export function AdminNav({ actor }: { actor: AdminActor }) {
               {actor.displayName} · {adminRoleLabel(actor.role)}
             </span>
           </div>
-          <Link
+          <a
             className="text-ink-muted hover:text-forest text-xs font-bold"
             href="/signout-with-chatgpt?return_to=/"
           >
             Cerrar sesión
-          </Link>
+          </a>
         </div>
         <nav aria-label="Navegación del panel" className="mt-6 overflow-x-auto">
           <ul className="flex min-w-max gap-2">
