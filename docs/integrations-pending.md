@@ -10,6 +10,7 @@
 | Checkout   | Shopify Storefront API y checkout alojado por Shopify                         |
 | Pedidos    | Lectura, métricas, detalle, fulfillment y cancelación completa desde el panel |
 | Clientes   | Shopify Customer Account OAuth 2.0 + PKCE                                     |
+| Gestión    | Clientes, códigos promocionales y reembolsos parciales desde el panel         |
 | Eventos    | Webhooks Shopify autenticados e idempotentes                                  |
 | Panel      | Identidad del hosting, roles y permisos comprobados en servidor               |
 

@@ -79,7 +79,7 @@ El token CSRF no protege frente a una vulnerabilidad XSS ejecutada dentro del pr
 
 En producción los límites se almacenan en D1 y se actualizan atómicamente. La clave es una huella HMAC de administrador, red y familia de operación; no se guarda la IP en texto claro.
 
-Se aplican políticas más estrictas a importaciones, imágenes, sincronización, publicación, inventario, preparación y cancelación de pedidos, gestión del equipo y configuración de Shopify. Los lotes de catálogo están limitados a diez productos.
+Se aplican políticas más estrictas a importaciones, imágenes, sincronización, publicación, inventario, preparación, cancelación y reembolso de pedidos, promociones, gestión del equipo y configuración de Shopify. Los lotes de catálogo están limitados a diez productos.
 
 Si D1 o el secreto de seguridad no están disponibles, la operación se bloquea con `503`: el sistema falla de forma cerrada. En desarrollo local se conserva un limitador en memoria para facilitar pruebas.
 
@@ -98,7 +98,7 @@ Si D1 o el secreto de seguridad no están disponibles, la operación se bloquea 
 
 Antes de publicar un producto, el servidor comprueba que está sincronizado, aprobado y que dispone de precio, stock, formato e imagen. Ocultar o publicar establece un estado deseado en Shopify, reduciendo el efecto de repeticiones.
 
-Las operaciones de inventario y preparación de pedidos utilizan claves de idempotencia de Shopify. La preparación de un pedido conserva el mismo identificador durante un reintento para evitar dobles ejecuciones. Antes de cancelar se vuelve a leer el pedido: si ya está cancelado, el servidor considera alcanzado el estado deseado sin repetir el efecto. La cancelación exige además motivo, nota interna, número de pedido exacto y doble confirmación humana.
+Las operaciones de inventario, preparación y reembolso de pedidos utilizan claves de idempotencia de Shopify. La preparación o el reembolso conservan el mismo identificador durante un reintento para evitar dobles ejecuciones. Antes de cancelar o reembolsar se vuelve a leer el pedido y se validan su estado y cantidades actuales. La cancelación y el reembolso exigen además motivo, número de pedido exacto y doble confirmación humana.
 
 ## 5. Protección del navegador
 
@@ -131,7 +131,7 @@ Todos los secretos utilizados durante el desarrollo deben rotarse antes de la pu
 
 ### 6.2 Mínimo privilegio
 
-La aplicación solicita únicamente alcances ligados a funciones implementadas. La publicación requiere lectura/escritura de publicaciones y escritura de productos; pedidos, inventario y Storefront se separan por alcance. Añadir un alcance nuevo exige revisión, documentación y aprobación del propietario de la tienda.
+La aplicación solicita únicamente alcances ligados a funciones implementadas. La publicación requiere lectura/escritura de publicaciones y escritura de productos; pedidos, inventario, consulta mínima de clientes, descuentos y Storefront se separan por alcance. Añadir un alcance nuevo exige revisión, documentación y aprobación del propietario de la tienda.
 
 Conocer un endpoint interno no permite llamar directamente a Shopify. Para ello sería necesario superar la autenticación y autorización de la aplicación o robar una credencial de servidor. Incluso en ese caso, Shopify limita el impacto a los alcances concedidos.
 
@@ -143,7 +143,7 @@ Los webhooks públicos no confían en la dirección de origen. Se verifica HMAC-
 
 Hay dos niveles de registro:
 
-1. Auditoría funcional de cambios de catálogo, inventario, pedidos y publicación, asociada al administrador.
+1. Auditoría funcional de cambios de catálogo, inventario, pedidos, reembolsos, promociones y publicación, asociada al administrador.
 2. Eventos de seguridad bloqueados por falta de autenticación, permiso, origen, CSRF o exceso de frecuencia.
 
 El Worker genera un identificador de petición para correlacionar aplicación y hosting. La IP y el agente de usuario se convierten en huellas HMAC truncadas; permiten detectar repeticiones sin conservar los valores originales. Los eventos de seguridad tienen una retención automática de noventa días.

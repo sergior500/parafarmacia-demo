@@ -44,11 +44,18 @@ pedido enviado
 - El operador decide si reponer las unidades y si Shopify debe notificar al
   cliente. El motivo y una nota interna son obligatorios y la operación queda
   auditada.
+- Los pedidos cobrados con unidades reembolsables permiten seleccionar líneas
+  y cantidades para un reembolso parcial. El servidor vuelve a consultar el
+  pedido, limita cada cantidad al saldo reembolsable y exige escribir el número
+  del pedido antes de mover dinero.
+- `refundCreate` usa la clave idempotente obligatoria de Shopify 2026-07. La
+  reposición solo se solicita para unidades recuperadas, reponibles y con una
+  ubicación de inventario válida.
 
 ## Operaciones todavía delegadas en Shopify
 
-La aplicación implementa cancelación completa con reembolso íntegro cuando
-corresponde. Todavía delega en Shopify devoluciones, reembolsos parciales,
+La aplicación implementa cancelación completa y reembolsos parciales. Todavía
+delega en Shopify la autorización formal de devoluciones complejas, cambios,
 etiquetas de transporte y conciliación de pagos. No deben simularse como
 completadas.
 

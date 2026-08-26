@@ -44,6 +44,8 @@ const ORDER_DETAIL_QUERY = `
       displayFinancialStatus
       displayFulfillmentStatus
       fullyPaid
+      refundable
+      presentmentCurrencyCode
       email
       phone
       note
@@ -69,6 +71,9 @@ const ORDER_DETAIL_QUERY = `
           id
           name
           quantity
+          refundableQuantity
+          unfulfilledQuantity
+          restockable
           sku
           variantTitle
           originalUnitPriceSet { shopMoney { amount currencyCode } }
@@ -84,10 +89,17 @@ const ORDER_DETAIL_QUERY = `
             nodes {
               id
               remainingQuantity
-              lineItem { name sku }
+              lineItem { id name sku }
             }
           }
         }
+      }
+      refunds {
+        id
+        createdAt
+        note
+        totalRefundedSet { shopMoney { amount currencyCode } }
+        transactions(first: 10) { nodes { status } }
       }
     }
   }
@@ -129,6 +141,41 @@ const ORDER_CANCEL_MUTATION = `
   }
 `;
 
+const REFUND_CREATE_MUTATION = `
+  mutation PicualRefundCreate(
+    $input: RefundInput!
+    $idempotencyKey: String!
+  ) {
+    refundCreate(input: $input) @idempotent(key: $idempotencyKey) {
+      refund {
+        id
+        createdAt
+        note
+        totalRefundedSet { presentmentMoney { amount currencyCode } }
+        transactions(first: 10) { nodes { status } }
+      }
+      userErrors { field message }
+    }
+  }
+`;
+
+const REFUND_SUGGESTION_QUERY = `
+  query PicualRefundSuggestion(
+    $orderId: ID!
+    $refundLineItems: [RefundLineItemInput!]
+  ) {
+    order(id: $orderId) {
+      suggestedRefund(
+        refundLineItems: $refundLineItems
+        refundMethodAllocation: ORIGINAL_PAYMENT_METHODS
+      ) {
+        amountSet { presentmentMoney { amount currencyCode } }
+        maximumRefundableSet { presentmentMoney { amount currencyCode } }
+      }
+    }
+  }
+`;
+
 interface ShopifyMoney {
   amount: string;
   currencyCode: string;
@@ -162,6 +209,8 @@ interface RawOrderDetail extends RawOrderSummary {
   updatedAt: string;
   cancelReason: string | null;
   fullyPaid: boolean;
+  refundable: boolean;
+  presentmentCurrencyCode: string;
   phone: string | null;
   note: string | null;
   tags: string[];
@@ -184,6 +233,9 @@ interface RawOrderDetail extends RawOrderSummary {
       id: string;
       name: string;
       quantity: number;
+      refundableQuantity: number;
+      unfulfilledQuantity: number;
+      restockable: boolean;
       sku: string | null;
       variantTitle: string | null;
       originalUnitPriceSet: ShopifyMoneySet;
@@ -202,11 +254,18 @@ interface RawOrderDetail extends RawOrderSummary {
         nodes: Array<{
           id: string;
           remainingQuantity: number;
-          lineItem: { name: string; sku: string | null } | null;
+          lineItem: { id: string; name: string; sku: string | null } | null;
         }>;
       };
     }>;
   };
+  refunds: Array<{
+    id: string;
+    createdAt: string;
+    note: string | null;
+    totalRefundedSet: ShopifyMoneySet;
+    transactions: { nodes: Array<{ status: string }> };
+  }>;
 }
 
 export interface ShopifyOrderSummary {
@@ -229,6 +288,8 @@ export interface ShopifyOrderSummary {
 export interface ShopifyOrderDetail extends ShopifyOrderSummary {
   updatedAt: string;
   fullyPaid: boolean;
+  refundable: boolean;
+  presentmentCurrencyCode: string;
   phone?: string;
   note?: string;
   tags: string[];
@@ -246,12 +307,26 @@ export interface ShopifyOrderDetail extends ShopifyOrderSummary {
     id: string;
     name: string;
     quantity: number;
+    refundableQuantity: number;
+    unfulfilledQuantity: number;
+    restockable: boolean;
+    restockLocationId?: string;
     sku?: string;
     variantTitle?: string;
     unitPrice: number;
     total: number;
   }>;
   fulfillmentOrders: ShopifyFulfillmentOrder[];
+  refunds: ShopifyRefundSummary[];
+}
+
+export interface ShopifyRefundSummary {
+  id: string;
+  createdAt: string;
+  note?: string;
+  amount: number;
+  currencyCode: string;
+  transactionStatus: string;
 }
 
 export interface ShopifyFulfillmentOrder {
@@ -261,6 +336,7 @@ export interface ShopifyFulfillmentOrder {
   locationName: string;
   items: Array<{
     id: string;
+    lineItemId?: string;
     name: string;
     sku?: string;
     remainingQuantity: number;
@@ -300,6 +376,23 @@ export interface ShopifyOrderCancellationInput {
 export interface ShopifyOrderCancellationResult {
   alreadyCancelled: boolean;
   job?: { id: string; done: boolean };
+}
+
+export interface ShopifyOrderRefundInput {
+  operationId: string;
+  confirmation: string;
+  note: string;
+  notifyCustomer: boolean;
+  restock: boolean;
+  lines: Array<{ lineItemId: string; quantity: number }>;
+}
+
+export interface ShopifyOrderRefundResult extends ShopifyRefundSummary {}
+
+export interface ShopifyOrderRefundSuggestion {
+  amount: number;
+  maximumRefundable: number;
+  currencyCode: string;
 }
 
 export interface ShopifyOrdersReport {
@@ -343,6 +436,19 @@ export function canCancelShopifyOrder(
   return (
     !order.cancelled &&
     !["FULFILLED", "PARTIALLY_FULFILLED"].includes(order.fulfillmentStatus)
+  );
+}
+
+export function canRefundShopifyOrder(
+  order: Pick<
+    ShopifyOrderDetail,
+    "refundable" | "lineItems" | "financialStatus"
+  >,
+): boolean {
+  return (
+    order.refundable &&
+    orderHasCapturedPayment(order) &&
+    order.lineItems.some((item) => item.refundableQuantity > 0)
   );
 }
 
@@ -565,12 +671,34 @@ export async function getShopifyOrder(
       id: item.id,
       name: item.name,
       quantity: item.quantity,
+      refundableQuantity: item.refundableQuantity,
+      unfulfilledQuantity: item.unfulfilledQuantity,
+      restockable: item.restockable,
+      restockLocationId: order.fulfillmentOrders.nodes.find((entry) =>
+        entry.lineItems.nodes.some(
+          (fulfillmentItem) => fulfillmentItem.lineItem?.id === item.id,
+        ),
+      )?.assignedLocation?.location?.id,
       sku: item.sku ?? undefined,
       variantTitle: item.variantTitle ?? undefined,
       unitPrice: moneyAmount(item.originalUnitPriceSet),
       total: moneyAmount(item.discountedTotalSet),
     })),
     fulfillmentOrders: mapFulfillmentOrders(order.fulfillmentOrders.nodes),
+    refundable: order.refundable,
+    presentmentCurrencyCode: order.presentmentCurrencyCode,
+    refunds: order.refunds.map((refund) => ({
+      id: refund.id,
+      createdAt: refund.createdAt,
+      note: refund.note ?? undefined,
+      amount: moneyAmount(refund.totalRefundedSet),
+      currencyCode: refund.totalRefundedSet.shopMoney.currencyCode,
+      transactionStatus:
+        refund.transactions.nodes.length > 0 &&
+        refund.transactions.nodes.every(({ status }) => status === "SUCCESS")
+          ? "SUCCESS"
+          : (refund.transactions.nodes[0]?.status ?? "PENDING"),
+    })),
   };
 }
 
@@ -595,6 +723,7 @@ export function mapFulfillmentOrders(
         .filter((item) => item.remainingQuantity > 0)
         .map((item) => ({
           id: item.id,
+          lineItemId: item.lineItem?.id,
           name: item.lineItem?.name ?? "Producto",
           sku: item.lineItem?.sku ?? undefined,
           remainingQuantity: item.remainingQuantity,
@@ -716,4 +845,156 @@ export async function cancelShopifyOrder(
     );
   }
   return { alreadyCancelled: false, job: data.orderCancel.job };
+}
+
+export async function refundShopifyOrder(
+  legacyId: string,
+  input: ShopifyOrderRefundInput,
+): Promise<ShopifyOrderRefundResult> {
+  const order = await getShopifyOrder(legacyId);
+  if (!order) throw new ShopifyApiError("El pedido no existe en Shopify.");
+  if (!canRefundShopifyOrder(order)) {
+    throw new ShopifyApiError(
+      "Este pedido no admite más reembolsos mediante el método original.",
+    );
+  }
+  if (input.confirmation !== order.name) {
+    throw new ShopifyApiError(
+      `Escribe ${order.name} exactamente para confirmar el reembolso.`,
+    );
+  }
+
+  const requested = validateRequestedRefundLines(order, input.lines);
+  const refundLineItems = requested.map(({ lineItemId, quantity, line }) => {
+    if (!input.restock) {
+      return { lineItemId, quantity, restockType: "NO_RESTOCK" };
+    }
+    if (!line.restockable) {
+      throw new ShopifyApiError(
+        "Una de las unidades seleccionadas no admite reposición de inventario.",
+      );
+    }
+    if (!line.restockLocationId) {
+      throw new ShopifyApiError(
+        "No se puede reponer esta unidad porque Shopify no ha indicado una ubicación.",
+      );
+    }
+    const restockType =
+      line.unfulfilledQuantity >= quantity ? "CANCEL" : "RETURN";
+    return {
+      lineItemId,
+      quantity,
+      restockType,
+      locationId: line.restockLocationId,
+    };
+  });
+
+  const data = await shopifyAdminGraphql<{
+    refundCreate: {
+      refund: {
+        id: string;
+        createdAt: string;
+        note: string | null;
+        totalRefundedSet: { presentmentMoney: ShopifyMoney };
+        transactions: { nodes: Array<{ status: string }> };
+      } | null;
+      userErrors: Array<{ field?: string[]; message: string }>;
+    };
+  }>(REFUND_CREATE_MUTATION, {
+    idempotencyKey: input.operationId,
+    input: {
+      orderId: order.id,
+      currency: order.presentmentCurrencyCode,
+      note: input.note,
+      notify: input.notifyCustomer,
+      allowOverRefunding: false,
+      refundLineItems,
+      transactions: [],
+    },
+  });
+  if (data.refundCreate.userErrors.length) {
+    throw new ShopifyApiError(
+      data.refundCreate.userErrors.map((error) => error.message).join(" · "),
+    );
+  }
+  const refund = data.refundCreate.refund;
+  if (!refund) {
+    throw new ShopifyApiError("Shopify no ha confirmado el reembolso.");
+  }
+  return {
+    id: refund.id,
+    createdAt: refund.createdAt,
+    note: refund.note ?? undefined,
+    amount: Number(refund.totalRefundedSet.presentmentMoney.amount) || 0,
+    currencyCode: refund.totalRefundedSet.presentmentMoney.currencyCode,
+    transactionStatus:
+      refund.transactions.nodes.length > 0 &&
+      refund.transactions.nodes.every(({ status }) => status === "SUCCESS")
+        ? "SUCCESS"
+        : (refund.transactions.nodes[0]?.status ?? "PENDING"),
+  };
+}
+
+export async function suggestShopifyOrderRefund(
+  legacyId: string,
+  lines: ShopifyOrderRefundInput["lines"],
+): Promise<ShopifyOrderRefundSuggestion> {
+  const order = await getShopifyOrder(legacyId);
+  if (!order) throw new ShopifyApiError("El pedido no existe en Shopify.");
+  if (!canRefundShopifyOrder(order)) {
+    throw new ShopifyApiError("Este pedido no admite más reembolsos.");
+  }
+  const requested = validateRequestedRefundLines(order, lines);
+  const data = await shopifyAdminGraphql<{
+    order: {
+      suggestedRefund: {
+        amountSet: { presentmentMoney: ShopifyMoney };
+        maximumRefundableSet: { presentmentMoney: ShopifyMoney };
+      } | null;
+    } | null;
+  }>(REFUND_SUGGESTION_QUERY, {
+    orderId: order.id,
+    refundLineItems: requested.map(({ lineItemId, quantity }) => ({
+      lineItemId,
+      quantity,
+      restockType: "NO_RESTOCK",
+    })),
+  });
+  const suggestion = data.order?.suggestedRefund;
+  if (!suggestion) {
+    throw new ShopifyApiError("Shopify no ha podido calcular el reembolso.");
+  }
+  return {
+    amount: Number(suggestion.amountSet.presentmentMoney.amount) || 0,
+    maximumRefundable:
+      Number(suggestion.maximumRefundableSet.presentmentMoney.amount) || 0,
+    currencyCode: suggestion.amountSet.presentmentMoney.currencyCode,
+  };
+}
+
+function validateRequestedRefundLines(
+  order: ShopifyOrderDetail,
+  lines: ShopifyOrderRefundInput["lines"],
+) {
+  const requested = new Map<string, number>();
+  for (const line of lines) {
+    requested.set(
+      line.lineItemId,
+      (requested.get(line.lineItemId) ?? 0) + line.quantity,
+    );
+  }
+  if (!requested.size) {
+    throw new ShopifyApiError(
+      "Selecciona al menos una unidad para reembolsar.",
+    );
+  }
+  return Array.from(requested, ([lineItemId, quantity]) => {
+    const line = order.lineItems.find((item) => item.id === lineItemId);
+    if (!line || quantity < 1 || quantity > line.refundableQuantity) {
+      throw new ShopifyApiError(
+        "La cantidad solicitada ya no está disponible para reembolso.",
+      );
+    }
+    return { lineItemId, quantity, line };
+  });
 }

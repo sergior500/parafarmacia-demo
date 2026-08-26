@@ -28,6 +28,21 @@ export const ADMIN_RATE_LIMITS = {
     limit: 5,
     windowMs: 5 * 60_000,
   },
+  refund: {
+    scope: "order-refund",
+    limit: 5,
+    windowMs: 5 * 60_000,
+  },
+  refundPreview: {
+    scope: "order-refund-preview",
+    limit: 20,
+    windowMs: 60_000,
+  },
+  discounts: {
+    scope: "discounts",
+    limit: 10,
+    windowMs: 5 * 60_000,
+  },
   team: { scope: "team", limit: 10, windowMs: 5 * 60_000 },
   shopifyManage: {
     scope: "shopify-manage",

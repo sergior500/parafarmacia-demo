@@ -7,6 +7,7 @@ import {
   PackageCheck,
   Phone,
   ReceiptText,
+  RotateCcw,
   UserRound,
 } from "lucide-react";
 import Link from "next/link";
@@ -15,6 +16,7 @@ import { notFound } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { CancelOrderForm } from "@/features/admin/cancel-order-form";
 import { FulfillOrderForm } from "@/features/admin/fulfill-order-form";
+import { RefundOrderForm } from "@/features/admin/refund-order-form";
 import {
   financialStatusLabel,
   formatShopifyDate,
@@ -28,6 +30,7 @@ import {
 import {
   canCancelShopifyOrder,
   canFulfillShopifyOrder,
+  canRefundShopifyOrder,
   getShopifyOrder,
   orderHasCapturedPayment,
 } from "@/server/shopify/orders";
@@ -153,6 +156,61 @@ export default async function OrderPage({
               </div>
             </dl>
           </Card>
+
+          {order.refunds.length ? (
+            <Card className="overflow-hidden">
+              <div className="border-forest/10 bg-sage/45 border-b px-5 py-4 sm:px-7">
+                <div className="flex items-center gap-3">
+                  <RotateCcw className="text-coral size-5" />
+                  <h2 className="text-forest text-xl font-black">
+                    Historial de reembolsos
+                  </h2>
+                </div>
+              </div>
+              <div className="divide-forest/10 divide-y">
+                {order.refunds.map((refund) => (
+                  <div
+                    className="grid gap-3 p-5 sm:grid-cols-[1fr_auto] sm:px-7"
+                    key={refund.id}
+                  >
+                    <div>
+                      <strong className="text-forest block">
+                        {formatShopifyDate(refund.createdAt)}
+                      </strong>
+                      <span className="text-ink-muted mt-1 block text-xs">
+                        {refund.note || "Sin nota interna"}
+                      </span>
+                    </div>
+                    <div className="sm:text-right">
+                      <strong className="text-forest block">
+                        {formatShopifyMoney(refund.amount, refund.currencyCode)}
+                      </strong>
+                      <span
+                        className={`mt-1 inline-flex rounded-full px-2.5 py-1 text-xs font-black ${
+                          refund.transactionStatus === "SUCCESS"
+                            ? "bg-emerald-100 text-emerald-800"
+                            : "bg-amber-100 text-amber-900"
+                        }`}
+                      >
+                        {refund.transactionStatus === "SUCCESS"
+                          ? "Completado"
+                          : "En proceso"}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ) : null}
+
+          {hasAdminCapability(actor, "orders:refund") &&
+          canRefundShopifyOrder(order) ? (
+            <RefundOrderForm
+              lineItems={order.lineItems}
+              orderId={order.legacyId}
+              orderName={order.name}
+            />
+          ) : null}
         </div>
 
         <aside className="space-y-6">

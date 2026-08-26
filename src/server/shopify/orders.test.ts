@@ -5,6 +5,7 @@ import {
   buildOrdersReport,
   canCancelShopifyOrder,
   canFulfillShopifyOrder,
+  canRefundShopifyOrder,
   mapFulfillmentOrders,
   orderHasCapturedPayment,
 } from "@/server/shopify/orders";
@@ -108,7 +109,11 @@ describe("mapFulfillmentOrders", () => {
             {
               id: "gid://shopify/FulfillmentOrderLineItem/1",
               remainingQuantity: 2,
-              lineItem: { name: "Crema facial", sku: "PIC-1" },
+              lineItem: {
+                id: "gid://shopify/LineItem/1",
+                name: "Crema facial",
+                sku: "PIC-1",
+              },
             },
           ],
         },
@@ -122,7 +127,11 @@ describe("mapFulfillmentOrders", () => {
             {
               id: "gid://shopify/FulfillmentOrderLineItem/2",
               remainingQuantity: 1,
-              lineItem: { name: "Gel", sku: null },
+              lineItem: {
+                id: "gid://shopify/LineItem/2",
+                name: "Gel",
+                sku: null,
+              },
             },
           ],
         },
@@ -138,6 +147,7 @@ describe("mapFulfillmentOrders", () => {
         items: [
           {
             id: "gid://shopify/FulfillmentOrderLineItem/1",
+            lineItemId: "gid://shopify/LineItem/1",
             name: "Crema facial",
             sku: "PIC-1",
             remainingQuantity: 2,
@@ -244,5 +254,50 @@ describe("order cancellation", () => {
       reason: "CUSTOMER",
       staffNote: "El cliente solicita cancelar el pedido.",
     });
+  });
+});
+
+describe("order refunds", () => {
+  it("solo permite reembolsar cobros con unidades aún reembolsables", () => {
+    const lineItems = [
+      {
+        id: "gid://shopify/LineItem/1",
+        name: "Crema facial",
+        quantity: 2,
+        refundableQuantity: 1,
+        unfulfilledQuantity: 0,
+        restockable: true,
+        unitPrice: 10,
+        total: 20,
+      },
+    ];
+    expect(
+      canRefundShopifyOrder({
+        refundable: true,
+        financialStatus: "PAID",
+        lineItems,
+      }),
+    ).toBe(true);
+    expect(
+      canRefundShopifyOrder({
+        refundable: false,
+        financialStatus: "PAID",
+        lineItems,
+      }),
+    ).toBe(false);
+    expect(
+      canRefundShopifyOrder({
+        refundable: true,
+        financialStatus: "AUTHORIZED",
+        lineItems,
+      }),
+    ).toBe(false);
+    expect(
+      canRefundShopifyOrder({
+        refundable: true,
+        financialStatus: "PAID",
+        lineItems: [{ ...lineItems[0]!, refundableQuantity: 0 }],
+      }),
+    ).toBe(false);
   });
 });

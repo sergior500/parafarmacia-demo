@@ -15,6 +15,8 @@ por sí sola el entorno de desarrollo en una tienda preparada para vender.
   defensivas y errores controlados.
 - Webhooks con HMAC, allowlist de temas e idempotencia.
 - Cuentas de cliente con OAuth 2.0 + PKCE y secretos cifrados.
+- Consulta administrativa minimizada de clientes, códigos promocionales y
+  reembolsos parciales idempotentes con permisos y auditoría independientes.
 - Pruebas unitarias/de contrato, lint, tipado, compilación y auditoría de
   dependencias en el flujo de validación.
 

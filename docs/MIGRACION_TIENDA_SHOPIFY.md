@@ -10,7 +10,8 @@ de pago y credenciales de producción.
 1. Crear o identificar la organización y tienda propiedad de la farmacia.
 2. Dar acceso individual al responsable técnico; no compartir contraseñas.
 3. Exigir MFA a propietarios, administradores y desarrolladores.
-4. Crear la aplicación definitiva y declarar únicamente los scopes utilizados.
+4. Crear la aplicación definitiva y declarar únicamente los scopes utilizados,
+   incluidos `read_customers` y `write_discounts` para los módulos internos.
 5. Configurar URL de aplicación, redirecciones OAuth y módulo de Customer
    Account para el dominio definitivo.
 6. Generar secretos nuevos. No copiar el client secret, secretos CSRF, claves

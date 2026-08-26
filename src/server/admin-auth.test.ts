@@ -66,6 +66,15 @@ describe("isAdminIdentityAllowed", () => {
       hasAdminCapability({ role: "operations_manager" }, "orders:cancel"),
     ).toBe(true);
     expect(
+      hasAdminCapability({ role: "operations_manager" }, "orders:refund"),
+    ).toBe(true);
+    expect(
+      hasAdminCapability({ role: "operations_manager" }, "customers:read"),
+    ).toBe(true);
+    expect(
+      hasAdminCapability({ role: "catalog_manager" }, "discounts:write"),
+    ).toBe(true);
+    expect(
       hasAdminCapability({ role: "catalog_manager" }, "orders:cancel"),
     ).toBe(false);
     expect(hasAdminCapability({ role: "auditor" }, "inventory:write")).toBe(

@@ -1,7 +1,9 @@
 import {
   Boxes,
   ClipboardList,
+  ContactRound,
   Container,
+  BadgePercent,
   Fingerprint,
   LayoutDashboard,
   LockKeyhole,
@@ -36,6 +38,18 @@ const links = [
     label: "Pedidos",
     icon: ClipboardList,
     capability: "orders:read",
+  },
+  {
+    href: "/admin/clientes",
+    label: "Clientes",
+    icon: ContactRound,
+    capability: "customers:read",
+  },
+  {
+    href: "/admin/promociones",
+    label: "Promociones",
+    icon: BadgePercent,
+    capability: "discounts:read",
   },
   {
     href: "/admin/productos",

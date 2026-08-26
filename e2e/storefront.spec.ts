@@ -40,7 +40,7 @@ test("abre una ficha real y conserva favoritos", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: PRODUCT_NAME, level: 1 }),
   ).toBeVisible();
-  await expect(page.getByText("Precio pendiente")).toBeVisible();
+  await expect(page.getByText("Precio pendiente").first()).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Comprar ahora" }),
   ).toBeDisabled();
@@ -96,6 +96,14 @@ test("carga el panel actual y bloquea mutaciones sin CSRF", async ({
     page.getByRole("button", { name: "Añadir producto" }),
   ).toBeVisible();
 
+  await page.goto("/admin");
+  await expect(
+    page.getByRole("link", { name: "Clientes", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Promociones", exact: true }),
+  ).toBeVisible();
+
   const response = await page.request.post("/api/admin/products", {
     headers: { origin: "http://localhost:3000" },
     data: {},
@@ -113,4 +121,25 @@ test("carga el panel actual y bloquea mutaciones sin CSRF", async ({
     },
   );
   expect(cancellation.status()).toBe(419);
+
+  const refundPreview = await page.request.post(
+    "/api/admin/orders/1001/refund/preview",
+    {
+      headers: { origin: "http://localhost:3000" },
+      data: {},
+    },
+  );
+  expect(refundPreview.status()).toBe(419);
+
+  const refund = await page.request.post("/api/admin/orders/1001/refund", {
+    headers: { origin: "http://localhost:3000" },
+    data: {},
+  });
+  expect(refund.status()).toBe(419);
+
+  const discount = await page.request.post("/api/admin/discounts", {
+    headers: { origin: "http://localhost:3000" },
+    data: {},
+  });
+  expect(discount.status()).toBe(419);
 });
