@@ -5,7 +5,7 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-coral/40 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-[.35rem_1rem_.35rem_1rem] px-5 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-coral/40 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {

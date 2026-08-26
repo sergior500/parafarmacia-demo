@@ -15,59 +15,51 @@ import { cn } from "@/lib/utils";
 
 const visualThemes = {
   facial: {
-    background: "from-[#eee7f7] via-[#f8f4fb] to-[#e4d9f1]",
-    accent: "bg-[#7b5aa6]",
-    accentText: "text-[#7b5aa6]",
-    soft: "bg-[#d8c9eb]",
+    background: "from-[#eee9de] via-[#f8f5ec] to-[#e3decf]",
+    accent: "bg-[#6d773f]",
+    accentText: "text-[#6d773f]",
     icon: Sparkles,
   },
   corporal: {
-    background: "from-[#dcefe7] via-[#edf7f1] to-[#cce5db]",
-    accent: "bg-[#1d806d]",
-    accentText: "text-[#1d806d]",
-    soft: "bg-[#b9dfd2]",
+    background: "from-[#e1e4d5] via-[#f3f2e9] to-[#d3dbc7]",
+    accent: "bg-[#486a52]",
+    accentText: "text-[#486a52]",
     icon: Package,
   },
   solar: {
-    background: "from-[#fff0d1] via-[#fff8e8] to-[#f8d99d]",
-    accent: "bg-[#d88926]",
-    accentText: "text-[#c77718]",
-    soft: "bg-[#f2ce83]",
+    background: "from-[#f2dfbd] via-[#fbf4e5] to-[#e8c991]",
+    accent: "bg-[#b78032]",
+    accentText: "text-[#9f6d25]",
     icon: Sun,
   },
   hygiene: {
-    background: "from-[#dbf0f1] via-[#f2f9f8] to-[#cae7e8]",
-    accent: "bg-[#21818a]",
-    accentText: "text-[#21818a]",
-    soft: "bg-[#b9dfe1]",
+    background: "from-[#dce7e2] via-[#f4f5ef] to-[#cadbd4]",
+    accent: "bg-[#396c61]",
+    accentText: "text-[#396c61]",
     icon: Droplets,
   },
   bucal: {
-    background: "from-[#e5edfa] via-[#f5f8fd] to-[#d4e1f4]",
-    accent: "bg-[#3d6fa8]",
-    accentText: "text-[#3d6fa8]",
-    soft: "bg-[#c5d7ee]",
+    background: "from-[#e0e5df] via-[#f5f4ec] to-[#d2dacf]",
+    accent: "bg-[#486b63]",
+    accentText: "text-[#486b63]",
     icon: Smile,
   },
   child: {
-    background: "from-[#fff0df] via-[#fff8ef] to-[#f9ddc5]",
-    accent: "bg-[#dc7c53]",
-    accentText: "text-[#c7653c]",
-    soft: "bg-[#f3cdb0]",
+    background: "from-[#efe0d2] via-[#faf3e9] to-[#e6cdb8]",
+    accent: "bg-[#b55b3f]",
+    accentText: "text-[#a65037]",
     icon: Baby,
   },
   nutrition: {
     background: "from-[#eee8d4] via-[#f9f6ec] to-[#dfd4ad]",
     accent: "bg-[#796a31]",
     accentText: "text-[#796a31]",
-    soft: "bg-[#d8cb9f]",
     icon: Apple,
   },
   recovery: {
-    background: "from-[#e7e1f2] via-[#f8f5fb] to-[#d6cce8]",
-    accent: "bg-[#67528d]",
-    accentText: "text-[#67528d]",
-    soft: "bg-[#c9bce0]",
+    background: "from-[#e3ddd1] via-[#f6f2e8] to-[#cfd8ce]",
+    accent: "bg-[#596b55]",
+    accentText: "text-[#596b55]",
     icon: Activity,
   },
 } as const;
@@ -109,20 +101,15 @@ export function ProductVisual({
           : `Representación gráfica de ${product.name}`
       }
       className={cn(
-        "relative grid aspect-[4/3] place-items-center overflow-hidden rounded-[1.4rem] bg-gradient-to-br",
+        "border-forest/10 relative grid aspect-[4/3] place-items-center overflow-hidden rounded-[.4rem_1.8rem_.4rem_1.8rem] border bg-gradient-to-br",
         theme.background,
         className,
       )}
     >
-      <span
-        className={cn(
-          "absolute -top-12 -right-9 size-36 rounded-full opacity-60 blur-[1px]",
-          theme.soft,
-        )}
-      />
-      <span className="absolute -bottom-16 -left-8 size-36 rounded-full border-[1.8rem] border-white/45" />
+      <span className="bg-forest/20 absolute inset-x-0 top-0 h-px" />
+      <span className={cn("absolute top-0 right-0 h-14 w-1", theme.accent)} />
       <span className="absolute top-4 left-4 z-10 text-[0.52rem] font-black tracking-[0.16em] text-black/30 uppercase">
-        {usesCatalogImage ? "Ficha de catálogo" : "Vista orientativa"}
+        {usesCatalogImage ? "Archivo Picual" : "Vista orientativa"}
       </span>
 
       {usesCatalogImage ? (

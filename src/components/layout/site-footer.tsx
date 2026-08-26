@@ -1,4 +1,4 @@
-import { Leaf, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 
 import { pharmacyConfig } from "@/lib/config";
@@ -38,20 +38,26 @@ const groups = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-forest-dark mt-24 pt-16 text-white">
+    <footer className="bg-forest-dark relative mt-24 overflow-hidden pt-16 text-white">
+      <span className="catalog-number pointer-events-none absolute -right-8 -bottom-28 text-[19rem] leading-none text-white/[.025]">
+        FP
+      </span>
       <div className="page-shell grid gap-12 pb-14 lg:grid-cols-[1.15fr_2fr]">
         <div>
           <div className="flex items-center gap-3">
-            <span className="text-forest grid size-11 place-items-center rounded-2xl bg-white">
-              <Leaf aria-hidden="true" className="size-5" />
+            <span className="brand-seal size-12 border-white/25 text-sm">
+              FP
             </span>
             <strong className="font-display text-2xl tracking-[-.04em]">
               {pharmacyConfig.name}
             </strong>
           </div>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
-            Parafarmacia online clara y cercana, con catálogo, compra y gestión
-            de pedidos conectados con Shopify.
+          <p className="font-display mt-7 max-w-sm text-3xl leading-[1.05] tracking-[-.04em] text-white">
+            Cuidarse bien empieza por entender bien.
+          </p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
+            Parafarmacia online con información clara, selección cuidada y
+            compra conectada con Shopify.
           </p>
           {pharmacyConfig.phone ||
           pharmacyConfig.email ||
@@ -81,7 +87,7 @@ export function SiteFooter() {
         <div className="grid gap-8 sm:grid-cols-3">
           {groups.map((group) => (
             <div key={group.title}>
-              <p className="text-peach text-[.65rem] font-black tracking-[.15em] uppercase">
+              <p className="text-ochre text-[.65rem] font-black tracking-[.15em] uppercase">
                 {group.title}
               </p>
               <ul className="mt-5 grid gap-3 text-sm text-white/65">

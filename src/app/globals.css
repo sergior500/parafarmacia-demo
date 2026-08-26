@@ -1,19 +1,22 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-cream: #f7f4ed;
-  --color-cream-dark: #eee8dc;
-  --color-forest: #173f39;
-  --color-forest-light: #285b52;
-  --color-forest-dark: #0b2d2a;
-  --color-petrol: #123f4a;
-  --color-sage: #dce9dc;
-  --color-sage-dark: #c4d9c8;
-  --color-coral: #e56f52;
-  --color-coral-light: #f8ddd2;
-  --color-peach: #f3cdbb;
-  --color-ink: #182521;
-  --color-ink-muted: #64716b;
+  --color-cream: #f4f0e5;
+  --color-cream-dark: #e8e1d2;
+  --color-forest: #213f32;
+  --color-forest-light: #355b48;
+  --color-forest-dark: #102a21;
+  --color-petrol: #183f3d;
+  --color-sage: #dce4d2;
+  --color-sage-dark: #c4d0b7;
+  --color-coral: #b55b3f;
+  --color-coral-light: #f0d3c7;
+  --color-peach: #e7c8a8;
+  --color-olive: #6d773f;
+  --color-olive-light: #d9dec0;
+  --color-ochre: #c89c52;
+  --color-ink: #1f2923;
+  --color-ink-muted: #647067;
   --font-sans: "Aptos", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
   --font-display:
     "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
@@ -28,7 +31,9 @@ html {
 }
 body {
   margin: 0;
-  background: var(--color-cream);
+  background:
+    radial-gradient(circle at 8% 4%, rgb(109 119 63 / 7%), transparent 23rem),
+    var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
   line-height: 1.6;
@@ -65,7 +70,7 @@ summary:focus-visible {
 
 .page-shell {
   margin-inline: auto;
-  width: min(100% - 2rem, 82rem);
+  width: min(100% - 2rem, 84rem);
 }
 .display-title {
   font-family: var(--font-display);
@@ -75,11 +80,42 @@ summary:focus-visible {
   text-wrap: balance;
 }
 .eyebrow {
-  color: var(--color-coral);
+  color: var(--color-olive);
   font-size: 0.68rem;
   font-weight: 850;
   letter-spacing: 0.17em;
   text-transform: uppercase;
+}
+.paper-grid {
+  background-color: #f8f5ec;
+  background-image:
+    linear-gradient(rgb(33 63 50 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(33 63 50 / 5%) 1px, transparent 1px);
+  background-size: 2.75rem 2.75rem;
+}
+.brand-seal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(244 240 229 / 55%);
+  border-radius: 999px;
+  background: var(--color-forest);
+  color: var(--color-cream);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  box-shadow:
+    inset 0 0 0 4px var(--color-forest),
+    inset 0 0 0 5px rgb(244 240 229 / 45%);
+}
+.editorial-rule {
+  border-top: 1px solid rgb(33 63 50 / 18%);
+  border-bottom: 1px solid rgb(33 63 50 / 18%);
+}
+.catalog-number {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  letter-spacing: -0.05em;
 }
 .field-label {
   display: block;

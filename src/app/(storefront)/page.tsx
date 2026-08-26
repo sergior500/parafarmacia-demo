@@ -43,15 +43,15 @@ const needIcons = [
   Smile,
 ] as const;
 const categoryThemes = [
-  "bg-[#ebe4f3]",
-  "bg-[#dcebe3]",
-  "bg-[#fae8c8]",
-  "bg-[#dcebed]",
-  "bg-[#e3eaf4]",
-  "bg-[#f6e4d8]",
-  "bg-[#e5eee8]",
-  "bg-[#f1ead7]",
-  "bg-[#e8e2f3]",
+  "bg-[#e5e1d3]",
+  "bg-[#dce4d2]",
+  "bg-[#eeddbd]",
+  "bg-[#d6e0dc]",
+  "bg-[#e1ded2]",
+  "bg-[#ead5c5]",
+  "bg-[#dce3d8]",
+  "bg-[#e6dfca]",
+  "bg-[#d8ded2]",
 ] as const;
 
 export default async function HomePage() {
@@ -66,30 +66,32 @@ export default async function HomePage() {
   return (
     <>
       <section className="overflow-hidden">
-        <div className="page-shell grid gap-7 py-6 md:py-10 lg:grid-cols-[.9fr_1.1fr] lg:items-stretch lg:gap-6">
-          <div className="bg-sage relative flex min-h-[34rem] flex-col justify-center overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 lg:min-h-[37rem] lg:px-12">
-            <span className="border-forest/10 text-forest inline-flex w-fit items-center gap-2 rounded-full border bg-white/60 px-3 py-2 text-[.65rem] font-black tracking-[.1em] uppercase">
-              <Leaf aria-hidden="true" className="size-3.5" /> Elegir bien
-              empieza por entenderlo fácil
+        <div className="page-shell grid gap-3 py-5 md:py-8 lg:grid-cols-[1.04fr_.96fr] lg:items-stretch">
+          <div className="paper-grid border-forest/10 relative flex min-h-[35rem] flex-col justify-center overflow-hidden rounded-[.35rem_3.5rem_.35rem_.35rem] border px-6 py-12 sm:px-10 lg:min-h-[39rem] lg:px-14">
+            <span className="catalog-number text-olive absolute top-5 right-7 text-6xl leading-none opacity-20">
+              01
             </span>
-            <h1 className="display-title text-forest mt-7 max-w-xl text-[3.15rem] sm:text-6xl lg:text-[4.65rem]">
-              Tu rutina, más sencilla de encontrar.
+            <span className="text-forest inline-flex w-fit items-center gap-2 text-[.62rem] font-black tracking-[.16em] uppercase">
+              <span className="bg-olive h-px w-9" /> Selección Farmacia Picual
+            </span>
+            <h1 className="display-title text-forest mt-8 max-w-xl text-[3.25rem] sm:text-6xl lg:text-[4.8rem]">
+              Parafarmacia con criterio. Cuidado que se entiende.
             </h1>
-            <p className="text-forest/70 mt-6 max-w-lg text-base leading-relaxed sm:text-lg">
-              Cuidado facial, solar, higiene y bienestar explicados con
-              claridad, para comprar por producto o por lo que necesitas.
+            <p className="text-forest/70 mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
+              Dermocosmética, protección solar, higiene y bienestar explicados
+              con claridad para elegir por producto o por lo que necesitas.
             </p>
             <div className="mt-8 max-w-xl">
               <SearchAutocomplete />
             </div>
-            <div className="text-forest/65 mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[.7rem] font-bold">
-              <span>Catálogo especializado</span>
-              <span>Compra segura con Shopify</span>
+            <div className="editorial-rule text-forest/65 mt-8 grid grid-cols-3 gap-3 py-3 text-[.64rem] font-black tracking-[.04em] uppercase">
+              <span>Catálogo real</span>
               <span>Información clara</span>
+              <span>Compra segura</span>
             </div>
           </div>
 
-          <div className="bg-cream-dark relative min-h-[24rem] overflow-hidden rounded-[2rem] lg:min-h-[37rem]">
+          <div className="bg-cream-dark border-forest/10 relative min-h-[26rem] overflow-hidden rounded-[3.5rem_.35rem_.35rem_.35rem] border lg:min-h-[39rem]">
             <Image
               src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/hero-parafarmacia-editorial.png`}
               alt="Composición editorial de envases cosméticos sin marca sobre pedestales verde salvia"
@@ -99,13 +101,16 @@ export default async function HomePage() {
               priority
               sizes="(min-width: 1024px) 55vw, 100vw"
             />
-            <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-4 rounded-[1.4rem] bg-white/88 p-4 backdrop-blur-md sm:right-auto sm:max-w-sm sm:p-5">
+            <span className="bg-forest-dark absolute top-0 right-0 px-4 py-3 text-[.58rem] font-black tracking-[.16em] text-white uppercase [writing-mode:vertical-rl]">
+              Archivo Picual · Temporada 01
+            </span>
+            <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-4 border border-white/45 bg-[#f8f5ec]/92 p-4 backdrop-blur-md sm:right-auto sm:max-w-sm sm:p-5">
               <div>
                 <p className="text-ink-muted text-[.62rem] font-black tracking-[.13em] uppercase">
                   Selección de temporada
                 </p>
                 <strong className="text-forest mt-1 block text-lg">
-                  La rutina solar se prepara antes del verano
+                  Protección solar: empieza antes de exponerte
                 </strong>
               </div>
               <Button asChild size="icon">
@@ -118,6 +123,21 @@ export default async function HomePage() {
               </Button>
             </div>
           </div>
+        </div>
+        <div className="page-shell editorial-rule grid grid-cols-2 gap-px py-4 text-center sm:grid-cols-4">
+          {[
+            "01 · Dermocosmética",
+            "02 · Protección solar",
+            "03 · Higiene",
+            "04 · Bienestar",
+          ].map((item) => (
+            <span
+              className="text-forest/55 px-2 text-[.62rem] font-black tracking-[.11em] uppercase"
+              key={item}
+            >
+              {item}
+            </span>
+          ))}
         </div>
       </section>
 
@@ -136,16 +156,16 @@ export default async function HomePage() {
             Ver todo <ChevronRight aria-hidden="true" className="size-4" />
           </Link>
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="border-forest/10 bg-forest/10 mt-8 grid grid-cols-2 gap-px overflow-hidden border md:grid-cols-4">
           {needs.map((need, index) => {
             const Icon = needIcons[index]!;
             return (
               <Link
-                className="border-forest/8 group min-h-40 rounded-[1.5rem] border bg-white p-4 transition-transform hover:-translate-y-1 sm:p-5"
+                className="group bg-cream min-h-44 p-4 transition-colors hover:bg-white sm:p-5"
                 href={`/buscar?necesidad=${need.slug}`}
                 key={need.slug}
               >
-                <span className="bg-cream text-forest grid size-10 place-items-center rounded-2xl">
+                <span className="text-olive border-olive/25 grid size-10 place-items-center border">
                   <Icon aria-hidden="true" className="size-5" />
                 </span>
                 <strong className="text-forest mt-5 block text-sm sm:text-base">
@@ -161,15 +181,15 @@ export default async function HomePage() {
       </section>
 
       <section className="page-shell py-12 md:py-16">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((category, index) => (
             <Link
-              className={`${categoryThemes[index]!} group relative min-h-64 overflow-hidden rounded-[2rem] p-6 sm:p-7`}
+              className={`${categoryThemes[index]!} border-forest/10 group relative min-h-64 overflow-hidden border p-6 transition-transform hover:-translate-y-1 sm:p-7`}
               href={`/categorias/${category.slug}`}
               key={category.id}
             >
-              <span className="text-forest/35 text-[.62rem] font-black tracking-[.14em] uppercase">
-                0{index + 1} · Categoría
+              <span className="catalog-number text-forest/25 text-5xl leading-none">
+                0{index + 1}
               </span>
               <h2 className="font-display text-forest mt-16 max-w-xs text-3xl leading-none tracking-[-.045em]">
                 {category.name}
@@ -177,7 +197,7 @@ export default async function HomePage() {
               <p className="text-ink-muted mt-3 max-w-xs text-xs leading-relaxed">
                 {category.description}
               </p>
-              <span className="text-forest absolute right-6 bottom-6 grid size-10 place-items-center rounded-full bg-white/75 transition-transform group-hover:translate-x-1">
+              <span className="text-forest border-forest/15 absolute right-6 bottom-6 grid size-10 place-items-center border bg-white/55 transition-transform group-hover:translate-x-1">
                 <ArrowRight aria-hidden="true" className="size-4" />
               </span>
               <Waves
@@ -190,7 +210,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-20">
+      <section className="border-forest/10 border-y bg-[#f9f7f0] py-16 md:py-20">
         <div className="page-shell">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <div>
@@ -223,7 +243,7 @@ export default async function HomePage() {
         <div className="grid gap-4 lg:grid-cols-2">
           {promotions.map((promotion, index) => (
             <Link
-              className={`relative min-h-72 overflow-hidden rounded-[2rem] p-7 sm:p-9 ${index === 0 ? "bg-petrol text-white" : "bg-peach text-forest"}`}
+              className={`relative min-h-72 overflow-hidden border p-7 sm:p-9 ${index === 0 ? "border-forest-dark bg-forest-dark text-white" : "border-coral/20 bg-peach text-forest"}`}
               href={promotion.href}
               key={promotion.id}
             >
@@ -269,7 +289,7 @@ export default async function HomePage() {
 
       <section className="page-shell py-16 md:py-20">
         <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
-          <div className="bg-forest-dark rounded-[2rem] p-7 text-white sm:p-9">
+          <div className="bg-forest-dark rounded-[.35rem_2.5rem_.35rem_.35rem] p-7 text-white sm:p-9">
             <BookOpen aria-hidden="true" className="text-peach size-7" />
             <p className="text-peach mt-8 text-[.65rem] font-black tracking-[.14em] uppercase">
               Centro de consejos
@@ -291,7 +311,7 @@ export default async function HomePage() {
           <div className="grid gap-3 sm:grid-cols-2">
             {articles.slice(0, 3).map((article, index) => (
               <Link
-                className={`border-forest/8 rounded-[1.75rem] border bg-white p-6 ${index === 0 ? "sm:col-span-2" : ""}`}
+                className={`border-forest/10 border bg-white p-6 ${index === 0 ? "sm:col-span-2" : ""}`}
                 href={`/consejos/${article.slug}`}
                 key={article.id}
               >
@@ -315,7 +335,7 @@ export default async function HomePage() {
       </section>
 
       <section className="page-shell py-16">
-        <div className="border-forest/10 grid gap-8 rounded-[2rem] border bg-white p-7 md:grid-cols-[.7fr_1.3fr] md:p-10">
+        <div className="paper-grid border-forest/10 grid gap-8 rounded-[.35rem_2.5rem_.35rem_.35rem] border p-7 md:grid-cols-[.7fr_1.3fr] md:p-10">
           <div>
             <ShieldCheck aria-hidden="true" className="text-coral size-7" />
             <h2 className="font-display text-forest mt-5 text-3xl tracking-[-.04em]">

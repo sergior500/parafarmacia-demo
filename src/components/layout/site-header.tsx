@@ -3,7 +3,6 @@
 import {
   ChevronDown,
   Heart,
-  Leaf,
   Menu,
   ShoppingBag,
   UserRound,
@@ -34,15 +33,15 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="border-forest/8 bg-cream/95 sticky top-0 z-40 border-b backdrop-blur-xl">
-      <div className="bg-petrol text-white">
-        <div className="page-shell flex min-h-8 items-center justify-center gap-x-8 text-[.65rem] font-bold sm:justify-between">
-          <span>Catálogo especializado</span>
-          <span className="hidden sm:inline">Compra segura con Shopify</span>
-          <span className="hidden md:inline">Fichas técnicas trazables</span>
-          <span className="hidden lg:inline">
-            Compra segura · condiciones visibles
+    <header className="border-forest/10 bg-cream/95 sticky top-0 z-40 border-b backdrop-blur-xl">
+      <div className="bg-forest-dark text-white">
+        <div className="page-shell flex min-h-8 items-center justify-center gap-x-8 text-[.62rem] font-bold tracking-[.06em] sm:justify-between">
+          <span>FARMACIA PICUAL · PARAFARMACIA</span>
+          <span className="hidden sm:inline">
+            Selección con criterio de farmacia
           </span>
+          <span className="hidden md:inline">Fichas técnicas trazables</span>
+          <span className="hidden lg:inline">Pago protegido por Shopify</span>
         </div>
       </div>
 
@@ -52,15 +51,13 @@ export function SiteHeader() {
           href="/"
           aria-label={`${pharmacyConfig.name}, inicio`}
         >
-          <span className="bg-forest text-cream grid size-11 place-items-center rounded-[1.1rem] shadow-[0_14px_30px_-15px_rgba(9,45,41,.8)]">
-            <Leaf aria-hidden="true" className="size-5" />
-          </span>
+          <span className="brand-seal size-12 text-[.92rem]">FP</span>
           <span className="hidden sm:block">
-            <strong className="font-display block text-xl leading-none font-semibold tracking-[-.04em]">
+            <strong className="font-display block text-[1.32rem] leading-none font-semibold tracking-[-.05em]">
               {pharmacyConfig.name}
             </strong>
             <span className="text-ink-muted mt-1 block text-[.56rem] font-black tracking-[.14em] uppercase">
-              Parafarmacia contemporánea
+              Criterio de farmacia
             </span>
           </span>
         </Link>
@@ -113,7 +110,7 @@ export function SiteHeader() {
       </div>
 
       <nav
-        className="border-forest/8 hidden border-t lg:block"
+        className="border-forest/10 hidden border-t lg:block"
         aria-label="Navegación principal"
       >
         <ul className="page-shell flex min-h-11 items-center justify-center gap-1">
@@ -121,7 +118,7 @@ export function SiteHeader() {
             <li key={item.href}>
               <Link
                 className={cn(
-                  "text-forest hover:bg-sage/65 flex min-h-9 items-center gap-1 rounded-full px-3.5 text-[.76rem] font-bold transition-colors",
+                  "text-forest hover:text-coral after:bg-coral relative flex min-h-10 items-center gap-1 px-3.5 text-[.74rem] font-bold transition-colors after:absolute after:right-3.5 after:bottom-0 after:left-3.5 after:h-px after:origin-left after:scale-x-0 after:transition-transform hover:after:scale-x-100",
                   index === 0 && "pl-4",
                 )}
                 href={item.href}
@@ -135,7 +132,7 @@ export function SiteHeader() {
           ))}
           <li className="ml-auto">
             <Link
-              className="text-coral text-[.76rem] font-black"
+              className="bg-olive text-cream rounded-full px-4 py-2 text-[.7rem] font-black"
               href="/parafarmacia?orden=price-asc"
             >
               Ver por precio

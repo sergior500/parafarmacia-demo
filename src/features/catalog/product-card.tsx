@@ -49,13 +49,10 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <article className="group flex h-full flex-col">
+    <article className="border-forest/10 group flex h-full flex-col border-t bg-white/35 p-3 transition-colors hover:bg-white sm:p-4">
       <div className="relative">
         <Link href={`/productos/${product.slug}`}>
-          <ProductVisual
-            product={product}
-            className="aspect-square rounded-[1.65rem]"
-          />
+          <ProductVisual product={product} className="aspect-square" />
         </Link>
         <FavoriteButton
           productId={product.id}
