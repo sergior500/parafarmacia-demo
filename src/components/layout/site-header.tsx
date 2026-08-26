@@ -2,6 +2,7 @@
 
 import {
   ChevronDown,
+  ChevronRight,
   Heart,
   Menu,
   ShoppingBag,
@@ -9,11 +10,13 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { calculateCartTotals } from "@/domain/cart/cart";
 import { SearchAutocomplete } from "@/features/search/search-autocomplete";
 import { useStorefront } from "@/features/storefront/storefront-provider";
 import { pharmacyConfig } from "@/lib/config";
+import { formatMoney } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { categories } from "@/mocks/products";
 
@@ -29,8 +32,45 @@ const mainNavigation = [
 ] as const;
 
 export function SiteHeader() {
-  const { cartCount } = useStorefront();
+  const { cart, cartCount, hydrated } = useStorefront();
   const [open, setOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<
+    "catalog" | "account" | "cart" | null
+  >(null);
+  const cartTotal = calculateCartTotals(cart).totalInCents;
+
+  useEffect(() => {
+    function closeOnOutsideClick(event: PointerEvent) {
+      if (
+        event.target instanceof Element &&
+        event.target.closest("[data-header-dropdown]")
+      ) {
+        return;
+      }
+      setActiveMenu(null);
+    }
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setActiveMenu(null);
+    }
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
+
+  function toggleMenu(menu: "catalog" | "account" | "cart") {
+    setOpen(false);
+    setActiveMenu((current) => (current === menu ? null : menu));
+  }
+
+  function closeMenus() {
+    setActiveMenu(null);
+    setOpen(false);
+  }
 
   return (
     <header className="border-forest/10 bg-cream/95 sticky top-0 z-40 border-b backdrop-blur-xl">
@@ -67,13 +107,68 @@ export function SiteHeader() {
         </div>
 
         <div className="flex items-center justify-end gap-1">
-          <Link
-            className="hover:bg-sage text-forest hidden min-h-11 min-w-11 items-center justify-center rounded-full transition-colors sm:flex"
-            href="/cuenta"
-            aria-label="Mi cuenta"
-          >
-            <UserRound aria-hidden="true" className="size-5" />
-          </Link>
+          <div className="relative hidden sm:block" data-header-dropdown>
+            <button
+              className={cn(
+                "hover:bg-sage text-forest flex min-h-11 min-w-11 items-center justify-center gap-0.5 rounded-full transition-colors",
+                activeMenu === "account" && "bg-sage",
+              )}
+              type="button"
+              aria-label="Abrir menú de usuario"
+              aria-haspopup="true"
+              aria-expanded={activeMenu === "account"}
+              aria-controls="header-account-menu"
+              onClick={() => toggleMenu("account")}
+            >
+              <UserRound aria-hidden="true" className="size-5" />
+              <ChevronDown
+                aria-hidden="true"
+                className={cn(
+                  "size-3 transition-transform",
+                  activeMenu === "account" && "rotate-180",
+                )}
+              />
+            </button>
+            {activeMenu === "account" ? (
+              <div
+                className="border-forest/10 absolute top-full right-0 z-[70] mt-2 w-72 border bg-[#fbf9f3] p-3 shadow-[0_24px_70px_-28px_rgba(16,42,33,.55)]"
+                id="header-account-menu"
+              >
+                <div className="border-forest/10 border-b px-3 pt-2 pb-4">
+                  <p className="eyebrow">Tu espacio Picual</p>
+                  <p className="text-ink-muted mt-1 text-xs">
+                    Consulta tus datos, pedidos y productos guardados.
+                  </p>
+                </div>
+                <div className="grid gap-1 pt-2">
+                  <Link
+                    className="hover:bg-sage/70 text-forest flex items-center justify-between px-3 py-3 text-sm font-bold"
+                    href="/cuenta"
+                    onClick={closeMenus}
+                  >
+                    Mi cuenta
+                    <ChevronRight aria-hidden="true" className="size-4" />
+                  </Link>
+                  <Link
+                    className="hover:bg-sage/70 text-forest flex items-center justify-between px-3 py-3 text-sm font-bold"
+                    href="/favoritos"
+                    onClick={closeMenus}
+                  >
+                    Mis favoritos
+                    <Heart aria-hidden="true" className="size-4" />
+                  </Link>
+                  <Link
+                    className="hover:bg-sage/70 text-forest flex items-center justify-between px-3 py-3 text-sm font-bold"
+                    href="/contacto"
+                    onClick={closeMenus}
+                  >
+                    Ayuda y contacto
+                    <ChevronRight aria-hidden="true" className="size-4" />
+                  </Link>
+                </div>
+              </div>
+            ) : null}
+          </div>
           <Link
             className="hover:bg-sage text-forest hidden min-h-11 min-w-11 items-center justify-center rounded-full transition-colors sm:flex"
             href="/favoritos"
@@ -81,24 +176,116 @@ export function SiteHeader() {
           >
             <Heart aria-hidden="true" className="size-5" />
           </Link>
-          <Link
-            className="hover:bg-sage text-forest relative flex min-h-11 min-w-11 items-center justify-center rounded-full transition-colors"
-            href="/carrito"
-            aria-label={`Carrito, ${cartCount} unidades`}
-          >
-            <ShoppingBag aria-hidden="true" className="size-5" />
-            {cartCount ? (
-              <span className="bg-coral ring-cream absolute top-0 right-0 grid size-5 place-items-center rounded-full text-[.6rem] font-black text-white ring-2">
-                {cartCount}
-              </span>
+          <div className="relative" data-header-dropdown>
+            <button
+              className={cn(
+                "hover:bg-sage text-forest relative flex min-h-11 min-w-11 items-center justify-center gap-0.5 rounded-full transition-colors",
+                activeMenu === "cart" && "bg-sage",
+              )}
+              type="button"
+              aria-label={`Abrir carrito, ${cartCount} unidades`}
+              aria-haspopup="true"
+              aria-expanded={activeMenu === "cart"}
+              aria-controls="header-cart-menu"
+              onClick={() => toggleMenu("cart")}
+            >
+              <ShoppingBag aria-hidden="true" className="size-5" />
+              <ChevronDown
+                aria-hidden="true"
+                className={cn(
+                  "hidden size-3 transition-transform sm:block",
+                  activeMenu === "cart" && "rotate-180",
+                )}
+              />
+              {cartCount ? (
+                <span className="bg-coral ring-cream absolute -top-0.5 -right-0.5 grid size-5 place-items-center rounded-full text-[.6rem] font-black text-white ring-2">
+                  {cartCount}
+                </span>
+              ) : null}
+            </button>
+            {activeMenu === "cart" ? (
+              <div
+                className="border-forest/10 fixed top-[7.25rem] right-4 left-4 z-[70] border bg-[#fbf9f3] p-4 shadow-[0_24px_70px_-28px_rgba(16,42,33,.55)] sm:absolute sm:top-full sm:right-0 sm:left-auto sm:mt-2 sm:w-[22rem]"
+                id="header-cart-menu"
+              >
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="eyebrow">Tu cesta</p>
+                    <p className="text-forest mt-1 text-sm font-bold">
+                      {cartCount
+                        ? `${cartCount} ${cartCount === 1 ? "unidad" : "unidades"}`
+                        : "Todavía está vacía"}
+                    </p>
+                  </div>
+                  {cartCount ? (
+                    <strong className="text-forest text-lg">
+                      {formatMoney(cartTotal)}
+                    </strong>
+                  ) : null}
+                </div>
+
+                {!hydrated ? (
+                  <p className="text-ink-muted mt-5 text-sm">
+                    Recuperando tu cesta…
+                  </p>
+                ) : cart.length ? (
+                  <div className="border-forest/10 mt-4 grid gap-3 border-y py-4">
+                    {cart.slice(0, 3).map((line) => (
+                      <Link
+                        className="group grid grid-cols-[1fr_auto] gap-3"
+                        href={`/productos/${line.product.slug}`}
+                        key={line.product.id}
+                        onClick={closeMenus}
+                      >
+                        <span>
+                          <strong className="text-forest group-hover:text-coral line-clamp-1 block text-sm">
+                            {line.product.name}
+                          </strong>
+                          <span className="text-ink-muted mt-0.5 block text-xs">
+                            Cantidad: {line.quantity}
+                          </span>
+                        </span>
+                        <span className="text-forest text-sm font-bold">
+                          {formatMoney(
+                            line.product.priceInCents * line.quantity,
+                          )}
+                        </span>
+                      </Link>
+                    ))}
+                    {cart.length > 3 ? (
+                      <p className="text-ink-muted text-xs">
+                        Y {cart.length - 3} producto
+                        {cart.length - 3 === 1 ? "" : "s"} más
+                      </p>
+                    ) : null}
+                  </div>
+                ) : (
+                  <p className="text-ink-muted border-forest/10 mt-4 border-y py-5 text-sm">
+                    Añade productos para ver aquí un resumen rápido antes de
+                    comprar.
+                  </p>
+                )}
+
+                <Link
+                  className="bg-forest hover:bg-forest-light mt-4 flex min-h-11 items-center justify-center gap-2 px-5 text-sm font-bold text-white"
+                  href={cart.length ? "/carrito" : "/parafarmacia"}
+                  onClick={closeMenus}
+                >
+                  {cart.length ? "Ver cesta completa" : "Explorar productos"}
+                  <ChevronRight aria-hidden="true" className="size-4" />
+                </Link>
+              </div>
             ) : null}
-          </Link>
+          </div>
           <button
             className="hover:bg-sage text-forest grid size-11 place-items-center rounded-full lg:hidden"
             type="button"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
+            onClick={() => {
+              setActiveMenu(null);
+              setOpen((value) => !value);
+            }}
           >
             {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
@@ -114,19 +301,78 @@ export function SiteHeader() {
         aria-label="Navegación principal"
       >
         <ul className="page-shell flex min-h-11 items-center justify-center gap-1">
-          {mainNavigation.map((item, index) => (
+          <li className="relative" data-header-dropdown>
+            <button
+              className={cn(
+                "text-forest hover:text-coral after:bg-coral relative flex min-h-10 items-center gap-1 px-4 text-[.74rem] font-bold transition-colors after:absolute after:right-4 after:bottom-0 after:left-4 after:h-px after:origin-left after:scale-x-0 after:transition-transform hover:after:scale-x-100",
+                activeMenu === "catalog" && "text-coral after:scale-x-100",
+              )}
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={activeMenu === "catalog"}
+              aria-controls="header-catalog-menu"
+              onClick={() => toggleMenu("catalog")}
+            >
+              Todos los productos
+              <ChevronDown
+                aria-hidden="true"
+                className={cn(
+                  "size-3 transition-transform",
+                  activeMenu === "catalog" && "rotate-180",
+                )}
+              />
+            </button>
+            {activeMenu === "catalog" ? (
+              <div
+                className="border-forest/10 absolute top-full left-0 z-[70] mt-2 w-[42rem] border bg-[#fbf9f3] p-5 shadow-[0_24px_70px_-28px_rgba(16,42,33,.55)]"
+                id="header-catalog-menu"
+              >
+                <div className="border-forest/10 flex items-center justify-between border-b pb-4">
+                  <div>
+                    <p className="eyebrow">Catálogo completo</p>
+                    <p className="text-ink-muted mt-1 text-xs">
+                      Explora los productos por familia de cuidado.
+                    </p>
+                  </div>
+                  <Link
+                    className="text-forest hover:text-coral flex items-center gap-1 text-xs font-black"
+                    href="/parafarmacia"
+                    onClick={closeMenus}
+                  >
+                    Ver todo
+                    <ChevronRight aria-hidden="true" className="size-4" />
+                  </Link>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {categories.map((category, index) => (
+                    <Link
+                      className="hover:bg-sage/70 group min-h-24 p-3 transition-colors"
+                      href={`/categorias/${category.slug}`}
+                      key={category.id}
+                      onClick={closeMenus}
+                    >
+                      <span className="catalog-number text-olive text-xs">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <strong className="text-forest group-hover:text-coral mt-2 block text-sm">
+                        {category.name}
+                      </strong>
+                      <span className="text-ink-muted mt-1 line-clamp-2 block text-[.68rem] leading-relaxed">
+                        {category.description}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </li>
+          {mainNavigation.slice(1).map((item) => (
             <li key={item.href}>
               <Link
-                className={cn(
-                  "text-forest hover:text-coral after:bg-coral relative flex min-h-10 items-center gap-1 px-3.5 text-[.74rem] font-bold transition-colors after:absolute after:right-3.5 after:bottom-0 after:left-3.5 after:h-px after:origin-left after:scale-x-0 after:transition-transform hover:after:scale-x-100",
-                  index === 0 && "pl-4",
-                )}
+                className="text-forest hover:text-coral after:bg-coral relative flex min-h-10 items-center gap-1 px-3.5 text-[.74rem] font-bold transition-colors after:absolute after:right-3.5 after:bottom-0 after:left-3.5 after:h-px after:origin-left after:scale-x-0 after:transition-transform hover:after:scale-x-100"
                 href={item.href}
               >
                 {item.label}
-                {index === 0 ? (
-                  <ChevronDown aria-hidden="true" className="size-3" />
-                ) : null}
               </Link>
             </li>
           ))}
