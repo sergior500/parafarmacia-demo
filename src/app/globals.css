@@ -52,20 +52,90 @@ textarea,
 summary {
   -webkit-tap-highlight-color: transparent;
 }
+
+:where(
+  a[href],
+  button:not(:disabled),
+  select:not(:disabled),
+  summary,
+  label[for],
+  input[type="button"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  [role="button"]:not([aria-disabled="true"])
+) {
+  cursor: pointer;
+}
+
+:where(
+  button:disabled,
+  select:disabled,
+  input:disabled,
+  [aria-disabled="true"]
+) {
+  cursor: not-allowed;
+}
+
 button,
 input,
 select,
 textarea {
   font: inherit;
 }
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-summary:focus-visible {
+
+:where(
+  a[href],
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
   outline: 3px solid color-mix(in srgb, var(--color-coral) 55%, transparent);
   outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(
+    button:not(:disabled),
+    select:not(:disabled),
+    summary,
+    input[type="button"]:not(:disabled),
+    input[type="submit"]:not(:disabled),
+    input[type="reset"]:not(:disabled),
+    [role="button"]:not([aria-disabled="true"])
+  ) {
+    transition:
+      filter 160ms ease,
+      translate 160ms ease;
+  }
+
+  :where(
+    button:not(:disabled),
+    select:not(:disabled),
+    summary,
+    input[type="button"]:not(:disabled),
+    input[type="submit"]:not(:disabled),
+    input[type="reset"]:not(:disabled),
+    [role="button"]:not([aria-disabled="true"])
+  ):hover {
+    filter: brightness(0.94) saturate(1.04);
+  }
+
+  :where(
+    button:not(:disabled),
+    summary,
+    input[type="button"]:not(:disabled),
+    input[type="submit"]:not(:disabled),
+    input[type="reset"]:not(:disabled),
+    [role="button"]:not([aria-disabled="true"])
+  ):active {
+    translate: 0 1px;
+  }
 }
 
 .page-shell {
