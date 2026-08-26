@@ -21,14 +21,11 @@ import { cn } from "@/lib/utils";
 import { categories } from "@/mocks/products";
 
 const mainNavigation = [
-  { href: "/parafarmacia", label: "Todos los productos" },
-  { href: "/categorias/cuidado-facial", label: "Dermocosmética" },
-  { href: "/categorias/proteccion-solar", label: "Protección solar" },
-  { href: "/categorias/higiene-diaria", label: "Higiene" },
-  { href: "/categorias/cuidado-infantil", label: "Bebé" },
-  { href: "/categorias/higiene-bucal", label: "Bucodental" },
   { href: "/marcas", label: "Marcas" },
   { href: "/consejos", label: "Consejos" },
+  { href: "/sobre-la-farmacia", label: "La farmacia" },
+  { href: "/envios", label: "Envíos" },
+  { href: "/contacto", label: "Contacto" },
 ] as const;
 
 export function SiteHeader() {
@@ -366,7 +363,7 @@ export function SiteHeader() {
               </div>
             ) : null}
           </li>
-          {mainNavigation.slice(1).map((item) => (
+          {mainNavigation.map((item) => (
             <li key={item.href}>
               <Link
                 className="text-forest hover:text-coral after:bg-coral relative flex min-h-10 items-center gap-1 px-3.5 text-[.74rem] font-bold transition-colors after:absolute after:right-3.5 after:bottom-0 after:left-3.5 after:h-px after:origin-left after:scale-x-0 after:transition-transform hover:after:scale-x-100"
@@ -396,6 +393,14 @@ export function SiteHeader() {
       >
         <div className="page-shell">
           <p className="eyebrow">Explora la tienda</p>
+          <Link
+            className="bg-forest text-cream mt-4 flex min-h-12 items-center justify-between px-4 text-sm font-black"
+            href="/parafarmacia"
+            onClick={closeMenus}
+          >
+            Todos los productos
+            <ChevronRight aria-hidden="true" className="size-4" />
+          </Link>
           <ul className="mt-4 grid grid-cols-2 gap-2">
             {categories.map((category) => (
               <li key={category.id}>
@@ -411,7 +416,7 @@ export function SiteHeader() {
           </ul>
           <ul className="border-forest/10 mt-6 grid gap-1 border-t pt-5">
             {[
-              ...mainNavigation.slice(5),
+              ...mainNavigation,
               { href: "/cuenta", label: "Mi cuenta" },
               { href: "/favoritos", label: "Favoritos" },
             ].map((item) => (
