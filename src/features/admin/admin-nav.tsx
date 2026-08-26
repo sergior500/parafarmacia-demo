@@ -3,6 +3,7 @@ import {
   ClipboardList,
   Container,
   Fingerprint,
+  Images,
   LayoutDashboard,
   LockKeyhole,
   Settings,
@@ -41,6 +42,12 @@ const links = [
     href: "/admin/productos",
     label: "Productos",
     icon: Boxes,
+    capability: "catalog:read",
+  },
+  {
+    href: "/admin/revision-imagenes",
+    label: "Revisar imágenes",
+    icon: Images,
     capability: "catalog:read",
   },
   {
