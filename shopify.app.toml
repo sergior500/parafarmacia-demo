@@ -2,8 +2,8 @@
 
 client_id = "910e4f7d396dc57ccb819112a1d924bb"
 name = "Farmacia Picual"
-application_url = "https://99vh1p-pz.myshopify.com"
-embedded = true
+application_url = "https://amapola-parafarmacia-actual.sergior500.chatgpt.site/admin"
+embedded = false
 
 [webhooks]
 api_version = "2026-07"
