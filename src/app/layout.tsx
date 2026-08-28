@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   },
   description:
     "Parafarmacia online especializada en dermocosmética, protección solar, higiene, cuidado infantil y bienestar.",
+  manifest: "/manifest.webmanifest",
   alternates: {
     canonical: "/",
   },

@@ -18,9 +18,12 @@ export default defineConfig([
   },
   globalIgnores([
     ".next/**",
+    ".artifacts/**",
     "coverage/**",
     "dist/**",
+    "outputs/**",
     "playwright-report/**",
     "test-results/**",
+    "tmp/**",
   ]),
 ]);

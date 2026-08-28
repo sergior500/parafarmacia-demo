@@ -25,29 +25,31 @@ export default async function DiscountsPage({
     "/admin/promociones",
   );
   const { cursor } = await searchParams;
+  let page: Awaited<ReturnType<typeof listShopifyDiscounts>> | null = null;
+  let errorMessage = "";
+
   try {
-    const page = await listShopifyDiscounts(cursor);
-    return (
-      <>
-        <DiscountsHeader />
+    page = await listShopifyDiscounts(cursor);
+  } catch (error) {
+    errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Shopify no ha devuelto la información solicitada.";
+  }
+
+  const isConfigurationError = errorMessage.startsWith(
+    "Shopify no está configurado.",
+  );
+
+  return (
+    <>
+      <DiscountsHeader />
+      {page ? (
         <DiscountsManager
           canWrite={hasAdminCapability(actor, "discounts:write")}
           discounts={page.discounts}
         />
-      </>
-    );
-  } catch (error) {
-    const errorMessage =
-      error instanceof Error
-        ? error.message
-        : "Shopify no ha devuelto la información solicitada.";
-    const isConfigurationError = errorMessage.startsWith(
-      "Shopify no está configurado.",
-    );
-
-    return (
-      <>
-        <DiscountsHeader />
+      ) : (
         <Card className="border-red-200 bg-red-50 p-7 md:p-10">
           <CircleAlert className="size-8 text-red-700" />
           <h2 className="mt-5 text-2xl font-black text-red-900">
@@ -59,12 +61,12 @@ export default async function DiscountsPage({
           <p className="mt-3 text-sm font-bold text-red-900">
             {isConfigurationError
               ? "Completa la configuración privada del entorno y reinicia el servidor local."
-              : "Si acabamos de añadir este módulo, reinstala la versión de la app que concede el permiso de descuentos."}
+              : "Si acabamos de añadir este módulo, reinstala la versión de la app que concede los permisos de lectura y gestión de descuentos."}
           </p>
         </Card>
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }
 
 function DiscountsHeader() {

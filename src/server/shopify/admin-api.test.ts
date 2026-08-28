@@ -111,6 +111,7 @@ describe("Shopify client credentials", () => {
       "read_orders",
       "write_orders",
       "read_customers",
+      "read_discounts",
       "write_discounts",
       "write_merchant_managed_fulfillment_orders",
       "unauthenticated_read_product_listings",

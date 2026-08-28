@@ -387,7 +387,7 @@ export interface ShopifyOrderRefundInput {
   lines: Array<{ lineItemId: string; quantity: number }>;
 }
 
-export interface ShopifyOrderRefundResult extends ShopifyRefundSummary {}
+export type ShopifyOrderRefundResult = ShopifyRefundSummary;
 
 export interface ShopifyOrderRefundSuggestion {
   amount: number;

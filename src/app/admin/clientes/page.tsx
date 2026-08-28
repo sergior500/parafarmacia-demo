@@ -23,35 +23,39 @@ export default async function CustomersPage({
   await requireAdminCapability("customers:read", "/admin/clientes");
   const parameters = await searchParams;
   const query = normalizeCustomerQuery(parameters.q);
+  let page: Awaited<ReturnType<typeof listShopifyCustomers>> | null = null;
+  let errorMessage = "";
+
   try {
-    const page = await listShopifyCustomers({
+    page = await listShopifyCustomers({
       query,
       after: parameters.cursor,
     });
-    return (
-      <>
-        <CustomersHeader />
-        <ShopifyCustomersList page={page} query={query} />
-      </>
-    );
   } catch (error) {
-    return (
-      <>
-        <CustomersHeader />
+    errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Shopify no ha devuelto la información solicitada.";
+  }
+
+  return (
+    <>
+      <CustomersHeader />
+      {page ? (
+        <ShopifyCustomersList page={page} query={query} />
+      ) : (
         <Card className="border-red-200 bg-red-50 p-7 md:p-10">
           <CircleAlert className="size-8 text-red-700" />
           <h2 className="mt-5 text-2xl font-black text-red-900">
             No se pudieron consultar los clientes
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-red-800">
-            {error instanceof Error
-              ? error.message
-              : "Shopify no ha devuelto la información solicitada."}
+            {errorMessage}
           </p>
         </Card>
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }
 
 function CustomersHeader() {

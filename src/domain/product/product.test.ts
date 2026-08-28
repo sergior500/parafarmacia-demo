@@ -22,6 +22,17 @@ describe("búsqueda de catálogo", () => {
     ).toHaveLength(183);
   });
 
+  it("tolera tildes y términos habituales equivalentes", () => {
+    expect(filterProducts(products, { query: "serum" })).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ id: "pdf-dermocosmetica-016" }),
+      ]),
+    );
+    expect(
+      filterProducts(products, { query: "protector solar" }).length,
+    ).toBeGreaterThan(0);
+  });
+
   it("filtra por categoría y disponibilidad", () => {
     expect(
       filterProducts(products, { category: "cat-facial", available: true }),

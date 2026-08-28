@@ -1,9 +1,9 @@
 import {
+  BadgePercent,
   Boxes,
   ClipboardList,
   ContactRound,
   Container,
-  BadgePercent,
   Fingerprint,
   LayoutDashboard,
   LockKeyhole,

@@ -22,7 +22,7 @@ export default async function AdminSecurityPage() {
   const events = await getRecentSecurityEvents();
 
   return (
-    <main>
+    <>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">Defensa en profundidad</p>
@@ -108,6 +108,6 @@ export default async function AdminSecurityPage() {
           </p>
         )}
       </Card>
-    </main>
+    </>
   );
 }
