@@ -2,6 +2,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 
 import { pharmacyConfig } from "@/lib/config";
+import { getAdminActor, hasAdminCapability } from "@/server/admin-auth";
 
 const groups = [
   {
@@ -36,7 +37,12 @@ const groups = [
   },
 ] as const;
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const actor = await getAdminActor();
+  const canAccessAdmin = Boolean(
+    actor && hasAdminCapability(actor, "dashboard:read"),
+  );
+
   return (
     <footer className="bg-forest-dark relative mt-24 overflow-hidden pt-16 text-white">
       <span className="catalog-number pointer-events-none absolute -right-8 -bottom-28 text-[19rem] leading-none text-white/[.025]">
@@ -106,10 +112,9 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="page-shell flex flex-wrap justify-between gap-3 py-5 text-[.65rem] text-white/45">
           <span>© 2026 {pharmacyConfig.name}</span>
-          {/* The protected admin route is owned by the Sites sign-in flow.
-              A document navigation lets anonymous visitors leave the Next
-              router cleanly and continue through /signin-with-chatgpt. */}
-          <a href="/admin">Acceso al panel interno</a>
+          {canAccessAdmin ? (
+            <a href="/admin">Acceso al panel interno</a>
+          ) : null}
           <span>Pago seguro gestionado por Shopify</span>
         </div>
       </div>
