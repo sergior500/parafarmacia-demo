@@ -30,6 +30,8 @@ export type AdminCapability =
   | "orders:cancel"
   | "orders:refund"
   | "customers:read"
+  | "reviews:read"
+  | "reviews:moderate"
   | "discounts:read"
   | "discounts:write"
   | "shopify:manage"
@@ -51,6 +53,8 @@ const ROLE_CAPABILITIES: Record<AdminRole, ReadonlySet<AdminCapability>> = {
     "orders:cancel",
     "orders:refund",
     "customers:read",
+    "reviews:read",
+    "reviews:moderate",
     "discounts:read",
     "discounts:write",
     "shopify:manage",
@@ -66,6 +70,8 @@ const ROLE_CAPABILITIES: Record<AdminRole, ReadonlySet<AdminCapability>> = {
     "catalog:publish",
     "discounts:read",
     "discounts:write",
+    "reviews:read",
+    "reviews:moderate",
     "inventory:read",
     "inventory:write",
   ]),
@@ -78,12 +84,14 @@ const ROLE_CAPABILITIES: Record<AdminRole, ReadonlySet<AdminCapability>> = {
     "orders:cancel",
     "orders:refund",
     "customers:read",
+    "reviews:read",
   ]),
   auditor: new Set<AdminCapability>([
     "dashboard:read",
     "catalog:read",
     "inventory:read",
     "orders:read",
+    "reviews:read",
     "security:read",
   ]),
 };

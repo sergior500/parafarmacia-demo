@@ -81,4 +81,12 @@ describe("database storefront catalog", () => {
       }),
     );
   });
+
+  it("never exposes internal QA fixtures in the public catalog", () => {
+    expect(
+      buildStorefrontProducts([
+        catalogProduct({ name: "[PRUEBA QA] Producto técnico — NO COMPRAR" }),
+      ]),
+    ).toEqual([]);
+  });
 });

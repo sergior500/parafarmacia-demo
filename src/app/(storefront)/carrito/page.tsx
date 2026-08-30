@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { CartView } from "@/features/cart/cart-view";
+import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 
 export const metadata: Metadata = {
   title: "Carrito",
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/carrito" },
 };
 
-export default function CartPage() {
+export default async function CartPage() {
+  const products = await catalogProvider.listProducts();
   return (
     <div className="page-shell">
       <Breadcrumbs items={[{ label: "Carrito" }]} />
@@ -24,7 +26,7 @@ export default function CartPage() {
           Revisa cantidades, disponibilidad e impuestos antes de continuar.
         </p>
       </header>
-      <CartView />
+      <CartView products={products} />
     </div>
   );
 }

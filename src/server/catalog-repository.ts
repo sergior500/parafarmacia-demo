@@ -94,6 +94,7 @@ function mapProduct(
     stockVerified,
     shopifySyncStatus: toShopifySyncStatus(row.shopifySyncStatus),
     shopifyProductId: row.shopifyProductId ?? undefined,
+    shopifyVariantId: row.shopifyVariantId ?? undefined,
     shopifySyncedAt: row.shopifySyncedAt ?? undefined,
     shopifySyncError: row.shopifySyncError ?? undefined,
     shopifyPublicationStatus: toShopifyPublicationStatus(

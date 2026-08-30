@@ -11,21 +11,28 @@ import {
   Trash2,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ProductVisual } from "@/components/shared/product-visual";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { calculateCartTotals } from "@/domain/cart/cart";
+import { isProductAvailable, type Product } from "@/domain/product/product";
 import { handOffToShopifyCheckout } from "@/features/cart/checkout-handoff";
+import { saveFavoriteProduct } from "@/features/catalog/favorite-button";
 import { ProductCard } from "@/features/catalog/product-card";
 import { useStorefront } from "@/features/storefront/storefront-provider";
 import { formatMoney } from "@/lib/format";
-import { products } from "@/mocks/products";
 
-export function CartView() {
-  const { cart, clearCart, removeFromCart, updateCartQuantity } =
-    useStorefront();
+export function CartView({ products }: { products: Product[] }) {
+  const {
+    cart,
+    clearCart,
+    hydrated,
+    removeFromCart,
+    syncCartProducts,
+    updateCartQuantity,
+  } = useStorefront();
   const [error, setError] = useState("");
   const [promoMessage, setPromoMessage] = useState("");
   const [promoCode, setPromoCode] = useState("");
@@ -33,6 +40,7 @@ export function CartView() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
   const totals = calculateCartTotals(cart);
+  const cartReady = cart.every((line) => isProductAvailable(line.product));
   const recommendations = products
     .filter(
       (product) =>
@@ -40,6 +48,10 @@ export function CartView() {
         !cart.some((line) => line.product.id === product.id),
     )
     .slice(0, 3);
+
+  useEffect(() => {
+    if (hydrated) syncCartProducts(products);
+  }, [hydrated, products, syncCartProducts]);
 
   function update(productId: string, quantity: number) {
     try {
@@ -54,7 +66,19 @@ export function CartView() {
     }
   }
 
+  function saveForLater(productId: string) {
+    saveFavoriteProduct(productId);
+    removeFromCart(productId);
+    setError("Producto guardado en favoritos.");
+  }
+
   async function startCheckout() {
+    if (!cartReady) {
+      setCheckoutError(
+        "Retira los productos no disponibles antes de continuar al pago.",
+      );
+      return;
+    }
     setCheckoutLoading(true);
     setCheckoutError("");
     try {
@@ -183,13 +207,13 @@ export function CartView() {
                     </button>
                   </div>
                   <div className="flex">
-                    <Button asChild size="icon" variant="ghost">
-                      <Link
-                        href="/favoritos"
-                        aria-label={`Guardar ${line.product.name} para después`}
-                      >
-                        <Bookmark aria-hidden="true" className="size-4" />
-                      </Link>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      aria-label={`Guardar ${line.product.name} para después`}
+                      onClick={() => saveForLater(line.product.id)}
+                    >
+                      <Bookmark aria-hidden="true" className="size-4" />
                     </Button>
                     <Button
                       size="icon"
@@ -227,9 +251,7 @@ export function CartView() {
               </div>
               <div className="flex justify-between">
                 <dt className="text-ink-muted">Envío estimado</dt>
-                <dd>
-                  {totals.totalInCents >= 4900 ? "Gratis" : "Por calcular"}
-                </dd>
+                <dd>Por calcular</dd>
               </div>
               <div className="border-forest/10 text-forest mt-2 flex justify-between border-t pt-4 text-lg font-black">
                 <dt>Total</dt>
@@ -284,7 +306,7 @@ export function CartView() {
             ) : null}
             <Button
               className="mt-6 w-full"
-              disabled={checkoutLoading}
+              disabled={checkoutLoading || !cartReady}
               onClick={() => void startCheckout()}
               size="lg"
             >
@@ -298,7 +320,9 @@ export function CartView() {
               )}
               {checkoutLoading
                 ? "Preparando pago…"
-                : "Continuar al pago seguro"}
+                : cartReady
+                  ? "Continuar al pago seguro"
+                  : "Revisa la disponibilidad"}
             </Button>
             <p className="text-ink-muted mt-3 text-center text-[.65rem]">
               Compra como invitado · pago protegido por Shopify

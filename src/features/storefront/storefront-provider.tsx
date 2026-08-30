@@ -25,6 +25,7 @@ interface StorefrontContextValue {
   updateCartQuantity: (productId: string, quantity: number) => void;
   removeFromCart: (productId: string) => void;
   clearCart: () => void;
+  syncCartProducts: (products: Product[]) => void;
 }
 
 const StorefrontContext = createContext<StorefrontContextValue | null>(null);
@@ -92,6 +93,20 @@ export function StorefrontProvider({ children }: { children: ReactNode }) {
 
   const clearCart = useCallback(() => persistCart([]), [persistCart]);
 
+  const syncCartProducts = useCallback(
+    (products: Product[]) => {
+      const byId = new Map(products.map((product) => [product.id, product]));
+      const next = cartRef.current.flatMap((line) => {
+        const currentProduct = byId.get(line.product.id);
+        return currentProduct ? [{ ...line, product: currentProduct }] : [];
+      });
+      if (JSON.stringify(next) !== JSON.stringify(cartRef.current)) {
+        persistCart(next);
+      }
+    },
+    [persistCart],
+  );
+
   const value = useMemo<StorefrontContextValue>(
     () => ({
       cart,
@@ -101,8 +116,17 @@ export function StorefrontProvider({ children }: { children: ReactNode }) {
       updateCartQuantity,
       removeFromCart,
       clearCart,
+      syncCartProducts,
     }),
-    [addToCart, cart, clearCart, hydrated, removeFromCart, updateCartQuantity],
+    [
+      addToCart,
+      cart,
+      clearCart,
+      hydrated,
+      removeFromCart,
+      syncCartProducts,
+      updateCartQuantity,
+    ],
   );
 
   return (

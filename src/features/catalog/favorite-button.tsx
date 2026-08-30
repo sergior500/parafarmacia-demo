@@ -5,14 +5,35 @@ import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-const KEY = "farmacia-picual-favorites-v1";
+export const FAVORITES_STORAGE_KEY = "farmacia-picual-favorites-v1";
 
-function readFavorites(): string[] {
+export function readFavoriteProductIds(): string[] {
   try {
-    return JSON.parse(localStorage.getItem(KEY) ?? "[]") as string[];
+    const value = JSON.parse(
+      localStorage.getItem(FAVORITES_STORAGE_KEY) ?? "[]",
+    ) as unknown;
+    return Array.isArray(value)
+      ? [
+          ...new Set(
+            value.filter(
+              (item): item is string =>
+                typeof item === "string" && item.length <= 100,
+            ),
+          ),
+        ]
+      : [];
   } catch {
     return [];
   }
+}
+
+export function saveFavoriteProduct(productId: string): void {
+  const favorites = readFavoriteProductIds();
+  if (favorites.includes(productId)) return;
+  localStorage.setItem(
+    FAVORITES_STORAGE_KEY,
+    JSON.stringify([...favorites, productId]),
+  );
 }
 
 export function FavoriteButton({
@@ -27,18 +48,18 @@ export function FavoriteButton({
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      setFavorite(readFavorites().includes(productId));
+      setFavorite(readFavoriteProductIds().includes(productId));
       setReady(true);
     }, 0);
     return () => window.clearTimeout(timer);
   }, [productId]);
 
   function toggle() {
-    const favorites = readFavorites();
+    const favorites = readFavoriteProductIds();
     const next = favorites.includes(productId)
       ? favorites.filter((id) => id !== productId)
       : [...favorites, productId];
-    localStorage.setItem(KEY, JSON.stringify(next));
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(next));
     setFavorite(next.includes(productId));
   }
 

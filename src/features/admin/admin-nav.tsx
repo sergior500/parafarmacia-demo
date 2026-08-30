@@ -7,6 +7,7 @@ import {
   Fingerprint,
   LayoutDashboard,
   LockKeyhole,
+  MessageSquareText,
   Settings,
   ShieldCheck,
   UserRoundCog,
@@ -56,6 +57,12 @@ const links = [
     label: "Productos",
     icon: Boxes,
     capability: "catalog:read",
+  },
+  {
+    href: "/admin/resenas",
+    label: "Reseñas",
+    icon: MessageSquareText,
+    capability: "reviews:read",
   },
   {
     href: "/admin/inventario",

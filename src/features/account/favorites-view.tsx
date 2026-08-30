@@ -5,17 +5,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import type { Product } from "@/domain/product/product";
+import { readFavoriteProductIds } from "@/features/catalog/favorite-button";
 import { ProductCard } from "@/features/catalog/product-card";
-import { products } from "@/mocks/products";
 
-const KEY = "farmacia-picual-favorites-v1";
-
-export function FavoritesView() {
+export function FavoritesView({ products }: { products: Product[] }) {
   const [ids, setIds] = useState<string[] | null>(null);
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        setIds(JSON.parse(localStorage.getItem(KEY) ?? "[]") as string[]);
+        setIds(readFavoriteProductIds());
       } catch {
         setIds([]);
       }

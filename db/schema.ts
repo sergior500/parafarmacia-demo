@@ -247,6 +247,47 @@ export const customerSessions = sqliteTable(
   (table) => [index("customer_sessions_expires_idx").on(table.expiresAt)],
 );
 
+export const productReviews = sqliteTable(
+  "product_reviews",
+  {
+    reviewId: text("review_id").primaryKey(),
+    productId: text("product_id")
+      .notNull()
+      .references(() => products.productId, { onDelete: "cascade" }),
+    customerIdHash: text("customer_id_hash").notNull(),
+    rating: integer("rating").notNull(),
+    title: text("title").notNull(),
+    body: text("body").notNull(),
+    status: text("status").notNull().default("pending"),
+    verifiedPurchase: integer("verified_purchase", { mode: "boolean" })
+      .notNull()
+      .default(true),
+    moderatedBy: text("moderated_by"),
+    moderatedAt: text("moderated_at"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    uniqueIndex("product_reviews_product_customer_uq").on(
+      table.productId,
+      table.customerIdHash,
+    ),
+    index("product_reviews_product_status_created_idx").on(
+      table.productId,
+      table.status,
+      table.createdAt,
+    ),
+    index("product_reviews_status_created_idx").on(
+      table.status,
+      table.createdAt,
+    ),
+  ],
+);
+
 export const adminRateLimits = sqliteTable(
   "admin_rate_limits",
   {

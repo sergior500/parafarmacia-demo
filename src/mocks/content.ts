@@ -55,7 +55,7 @@ export const brands: Brand[] = [
   {
     id: "brand-amapola",
     slug: "amapola",
-    name: "Marca por confirmar",
+    name: "Farmacia Picual",
     description:
       "Catálogo de marca propia procedente de las fichas técnicas facilitadas.",
     featured: true,
@@ -77,7 +77,7 @@ export const commonFaqs: FAQ[] = [
   {
     question: "¿Cuándo recibiré mi pedido?",
     answer:
-      "Shopify mostrará las opciones y el plazo disponibles para tu dirección antes del pago, una vez que la farmacia haya configurado el transportista.",
+      "Shopify mostrará las opciones, el coste y el plazo disponibles para tu dirección antes de confirmar el pago.",
   },
 ];
 

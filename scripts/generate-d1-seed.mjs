@@ -1,4 +1,11 @@
 import { readFileSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+const outputArgument = process.argv
+  .slice(2)
+  .find((argument) => !argument.startsWith("--"));
+const ignoreExisting = process.argv.includes("--ignore-existing");
+const insertCommand = ignoreExisting ? "INSERT OR IGNORE INTO" : "INSERT INTO";
 
 const bundle = JSON.parse(
   readFileSync(
@@ -26,7 +33,7 @@ function insertStatements(table, columns, rows, transform = (row) => row) {
       )
       .join(",\n");
     chunks.push(
-      `INSERT INTO ${table} (${columns.join(", ")}) VALUES\n${values};`,
+      `${insertCommand} ${table} (${columns.join(", ")}) VALUES\n${values};`,
     );
   }
   return chunks;
@@ -103,12 +110,18 @@ const statements = [
 const header = [
   "-- Generated from database/seed/catalog_bundle.json.",
   "-- Real PDF catalogue only: 183 products; no invented prices, stock or EANs.",
-  "-- Regenerate with: node scripts/generate-d1-seed.mjs",
+  ignoreExisting
+    ? "-- Completes a partially seeded catalogue without overwriting existing records."
+    : "-- Regenerate with: node scripts/generate-d1-seed.mjs",
   "",
 ].join("\n");
 
+const outputPath = outputArgument
+  ? resolve(process.cwd(), outputArgument)
+  : new URL("../drizzle/0001_seed_real_catalog.sql", import.meta.url);
+
 writeFileSync(
-  new URL("../drizzle/0001_seed_real_catalog.sql", import.meta.url),
+  outputPath,
   `${header}${statements.join("\n--> statement-breakpoint\n")}\n`,
   "utf8",
 );

@@ -23,11 +23,17 @@ import {
 import { AddToCartPanel } from "@/features/catalog/add-to-cart-panel";
 import { FavoriteButton } from "@/features/catalog/favorite-button";
 import { ProductCard } from "@/features/catalog/product-card";
+import { ProductReviews } from "@/features/reviews/product-reviews";
 import { pharmacyConfig } from "@/lib/config";
 import { formatMoney } from "@/lib/format";
 import { commonFaqs } from "@/mocks/content";
 import { categories } from "@/mocks/products";
 import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
+import {
+  listApprovedProductReviews,
+  summarizeProductReviews,
+} from "@/server/review-repository";
+import { getProductReviewViewerStatus } from "@/server/review-viewer";
 
 export async function generateMetadata({
   params,
@@ -36,6 +42,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const product = await catalogProvider.getProductBySlug(slug);
+  const productImage = absoluteProductImage(product?.imageUrl);
   return {
     title: product
       ? `${product.name} ${product.size ?? ""}`.trim()
@@ -51,6 +58,17 @@ export async function generateMetadata({
           title: product.name,
           description: product.shortDescription,
           type: "website",
+          images: productImage
+            ? [{ url: productImage, alt: product.name }]
+            : [],
+        }
+      : undefined,
+    twitter: product
+      ? {
+          card: productImage ? "summary_large_image" : "summary",
+          title: product.name,
+          description: product.shortDescription,
+          images: productImage ? [productImage] : [],
         }
       : undefined,
   };
@@ -67,6 +85,11 @@ export default async function ProductPage({
     catalogProvider.listProducts(),
   ]);
   if (!product || product.status === "withdrawn") notFound();
+  const [reviews, reviewViewerStatus] = await Promise.all([
+    listApprovedProductReviews(product.id),
+    getProductReviewViewerStatus(product.id),
+  ]);
+  const reviewSummary = summarizeProductReviews(reviews);
   const available = isProductAvailable(product);
   const pricePending = isProductPricePending(product);
   const category = categories.find((item) => item.id === product.categoryId);
@@ -134,12 +157,49 @@ export default async function ProductPage({
       },
     ],
   };
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.shortDescription,
+    image: absoluteProductImage(product.imageUrl),
+    brand: {
+      "@type": "Brand",
+      name: product.brandOrLaboratory,
+    },
+    ...(product.ean ? { gtin13: product.ean } : {}),
+    ...(available && product.priceInCents > 0
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: `${pharmacyConfig.siteUrl}/productos/${product.slug}`,
+            priceCurrency: product.currency,
+            price: (product.priceInCents / 100).toFixed(2),
+            availability: "https://schema.org/InStock",
+            itemCondition: "https://schema.org/NewCondition",
+          },
+        }
+      : {}),
+    ...(reviewSummary.totalReviews
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: reviewSummary.averageRating,
+            reviewCount: reviewSummary.totalReviews,
+          },
+        }
+      : {}),
+  };
 
   return (
     <div className="page-shell pb-24 md:pb-0">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
       <Breadcrumbs
         items={[
@@ -152,20 +212,7 @@ export default async function ProductPage({
         ]}
       />
       <section className="grid gap-8 pb-14 lg:grid-cols-[1.08fr_.92fr] lg:gap-14">
-        <div className="grid gap-3 sm:grid-cols-[5rem_1fr]">
-          <div className="hidden gap-2 sm:grid sm:content-start">
-            {["Vista principal", "Detalle", "Formato"].map((label, index) => (
-              <button
-                className={`border-forest/10 aspect-square rounded-2xl border ${index === 0 ? "bg-sage ring-forest/20 ring-2" : "bg-white"}`}
-                key={label}
-                aria-label={label}
-              >
-                <span className="text-forest text-[.6rem] font-bold">
-                  {index + 1}
-                </span>
-              </button>
-            ))}
-          </div>
+        <div>
           <ProductVisual
             product={product}
             className="aspect-square rounded-[2rem]"
@@ -253,7 +300,7 @@ export default async function ProductPage({
               {
                 icon: PackageCheck,
                 title: "Producto original",
-                text: "Trazabilidad futura",
+                text: "Trazabilidad de proveedor y Shopify",
               },
             ].map(({ icon: Icon, title, text }) => (
               <div className="flex gap-3" key={title}>
@@ -322,6 +369,13 @@ export default async function ProductPage({
       <section className="py-14">
         <FAQSection faqs={productFaqs} title="Dudas sobre esta ficha" />
       </section>
+      <ProductReviews
+        productId={product.id}
+        productSlug={product.slug}
+        reviews={reviews}
+        summary={reviewSummary}
+        viewerStatus={reviewViewerStatus}
+      />
       {related.length ? (
         <section className="py-14">
           <div className="flex items-end justify-between gap-4">
@@ -373,4 +427,16 @@ export default async function ProductPage({
       </aside>
     </div>
   );
+}
+
+function absoluteProductImage(imageUrl?: string): string | undefined {
+  if (!imageUrl) return undefined;
+  try {
+    const url = new URL(imageUrl, pharmacyConfig.siteUrl);
+    return url.protocol === "https:" || url.protocol === "http:"
+      ? url.toString()
+      : undefined;
+  } catch {
+    return undefined;
+  }
 }

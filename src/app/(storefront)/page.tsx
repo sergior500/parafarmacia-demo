@@ -344,9 +344,9 @@ export default async function HomePage() {
           </div>
           <div>
             <p className="text-ink-muted text-sm leading-relaxed">
-              Las opiniones aparecerán cuando podamos verificar la compra y
-              moderar el contenido con criterios transparentes. No mostramos
-              estrellas, contadores ni testimonios sin trazabilidad.
+              Las opiniones se vinculan a compras pagadas en Shopify y se
+              moderan antes de publicarse. No mostramos estrellas, contadores ni
+              testimonios sin trazabilidad.
             </p>
             <Link
               className="text-forest mt-5 inline-flex items-center gap-2 text-sm font-bold"

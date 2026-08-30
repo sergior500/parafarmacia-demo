@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { FavoritesView } from "@/features/account/favorites-view";
+import { catalogProvider } from "@/providers/catalog/database-catalog-provider";
 
 export const metadata: Metadata = {
   title: "Favoritos",
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/favoritos" },
 };
 
-export default function FavoritesPage() {
+export default async function FavoritesPage() {
+  const products = await catalogProvider.listProducts();
   return (
     <div className="page-shell">
       <Breadcrumbs items={[{ label: "Favoritos" }]} />
@@ -24,7 +26,7 @@ export default function FavoritesPage() {
           tarde.
         </p>
       </header>
-      <FavoritesView />
+      <FavoritesView products={products} />
     </div>
   );
 }

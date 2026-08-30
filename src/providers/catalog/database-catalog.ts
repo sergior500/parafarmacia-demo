@@ -1,5 +1,6 @@
 import type { Product } from "@/domain/product/product";
 import type { AdminCatalogProduct } from "@/features/admin/admin-catalog";
+import { pharmacyConfig } from "@/lib/config";
 import { products as catalogProducts } from "@/mocks/products";
 
 const catalogProductsById = new Map(
@@ -26,7 +27,9 @@ function toPublicProduct(
     shortDescription:
       product.shortDescription || fallback?.shortDescription || "",
     description: product.description || fallback?.description || "",
-    brandOrLaboratory: product.brandOrLaboratory,
+    brandOrLaboratory: /marca por confirmar/i.test(product.brandOrLaboratory)
+      ? pharmacyConfig.name
+      : product.brandOrLaboratory,
     priceInCents: product.priceVerified
       ? product.priceInCents
       : (fallback?.priceInCents ?? 0),
@@ -66,6 +69,7 @@ export function buildStorefrontProducts(
   adminProducts: AdminCatalogProduct[],
 ): Product[] {
   return adminProducts.flatMap((product) => {
+    if (/^\s*\[PRUEBA QA\]/i.test(product.name)) return [];
     const fallback = catalogProductsById.get(product.id);
     if (!fallback && !isPublishedForSale(product)) return [];
     return [toPublicProduct(product, fallback)];

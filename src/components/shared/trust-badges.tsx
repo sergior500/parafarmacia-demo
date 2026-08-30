@@ -10,7 +10,7 @@ const items = [
   {
     icon: ShieldCheck,
     title: "Compra segura",
-    text: "Pago protegido cuando se conecte la pasarela",
+    text: "Pago y confirmación final protegidos por Shopify",
   },
   {
     icon: BadgeCheck,
@@ -25,7 +25,7 @@ const items = [
   {
     icon: Truck,
     title: "Envío a domicilio",
-    text: "Plazos y tarifa pendientes del transportista",
+    text: "Opciones y coste confirmados antes del pago",
   },
   {
     icon: RefreshCcw,

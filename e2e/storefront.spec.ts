@@ -44,6 +44,12 @@ test("abre una ficha real y conserva favoritos", async ({ page }) => {
   await expect(
     page.getByRole("button", { name: "Comprar ahora" }),
   ).toBeDisabled();
+  await expect(
+    page.getByRole("heading", { name: "Experiencias de compra reales." }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Entrar para valorar una compra" }),
+  ).toBeVisible();
 
   await page.getByRole("button", { name: "Guardar en favoritos" }).click();
   await page.goto("/favoritos");
@@ -103,6 +109,24 @@ test("carga el panel actual y bloquea mutaciones sin CSRF", async ({
   await expect(
     page.getByRole("link", { name: "Promociones", exact: true }),
   ).toBeVisible();
+  await page.getByRole("link", { name: "Reseñas", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Reseñas", level: 1 }),
+  ).toBeVisible();
+
+  const unauthenticatedReview = await page.request.post("/api/reviews", {
+    headers: { origin: "http://localhost:3000" },
+    data: {
+      productId: "product-001",
+      rating: 5,
+      title: "Compra verificada",
+      body: "Este intento debe rechazarse porque no existe sesión de cliente.",
+    },
+  });
+  expect(unauthenticatedReview.status()).toBe(401);
+
+  const favicon = await page.request.get("/favicon.ico");
+  expect(favicon.status()).toBe(200);
 
   const response = await page.request.post("/api/admin/products", {
     headers: { origin: "http://localhost:3000" },

@@ -5,10 +5,7 @@ import type { Product } from "@/domain/product/product";
 export type CatalogReviewStatus = "pending" | "reviewed" | "published";
 export type ShopifySyncStatus = "not_synced" | "syncing" | "synced" | "error";
 export type ShopifyPublicationStatus =
-  | "hidden"
-  | "publishing"
-  | "published"
-  | "error";
+  "hidden" | "publishing" | "published" | "error";
 
 export interface AdminCatalogProduct extends Product {
   reviewStatus: CatalogReviewStatus;
@@ -18,6 +15,7 @@ export interface AdminCatalogProduct extends Product {
   extractedSize?: string;
   shopifySyncStatus: ShopifySyncStatus;
   shopifyProductId?: string;
+  shopifyVariantId?: string;
   shopifySyncedAt?: string;
   shopifySyncError?: string;
   shopifyPublicationStatus: ShopifyPublicationStatus;
@@ -46,8 +44,12 @@ export const catalogProductUpdateSchema = z.object({
   maximumUnitsPerOrder: z.number().int().min(1).max(99),
 });
 
-export const catalogProductCreateSchema = catalogProductUpdateSchema
-  .omit({ reviewStatus: true, usage: true, ingredients: true, warnings: true });
+export const catalogProductCreateSchema = catalogProductUpdateSchema.omit({
+  reviewStatus: true,
+  usage: true,
+  ingredients: true,
+  warnings: true,
+});
 
 export type CatalogProductUpdate = z.infer<typeof catalogProductUpdateSchema>;
 export type CatalogProductCreate = z.infer<typeof catalogProductCreateSchema>;
@@ -85,8 +87,8 @@ export function getMissingCommercialFields(
 
 export function isShopifyBatchCandidate(product: AdminCatalogProduct): boolean {
   return (
-    (product.shopifySyncStatus === "not_synced" ||
-      product.shopifySyncStatus === "error")
+    product.shopifySyncStatus === "not_synced" ||
+    product.shopifySyncStatus === "error"
   );
 }
 

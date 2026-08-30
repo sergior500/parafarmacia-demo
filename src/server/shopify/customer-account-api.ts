@@ -39,6 +39,12 @@ export interface CustomerAccountOrder {
   fulfillmentStatus: string;
   statusPageUrl: string;
   totalPrice: { amount: string; currencyCode: string };
+  lineItems: {
+    nodes: Array<{
+      productId?: string | null;
+      variantId?: string | null;
+    }>;
+  };
 }
 
 export interface CustomerAccountProfile {
@@ -185,6 +191,9 @@ export async function getCustomerAccountProfile(
                 fulfillmentStatus
                 statusPageUrl
                 totalPrice { amount currencyCode }
+                lineItems(first: 100) {
+                  nodes { productId variantId }
+                }
               }
             }
           }
