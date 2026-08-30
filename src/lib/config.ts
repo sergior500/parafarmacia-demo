@@ -4,6 +4,11 @@ export const pharmacyConfig = {
   address: process.env.NEXT_PUBLIC_PHARMACY_ADDRESS || "",
   phone: process.env.NEXT_PUBLIC_PHARMACY_PHONE || "",
   email: process.env.NEXT_PUBLIC_PHARMACY_EMAIL || "",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
+  siteUrl:
+    process.env.SITE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "http://localhost:3000",
+  allowIndexing:
+    (process.env.ALLOW_INDEXING ?? process.env.NEXT_PUBLIC_ALLOW_INDEXING) ===
+    "true",
 } as const;
