@@ -21,9 +21,21 @@ const adapters = [
   ["Clientes", "Consulta mínima desde Shopify", "Preparado"],
   ["Promociones", "Códigos, activación y pausa", "Preparado"],
   ["Reembolsos", "Parciales, auditados e idempotentes", "Preparado"],
-  ["Pago", "Tarjeta y Bizum mediante Shopify", "Pendiente"],
-  ["Transporte", "Zonas, plazos y tarifas por seleccionar", "Pendiente"],
-  ["Notificaciones", "Proveedor y plantillas por definir", "Pendiente"],
+  [
+    "Pago",
+    "Checkout conectado; activar tarjeta y Bizum en la tienda definitiva",
+    "Acción externa",
+  ],
+  [
+    "Transporte",
+    "Checkout conectado; definir zonas, plazos y tarifas en Shopify",
+    "Acción externa",
+  ],
+  [
+    "Notificaciones",
+    "Correos transaccionales de Shopify; personalización por revisar",
+    "Preparado",
+  ],
 ] as const;
 
 export default async function ConfigurationPage() {
@@ -41,11 +53,11 @@ export default async function ConfigurationPage() {
         <ShopifyConnectionCard />
         <Card className="p-6">
           <h2 className="font-display text-forest text-3xl">
-            Identidad provisional
+            Datos públicos de la farmacia
           </h2>
           <p className="text-ink-muted mt-2 text-sm">
-            Estos datos se sustituirán cuando la empresa facilite su información
-            definitiva.
+            El nombre ya está configurado. Dirección, teléfono y correo solo se
+            publicarán cuando la empresa confirme sus datos oficiales.
           </p>
           <dl className="mt-5 grid gap-4 text-sm">
             <div>

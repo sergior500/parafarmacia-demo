@@ -23,9 +23,9 @@ export default function BrandsPage() {
           </h1>
         </div>
         <p className="text-ink-muted max-w-xl text-sm leading-relaxed">
-          Este índice muestra únicamente la procedencia declarada en las fichas
-          técnicas facilitadas. Los datos comerciales definitivos siguen
-          pendientes de validación.
+          Este índice utiliza la marca o procedencia recogida en el catálogo
+          facilitado. El precio, el stock y la publicación comercial se
+          actualizan desde Shopify.
         </p>
       </header>
       <BrandDirectory brands={brands} />

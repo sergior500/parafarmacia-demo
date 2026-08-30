@@ -91,7 +91,7 @@ export const articles: Article[] = [
     category: "Protección solar",
     author: "Equipo editorial",
     publishedAt: "2026-06-12",
-    updatedAt: "2026-07-28",
+    updatedAt: "2026-08-31",
     readTime: "6 min",
     intro:
       "Elegir un protector solar resulta más fácil cuando se tienen claras la textura preferida, la exposición prevista y las necesidades cotidianas de la piel.",
@@ -118,7 +118,10 @@ export const articles: Article[] = [
     ],
     relatedCategorySlugs: ["proteccion-solar", "cuidado-facial"],
     sources: [
-      "Información general de fotoprotección de organismos sanitarios; ficha definitiva pendiente de validación.",
+      {
+        label: "AEMPS · Consejos para una adecuada protección solar",
+        href: "https://www.aemps.gob.es/consejos-para-una-adecuada-proteccion-solar/",
+      },
     ],
   },
   {
@@ -130,7 +133,7 @@ export const articles: Article[] = [
     category: "Dermocosmética",
     author: "Equipo editorial",
     publishedAt: "2026-05-18",
-    updatedAt: "2026-07-20",
+    updatedAt: "2026-08-31",
     readTime: "5 min",
     intro:
       "Una rutina corta y constante ayuda a identificar qué productos resultan cómodos para la piel y evita introducir demasiados cambios a la vez.",
@@ -150,7 +153,11 @@ export const articles: Article[] = [
     ],
     relatedCategorySlugs: ["cuidado-facial"],
     sources: [
-      "Contenido general pendiente de revisión editorial; las fichas de fabricantes son la fuente de cada producto.",
+      {
+        label:
+          "American Academy of Dermatology · Rutina básica de cuidado de la piel",
+        href: "https://www.aad.org/public/everyday-care/skin-care-basics/care/skin-care-budget",
+      },
     ],
   },
   {
@@ -162,7 +169,7 @@ export const articles: Article[] = [
     category: "Bebé y maternidad",
     author: "Equipo editorial",
     publishedAt: "2026-04-08",
-    updatedAt: "2026-07-10",
+    updatedAt: "2026-08-31",
     readTime: "7 min",
     intro:
       "Para empezar suele ser suficiente una selección breve de productos de higiene y accesorios fáciles de utilizar.",
@@ -181,7 +188,13 @@ export const articles: Article[] = [
       },
     ],
     relatedCategorySlugs: ["cuidado-infantil"],
-    sources: ["Contenido pendiente de revisión editorial profesional."],
+    sources: [
+      {
+        label:
+          "Asociación Española de Pediatría · Cuidados generales del recién nacido sano",
+        href: "https://www.aeped.es/sites/default/files/documentos/2_2.pdf",
+      },
+    ],
   },
 ];
 

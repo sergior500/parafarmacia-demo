@@ -88,7 +88,7 @@ export function ProductCard({ product }: { product: Product }) {
             <span>
               <strong className="text-forest block text-lg font-black tracking-[-.035em]">
                 {pricePending
-                  ? "Precio pendiente"
+                  ? "Precio aún no disponible"
                   : formatMoney(product.priceInCents)}
               </strong>
               {product.pricePerUnit ? (
@@ -103,7 +103,7 @@ export function ProductCard({ product }: { product: Product }) {
               {available
                 ? "En stock"
                 : pricePending
-                  ? "Pendiente de alta"
+                  ? "Ficha en preparación"
                   : "No disponible"}
             </span>
           </div>
@@ -169,7 +169,7 @@ export function ProductCard({ product }: { product: Product }) {
               <span className="hidden min-[360px]:inline">
                 {!available
                   ? pricePending
-                    ? "Próximamente"
+                    ? "No disponible"
                     : "No disponible"
                   : remaining > 0
                     ? message.includes("añadida")
@@ -186,7 +186,7 @@ export function ProductCard({ product }: { product: Product }) {
             {message ||
               (!available
                 ? pricePending
-                  ? "Precio y stock pendientes de validación"
+                  ? "La compra se activará al confirmar precio y stock"
                   : "Temporalmente no disponible"
                 : existingQuantity
                   ? `${existingQuantity} en cesta · máximo ${maximum}`

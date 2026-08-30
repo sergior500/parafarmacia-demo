@@ -1,7 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 
-import { pharmacyConfig } from "@/lib/config";
+import { hasPublicContact, pharmacyConfig } from "@/lib/config";
 import { getAdminActor, hasAdminCapability } from "@/server/admin-auth";
 
 const groups = [
@@ -22,7 +22,7 @@ const groups = [
       ["Cómo comprar", "/como-comprar"],
       ["Envíos", "/envios"],
       ["Devoluciones", "/devoluciones"],
-      ["Contacto", "/contacto"],
+      ...(hasPublicContact ? [["Contacto", "/contacto"]] : []),
     ],
   },
   {
@@ -112,9 +112,7 @@ export async function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="page-shell flex flex-wrap justify-between gap-3 py-5 text-[.65rem] text-white/45">
           <span>© 2026 {pharmacyConfig.name}</span>
-          {canAccessAdmin ? (
-            <a href="/admin">Acceso al panel interno</a>
-          ) : null}
+          {canAccessAdmin ? <a href="/admin">Acceso al panel interno</a> : null}
           <span>Pago seguro gestionado por Shopify</span>
         </div>
       </div>

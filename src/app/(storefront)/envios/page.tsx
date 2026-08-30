@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 
 import { InfoPage } from "@/components/shared/info-page";
 
-export const metadata: Metadata = { title: "Envíos" };
+export const metadata: Metadata = {
+  title: "Envíos",
+  robots: { index: false, follow: true },
+};
 
 export default function ShippingPage() {
   return (
@@ -13,10 +16,10 @@ export default function ShippingPage() {
       title="Envíos"
     >
       <p>
-        La zona de servicio, el transportista, los plazos de preparación y
-        entrega, las tarifas y el posible umbral de envío gratuito están
-        pendientes de confirmación. No se mostrará una promesa de entrega hasta
-        que la farmacia configure y apruebe esas condiciones.
+        La tienda no anticipa una tarifa ni un plazo genéricos. Shopify
+        calculará las opciones válidas para la dirección introducida y las
+        mostrará antes de confirmar el pago. La farmacia debe configurar allí la
+        zona de servicio, los transportistas, los plazos y las tarifas.
       </p>
     </InfoPage>
   );

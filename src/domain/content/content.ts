@@ -36,7 +36,7 @@ export interface Article {
   intro: string;
   sections: Array<{ title: string; paragraphs: string[] }>;
   relatedCategorySlugs: string[];
-  sources: string[];
+  sources: Array<{ label: string; href: string }>;
 }
 
 export interface Promotion {

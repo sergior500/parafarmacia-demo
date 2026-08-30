@@ -2,21 +2,25 @@ import type { Metadata } from "next";
 
 import { InfoPage } from "@/components/shared/info-page";
 
-export const metadata: Metadata = { title: "Privacidad" };
+export const metadata: Metadata = {
+  title: "Privacidad",
+  robots: { index: false, follow: true },
+};
 
 export default function PrivacyPage() {
   return (
     <InfoPage
       legal
-      eyebrow="Información provisional"
-      intro="La política definitiva se completará con la identidad y los proveedores confirmados por la farmacia."
+      eyebrow="Tratamiento de datos"
+      intro="Resumen técnico del tratamiento previsto, pendiente de incorporar la identidad legal y la revisión jurídica de la farmacia."
       title="Privacidad"
     >
       <p>
         El sitio conserva la cesta y los favoritos en el almacenamiento local de
         este dispositivo. Los datos de cuenta, pedido y pago se tratarán
-        mediante Shopify cuando se habilite la venta, con los plazos, bases
-        jurídicas y derechos que se publiquen tras la validación especializada.
+        mediante Shopify al utilizar el acceso de cliente o el proceso de
+        compra. La versión definitiva debe detallar responsables, proveedores,
+        plazos, bases jurídicas y el ejercicio de derechos.
       </p>
     </InfoPage>
   );

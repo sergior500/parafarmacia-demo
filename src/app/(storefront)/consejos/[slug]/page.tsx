@@ -99,7 +99,11 @@ export default async function ArticlePage({
           <h2>Fuentes y revisión</h2>
           <ul className="mt-3 list-disc pl-5 text-sm">
             {article.sources.map((source) => (
-              <li key={source}>{source}</li>
+              <li key={source.href}>
+                <a href={source.href} rel="noreferrer" target="_blank">
+                  {source.label}
+                </a>
+              </li>
             ))}
           </ul>
         </div>

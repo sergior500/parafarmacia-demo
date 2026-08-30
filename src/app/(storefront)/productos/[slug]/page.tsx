@@ -114,7 +114,7 @@ export default async function ProductPage({
       question: `¿Para quién está pensado ${product.name}?`,
       answer: product.skinTypes?.length
         ? `La ficha lo clasifica para: ${product.skinTypes.join(", ")}. Confirma siempre la información del envase definitivo.`
-        : "La indicación concreta deberá incorporarse desde la ficha validada del fabricante.",
+        : "Consulta la descripción y el etiquetado del envase para confirmar si se adapta a tus necesidades.",
     },
     {
       question: "¿Cómo se utiliza?",
@@ -243,7 +243,7 @@ export default async function ProductPage({
             <div>
               <p className="text-forest text-3xl font-black tracking-[-.04em]">
                 {pricePending
-                  ? "Precio pendiente"
+                  ? "Precio aún no disponible"
                   : formatMoney(product.priceInCents)}
               </p>
               {product.pricePerUnit ? (
@@ -260,7 +260,7 @@ export default async function ProductPage({
               }
             >
               {pricePending
-                ? "Precio y stock pendientes de validación"
+                ? "Ficha comercial en preparación"
                 : available
                   ? `${product.stock} unidades disponibles`
                   : "Temporalmente no disponible"}
@@ -290,7 +290,7 @@ export default async function ProductPage({
               {
                 icon: Truck,
                 title: "Envío a domicilio",
-                text: "Plazo por confirmar",
+                text: "Opciones calculadas antes del pago",
               },
               {
                 icon: RotateCcw,
@@ -333,7 +333,8 @@ export default async function ProductPage({
             <Leaf aria-hidden="true" className="text-coral size-5" />
             <h3 className="text-forest mt-4 font-bold">Modo de uso</h3>
             <p className="text-ink-muted mt-2 text-sm leading-relaxed">
-              {product.usage ?? "Pendiente de la ficha del fabricante."}
+              {product.usage ??
+                "Consulta las instrucciones del envase antes de utilizarlo."}
             </p>
           </div>
           <div className="rounded-[1.6rem] bg-white p-6">
@@ -342,7 +343,7 @@ export default async function ProductPage({
             <p className="text-ink-muted mt-2 text-sm leading-relaxed">
               {[product.format, ...(product.skinTypes ?? [])]
                 .filter(Boolean)
-                .join(" · ") || "Información pendiente."}
+                .join(" · ") || "Consulta el formato indicado en el envase."}
             </p>
           </div>
           <details className="border-forest/10 rounded-[1.6rem] border bg-white p-6">
@@ -351,7 +352,7 @@ export default async function ProductPage({
             </summary>
             <p className="text-ink-muted mt-3 text-sm leading-relaxed">
               {product.ingredients ??
-                "Pendiente de integrar desde la fuente oficial del fabricante."}
+                "Consulta la composición o el listado INCI del envase. La ficha se ampliará cuando exista una fuente oficial verificable."}
             </p>
           </details>
           <details className="border-forest/10 rounded-[1.6rem] border bg-white p-6">
@@ -415,16 +416,18 @@ export default async function ProductPage({
       <section className="py-10">
         <TrustBadges compact />
       </section>
-      <aside className="bg-coral-light/55 my-10 flex gap-4 rounded-[1.5rem] p-5">
-        <Info aria-hidden="true" className="text-coral size-5 shrink-0" />
-        <p className="text-ink-muted text-xs leading-relaxed">
-          <strong className="text-forest block">
-            Información comercial por completar
-          </strong>{" "}
-          Los campos pendientes deberán validarse antes de habilitar la venta
-          del producto.
-        </p>
-      </aside>
+      {!available ? (
+        <aside className="bg-coral-light/55 my-10 flex gap-4 rounded-[1.5rem] p-5">
+          <Info aria-hidden="true" className="text-coral size-5 shrink-0" />
+          <p className="text-ink-muted text-xs leading-relaxed">
+            <strong className="text-forest block">
+              Producto no disponible para compra
+            </strong>{" "}
+            La venta se activará únicamente cuando Shopify confirme el precio,
+            el stock y la publicación del producto.
+          </p>
+        </aside>
+      ) : null}
     </div>
   );
 }

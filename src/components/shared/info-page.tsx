@@ -30,7 +30,8 @@ export function InfoPage({
         <Card className="prose-content p-7 md:p-10">
           {legal ? (
             <div className="border-coral/30 bg-coral-light/30 text-forest mb-7 rounded-2xl border p-5 font-bold">
-              Contenido pendiente de validación jurídica.
+              Borrador informativo: debe revisarlo la asesoría jurídica de la
+              farmacia antes de activar las ventas.
             </div>
           ) : null}
           {children}

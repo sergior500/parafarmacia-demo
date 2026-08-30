@@ -59,7 +59,9 @@ test("abre una ficha real y conserva favoritos", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: PRODUCT_NAME, level: 1 }),
   ).toBeVisible();
-  await expect(page.getByText("Precio pendiente").first()).toBeVisible();
+  await expect(
+    page.getByText("Precio aún no disponible").first(),
+  ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Comprar ahora" }),
   ).toBeDisabled();
@@ -80,6 +82,37 @@ test("abre una ficha real y conserva favoritos", async ({ page }) => {
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Quitar de favoritos" }),
+  ).toBeVisible();
+});
+
+test("publica consejos con fuentes sanitarias identificadas", async ({
+  page,
+}) => {
+  await page.goto("/consejos/como-elegir-protector-solar-tipo-piel");
+  await expect(
+    page.getByRole("heading", {
+      name: "Cómo elegir un protector solar según tu tipo de piel",
+      level: 1,
+    }),
+  ).toBeVisible();
+  const source = page.getByRole("link", {
+    name: /AEMPS · Consejos para una adecuada protección solar/,
+  });
+  await expect(source).toHaveAttribute(
+    "href",
+    "https://www.aemps.gob.es/consejos-para-una-adecuada-proteccion-solar/",
+  );
+});
+
+test("no presenta datos de contacto sin verificar", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: "Contacto" })).toHaveCount(0);
+
+  await page.goto("/contacto");
+  await expect(
+    page.getByText(
+      /No publicamos direcciones, teléfonos ni correos sin verificar/,
+    ),
   ).toBeVisible();
 });
 

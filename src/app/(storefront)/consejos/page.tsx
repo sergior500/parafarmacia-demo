@@ -24,9 +24,9 @@ export default function AdvicePage() {
           </h1>
         </div>
         <p className="text-ink-muted max-w-xl text-sm leading-relaxed">
-          Guías provisionales que conectan preguntas cotidianas con categorías y
-          productos. El contenido no sustituye la valoración de un profesional
-          sanitario.
+          Guías prácticas basadas en fuentes sanitarias identificadas que
+          conectan preguntas cotidianas con categorías y productos. No
+          sustituyen la valoración individual de un profesional sanitario.
         </p>
       </header>
       <div className="grid gap-5 lg:grid-cols-3">

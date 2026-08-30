@@ -21,3 +21,7 @@ export const pharmacyConfig = {
     (process.env.ALLOW_INDEXING ?? process.env.NEXT_PUBLIC_ALLOW_INDEXING) ===
     "true",
 } as const;
+
+export const hasPublicContact = Boolean(
+  pharmacyConfig.address || pharmacyConfig.phone || pharmacyConfig.email,
+);

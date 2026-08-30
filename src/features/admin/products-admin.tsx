@@ -36,6 +36,7 @@ import {
 import { CatalogBulkImport } from "@/features/admin/catalog-bulk-import";
 import { CatalogProductEditor } from "@/features/admin/catalog-product-editor";
 import { secureAdminFetch } from "@/features/admin/secure-admin-fetch";
+import { pharmacyConfig } from "@/lib/config";
 import { formatMoney } from "@/lib/format";
 import { categories } from "@/mocks/products";
 
@@ -935,7 +936,7 @@ export function ProductsAdmin() {
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Marca o laboratorio
-              <Input name="brand" defaultValue="Marca por confirmar" required />
+              <Input name="brand" defaultValue={pharmacyConfig.name} required />
             </label>
             <label className="grid gap-2 text-sm font-bold">
               Categoría

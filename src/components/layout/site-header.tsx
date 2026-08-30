@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { calculateCartTotals } from "@/domain/cart/cart";
 import { SearchAutocomplete } from "@/features/search/search-autocomplete";
 import { useStorefront } from "@/features/storefront/storefront-provider";
-import { pharmacyConfig } from "@/lib/config";
+import { hasPublicContact, pharmacyConfig } from "@/lib/config";
 import { formatMoney } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { categories } from "@/mocks/products";
@@ -25,7 +25,9 @@ const mainNavigation = [
   { href: "/consejos", label: "Consejos" },
   { href: "/sobre-la-farmacia", label: "La farmacia" },
   { href: "/envios", label: "Envíos" },
-  { href: "/contacto", label: "Contacto" },
+  ...(hasPublicContact
+    ? ([{ href: "/contacto", label: "Contacto" }] as const)
+    : []),
 ] as const;
 
 export function SiteHeader() {

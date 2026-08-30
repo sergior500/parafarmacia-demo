@@ -166,7 +166,7 @@ export function CartView({ products }: { products: Product[] }) {
                     {line.product.name}
                   </Link>
                   <p className="text-ink-muted mt-1 text-xs">
-                    {line.product.size ?? "Formato pendiente"}
+                    {line.product.size ?? "Consulta el formato en la ficha"}
                   </p>
                   <p className="text-forest mt-3 font-black">
                     {formatMoney(line.product.priceInCents * line.quantity)}
