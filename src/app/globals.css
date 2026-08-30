@@ -31,9 +31,7 @@ html {
 }
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 8% 4%, rgb(109 119 63 / 7%), transparent 23rem),
-    var(--color-cream);
+  background: #f7f3e9;
   color: var(--color-ink);
   font-family: var(--font-sans);
   line-height: 1.6;
@@ -162,6 +160,27 @@ textarea {
     linear-gradient(rgb(33 63 50 / 5%) 1px, transparent 1px),
     linear-gradient(90deg, rgb(33 63 50 / 5%) 1px, transparent 1px);
   background-size: 2.75rem 2.75rem;
+}
+.warm-surface {
+  background:
+    radial-gradient(
+      circle at 12% 16%,
+      rgb(231 200 168 / 28%),
+      transparent 18rem
+    ),
+    radial-gradient(
+      circle at 88% 82%,
+      rgb(220 228 210 / 34%),
+      transparent 22rem
+    ),
+    #fbf8f0;
+}
+.human-note {
+  border-left: 2px solid var(--color-coral);
+  color: var(--color-forest-light);
+  font-family: var(--font-display);
+  font-style: italic;
+  line-height: 1.45;
 }
 .brand-seal {
   position: relative;

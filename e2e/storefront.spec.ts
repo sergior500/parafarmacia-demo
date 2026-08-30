@@ -35,6 +35,25 @@ test("navega y filtra el catálogo real", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("presenta ofertas sin anunciar descuentos sin confirmar", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: "Ofertas", exact: true }).click();
+  await expect(page).toHaveURL(/\/ofertas$/);
+  await expect(
+    page.getByRole("heading", {
+      name: "Cuidarte bien también puede salir mejor de precio.",
+      level: 1,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "Sin precios tachados ni descuentos que no estén confirmados.",
+    ),
+  ).toBeVisible();
+});
+
 test("abre una ficha real y conserva favoritos", async ({ page }) => {
   await page.goto(PRODUCT_PATH);
   await expect(
@@ -71,6 +90,12 @@ test("presenta inicio y catálogo sin desbordamiento en móvil", async ({
   await page.goto("/");
   await expect(
     page.getByRole("link", { name: "Farmacia Picual, inicio" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: "Cuidarte debería ser sencillo.",
+      level: 1,
+    }),
   ).toBeVisible();
 
   await page.goto("/parafarmacia");

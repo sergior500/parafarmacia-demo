@@ -9,6 +9,7 @@ export const dynamic = "force-static";
 const routes = [
   "",
   "/parafarmacia",
+  "/ofertas",
   "/marcas",
   "/consejos",
   "/como-comprar",

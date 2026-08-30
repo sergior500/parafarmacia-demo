@@ -7,11 +7,11 @@ import {
   Droplets,
   HeartPulse,
   Leaf,
+  MessageCircle,
   ShieldCheck,
   Smile,
   Sparkles,
   Sun,
-  Waves,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -66,32 +66,35 @@ export default async function HomePage() {
   return (
     <>
       <section className="overflow-hidden">
-        <div className="page-shell grid gap-3 py-5 md:py-8 lg:grid-cols-[1.04fr_.96fr] lg:items-stretch">
-          <div className="paper-grid border-forest/10 relative flex min-h-[35rem] flex-col justify-center overflow-hidden rounded-[.35rem_3.5rem_.35rem_.35rem] border px-6 py-12 sm:px-10 lg:min-h-[39rem] lg:px-14">
-            <span className="catalog-number text-olive absolute top-5 right-7 text-6xl leading-none opacity-20">
-              01
+        <div className="page-shell grid gap-4 py-5 md:py-8 lg:grid-cols-[1.02fr_.98fr] lg:items-stretch">
+          <div className="warm-surface border-forest/10 relative flex min-h-[34rem] flex-col justify-center overflow-hidden rounded-[2.4rem_.8rem_2.4rem_.8rem] border px-6 py-12 sm:px-10 lg:min-h-[39rem] lg:px-14">
+            <span className="bg-sage text-forest inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-[.7rem] font-bold">
+              Parafarmacia online de Farmacia Picual
             </span>
-            <span className="text-forest inline-flex w-fit items-center gap-2 text-[.62rem] font-black tracking-[.16em] uppercase">
-              <span className="bg-olive h-px w-9" /> Selección Farmacia Picual
-            </span>
-            <h1 className="display-title text-forest mt-8 max-w-xl text-[3.25rem] sm:text-6xl lg:text-[4.8rem]">
-              Parafarmacia con criterio. Cuidado que se entiende.
+            <h1 className="display-title text-forest mt-7 max-w-xl text-[3.3rem] sm:text-6xl lg:text-[4.7rem]">
+              Cuidarte debería ser sencillo.
             </h1>
-            <p className="text-forest/70 mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
-              Dermocosmética, protección solar, higiene y bienestar explicados
-              con claridad para elegir por producto o por lo que necesitas.
+            <p className="text-forest/72 mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
+              Te ayudamos a encontrar dermocosmética, protección solar, higiene
+              y bienestar sin perderte entre nombres complicados.
             </p>
             <div className="mt-8 max-w-xl">
               <SearchAutocomplete />
             </div>
-            <div className="editorial-rule text-forest/65 mt-8 grid grid-cols-3 gap-3 py-3 text-[.64rem] font-black tracking-[.04em] uppercase">
-              <span>Catálogo real</span>
-              <span>Información clara</span>
-              <span>Compra segura</span>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button asChild>
+                <Link href="/parafarmacia">Explorar productos</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/contacto">
+                  <MessageCircle aria-hidden="true" className="size-4" />
+                  Necesito orientación
+                </Link>
+              </Button>
             </div>
           </div>
 
-          <div className="bg-cream-dark border-forest/10 relative min-h-[26rem] overflow-hidden rounded-[3.5rem_.35rem_.35rem_.35rem] border lg:min-h-[39rem]">
+          <div className="bg-cream-dark border-forest/10 relative min-h-[27rem] overflow-hidden rounded-[.8rem_2.4rem_.8rem_2.4rem] border lg:min-h-[39rem]">
             <Image
               src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/hero-parafarmacia-editorial.png`}
               alt="Composición editorial de envases cosméticos sin marca sobre pedestales verde salvia"
@@ -101,13 +104,10 @@ export default async function HomePage() {
               priority
               sizes="(min-width: 1024px) 55vw, 100vw"
             />
-            <span className="bg-forest-dark absolute top-0 right-0 px-4 py-3 text-[.58rem] font-black tracking-[.16em] text-white uppercase [writing-mode:vertical-rl]">
-              Archivo Picual · Temporada 01
-            </span>
-            <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-4 border border-white/45 bg-[#f8f5ec]/92 p-4 backdrop-blur-md sm:right-auto sm:max-w-sm sm:p-5">
+            <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-4 rounded-2xl border border-white/55 bg-[#fbf8f0]/94 p-4 shadow-xl backdrop-blur-md sm:right-auto sm:max-w-sm sm:p-5">
               <div>
-                <p className="text-ink-muted text-[.62rem] font-black tracking-[.13em] uppercase">
-                  Selección de temporada
+                <p className="text-coral text-[.7rem] font-bold">
+                  Una recomendación para estos meses
                 </p>
                 <strong className="text-forest mt-1 block text-lg">
                   Protección solar: empieza antes de exponerte
@@ -124,29 +124,18 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-        <div className="page-shell editorial-rule grid grid-cols-2 gap-px py-4 text-center sm:grid-cols-4">
-          {[
-            "01 · Dermocosmética",
-            "02 · Protección solar",
-            "03 · Higiene",
-            "04 · Bienestar",
-          ].map((item) => (
-            <span
-              className="text-forest/55 px-2 text-[.62rem] font-black tracking-[.11em] uppercase"
-              key={item}
-            >
-              {item}
-            </span>
-          ))}
+        <div className="page-shell human-note my-5 max-w-3xl px-5 py-2 text-base sm:my-7 sm:text-lg">
+          Empieza por lo que necesitas hoy. El nombre exacto del producto puede
+          venir después.
         </div>
       </section>
 
       <section className="page-shell py-12 md:py-16">
         <div className="flex items-end justify-between gap-5">
           <div>
-            <p className="eyebrow">Empieza por lo que necesitas</p>
+            <p className="eyebrow">¿Qué necesitas hoy?</p>
             <h2 className="display-title text-forest mt-3 text-4xl md:text-5xl">
-              No hace falta saber el nombre técnico.
+              Elige por cómo quieres cuidarte.
             </h2>
           </div>
           <Link
@@ -156,16 +145,16 @@ export default async function HomePage() {
             Ver todo <ChevronRight aria-hidden="true" className="size-4" />
           </Link>
         </div>
-        <div className="border-forest/10 bg-forest/10 mt-8 grid grid-cols-2 gap-px overflow-hidden border md:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
           {needs.map((need, index) => {
             const Icon = needIcons[index]!;
             return (
               <Link
-                className="group bg-cream min-h-44 p-4 transition-colors hover:bg-white sm:p-5"
+                className="border-forest/10 group min-h-44 rounded-[1.25rem] border bg-[#fcfaf5] p-4 transition-[transform,background-color] hover:-translate-y-1 hover:bg-white sm:p-5"
                 href={`/buscar?necesidad=${need.slug}`}
                 key={need.slug}
               >
-                <span className="text-olive border-olive/25 grid size-10 place-items-center border">
+                <span className="text-olive bg-olive-light/55 grid size-10 place-items-center rounded-full">
                   <Icon aria-hidden="true" className="size-5" />
                 </span>
                 <strong className="text-forest mt-5 block text-sm sm:text-base">
@@ -181,42 +170,47 @@ export default async function HomePage() {
       </section>
 
       <section className="page-shell py-12 md:py-16">
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        <div className="max-w-2xl">
+          <p className="eyebrow">Todo el catálogo, bien ordenado</p>
+          <h2 className="display-title text-forest mt-3 text-4xl md:text-5xl">
+            También puedes explorar por sección.
+          </h2>
+          <p className="text-ink-muted mt-4 text-sm leading-relaxed">
+            Nueve áreas de cuidado para llegar antes a los productos que te
+            interesan.
+          </p>
+        </div>
+        <div className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((category, index) => (
             <Link
-              className={`${categoryThemes[index]!} border-forest/10 group relative min-h-64 overflow-hidden border p-6 transition-transform hover:-translate-y-1 sm:p-7`}
+              className={`${categoryThemes[index]!} border-forest/10 group relative min-h-60 overflow-hidden rounded-[1.5rem] border p-6 transition-transform hover:-translate-y-1 sm:p-7`}
               href={`/categorias/${category.slug}`}
               key={category.id}
             >
-              <span className="catalog-number text-forest/25 text-5xl leading-none">
-                0{index + 1}
+              <span className="text-forest/50 text-xs font-bold">
+                Sección {index + 1}
               </span>
-              <h2 className="font-display text-forest mt-16 max-w-xs text-3xl leading-none tracking-[-.045em]">
+              <h3 className="font-display text-forest mt-12 max-w-xs text-3xl leading-none tracking-[-.045em]">
                 {category.name}
-              </h2>
+              </h3>
               <p className="text-ink-muted mt-3 max-w-xs text-xs leading-relaxed">
                 {category.description}
               </p>
-              <span className="text-forest border-forest/15 absolute right-6 bottom-6 grid size-10 place-items-center border bg-white/55 transition-transform group-hover:translate-x-1">
+              <span className="text-forest absolute right-6 bottom-6 grid size-10 place-items-center rounded-full bg-white/70 transition-transform group-hover:translate-x-1">
                 <ArrowRight aria-hidden="true" className="size-4" />
               </span>
-              <Waves
-                aria-hidden="true"
-                className="text-forest/8 absolute -top-4 -right-6 size-36"
-                strokeWidth={1}
-              />
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="border-forest/10 border-y bg-[#f9f7f0] py-16 md:py-20">
+      <section className="border-forest/10 border-y bg-[#fcfaf5] py-16 md:py-20">
         <div className="page-shell">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <div>
-              <p className="eyebrow">Fichas del catálogo facilitado</p>
+              <p className="eyebrow">Una selección para empezar</p>
               <h2 className="display-title text-forest mt-3 text-4xl md:text-5xl">
-                Productos destacados del catálogo.
+                Productos que merece la pena conocer.
               </h2>
             </div>
             <Button asChild variant="outline">
@@ -227,9 +221,9 @@ export default async function HomePage() {
             </Button>
           </div>
           <p className="text-ink-muted mt-4 max-w-2xl text-sm">
-            Los productos proceden de las fichas técnicas recibidas. Solo se
-            podrán comprar cuando precio, stock y publicación estén confirmados
-            en Shopify.
+            Cada ficha reúne la información disponible para ayudarte a comparar
+            con calma. La compra solo se activa cuando precio y stock están
+            confirmados.
           </p>
           <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product) => (
@@ -239,18 +233,32 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="page-shell py-16 md:py-20">
+      <section className="page-shell py-16 md:py-20" id="ofertas">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-5">
+          <div>
+            <p className="eyebrow">Ideas para cuidarte mejor</p>
+            <h2 className="display-title text-forest mt-3 text-4xl md:text-5xl">
+              Rutinas, selecciones y ofertas.
+            </h2>
+          </div>
+          <Link
+            className="text-forest hover:text-coral inline-flex items-center gap-2 text-sm font-bold"
+            href="/ofertas"
+          >
+            Ver ofertas <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
+        </div>
         <div className="grid gap-4 lg:grid-cols-2">
           {promotions.map((promotion, index) => (
             <Link
-              className={`relative min-h-72 overflow-hidden border p-7 sm:p-9 ${index === 0 ? "border-forest-dark bg-forest-dark text-white" : "border-coral/20 bg-peach text-forest"}`}
+              className={`relative min-h-72 overflow-hidden rounded-[1.8rem] border p-7 transition-transform hover:-translate-y-1 sm:p-9 ${index === 0 ? "border-forest-dark bg-forest-dark text-white" : "border-coral/20 bg-peach text-forest"}`}
               href={promotion.href}
               key={promotion.id}
             >
               <p
                 className={`text-[.65rem] font-black tracking-[.14em] uppercase ${index === 0 ? "text-peach" : "text-forest/55"}`}
               >
-                Packs y rutinas
+                Selección de Farmacia Picual
               </p>
               <h2 className="font-display mt-14 max-w-md text-4xl leading-none tracking-[-.045em]">
                 {promotion.title}
@@ -273,9 +281,9 @@ export default async function HomePage() {
       <section className="page-shell py-12 md:py-16">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="eyebrow">Catálogo de marca propia</p>
+            <p className="eyebrow">La selección de Farmacia Picual</p>
             <h2 className="display-title text-forest mt-3 text-4xl">
-              Una procedencia clara para todas las fichas.
+              Productos reunidos con un criterio común.
             </h2>
           </div>
           <Link className="text-forest text-sm font-bold" href="/marcas">
@@ -289,7 +297,7 @@ export default async function HomePage() {
 
       <section className="page-shell py-16 md:py-20">
         <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
-          <div className="bg-forest-dark rounded-[.35rem_2.5rem_.35rem_.35rem] p-7 text-white sm:p-9">
+          <div className="bg-forest-dark rounded-[1.8rem] p-7 text-white sm:p-9">
             <BookOpen aria-hidden="true" className="text-peach size-7" />
             <p className="text-peach mt-8 text-[.65rem] font-black tracking-[.14em] uppercase">
               Centro de consejos
@@ -335,11 +343,11 @@ export default async function HomePage() {
       </section>
 
       <section className="page-shell py-16">
-        <div className="paper-grid border-forest/10 grid gap-8 rounded-[.35rem_2.5rem_.35rem_.35rem] border p-7 md:grid-cols-[.7fr_1.3fr] md:p-10">
+        <div className="warm-surface border-forest/10 grid gap-8 rounded-[1.8rem] border p-7 md:grid-cols-[.7fr_1.3fr] md:p-10">
           <div>
             <ShieldCheck aria-hidden="true" className="text-coral size-7" />
             <h2 className="font-display text-forest mt-5 text-3xl tracking-[-.04em]">
-              La confianza se verifica.
+              Opiniones reales, sin atajos.
             </h2>
           </div>
           <div>

@@ -49,10 +49,13 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <article className="border-forest/10 group flex h-full flex-col border-t bg-white/35 p-3 transition-colors hover:bg-white sm:p-4">
+    <article className="border-forest/10 group flex h-full flex-col rounded-[1.4rem] border bg-[#fcfaf5] p-3 shadow-[0_14px_45px_-38px_rgba(16,42,33,.75)] transition-[transform,box-shadow,background-color] hover:-translate-y-1 hover:bg-white hover:shadow-[0_22px_60px_-36px_rgba(16,42,33,.5)] sm:p-4">
       <div className="relative">
         <Link href={`/productos/${product.slug}`}>
-          <ProductVisual product={product} className="aspect-square" />
+          <ProductVisual
+            product={product}
+            className="aspect-square overflow-hidden rounded-[1rem]"
+          />
         </Link>
         <FavoriteButton
           productId={product.id}
@@ -77,7 +80,7 @@ export function ProductCard({ product }: { product: Product }) {
         >
           {product.name}
         </Link>
-        <p className="text-ink-muted mt-1.5 line-clamp-2 text-[.74rem] leading-relaxed">
+        <p className="text-ink-muted mt-1.5 line-clamp-2 text-[.76rem] leading-relaxed">
           {product.shortDescription}
         </p>
         <div className="mt-auto pt-4">

@@ -72,13 +72,12 @@ export function SiteHeader() {
   return (
     <header className="border-forest/10 bg-cream/95 sticky top-0 z-40 border-b backdrop-blur-xl">
       <div className="bg-forest-dark text-white">
-        <div className="page-shell flex min-h-8 items-center justify-center gap-x-8 text-[.62rem] font-bold tracking-[.06em] sm:justify-between">
-          <span>FARMACIA PICUAL · PARAFARMACIA</span>
+        <div className="page-shell flex min-h-8 items-center justify-center gap-x-8 text-[.66rem] font-semibold sm:justify-between">
+          <span>Farmacia Picual · Parafarmacia online</span>
           <span className="hidden sm:inline">
-            Selección con criterio de farmacia
+            Información clara para elegir
           </span>
-          <span className="hidden md:inline">Fichas técnicas trazables</span>
-          <span className="hidden lg:inline">Pago protegido por Shopify</span>
+          <span className="hidden md:inline">Compra protegida por Shopify</span>
         </div>
       </div>
 
@@ -94,7 +93,7 @@ export function SiteHeader() {
               {pharmacyConfig.name}
             </strong>
             <span className="text-ink-muted mt-1 block text-[.56rem] font-black tracking-[.14em] uppercase">
-              Criterio de farmacia
+              Parafarmacia online
             </span>
           </span>
         </Link>
@@ -375,10 +374,10 @@ export function SiteHeader() {
           ))}
           <li className="ml-auto">
             <Link
-              className="bg-olive text-cream rounded-full px-4 py-2 text-[.7rem] font-black"
-              href="/parafarmacia?orden=price-asc"
+              className="bg-coral text-cream hover:bg-forest rounded-full px-4 py-2 text-[.72rem] font-black transition-colors"
+              href="/ofertas"
             >
-              Ver por precio
+              Ofertas
             </Link>
           </li>
         </ul>
@@ -416,6 +415,7 @@ export function SiteHeader() {
           </ul>
           <ul className="border-forest/10 mt-6 grid gap-1 border-t pt-5">
             {[
+              { href: "/ofertas", label: "Ofertas" },
               ...mainNavigation,
               { href: "/cuenta", label: "Mi cuenta" },
               { href: "/favoritos", label: "Favoritos" },
